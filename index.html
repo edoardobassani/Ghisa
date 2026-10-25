@@ -377,8 +377,9 @@ function vpd(){const di=V.pj,t=ppTot(di),GE=gmEff(),goal=S.goal,R=Math.round,d=p
   h+='</div>'});
  const has=MP.some(m=>d[m].length);
  h+='<div data-blk="pptools" data-bn="Copia e svuota il giorno">';
- h+=`<div class="row"><button class="g" data-a="ppcp0" style="flex:1">Copia in altri giorni…</button><button class="${V.del=='ppap'?'x arm':'p'}" data-a="ppap" style="flex:1" ${has?'':'disabled'}>${V.del=='ppap'?'Il diario ha già pasti: aggiungi':'Applica al diario'}</button></div>`;
+ h+=`<div class="row"><button class="g" data-a="ppcp0" style="flex:1">Copia in altri giorni…</button>${(()=>{const dt=hvAdd(hvMon(today()),di),old=S.meal.filter(x=>x.d==dt&&x.pp).length;return `<button class="${V.del=='ppap'?'x arm':'p'}" data-a="ppap" style="flex:1" ${has?'':'disabled'}>${V.del=='ppap'?'Il diario ha già pasti: aggiungi':old?'Aggiorna il diario':'Applica al diario'}</button>`})()}</div>`;
  if(V.pc)h+=`<div class="card"><h2>Copia ${DNF[di].toLowerCase()} in…</h2><p class="hint">I pasti dei giorni scelti vengono sostituiti.</p><div class="dpl">${DN.map((n,i)=>i==di?'':`<label style="flex:1;text-align:center;font-weight:600;font-size:13px"><input type="checkbox" class="ppk" value="${i}" style="display:block;margin:0 auto 2px;width:20px;height:20px">${n}</label>`).join('')}</div><div class="row"><button class="p" data-a="ppcp" style="flex:1">Copia</button><button class="g" data-a="ppcp0">Annulla</button></div></div>`;
+ {const dt=hvAdd(hvMon(today()),di),old=S.meal.filter(x=>x.d==dt&&x.pp).length,man=S.meal.filter(x=>x.d==dt&&!x.pp).length;if(old)h+=`<p class="hint" style="margin:6px 0 0">Già nel diario del ${fd(dt)}: ${old} ${old==1?'voce':'voci'} dal piano${man?' e '+man+(man==1?' aggiunta':' aggiunte')+' a mano':''}. «Aggiorna il diario» sostituisce solo quelle dal piano.</p>`}
  h+=`<button class="${V.del=='ppcl'?'x arm':'g'}" data-a="ppcl" style="width:100%;margin-top:8px" ${has?'':'disabled'}>${V.del=='ppcl'?'Tocca per svuotare '+DNF[di].toLowerCase():'Svuota il giorno'}</button><button class="p" data-a="ppv" data-v="s" style="width:100%;margin-top:8px;background:var(--c3)">Lista della spesa ›</button>`;
  h+='</div>';return h}
 function ppSpesa(){const days=V.psd||[0,1,2,3,4,5,6],o={},F=allF();const add=(c,g0,dp)=>{if(c.rc&&c.rc.w>0&&dp<4){c.rc.it.forEach(i=>{const cc=fo(i.f);if(cc)add(cc,i.g*g0/c.rc.w,dp+1)});return}let f=c.id,g=g0,cg=0;const rn=CR[c.name],r=rn&&F.find(z=>z.name==rn);if(r){g=g0*c.k/r.k;f=r.id;cg=g0}const e=o[f]=o[f]||{g:0,cg:0};e.g+=g;e.cg+=cg};days.forEach(d=>{const dd=S.mp[d]||{};MP.forEach(m=>(dd[m]||[]).forEach(x=>{const c=fo(x.f);if(!c)return;add(c,x.g,0)}))});return o}
@@ -394,21 +395,24 @@ function vsp(){const days=V.psd||[0,1,2,3,4,5,6],o=ppSpesa(),ids=Object.keys(o),
 function vpp(){if(V.pj==null)V.pj=(new Date().getDay()+6)%7;if(!V.pv)V.pv='p';
  return `<h1>Piano pasti</h1><div class="row"><button class="${V.pv=='p'?'p':'g'}" data-a="ppv" data-v="p" style="flex:1">Piano</button><button class="${V.pv=='s'?'p':'g'}" data-a="ppv" data-v="s" style="flex:1">Spesa</button></div>`+(V.pv=='s'?vsp():vpd())}
 const DAY=864e5,isod=t=>new Date(t).toISOString().slice(0,10);
+const axN=(lo,hi,int)=>{const st0=(hi-lo)/3||1,m=Math.pow(10,Math.floor(Math.log10(st0))),f=st0/m;let st=(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*m;if(int&&st<1)st=1;const a=Math.floor(lo/st+1e-9)*st,t=[];for(let v=a;v<hi+st*.999;v+=st)t.push(Math.round(v*1e6)/1e6);if(t.length<2)t.push(a+st);return{t,st}};
+const axF=(v,st)=>{const a=Math.abs(v);if(a>=10000)return (v/1000).toLocaleString('it-IT',{maximumFractionDigits:st>=1000?0:1})+'k';const d=st>=1?0:st>=.1?1:2;return v.toLocaleString('it-IT',{minimumFractionDigits:d,maximumFractionDigits:d})};
+const ptF=v=>typeof v=='number'?v.toLocaleString('it-IT',{maximumFractionDigits:Math.abs(v)>=100?0:2}):v;
 function cbody(c){
  const W=360,H=240,L=42,R=16,T=18,B=30,pts=c.pts,gl=c.gl,u=c.u,n=pts.length;
  const vis=pts.filter(p=>p.t>=c.va&&p.t<=c.vb),use=vis.length?vis:pts;
  let lo=Math.min(...use.map(p=>p.v)),hi=Math.max(...use.map(p=>p.v));
- if(gl>0){lo=Math.min(lo,gl);hi=Math.max(hi,gl)}if(lo==hi){lo-=1;hi+=1}const pd=(hi-lo)*.15;lo=Math.max(0,lo-pd);hi+=pd;
+ if(gl>0){lo=Math.min(lo,gl);hi=Math.max(hi,gl)}if(lo==hi){lo-=1;hi+=1}const pd=(hi-lo)*.1;lo=Math.max(0,lo-pd);hi+=pd;const AX=axN(lo,hi,use.every(p=>Number.isInteger(p.v))&&!(gl%1));lo=AX.t[0];hi=AX.t[AX.t.length-1];
  const sp=c.vb-c.va||1,X=t=>L+(t-c.va)/sp*(W-L-R),Y=v=>T+(1-(v-lo)/(hi-lo))*(H-T-B),dp=(hi-lo)<1?100:10;
  let i0=0;while(i0+1<n&&pts[i0+1].t<c.va)i0++;let i1=n-1;while(i1>0&&pts[i1-1].t>c.vb)i1--;
  const sub=pts.slice(i0,i1+1),nv=vis.length,r=nv>60?2.2:nv>25?3.2:4.5,sw=r>3?1.5:1,long=sp>250*DAY;
  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Andamento nel tempo"><defs><clipPath id="k${c.id}"><rect x="${L}" y="0" width="${W-L-R}" height="${H}"/></clipPath></defs>`;
- for(let i=0;i<4;i++){const v=lo+(hi-lo)*i/3,y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" fill="var(--mut)">${Math.round(v*dp)/dp}</text>`}
- let pl='';for(let i=0;i<5;i++){const t=c.va+sp*i/4,d=isod(t),lb=long?fdy(d):fd(d);if(lb==pl)continue;pl=lb;s+=`<text x="${X(t)}" y="${H-10}" text-anchor="${i==0?'start':i==4?'end':'middle'}" font-size="11" fill="var(--mut)">${lb}</text>`}
+ AX.t.forEach(v=>{const y=Y(v);s+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${L-6}" y="${y+4}" text-anchor="end" font-size="11" fill="var(--mut)">${axF(v,AX.st)}</text>`});
+ let pl='';const tE=Math.max(c.va+1,Math.min(c.vb,Date.now()));for(let i=0;i<5;i++){const t=c.va+(tE-c.va)*i/4,d=isod(t),lb=long?fdy(d):fd(d);if(lb==pl)continue;pl=lb;s+=`<text x="${X(t)}" y="${H-10}" text-anchor="${i==0?'start':i==4?'end':'middle'}" font-size="11" fill="var(--mut)">${lb}</text>`}
  s+=`<g clip-path="url(#k${c.id})">`;
  if(gl>0)s+=`<line x1="${L}" x2="${W-R}" y1="${Y(gl)}" y2="${Y(gl)}" stroke="var(--hi)" stroke-width="2" stroke-dasharray="5 4"/><text x="${W-R}" y="${Y(gl)-5}" text-anchor="end" font-size="11" fill="var(--mut)">obiettivo ${gl}</text>`;
  s+=`<polyline fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linejoin="round" points="${sub.map(p=>X(p.t)+','+Y(p.v)).join(' ')}"/>`;
- sub.forEach(p=>{s+=`<circle cx="${X(p.t)}" cy="${Y(p.v)}" r="${r}" fill="var(--hi)" stroke="var(--ink)" stroke-width="${sw}"/>`;if(nv<=8)s+=`<text x="${X(p.t)}" y="${Y(p.v)-9}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)">${p.v}</text>`});
+ sub.forEach(p=>{s+=`<circle cx="${X(p.t)}" cy="${Y(p.v)}" r="${r}" fill="var(--hi)" stroke="var(--ink)" stroke-width="${sw}"/>`;if(nv<=8)s+=`<text x="${X(p.t)}" y="${Y(p.v)-9}" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)">${ptF(p.v)}</text>`});
  const sp0=c.sel!=null?pts[c.sel]:null;
  if(sp0)s+=`<line x1="${X(sp0.t)}" x2="${X(sp0.t)}" y1="${T}" y2="${H-B}" stroke="var(--mut)" stroke-dasharray="3 3"/><circle cx="${X(sp0.t)}" cy="${Y(sp0.v)}" r="${r+3}" fill="none" stroke="var(--ink)" stroke-width="2"/>`;
  s+='</g></svg>';
@@ -1046,7 +1050,7 @@ function bkMenu(){return bkCard().replace('<div class="card">','<div class="card
 function bkWarn(){const age=S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null;if(age!=null&&age<14)return '';return `<div class="card" style="border-color:var(--bad)"><h2>Backup</h2><p class="hint" style="color:var(--bad)">${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+age+' giorni fa).':'Non hai ancora fatto nessun backup.'} Conviene farne uno ora.</p><button class="p" data-m="1">Apri il menu</button></div>`}
 function bkCard(){
  const age=S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null,old=age==null||age>=14;
- return `<div class="card"><h2>Backup</h2><p class="hint" ${old?'style="color:var(--bad)"':''}>${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+(age<=0?'oggi':age+' giorni fa')+').':'Non hai ancora fatto nessun backup.'}${old?' Conviene farne uno ora.':''}</p><div class="row"><button class="p" data-a="bkx">Esporta backup</button><label class="bt g">Importa backup<input type="file" id="bkf" accept=".json,application/json" class="vh"></label></div><p class="hint">Il backup è un solo file con tutti i dati e le foto. Ti viene chiesto di confermare il salvataggio del file: tienilo in un posto sicuro, per esempio su Drive.</p>${V.pend?pendCard():''}<details id="dBt" ${V.o.dBt?'open':''}><summary>Backup come testo (senza foto)</summary><textarea id="bk" rows="4" aria-label="Dati di backup">${esc(V.txt||'')}</textarea><div class="row" style="margin-top:8px"><button class="g" data-a="exp">Mostra testo</button><button class="g" data-a="imp">Importa testo</button></div></details></div>`;
+ return `<div class="card"><h2>Backup</h2><p class="hint" ${old?'style="color:var(--bad)"':''}>${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+(age<=0?'oggi':age+' giorni fa')+').':'Non hai ancora fatto nessun backup.'}${old?' Conviene farne uno ora.':''}</p><div class="row"><button class="p" data-a="bkx">Esporta backup</button><label class="bt g">Importa backup<input type="file" id="bkf" accept=".json,application/json" class="vh"></label></div><p class="hint">Il backup è un solo file con tutti i dati e le foto. Sul telefono si apre la condivisione: scegli dove salvarlo (File, Drive o un messaggio a te stesso); dentro Claude ti viene chiesto di confermare il salvataggio: tienilo in un posto sicuro, per esempio su Drive.</p>${V.pend?pendCard():''}<details id="dBt" ${V.o.dBt?'open':''}><summary>Backup come testo (senza foto)</summary><textarea id="bk" rows="4" aria-label="Dati di backup">${esc(V.txt||'')}</textarea><div class="row" style="margin-top:8px"><button class="g" data-a="exp">Mostra testo</button><button class="g" data-a="bkc">Copia</button><button class="g" data-a="imp">Importa testo</button></div><p class="hint" style="margin-top:6px">Riserva da usare solo se il file non funziona: non contiene le foto di progresso.</p></details></div>`;
 }
 
 let wl=null;
@@ -1158,7 +1162,7 @@ document.addEventListener('click',e=>{
  else if(a=='ppcl'){if(V.del=='ppcl'){S.mp[V.pj]={};V.del=''}else V.del='ppcl'}
  else if(a=='ppcp0'){V.pc=!V.pc}
  else if(a=='ppcp'){const src=ppD(V.pj),to=[...document.querySelectorAll('.ppk:checked')].map(c=>+c.value);if(!to.length)return toast('Scegli almeno un giorno');to.forEach(di=>{const dst={},gm={};MP.forEach(m=>dst[m]=src[m].map(x=>{const k=x.gid||x.id;gm[k]=gm[k]||uid();return{...x,id:uid(),gid:gm[k]}}));S.mp[di]=dst});V.pc=false;toast('Copiato in '+to.length+(to.length==1?' giorno':' giorni'))}
- else if(a=='ppap'){const dt=hvAdd(hvMon(today()),V.pj),d=ppD(V.pj);if(S.meal.some(x=>x.d==dt)&&V.del!='ppap'){V.del='ppap';return render()}MP.forEach(m=>d[m].forEach(x=>S.meal.push({id:uid(),d:dt,m,f:x.f,g:x.g})));V.del='';toast('Aggiunto al diario di '+DNF[V.pj].toLowerCase()+' '+fd(dt))}
+ else if(a=='ppap'){const dt=hvAdd(hvMon(today()),V.pj),d=ppD(V.pj),old=S.meal.filter(x=>x.d==dt&&x.pp).length,man=S.meal.filter(x=>x.d==dt&&!x.pp).length;if(!old&&man&&V.del!='ppap'){V.del='ppap';return render()}S.meal=S.meal.filter(x=>!(x.d==dt&&x.pp));let n=0;MP.forEach(m=>d[m].forEach(x=>{S.meal.push({id:uid(),d:dt,m,f:x.f,g:x.g,pp:1});n++}));V.del='';toast((old?'Diario aggiornato dal piano: ':'Aggiunto al diario: ')+DNF[V.pj].toLowerCase()+' '+fd(dt)+' · '+n+' voci')}
  else if(a=='pps'){V.psd=b.dataset.v=='a'?null:[V.pj]}
  else if(a=='ppsd'){const i2=+b.dataset.i,l=V.psd||[],j=l.indexOf(i2);V.psd=j<0?[...l,i2].sort():l.filter(x=>x!=i2)}
  else if(a=='ppzr'){S.mc={}}
@@ -1266,6 +1270,7 @@ document.addEventListener('click',e=>{
  else if(a=='cp'){const d=new Date(V.nd+'T12:00:00');d.setDate(d.getDate()-1);const pd=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),src=S.meal.filter(m=>m.d==pd);if(!src.length)return toast('Nessun pasto il giorno prima');src.forEach(m=>S.meal.push({...m,id:uid(),d:V.nd}))}
  else if(a=='pdl'){S.wt=S.wt.filter(w=>w.id!=id)}
  else if(a=='exp'){V.txt=JSON.stringify(S);V.o.dBt=true}
+ else if(a=='bkc'){const t=V.txt||JSON.stringify(S);V.txt=t;const sel=()=>{const e=$('#bk');if(e){e.value=t;e.focus();e.select()}};try{navigator.clipboard.writeText(t).then(()=>toast('Backup copiato negli appunti (senza foto)')).catch(()=>{sel();toast('Seleziona e copia il testo')})}catch(e){sel();toast('Seleziona e copia il testo')}return}
  else if(a=='imp'){const r=parseBk($('#bk').value);if(!r)return toast('Testo di backup non valido');V.pend=r;V.txt=''}
  else if(a=='bkno'){V.pend=null}
  else if(a=='bkok'){const r=V.pend;V.pend=null;if(r){norm(r.d);S.lb=S.lb||'';pClear().catch(()=>{}).then(()=>Promise.all(r.ph.map(x=>pPut(x)))).catch(()=>{}).then(loadPh).then(()=>render());toast('Backup ripristinato')}}
@@ -1273,7 +1278,11 @@ document.addEventListener('click',e=>{
  else if(a=='goalk'){S.goal=parseInt(b.dataset.k)||0;toast('Obiettivo impostato: '+S.goal+' kcal')}
  else if(a=='bkx'){
   const fn='ghisa-backup-'+today()+'.json',data=JSON.stringify({v:2,at:today(),data:{...S,lb:today()},photos:PH}),fb=()=>{V.txt=JSON.stringify(S);V.o.dBt=true;render();toast('Salvataggio file non disponibile: usa il backup come testo')};
-  (window.claude&&claude.use?claude.use('downloads'):Promise.resolve(null)).then(d=>d?d.save({filename:fn,data}).then(()=>{S.lb=today();save();render();toast('Backup salvato')}):fb()).catch(e=>{if(!(e&&e.code=='declined'))fb()});
+  const ok=m=>{S.lb=today();save();render();toast(m)};
+  if(window.claude&&claude.use){claude.use('downloads').then(d=>d?d.save({filename:fn,data}).then(()=>ok('Backup salvato')):fb()).catch(e=>{if(!(e&&e.code=='declined'))fb()});return}
+  let file=null;try{file=new File([data],fn,{type:'application/json'})}catch(e){}
+  const dl=()=>{try{const u=URL.createObjectURL(new Blob([data],{type:'application/json'})),a2=document.createElement('a');a2.href=u;a2.download=fn;document.body.appendChild(a2);a2.click();a2.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);ok('Backup scaricato: '+fn)}catch(e){fb()}};
+  if(file&&navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Backup Ghisa'}).then(()=>ok('Backup salvato')).catch(e=>{if(e&&e.name=='AbortError')toast('Backup annullato');else dl()})}else dl();
   return;
  }
  if(UN&&UN.pre){UN.pre=false;showUndo()}
