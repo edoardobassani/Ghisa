@@ -174,6 +174,7 @@ body.ssm #undo{bottom:150px}
 .sgl{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}.sgl button{padding:6px 10px;font-size:14px}
 .exr{padding:10px 0;border-bottom:1px dashed var(--line)}.exr:last-child{border-bottom:0}.exh{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px}.exh b{overflow-wrap:anywhere}.exr .row{margin:0}
 .wkt{table-layout:fixed;width:100%;font-size:13px}.wkt th,.wkt td{padding:4px 2px;text-align:center}.wkt td:first-child,.wkt th:first-child{text-align:left;padding-left:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wkt th{font-size:12px;font-weight:600}.wkt th.cur{color:var(--ink)}.wkc{display:inline-block;min-width:26px;padding:3px 0;border-radius:6px;font-weight:600;font-variant-numeric:tabular-nums}.wkc.no{color:var(--mut);background:transparent;font-weight:400}
+#sfw{position:fixed;left:0;right:0;top:0;z-index:70;background:var(--bad);color:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));font-size:14px;line-height:1.35}#sfw button{display:block;margin-top:8px;background:#fff;color:var(--bad);padding:8px 12px}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none}
 #toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){#toast{transition:none}}
@@ -226,7 +227,8 @@ let S=null;
 try{S=JSON.parse(localStorage.getItem('ghisa'))}catch(e){}
 if(!S||!Array.isArray(S.ex))S={ex:[],sch:[],log:[]};
 S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mp=S.mp||{};S.mc=S.mc||{};
-const save=()=>{try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){}try{fcOff()}catch(e){}};
+const sfShow=on=>{try{let b=document.getElementById('sfw');if(!on){if(b)b.remove();return}if(!b){b=document.createElement('div');b.id='sfw';b.setAttribute('role','alert');b.innerHTML='<b>Salvataggio non riuscito.</b> La memoria dell’app sul telefono è piena o bloccata: le ultime modifiche resteranno solo finché l’app è aperta. <button data-a="sfb">Fai subito il backup</button>';document.body.appendChild(b)}}catch(e){}};
+const save=()=>{let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);try{fcOff()}catch(e){}return ok};
 if(S.ord&&Array.isArray(S.ord.n)&&!S.ord.n.includes('mi')){const i=S.ord.n.indexOf('tot');S.ord.n.splice(i<0?S.ord.n.length:i+1,0,'mi')}
 const V={tab:'h',ed:'',sel:'',fe:'',me:'',mk:'vita',sc:'',date:today(),del:'',cx:'',cm:'max',vg:'',o:{},nd:today(),pd:today(),mm:(h=>h<11?'Colazione':h<15?'Pranzo':h<18.5?'Spuntino':'Cena')(new Date().getHours()+new Date().getMinutes()/60),fq:'',cdd:today(),ct:'Corsa',cc:'min',cf:'',fd:today(),fa:'Fronte',ca:'Fronte',c1:'',c2:'',pend:null,txt:'',cmv:'s',cpos:50};
 const nm=id=>(S.ex.find(e=>e.id==id)||{name:'?'}).name;
@@ -1008,7 +1010,7 @@ function phDue(){
  const t=new Date(),fm=new Date(t.getFullYear(),t.getMonth(),1);
  fm.setDate(1+(8-fm.getDay())%7);
  const f=iso(fm),td=today(),ym=td.slice(0,7);
- if(td<f||S.ps==ym||PH.some(p=>p.d>=f&&p.d.slice(0,7)==ym))return null;
+ if(td<f||S.ps==ym||PH.some(p=>p.d.slice(0,7)==ym))return null;
  return{f,day:td==f};
 }
 function phCard(){const d=phDue();if(!d)return '';return `<div class="card" style="border-color:var(--hi)"><h2>📸 Foto mensile</h2><p class="hint">${d.day?'Oggi è il primo lunedì del mese: è il giorno della foto di progresso.':'Non hai ancora fatto la foto di questo mese (primo lunedì: '+fd(d.f)+').'}</p><div class="row"><button class="p" data-a="gd" data-d="${today()}" data-t="p">Fai la foto</button><button class="g" data-a="pskip">Salta questo mese</button></div></div>`}
@@ -1043,7 +1045,15 @@ function vfb(){
  return h;
 }
 
-function norm(d){S=d;S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mp=S.mp||{};S.mc=S.mc||{};return S}
+/* Toglie i riferimenti a schede, esercizi e alimenti che non esistono più (programma, superserie, obiettivi, piano pasti, preferiti) */
+function refClean(){const E=new Set(S.ex.map(e=>e.id)),SC=new Set(S.sch.map(x=>x.id)),F=new Set([...FB.map(f=>f.id),...S.food.map(f=>f.id)]);let n=0;
+ Object.keys(S.pl||{}).forEach(k=>{if(S.pl[k]&&!SC.has(S.pl[k])){delete S.pl[k];n++}});
+ S.sch.forEach(x=>{const ex0=x.ex.length;x.ex=x.ex.filter(i=>E.has(i));n+=ex0-x.ex.length;['t','rt'].forEach(k=>{if(x[k])Object.keys(x[k]).forEach(i=>{if(!E.has(i)){delete x[k][i];n++}})});if(x.ss){const g0=JSON.stringify(x.ss);x.ss=x.ss.map(g=>g.filter(i=>E.has(i))).filter(g=>g.length>1);if(JSON.stringify(x.ss)!=g0)n++}});
+ Object.keys(S.sp||{}).forEach(d=>{const g0=JSON.stringify(S.sp[d]);S.sp[d]=(S.sp[d]||[]).map(g=>g.filter(i=>E.has(i))).filter(g=>g.length>1);if(JSON.stringify(S.sp[d])!=g0)n++;if(!S.sp[d].length)delete S.sp[d]});
+ Object.values(S.mp||{}).forEach(D=>Object.keys(D).forEach(m=>{const a0=D[m].length;D[m]=D[m].filter(x=>F.has(x.f));n+=a0-D[m].length}));
+ (S.sm||[]).forEach(x=>{const a0=x.items.length;x.items=x.items.filter(it=>F.has(it.f));n+=a0-x.items.length});
+ return n}
+function norm(d){S=d;S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mp=S.mp||{};S.mc=S.mc||{};try{refClean()}catch(e){}return S}
 function parseBk(tx){try{const o=JSON.parse(tx),d=o.data||o;if(!d||!Array.isArray(d.ex)||!Array.isArray(d.sch)||!Array.isArray(d.log))return null;return{d,ph:Array.isArray(o.photos)?o.photos:[],at:o.at||''}}catch(e){return null}}
 function pendCard(){const p=V.pend;return `<div class="card" style="border-color:var(--bad)"><p><b>Ripristinare questo backup?</b></p><p class="hint">${p.d.log.length} serie, ${(p.d.meal||[]).length} voci di dieta, ${p.ph.length} foto${p.at?' · del '+fdy(p.at):''}. Sostituisce tutti i dati attuali.</p><div class="row"><button class="p" data-a="bkok">Ripristina</button><button class="g" data-a="bkno">Annulla</button></div></div>`}
 function bkMenu(){return bkCard().replace('<div class="card">','<div class="card nbc">')}
@@ -1135,6 +1145,7 @@ document.addEventListener('click',e=>{
  if(a=='tab'&&V.nvm&&b.parentElement.tagName=='NAV')return;
  if(a=='tab'){V.tab=b.dataset.t;V.del='';V.ordm='';V.ordq='';if(V.rt&&V.rt.pp){RV.on=false;if(REC){const r=REC;REC=null;try{r.abort()}catch(e){}}V.rt=null}}
  else if(a=='mxt'){const on=b.getAttribute('aria-pressed')!='true';b.setAttribute('aria-pressed',on);b.classList.toggle('p',on);b.classList.toggle('g',!on);const i=b.parentElement.querySelector('.tr,.rp,#ssr');if(i){if(i.classList.contains('tr')){i.disabled=on;if(on)i.value='';i.placeholder=on?'max':'rip.'}else i.placeholder=on?'rip. fatte':'rip.'}return}
+ else if(a=='sfb'){document.body.classList.add('mo');$('#mb').setAttribute('aria-expanded','true');const x=document.querySelector('nav [data-a="bkx"]');if(x)x.scrollIntoView({block:'center'});return}
  else if(a=='th'){S.th=b.dataset.v;applyTh();save()}
  else if(a=='fab'){V.fab=true}
  else if(a=='fabx'){}
@@ -1193,12 +1204,12 @@ document.addEventListener('click',e=>{
  else if(a=='del'){
   const k=b.dataset.k;
   const[t,i]=k.split(':');
-  if(t=='e'){S.ex=S.ex.filter(x=>x.id!=i);S.log=S.log.filter(l=>l.e!=i);S.sch.forEach(s=>s.ex=s.ex.filter(x=>x!=i))}
+  if(t=='e'){S.ex=S.ex.filter(x=>x.id!=i);S.log=S.log.filter(l=>l.e!=i);S.sch.forEach(s=>s.ex=s.ex.filter(x=>x!=i));refClean()}
   else if(t=='cd'){S.cd=S.cd.filter(x=>x.id!=i)}
   else if(t=='ph'){PH=PH.filter(x=>x.id!=i);pDel(i).catch(()=>{})}
   else if(t=='m'){S.sm=S.sm.filter(x=>x.id!=i)}
-  else if(t=='f'){S.food=S.food.filter(x=>x.id!=i);S.meal=S.meal.filter(m=>m.f!=i)}
-  else{S.sch=S.sch.filter(x=>x.id!=i);if(V.sc==i)V.sc=''}
+  else if(t=='f'){S.food=S.food.filter(x=>x.id!=i);S.meal=S.meal.filter(m=>m.f!=i);refClean()}
+  else{S.sch=S.sch.filter(x=>x.id!=i);if(V.sc==i)V.sc='';refClean()}
   V.del='';
  }
  else if(a=='ma'){const fs=V.sel,g=parseFloat($('#fg').value.replace(',','.'));if(!fs)return toast('Scegli un alimento dalla lista');if(!(g>0))return toast('Inserisci i grammi');S.meal.push({id:uid(),d:V.nd,m:$('#mm').value,f:fs,g})}
@@ -1354,6 +1365,7 @@ document.addEventListener('change',e=>{
 document.addEventListener('keydown',e=>{if(e.key=='Escape'){if(V.fab){V.fab=false;render()}document.body.classList.remove('mo');$('#mb').setAttribute('aria-expanded','false')}});
 applyTh();
 try{const q=JSON.parse(localStorage.getItem('ghisa-ss'));if(q&&q.t0&&!q.done&&Date.now()-q.t0<12*3600e3){if(!q.sid)q.sid='ss'+uid();V.ss=q;V.tab='ss';wlOn();setTimeout(()=>toast('Seduta ripresa'),300)}else localStorage.removeItem('ghisa-ss')}catch(e){}
+try{if(refClean())save()}catch(e){}
 render();
 loadPh().then(()=>render());
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
