@@ -179,6 +179,12 @@ body.ssm #undo{bottom:150px}
 #dHsS{margin-top:28px;position:relative;border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 9%,var(--card))}#dHsS::before{content:'Riepilogo';position:absolute;top:-22px;left:2px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600}#dHsS>summary{color:var(--acc)}.hst{display:inline}.hss{display:block;font:400 13px Barlow,sans-serif;color:var(--mut);margin:2px 0 0 22px}
 details.hsx{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:8px 0;background:var(--card)}details.hsx>summary{padding:0}.hsh{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}.hsr{font-size:12px;background:var(--acc);color:var(--card);padding:1px 7px;border-radius:6px;font-weight:500}.hsd .set span:last-child{text-align:right}
 .dpb{background:var(--hi);color:#1c262b;border-radius:10px;padding:10px 12px;margin-bottom:10px}.dpb p{margin:4px 0 8px;font-size:14px}.dpb button{background:#fff;color:#1c262b}.set.dpi>span:first-child{background:var(--hi);color:#1c262b;border-radius:6px;padding:0 5px}
+.xpb{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;font:inherit;font-weight:400;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;width:100%;min-width:0;cursor:pointer}.xpb>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}.xpb>i{flex:0 0 auto;font-style:normal;color:var(--mut)}
+#xp{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}#xp[hidden]{display:none}
+.xps{background:var(--card);color:var(--ink);width:100%;max-width:560px;max-height:82vh;border-radius:16px 16px 0 0;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px);animation:xpu .18s ease-out}@keyframes xpu{from{transform:translateY(40px);opacity:.4}}@media (prefers-reduced-motion:reduce){.xps{animation:none}}
+.xph{display:flex;align-items:center;gap:8px;padding:12px 14px 8px}.xph b{flex:1;font-size:16px}.xph button{flex:0 0 auto;padding:6px 12px}.xpq{margin:0 14px 8px;width:auto}
+.xpl{overflow-y:auto;overscroll-behavior:contain;padding-bottom:12px}.xpg{position:sticky;top:0;z-index:1;background:color-mix(in srgb,var(--acc) 16%,var(--card));color:var(--acc);font-size:13px;font-weight:600;padding:7px 14px;letter-spacing:.2px}
+.xpo{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;font:inherit;font-weight:400;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--line);border-radius:0;padding:13px 14px;min-height:48px}.xpo:last-child{border-bottom:0}.xpo small{color:var(--mut);font-size:13px;flex:0 0 auto}.xpo.on{font-weight:600}.xpo.on::after{content:'✓';color:var(--acc);font-weight:700}.xpn{padding:16px 14px;color:var(--mut)}body.xpo-on{overflow:hidden}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none}
 #toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){#toast{transition:none}}
@@ -211,6 +217,7 @@ details.hsx{border:1px solid var(--line);border-radius:10px;padding:8px 10px;mar
 <div id="qs"></div>
 <div id="tm" role="timer"></div>
 <div id="toast" role="status"></div>
+<div id="xp" hidden></div>
 <div id="undo" role="status"><span>Eliminato</span><button data-a="undo">Annulla</button></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -1173,6 +1180,7 @@ function render(){
  $('#v').innerHTML=({w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,pp:vpp,o:vo}[V.tab]||vh)();ordApply();
  if(V.tab=='r')grFilter();
  if(V.tab=='p'||V.tab=='o')drawBf();
+ try{xpEnh($('#v'))}catch(e){}
  if(V.tab=='g'){draw();drawVol();drawPw();drawMs();drawCd();drawCdW();drawKc()}if(V.tab=='n'){drawKc();pzUpd()}if(V.tab=='c'){drawCd();cdUpd()}
 }
 
@@ -1413,6 +1421,32 @@ document.addEventListener('change',e=>{
 document.addEventListener('keydown',e=>{if(e.key=='Escape'){if(V.fab){V.fab=false;render()}document.body.classList.remove('mo');$('#mb').setAttribute('aria-expanded','false')}});
 applyTh();
 try{const q=JSON.parse(localStorage.getItem('ghisa-ss'));if(q&&q.t0&&!q.done&&Date.now()-q.t0<12*3600e3){if(!q.sid)q.sid='ss'+uid();V.ss=q;V.tab='ss';wlOn();setTimeout(()=>toast('Seduta ripresa'),300)}else localStorage.removeItem('ghisa-ss')}catch(e){}
+/* ---- Selettore esercizi di Ghisa al posto del menu del telefono: gruppi come fasce colorate, ricerca ---- */
+const XPS='#cx,#sp1,#sp2,#sp3,#ssel,#ssp2';let XP=null;
+function xpExOf(o){const v=o.value;let e=S.ex.find(x=>x.id==v);if(!e){const t=o.textContent.replace(/^✓\s*/,'').replace(/^\d+\.\s*/,'').trim();e=S.ex.find(x=>x.name==t)}return e}
+function xpTxt(sel){const o=sel.options[sel.selectedIndex];return o?o.textContent:''}
+function xpEnh(root){(root||document).querySelectorAll(XPS).forEach(sel=>{if(sel.dataset.xp)return;sel.dataset.xp='1';const b=document.createElement('button');b.type='button';b.className='xpb';b.style.cssText=sel.style.cssText;b.setAttribute('aria-haspopup','dialog');b.setAttribute('aria-label',(sel.getAttribute('aria-label')||'Esercizio')+': '+xpTxt(sel));b.innerHTML='<span></span><i aria-hidden="true">▾</i>';b.firstChild.textContent=xpTxt(sel);b.addEventListener('click',()=>xpOpen(sel,b));sel.after(b);sel.hidden=true;sel.tabIndex=-1})}
+function xpSecs(sel){const out=[],kids=[...sel.children],hasG=kids.some(k=>k.tagName=='OPTGROUP'),flat=[...sel.options];
+ const it=o=>{const e=xpExOf(o);return{o,t:o.textContent,g:e?grp(e):'',v:o.value}};
+ if(hasG){kids.forEach(k=>{if(k.tagName=='OPTGROUP')out.push({g:k.label,l:[...k.children].map(it)});else out.push({g:'',l:[it(k)]})});return{out,side:false}}
+ const L=flat.map(it),num=L.some(x=>/^(✓\s*)?\d+\.\s/.test(x.t));
+ if(num||!L.some(x=>x.g))return{out:[{g:'',l:L}],side:num};
+ const none=L.filter(x=>!x.v),gs=[];L.filter(x=>x.v).forEach(x=>{const k=x.g||'Senza gruppo';let o=gs.find(y=>y.g==k);if(!o)gs.push(o={g:k,l:[]});o.l.push(x)});
+ gs.sort((a,b)=>(a.g=='Senza gruppo')-(b.g=='Senza gruppo')||a.g.localeCompare(b.g));if(none.length)gs.unshift({g:'',l:none});return{out:gs,side:false}}
+function xpList(){const q=nrm($('#xpq')?$('#xpq').value:''),{sel}=XP,{out,side}=xpSecs(sel);let h='',n=0;
+ out.forEach(sec=>{const l=sec.l.filter(x=>!q||nrm(x.t+' '+x.g).includes(q));if(!l.length)return;if(sec.g)h+=`<div class="xpg" role="presentation">${esc(sec.g)} · ${l.length}</div>`;
+  l.forEach(x=>{n++;const on=x.v==sel.value;h+=`<button type="button" class="xpo${on?' on':''}" data-xv="${esc(x.v)}" role="option" aria-selected="${on}"><span>${esc(x.t)}</span>${side&&x.g?`<small>${esc(x.g)}</small>`:''}</button>`})});
+ $('#xpl').innerHTML=n?h:'<p class="xpn">Nessun esercizio trovato.</p>'}
+function xpOpen(sel,b){XP={sel,b};const p=$('#xp'),many=sel.options.length>8;
+ p.innerHTML=`<div class="xps" role="dialog" aria-modal="true" aria-label="${esc(sel.getAttribute('aria-label')||'Esercizio')}"><div class="xph"><b>${esc(sel.getAttribute('aria-label')||'Esercizio')}</b><button class="g" data-xc="1">Chiudi</button></div>${many?'<input id="xpq" type="search" class="xpq" placeholder="Cerca esercizio" aria-label="Cerca esercizio" autocomplete="off">':''}<div class="xpl" id="xpl" role="listbox"></div></div>`;
+ p.hidden=false;document.body.classList.add('xpo-on');xpList();const on=p.querySelector('.xpo.on');if(on){const l=$('#xpl');l.scrollTop=Math.max(0,on.offsetTop-l.offsetTop-80)}
+ (on||p.querySelector('.xpo')||p.querySelector('[data-xc]')).focus({preventScroll:true})}
+function xpClose(){const p=$('#xp');if(!p||p.hidden)return;p.hidden=true;p.innerHTML='';document.body.classList.remove('xpo-on');const b=XP&&XP.b;XP=null;if(b&&b.isConnected)b.focus({preventScroll:true})}
+function xpPick(v){const {sel,b}=XP;xpClose();if(sel.value==v)return;sel.value=v;if(b&&b.isConnected){b.firstChild.textContent=xpTxt(sel);b.setAttribute('aria-label',(sel.getAttribute('aria-label')||'Esercizio')+': '+xpTxt(sel))}sel.dispatchEvent(new Event('change',{bubbles:true}))}
+document.addEventListener('click',e=>{const p=$('#xp');if(!p||p.hidden)return;if(e.target==p||e.target.closest('[data-xc]')){xpClose();return}const o=e.target.closest('.xpo');if(o)xpPick(o.dataset.xv)},true);
+document.addEventListener('input',e=>{if(e.target.id=='xpq')xpList()},true);
+document.addEventListener('keydown',e=>{if(e.key=='Escape'&&XP)xpClose()});
+try{new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType==1&&n.id!='xp'&&!n.closest('#xp'))xpEnh(n.matches&&n.matches(XPS)?n.parentNode:n)}))).observe(document.body,{childList:true,subtree:true})}catch(e){}
 try{if(refClean())save()}catch(e){}
 /* Decimali con la virgola in tutti i testi mostrati (non nei campi di inserimento; le migliaia «1.234» restano) */
 const DEC=/(\d)\.(\d{1,2})(?!\d)/g;
