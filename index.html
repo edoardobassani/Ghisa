@@ -260,6 +260,7 @@ button.bad{background:var(--bad);color:#fff}
 .hpl{display:inline-block;font-size:11.5px;font-weight:700;border-radius:10px;padding:1px 7px;margin-left:6px;vertical-align:2px}
 .hpl.m{background:color-mix(in srgb,var(--acc) 14%,var(--card));color:var(--acc)}.hpl.s{background:color-mix(in srgb,var(--c3) 16%,var(--card));color:var(--c3)}
 .hee{padding:6px 0;border-top:1px solid var(--line)}.hee .ex{display:flex;justify-content:space-between;align-items:center;margin:4px 0}
+.bt.bt2{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 </style></head>
 <body>
 <main id="v"></main>
@@ -1283,7 +1284,7 @@ document.addEventListener('pointerup',()=>{cmD=false});document.addEventListener
 function vfb(){
  let h=`<h2 style="margin:22px 0 8px">Foto di progresso</h2>`;
  if(PHerr)h+=`<div class="card"><p>In questo browser non è possibile salvare le foto.</p></div>`;
- h+=`<div class="card"><h2>Nuova foto</h2><p class="hint">Scatta o scegli una foto: viene ridimensionata e salvata solo su questo dispositivo. Fai sempre la stessa posa, con la stessa luce e alla stessa ora.</p><div class="row"><input type="date" id="pfd" value="${V.fd}" aria-label="Data"><select id="pfa" aria-label="Posa">${ANG.map(a=>`<option ${a==V.fa?'selected':''}>${a}</option>`).join('')}</select></div><label class="bt">Scatta o scegli foto<input type="file" id="pff" accept="image/*" class="vh"></label></div>`;
+ h+=`<div class="card"><h2>Nuova foto</h2><p class="hint">Scegli data e posa, poi scatta o prendi una foto dalla galleria: viene ridimensionata e salvata solo su questo dispositivo. Fai sempre la stessa posa, con la stessa luce e alla stessa ora.</p><div class="row"><input type="date" id="pfd" value="${V.fd}" aria-label="Data"><select id="pfa" aria-label="Posa">${ANG.map(a=>`<option ${a==V.fa?'selected':''}>${a}</option>`).join('')}</select></div><div class="row" style="margin:0"><label class="bt" style="flex:1">📷 Scatta foto<input type="file" id="pfc" accept="image/*" capture="environment" class="vh"></label><label class="bt bt2" style="flex:1">🖼 Dalla galleria<input type="file" id="pff" accept="image/*" class="vh"></label></div>${(()=>{const fatte=ANG.filter(a=>PH.some(p=>p.d==V.fd&&p.a==a));return fatte.length?`<p class="hint" style="margin:8px 0 0">Il ${fdy(V.fd)}: ${ANG.map(a=>a+(fatte.includes(a)?' ✓':'')).join(' · ')}</p>`:''})()}</div>`;
  const ds=[...new Set(PH.filter(p=>p.a==V.ca).map(p=>p.d))].sort();
  if(ds.length>=2){
   const c1=ds.includes(V.c1)?V.c1:ds[0],c2=ds.includes(V.c2)?V.c2:ds[ds.length-1],op=sel=>ds.map(d=>`<option value="${d}" ${d==sel?'selected':''}>${fdy(d)}</option>`).join('');
@@ -1526,7 +1527,7 @@ document.addEventListener('click',e=>{
   if(V.ed){const E=S.sch.find(s=>s.id==V.ed);if(E){E.name=n;E.ex=ex;E.t=t;E.rt=rt;E.ss=ss}V.ed=''}else S.sch.push({id:uid(),name:n,ex,t,rt,ss});V.sd=null;toast('Scheda salvata');
  }
  else if(a=='use'){V.sc=id;V.tab='w'}
- else if(a=='phgo'){if(V.tab!='p'||V.fd!=today()){V.tab='p';V.fd=today();render()}const i=$('#pff');if(i){i.value='';i.click()}return}
+ else if(a=='phgo'){if(V.tab!='p'||V.fd!=today()){V.tab='p';V.fd=today();render()}const i=$('#pfc');if(i){i.value='';i.click()}return}
  else if(a=='se'){V.se=id;render();setTimeout(()=>{const i=document.querySelector('.sed .sek,.sed .ser');if(i){i.focus({preventScroll:true});i.select&&i.select()}},20);return}
  else if(a=='sex'){V.se=''}
  else if(a=='ses'){const l=S.log.find(z=>z.id==id),c=b.closest('.sed');if(!l||!c)return;const ki=c.querySelector('.sek'),kg=ki?parseFloat(ki.value.replace(',','.')):0,mxo=!!c.querySelector('.mxb[aria-pressed="true"]'),r=parseInt(c.querySelector('.ser').value)||0;if(!(kg>=0)||kg>=1000||!(r>0||mxo))return toast('Inserisci carico e ripetizioni (o MAX)');l.kg=Math.round(kg*100)/100;l.r=r;if(mxo)l.f=1;else delete l.f;V.se='';toast('Serie modificata')}
@@ -1725,7 +1726,7 @@ document.addEventListener('change',e=>{
  else if(t.classList.contains('rtf')&&V.rt&&V.rt.rows){const r=V.rt.rows[+t.dataset.i];if(!r)return;if(t.value=='__s'){r.ss=1;t.value=r.f||'';$('#rtr').innerHTML=V.rt.rows.map(rtRow).join('');const q=document.querySelector('.rtq[data-i="'+t.dataset.i+'"]');if(q)q.focus();return}const cnt=!(r.u&&['g','kg','ml','l','cl','dl'].includes(r.u));r.f=t.value;if(cnt)rtGr(r);r.st=r.f?'ok':(r.c.length?'?':'x');if(r.f&&!(parseFloat(String(r.g).replace(',','.'))>0))r.st='?';r.ss=0;r.qq='';V.del='';$('#rtr').innerHTML=V.rt.rows.map(rtRow).join('');$('#rts').innerHTML=rtSum()}
  else if(t.id=='rs'){S.rest=+t.value;save()}
  else if(t.id=='fs'){}
- else if(t.id=='pff'&&t.files&&t.files[0]){shrink(t.files[0]).then(u=>pPut({id:uid(),d:V.fd,a:V.fa,u})).then(loadPh).then(()=>{toast('Foto salvata');render()}).catch(()=>toast('Impossibile salvare la foto'))}
+ else if((t.id=='pff'||t.id=='pfc')&&t.files&&t.files[0]){const f=t.files[0],d=V.fd,a0=V.fa;toast('Elaboro la foto…');shrink(f).then(u=>pPut({id:uid(),d,a:a0,u})).then(loadPh).then(()=>{const nx=ANG.find(a=>!PH.some(p=>p.d==d&&p.a==a));if(nx)V.fa=nx;toast('Foto salvata ('+a0+')'+(nx?' · ora: '+nx:' · pose complete ✓'));render()}).catch(()=>toast('Impossibile salvare la foto: riprova o scegli dalla galleria'));t.value=''}
  else if(t.id=='bkf'&&t.files&&t.files[0]){t.files[0].text().then(tx=>{const r=parseBk(tx);if(!r)return toast('File di backup non valido');V.pend=r;render()})}
  else if(t.id=='pfd'&&t.value){V.fd=t.value}
  else if(t.id=='pfa'){V.fa=t.value}
