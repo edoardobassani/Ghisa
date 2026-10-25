@@ -108,6 +108,7 @@ nav .nb .card{margin:0 0 10px;padding:0;border:0;background:transparent}
 nav .nt{font:700 22px Barlow,sans-serif;padding:4px 22px 14px;color:var(--ink)}
 nav>button{background:transparent;color:var(--mut);border-radius:0;padding:15px 22px;font-size:18px;text-align:left;border-left:4px solid transparent}
 nav>button.on{color:var(--ink);background:var(--bg);border-left-color:var(--hi)}
+.nvb{display:flex;gap:8px;justify-content:flex-end;padding:2px 22px 10px}.nvb button{padding:6px 18px;font-size:16px}.nvb button:disabled{opacity:.35}nav.nvm>button[data-t]{pointer-events:none;opacity:.85}nav.srch .nvb{display:none}
 #bd{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35;display:none}
 body.mo #bd{display:block}
 #mb{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:12px;width:36px;height:36px;border-radius:50%;padding:0;z-index:20;background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:20px;line-height:1}
@@ -190,6 +191,7 @@ body.ssm #undo{bottom:150px}
 <button data-a="tab" data-t="n">Dieta</button>
 <button data-a="tab" data-t="pp">Piano pasti</button>
 <button data-a="tab" data-t="p">Corpo</button>
+<div id="nvc" class="nb"></div>
 <div id="nth" class="nb"></div>
 <div id="nbk" class="nb"></div>
 </nav>
@@ -788,7 +790,7 @@ function vr(){
  GR('barcode','Codice a barre',`<ul><li>In <b>Dieta → Aggiungi pasto</b> tocca «Scansiona codice a barre» e inquadra il prodotto: se il codice è già tra i tuoi alimenti lo trovo subito, altrimenti lo cerco su <b>Open Food Facts</b> (serve internet) e ti mostro nome e valori per 100 g da controllare.</li><li>Se il prodotto non c’è o sei offline, scrivi i valori dall’etichetta: li collego al codice e dalla volta dopo basta scansionare, anche <b>senza rete</b>.</li><li>La lettura dalla fotocamera funziona solo nell’<b>app installata</b> (Chrome su Android); nell’anteprima dentro Claude puoi scrivere le cifre a mano. In alternativa scrivi il codice nella casella.</li><li>I valori di Open Food Facts li inseriscono gli utenti: confrontali con l’etichetta. Se calorie e macro non tornano ti avviso.</li><li>Dati © contributori di Open Food Facts, licenza ODbL (openfoodfacts.org).</li></ul>`)+
  GR('cardio','Cardio',`<ul><li>Gli <b>obiettivi macro</b> in Dieta si stimano da soli (peso, stile di vita scelto nel Fabbisogno e calorie); scrivendo un tuo valore lo sostituisci, svuotando il campo torna l’automatico.</li><li>Nell’elenco alimenti il tasto <b>▾</b> mostra il rapporto tra i macro e i micronutrienti (sodio, potassio, calcio, magnesio, ferro, zinco, vitamine C, B12 e D) per 100 g. Per ${Object.keys(MS).length} alimenti su 210 sono verificati su tabelle USDA o INRAN (la fonte è indicata nel pannello); gli altri sono stime non verificate. “n.d.” = dato non riportato dalla fonte.</li><li>In <b>Dieta</b> ogni alimento di un pasto ha il tasto <b>Modifica</b> (grammi e pasto) e ogni pasto ha “+ Aggiungi alimento”.</li><li>I <b>grafici</b> si aprono sugli ultimi 3 mesi; con 1M, 3M, 6M, Tutto o lo zoom cambi la vista.</li><li>Le <b>kcal</b> si calcolano da sole (attività, durata, distanza e peso); se hai un dato più preciso scrivilo nel campo e sostituisce la stima. Le stime nello storico hanno il simbolo ~.</li><li>Nello <b>Storico</b> tocca <b>Modifica</b> per cambiare data, attività, durata, km, kcal o note di una sessione.</li><li>In alto scegli l’<b>obiettivo settimanale</b> di sessioni cardio: la barra segue le sessioni di questa settimana e il dato compare anche in Home.</li><li>Nella tab <b>Cardio</b> scegli data e attività (corsa, camminata, bici…) e inserisci i minuti; distanza, calorie e note sono facoltative.</li><li>Se indichi sia minuti sia km l’app calcola il <b>ritmo</b> (minuti al km).</li><li>In alto vedi il riepilogo della settimana (da lunedì). Il grafico mostra minuti o km per giorno e si può filtrare per attività; come gli altri grafici si può ingrandire e spostare.</li><li>Le sessioni di oggi compaiono anche nella Home. Per eliminarne una tocca ×.</li></ul>`)+
  GR('peso','Peso e misure',`<ul><li><b>Massa grassa</b>: serve l’altezza, il sesso (si imposta lì stesso) e le misure di <b>collo</b> e <b>vita</b> (per le donne anche i <b>fianchi</b>), in cm. L’app usa la formula della Marina USA: l’errore tipico è di 3–4 punti percentuali, quindi guarda soprattutto l’andamento nel tempo.</li><li>Inserisci l’altezza e, se vuoi, un peso obiettivo. Poi registra le misurazioni: se ne salvi due nello stesso giorno vale l’ultima.</li><li>Il <b>BMI</b> è calcolato dall’app (peso diviso altezza al quadrato). È un valore indicativo: non distingue massa muscolare e grasso.</li><li><b>Misure corporee</b>: scegli la data, compila quelle che vuoi (anche solo una) e salva. Se riusi la stessa data, le misure si aggiungono a quelle già presenti.</li></ul>`)+
- GR('menu','Menu e ricerca',`<ul><li>Il menu delle sezioni si apre con ☰ in alto a sinistra oppure <b>strisciando dal bordo sinistro</b> dello schermo verso destra (sui dispositivi touch). Per chiuderlo striscia verso sinistra o tocca fuori.</li><li>In cima al menu c’è la <b>ricerca</b>: scrivi il nome di un esercizio, di una scheda, di un alimento o di una sezione. Un esercizio apre i suoi grafici, una scheda apre Schede, un alimento apre Dieta già selezionato.</li><li><b>Riordinare i menu</b>: in ogni sezione tocca ⚙ accanto al titolo e conferma «Sì, sposta ordine». Sopra ogni menu compare una barra con ▲ ▼ per spostarlo; i contenuti restano visibili ma non rispondono ai tocchi. Tocca Fine per terminare: l’ordine resta salvato.</li></ul>`)+
+ GR('menu','Menu e ricerca',`<ul><li>Il menu delle sezioni si apre con ☰ in alto a sinistra oppure <b>strisciando dal bordo sinistro</b> dello schermo verso destra (sui dispositivi touch). Per chiuderlo striscia verso sinistra o tocca fuori.</li><li>In cima al menu c’è la <b>ricerca</b>: scrivi il nome di un esercizio, di una scheda, di un alimento o di una sezione. Un esercizio apre i suoi grafici, una scheda apre Schede, un alimento apre Dieta già selezionato.</li><li><b>Riordinare i menu</b>: in ogni sezione tocca ⚙ accanto al titolo e conferma «Sì, sposta ordine». Sopra ogni menu compare una barra con ▲ ▼ per spostarlo; i contenuti restano visibili ma non rispondono ai tocchi. Tocca Fine per terminare: l’ordine resta salvato.</li><li><b>Ordine delle sezioni nel menu</b>: apri ☰, tocca «⚙ Riordina sezioni», conferma e usa ▲ ▼ sotto ogni voce. Tocca Fine per salvare.</li></ul>`)+
  GR('foto','Foto di progresso',`<ul><li>Nella tab <b>Corpo</b>, sezione “Foto di progresso”, scegli la data e la posa (Fronte, Lato, Retro), poi “Scatta o scegli foto”. La foto viene ridimensionata e salvata solo su questo dispositivo.</li><li>Per confronti utili usa sempre la stessa posa, la stessa luce e la stessa ora del giorno.</li><li><b>Promemoria mensile</b>: dal primo lunedì del mese, finché non salvi una foto, compare un avviso nella Home e un puntino accanto a “Corpo”. “Salta questo mese” lo nasconde fino al mese dopo. Il promemoria compare solo quando apri l’app.</li><li><b>Confronto</b>: scegli due date con la stessa posa. Con <b>Cursore</b> trascini una linea sull’immagine (o usi la barra sotto) per vedere “prima” e “dopo” sovrapposte; con <b>Affiancate</b> le vedi una accanto all’altra.</li></ul>`)+
  GR('dati','Dati e backup',`<ul><li>I dati restano <b>solo nel browser di questo dispositivo</b>. Telefono e computer non si sincronizzano, e cancellare i dati del sito li elimina.</li><li><b>Esporta backup</b> (nel menu a sinistra, in fondo: tocca ☰) crea un solo file con dati e foto: confermi il salvataggio e lo conservi dove vuoi. Se l’ultimo backup ha più di 14 giorni, nella Home compare un avviso rosso.</li><li><b>Importa backup</b> legge quel file: prima di sostituire i dati ti mostra un riepilogo e chiede conferma. Il “backup come testo” è un’alternativa senza foto.</li><li>Per eliminare qualcosa tocca ×: l’elemento sparisce subito e in basso compare per qualche secondo <b>Annulla</b>, che lo ripristina (foto comprese). Passati i secondi, o dopo un’altra azione, l’eliminazione è definitiva.</li></ul>`);
 }
@@ -893,9 +895,20 @@ function vss(){
  ${ids.length>1?`<details id="dSsp" ${V.o.dSsp?'open':''}><summary>Superserie</summary><p class="hint">Abbina questo esercizio a un altro: le serie le registri insieme e il recupero parte una sola volta.</p><div class="row"><select id="ssp2" aria-label="Abbina a">${ids.filter(x=>x!=id).map(x=>`<option value="${x}">${esc(nm(x))}</option>`).join('')}</select><button class="g" data-a="sps" style="flex:0 0 auto">Abbina</button></div></details>`:''}
  <div class="ssb"><button class="g" data-a="ssp" ${i==0?'disabled':''}>‹ Precedente</button><button class="p" data-a="ssn">${lastEx?'Termina seduta':'Successivo ›'}</button></div>`;
 }
+
+const NVT=['h','w','c','s','e','g','n','pp','p'];
+function navOrd(){
+ const nav=$('nav'),ctl=$('#nvc');if(!nav||!ctl)return;
+ nav.querySelectorAll('.nvb').forEach(x=>x.remove());
+ const o=(S.nord||[]).filter(k=>NVT.includes(k));NVT.forEach(k=>{if(!o.includes(k))o.push(k)});
+ V.nvk=o;const ed=!!V.nvm,bs={};
+ nav.querySelectorAll(':scope>button[data-a="tab"]').forEach(b=>bs[b.dataset.t]=b);
+ o.forEach((k,i)=>{const b=bs[k];if(!b)return;nav.insertBefore(b,ctl);if(ed){const d=document.createElement('div');d.className='nvb';d.innerHTML=`<button data-a="nvu" data-i="${i}" ${i?'':'disabled'} aria-label="Sposta su">▲</button><button data-a="nvd" data-i="${i}" ${i<o.length-1?'':'disabled'} aria-label="Sposta giù">▼</button>`;nav.insertBefore(d,ctl)}});
+ nav.classList.toggle('nvm',ed);
+ ctl.innerHTML=ed?'<p class="hint">Riordino: usa ▲ ▼ sotto ogni voce. Le voci non si aprono finché non tocchi Fine.</p><button class="p" data-a="nvx" style="width:100%">Fine</button>':V.nvq?'<p class="hint">Riordinare le sezioni del menu? Nessun dato viene modificato.</p><div class="row"><button class="p" data-a="nvy">Sì, sposta ordine</button><button class="g" data-a="nvn">Annulla</button></div>':'<button class="g" data-a="nvq" style="width:100%">⚙ Riordina sezioni</button>'}
 function render(){
  if(V.tab=='ss'&&!V.ss)V.tab='h';
- document.body.classList.toggle('ssm',V.tab=='ss');
+ document.body.classList.toggle('ssm',V.tab=='ss');navOrd();
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==V.tab));
  {const nb=$('#nbk');if(nb)nb.innerHTML=bkMenu()}
  {const nt=$('#nth');if(nt)nt.innerHTML=thMenu();const q=$('#qs');if(q){q.classList.toggle('on',!!V.fab);q.innerHTML=V.fab?qsHtml():''}}
@@ -1009,6 +1022,11 @@ document.addEventListener('click',e=>{
  else if(a=='sms'){const n=b.closest('.card').querySelector('.smn').value.trim(),it=S.meal.filter(x=>x.d==V.nd&&x.m==b.dataset.pm).map(x=>({f:x.f,g:x.g}));if(!n)return toast('Dai un nome al pasto');if(S.sm.some(x=>x.name.toLowerCase()==n.toLowerCase()))return toast('Esiste già un preferito con questo nome');S.sm.push({id:uid(),name:n,items:it,u:0});toast('Salvato tra i preferiti');V.o.dSm=true}
  else if(a=='smu'){const m=S.sm.find(x=>x.id==id);if(m){const ml=$('#fmm')?$('#fmm').value:V.mm,q=parseFloat(b.closest('.set').querySelector('.smx').value)||1;V.mm=ml;m.items.forEach(x=>S.meal.push({id:uid(),d:V.nd,m:ml,f:x.f,g:Math.round(x.g*q*10)/10}));m.u=(m.u||0)+1;toast(m.name+' aggiunto a '+ml.toLowerCase())}}
  else if(a=='bcs'){bcOpen();return}
+ else if(a=='nvq'){V.nvq=true}
+ else if(a=='nvn'){V.nvq=false}
+ else if(a=='nvy'){V.nvm=true;V.nvq=false}
+ else if(a=='nvx'){V.nvm=false}
+ else if(a=='nvu'||a=='nvd'){const o=[...(V.nvk||[])],i=+id,j=a=='nvu'?i-1:i+1;if(o[i]!=null&&o[j]!=null){[o[i],o[j]]=[o[j],o[i]];S.nord=o;save()}}
  else if(a=='ordq'){V.ordq=ordKey()}
  else if(a=='ordn'){V.ordq=''}
  else if(a=='ordy'){V.ordm=ordKey();V.ordq=''}
