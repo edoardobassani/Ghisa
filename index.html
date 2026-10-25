@@ -25,6 +25,7 @@ h2{font:600 22px/1.1 'Barlow Condensed',Impact,sans-serif;margin:0}
 .row>*{flex:1;min-width:0}
 input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;width:100%}
 input:focus-visible,select:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--hi);outline-offset:1px}
+[hidden]{display:none!important}mark{background:var(--hi);color:#1c262b;border-radius:3px;padding:0 2px}
 button{font:600 15px Barlow,sans-serif;border:0;border-radius:8px;padding:10px 14px;background:var(--acc);color:#fff;cursor:pointer}
 button.p{color:#fff}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) button.p,:root:not([data-theme="light"]) .bt:not(.g){color:#0d1418}}
@@ -632,8 +633,19 @@ function av7(){
 function sme(m){return `<div class="set" style="flex-direction:column;align-items:stretch;gap:6px"><input class="mn" value="${esc(m.name)}" aria-label="Nome pasto">`+m.items.map((x,j)=>`<div class="row" style="margin:0"><span style="flex:2">${esc(ln(x).n)}</span><input class="mg" data-j="${j}" inputmode="decimal" value="${x.g}" aria-label="Grammi" style="flex:1"><button class="x" data-a="mrm" data-i="${m.id}" data-j="${j}" style="flex:0 0 auto" aria-label="Rimuovi alimento">×</button></div>`).join('')+`<div class="row"><button class="p" data-a="msv" data-i="${m.id}">Salva</button><button class="g" data-a="mx">Annulla</button></div></div>`}
 
 const GR=(k,t,b)=>`<details id="gr_${k}" ${V.o['gr_'+k]?'open':''}><summary>${t}</summary><div class="gd">${b}</div></details>`;
+function grMark(root,q){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),L=[];while(w.nextNode())L.push(w.currentNode);
+ L.forEach(t=>{if(t.parentElement.closest('[hidden]'))return;const s=t.nodeValue,n=s.split('').map(c=>nrm(c)[0]||c).join(''),ix=[];let p=n.indexOf(q);while(p>=0){ix.push(p);p=n.indexOf(q,p+q.length)}if(!ix.length)return;
+  const f=document.createDocumentFragment();let c=0;ix.forEach(i=>{f.append(s.slice(c,i));const m=document.createElement('mark');m.textContent=s.slice(i,i+q.length);f.append(m);c=i+q.length});f.append(s.slice(c));t.replaceWith(f)})}
+function grFilter(){const q=nrm((V.grq||'').trim()),ds=[...document.querySelectorAll('#v details[id^="gr_"]')];let n=0;
+ ds.forEach(d=>{const gd=d.querySelector('.gd');if(!gd)return;if(!gd._o)gd._o=gd.innerHTML;gd.innerHTML=gd._o;
+  const items=[...gd.children].flatMap(c=>c.tagName=='UL'||c.tagName=='OL'?[...c.children]:[c]);items.forEach(i=>i.hidden=false);
+  if(!q){d.hidden=false;d.open=!!V.o[d.id];return}
+  const tm=nrm(d.querySelector('summary').textContent).includes(q);let hit=0;
+  items.forEach(i=>{const m=nrm(i.textContent).includes(q);if(!tm)i.hidden=!m;if(m)hit++});
+  const show=tm||hit>0;d.hidden=!show;if(show){d.open=true;n+=tm&&!hit?1:hit;grMark(gd,q)}else d.open=false});
+ const e=$('#grn');if(e)e.textContent=q?(n?n+(n==1?' risultato':' risultati'):'Nessun risultato'):''}
 function vr(){
- return `<h1>Guida</h1><p class="hint">Come usare Ghisa. Tocca un argomento per aprirlo.</p>`+
+ return `<h1>Guida</h1><p class="hint">Come usare Ghisa. Tocca un argomento per aprirlo o cerca una parola.</p><input id="grq" type="search" placeholder="Cerca nella guida (es. superserie, recupero)" value="${esc(V.grq||'')}" aria-label="Cerca nella guida" autocomplete="off"><p class="hint" id="grn" style="margin:4px 0 8px"></p>`+
  GR('start','Primi passi',`<p>Ghisa tiene traccia di allenamento, alimentazione e peso. Un buon ordine per iniziare:</p><ul><li><b>Esercizi</b>: tocca “Aggiungi esercizi base” oppure crea i tuoi, assegnando a ciascuno un gruppo muscolare.</li><li><b>Schede</b>: crea una scheda scegliendo gli esercizi e, se vuoi, le serie e le ripetizioni obiettivo.</li><li><b>Palestra</b>: scegli la scheda e registra le serie.</li><li><b>Dieta</b> e <b>Peso</b>: imposta gli obiettivi e inserisci pasti e misurazioni.</li></ul><p>La barra in basso passa da una sezione all’altra. Il pulsante “?” in alto a destra riapre questa guida.</p>`)+
  GR('oggi','Home',`<p>È la schermata iniziale e mostra a colpo d’occhio:</p><ul><li><b>Questa settimana</b>: sette cerchi, uno per giorno, con la scheda prevista dal programma. ✓ allenamento fatto, tratteggio giorno saltato, puntino verde se hai fatto cardio.</li><li><b>Settimane di fila</b> con il programma rispettato (quando fai almeno tanti allenamenti quanti i giorni del programma; senza programma basta un allenamento), con le ultime otto settimane in barre.</li><li><b>Oggi a tavola</b>: anello delle calorie e anelli di proteine, carboidrati e grassi rispetto agli obiettivi.</li><li><b>Ultimi 7 giorni</b>: volume (con la variazione sui sette giorni prima), minuti di cardio e andamento del peso.</li></ul><p>Altro nella Home:</p><ul><li>Se hai assegnato una scheda al giorno corrente nel <b>Programma settimanale</b>, compare la scheda del giorno con <b>▶ Modalità seduta</b>, “Ripeti l’ultima seduta” e “Apri in Palestra”.</li><li><b>Storico giorni</b>: scegli una data, oppure tocca un giorno della lista, e poi Allena o Dieta per aggiungere o correggere dati dimenticati.</li></ul>`)+
  GR('allena','Palestra',`<ul><li><b>Superserie</b>: nel riquadro «Superserie» scegli due o tre esercizi e tocca Abbina. Registri una serie per ciascuno con un solo pulsante e il recupero parte una volta sola.</li><li>In alto scegli l’<b>obiettivo settimanale</b> di allenamenti: la barra mostra quanti giorni ti sei allenato questa settimana (da lunedì). Lo stesso obiettivo conta per la striscia in Home.</li><li>Scegli la <b>data</b> e la <b>scheda</b> (oppure “Tutti gli esercizi”).</li><li>Per ogni esercizio inserisci i kg e le ripetizioni e tocca <b>Aggiungi</b>. I tasti − e + cambiano il carico di 1,25 kg.</li><li>Sotto l’esercizio vedi l’ultima sessione, il tuo record e, quando c’è, “Prova X kg”: compare se l’ultima volta hai completato tutte le serie e le ripetizioni obiettivo della scheda.</li><li>Il 🏆 segna le serie che eguagliano o superano il tuo massimo, e un avviso ti dice quando batti un record.</li><li>Il campo <b>Nota</b> serve per RPE, sensazioni o dolori e resta accanto alla serie.</li><li><b>Timer di recupero</b>: scegli la durata in alto. Parte quando aggiungi una serie e, a fine tempo, suona e vibra se il dispositivo lo permette.</li><li><b>Ripeti l’ultima seduta</b> (anche dalla Home) copia sulla data scelta le serie dell’ultimo allenamento della scheda, saltando gli esercizi che hanno già serie.</li><li>Per eliminare una serie tocca ×.</li></ul>`)+
@@ -759,6 +771,7 @@ function render(){
  try{if(V.ss)localStorage.setItem('ghisa-ss',JSON.stringify(V.ss));else localStorage.removeItem('ghisa-ss')}catch(e){}
  {const nf=document.querySelector('nav [data-t="p"]');if(nf)nf.textContent=phDue()?'Corpo •':'Corpo';const mb=$('#mb');if(mb)mb.classList.toggle('dot',!!phDue())}
  $('#v').innerHTML={w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss}[V.tab]();
+ if(V.tab=='r')grFilter();
  if(V.tab=='g'){draw();drawVol();drawPw();drawMs();drawCd();drawCdW();drawKc()}if(V.tab=='n'){drawKc();pzUpd()}if(V.tab=='c'){drawCd();cdUpd()}
 }
 
@@ -881,8 +894,8 @@ let sw=null;
 document.addEventListener('touchstart',e=>{const t=e.touches[0],o=document.body.classList.contains('mo');sw=document.body.classList.contains('ssm')||e.touches.length>1?null:(o||t.clientX<30)?{x:t.clientX,y:t.clientY,o}:null},{passive:true});
 document.addEventListener('touchmove',e=>{if(!sw)return;const t=e.touches[0],dx=t.clientX-sw.x,dy=Math.abs(t.clientY-sw.y);if(!sw.o&&dx>60&&dy<40){openM(true);sw=null}else if(sw.o&&dx<-60&&dy<40){openM(false);sw=null}},{passive:true});
 document.addEventListener('touchend',()=>{sw=null});
-document.addEventListener('input',e=>{if(['cdm','cdk'].includes(e.target.id))cdUpd();if(e.target.id=='fq'){V.fq=e.target.value;$('#fl').innerHTML=fl()}else if(e.target.id=='gs')gsearch(e.target.value);else if(e.target.id=='cmpr')setCmp(+e.target.value)});
-document.addEventListener('toggle',e=>{if(e.target.tagName=='DETAILS'&&e.target.id&&!(V.fq&&e.target.id.startsWith('gf_')))V.o[e.target.id]=e.target.open},true);
+document.addEventListener('input',e=>{if(['cdm','cdk'].includes(e.target.id))cdUpd();if(e.target.id=='fq'){V.fq=e.target.value;$('#fl').innerHTML=fl()}else if(e.target.id=='gs')gsearch(e.target.value);else if(e.target.id=='grq'){V.grq=e.target.value;grFilter()}else if(e.target.id=='cmpr')setCmp(+e.target.value)});
+document.addEventListener('toggle',e=>{if(e.target.tagName=='DETAILS'&&e.target.id&&!(V.fq&&e.target.id.startsWith('gf_'))&&!(V.grq&&V.grq.trim()&&e.target.id.startsWith('gr_')))V.o[e.target.id]=e.target.open},true);
 document.addEventListener('change',e=>{
  const t=e.target;
  if(t.id=='dt'&&t.value){V.date=t.value;render()}
