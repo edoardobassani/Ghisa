@@ -253,6 +253,7 @@ body.sdo-on{overflow:hidden}
 .dman{margin-top:4px}.dman>summary .hint{font-size:13px;font-weight:400}
 .ogmb{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex:0 0 auto}.ogmb .lk{font-size:13px;color:var(--acc)}
 #cfm{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:20px}#cfm[hidden]{display:none}.cfb{background:var(--card);color:var(--ink);border-radius:14px;padding:18px;width:100%;max-width:380px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+button.bad{background:var(--bad);color:#fff}
 </style></head>
 <body>
 <main id="v"></main>
@@ -315,7 +316,7 @@ const GD=['Petto','Schiena','Spalle','Braccia','Gambe','Core'];
 const grp=e=>e.g||'Senza gruppo';
 const groups=()=>[...new Set([...GD,...S.ex.map(e=>e.g).filter(Boolean)])];
 const byG=()=>{const o={};S.ex.forEach(e=>(o[grp(e)]=o[grp(e)]||[]).push(e));return Object.keys(o).sort((a,b)=>(a=='Senza gruppo')-(b=='Senza gruppo')||a.localeCompare(b)).map(k=>[k,o[k]])};
-const UD=['del','dl','md','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp'];let UN=null,ut;
+const UD=['del','dl','md','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd'];let UN=null,ut;
 function showUndo(){$('#undo').classList.add('on');clearTimeout(ut);ut=setTimeout(()=>{hideUndo();UN=null},7000)}
 function hideUndo(){const u=$('#undo');if(u)u.classList.remove('on');clearTimeout(ut)}
 let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)};
@@ -1487,8 +1488,9 @@ document.addEventListener('click',e=>{
  else if(a=='ssfp'){const x=$('#ssfx');if(x)xpOpen(x,b);return}
  else if(a=='ssend'){if(!V.ss)return;if(V.del!='ssend'){V.del='ssend';render();clearTimeout(window.__sse);window.__sse=setTimeout(()=>{if(V.del=='ssend'){V.del='';render()}},5000);return}V.del='';ssEnd();toast('Sessione conclusa e salvata');window.scrollTo(0,0)}
  else if(a=='cfx'){cfClose();return}
+ else if(a=='ssxd'){cfClose();if(V.ss){const sid=V.ss.sid,n=S.log.filter(l=>l.ss==sid).length;S.log=S.log.filter(l=>l.ss!=sid);S.ses=(S.ses||[]).filter(x=>x.id!=sid);V.ss=null;V.tab='h';wlOff();tmHide();window.scrollTo(0,0);toast('Seduta annullata · '+n+' serie cancellate')}}
  else if(a=='sscf'){cfClose();if(V.ss){ssEnd();toast('Sessione conclusa e salvata');window.scrollTo(0,0)}}
- else if(a=='ssx'&&V.ss&&!V.ss.done&&!b.dataset.ok){const n=S.log.filter(l=>l.ss==V.ss.sid).length;cfOpen(`<h2>Uscire dalla seduta?</h2><p class="hint" style="margin:8px 0 14px">${n?'Hai registrato '+n+(n==1?' serie':' serie')+': restano salvate. Se esci senza concludere, la seduta non compare nello storico come seduta completa.':'Non hai ancora registrato nessuna serie.'}</p>${n?'<button class="p" data-a="sscf" style="width:100%">Concludi e salva</button>':''}<button class="g" data-a="ssx" data-ok="1" style="width:100%;margin-top:8px">Esci${n?' senza concludere':''}</button><button class="lk" data-a="cfx" style="display:block;margin:12px auto 0;font-size:15px">Resta nella seduta</button>`);return}
+ else if(a=='ssx'&&V.ss&&!V.ss.done&&!b.dataset.ok){const n=S.log.filter(l=>l.ss==V.ss.sid).length;cfOpen(`<h2>Uscire dalla seduta?</h2><p class="hint" style="margin:8px 0 14px">${n?'Hai registrato '+n+' serie. Puoi concludere la seduta, uscire tenendo le serie (senza chiuderla), oppure uscire senza salvare: in quel caso le serie di questa seduta vengono cancellate.':'Non hai ancora registrato nessuna serie.'}</p>${n?'<button class="p" data-a="sscf" style="width:100%">Concludi e salva</button>':''}<button class="g" data-a="ssx" data-ok="1" style="width:100%;margin-top:8px">Esci${n?' tenendo le serie':''}</button>${n?'<button class="bad" data-a="ssxd" style="width:100%;margin-top:8px">Esci dalla seduta senza salvare</button>':''}<button class="lk" data-a="cfx" style="display:block;margin:12px auto 0;font-size:15px">Resta nella seduta</button>`);return}
  else if(a=='ssx'){cfClose();V.ss=null;V.tab='h';wlOff();window.scrollTo(0,0)}
  else if(a=='ssj'){V.ss.i=+b.dataset.i;V.ss.done=false;V.ss.t1=0;window.scrollTo(0,0)}
  else if(a=='ssn'){const ids=ssIds(),st=ssStep(ids,Math.min(V.ss.i,ids.length-1));if(st.e>=ids.length-1){ssEnd()}else V.ss.i=st.e+1;window.scrollTo(0,0)}
