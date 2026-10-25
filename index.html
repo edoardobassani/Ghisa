@@ -1266,7 +1266,7 @@ function phDue(){
  if(td<f||S.ps==ym||PH.some(p=>p.d.slice(0,7)==ym))return null;
  return{f,day:td==f};
 }
-function phCard(){const d=phDue();if(!d)return '';return `<div class="card" style="border-color:var(--hi)"><h2>📸 Foto mensile</h2><p class="hint">${d.day?'Oggi è il primo lunedì del mese: è il giorno della foto di progresso.':'Non hai ancora fatto la foto di questo mese (primo lunedì: '+fd(d.f)+').'}</p><div class="row"><button class="p" data-a="gd" data-d="${today()}" data-t="p">Fai la foto</button><button class="g" data-a="pskip">Salta questo mese</button></div></div>`}
+function phCard(){const d=phDue();if(!d)return '';return `<div class="card" style="border-color:var(--hi)"><h2>📸 Foto mensile</h2><p class="hint">${d.day?'Oggi è il primo lunedì del mese: è il giorno della foto di progresso.':'Non hai ancora fatto la foto di questo mese (primo lunedì: '+fd(d.f)+').'}</p><div class="row"><button class="p" data-a="phgo">Fai la foto</button><button class="g" data-a="pskip">Salta questo mese</button></div></div>`}
 
 function cmpView(c1,c2){
  const im=d=>PH.find(p=>p.a==V.ca&&p.d==d).u,p=V.cpos;
@@ -1526,6 +1526,7 @@ document.addEventListener('click',e=>{
   if(V.ed){const E=S.sch.find(s=>s.id==V.ed);if(E){E.name=n;E.ex=ex;E.t=t;E.rt=rt;E.ss=ss}V.ed=''}else S.sch.push({id:uid(),name:n,ex,t,rt,ss});V.sd=null;toast('Scheda salvata');
  }
  else if(a=='use'){V.sc=id;V.tab='w'}
+ else if(a=='phgo'){if(V.tab!='p'||V.fd!=today()){V.tab='p';V.fd=today();render()}const i=$('#pff');if(i){i.value='';i.click()}return}
  else if(a=='se'){V.se=id;render();setTimeout(()=>{const i=document.querySelector('.sed .sek,.sed .ser');if(i){i.focus({preventScroll:true});i.select&&i.select()}},20);return}
  else if(a=='sex'){V.se=''}
  else if(a=='ses'){const l=S.log.find(z=>z.id==id),c=b.closest('.sed');if(!l||!c)return;const ki=c.querySelector('.sek'),kg=ki?parseFloat(ki.value.replace(',','.')):0,mxo=!!c.querySelector('.mxb[aria-pressed="true"]'),r=parseInt(c.querySelector('.ser').value)||0;if(!(kg>=0)||kg>=1000||!(r>0||mxo))return toast('Inserisci carico e ripetizioni (o MAX)');l.kg=Math.round(kg*100)/100;l.r=r;if(mxo)l.f=1;else delete l.f;V.se='';toast('Serie modificata')}
