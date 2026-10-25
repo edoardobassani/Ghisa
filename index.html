@@ -108,7 +108,7 @@ nav .nb .card{margin:0 0 10px;padding:0;border:0;background:transparent}
 nav .nt{font:700 22px Barlow,sans-serif;padding:4px 22px 14px;color:var(--ink)}
 nav>button{background:transparent;color:var(--mut);border-radius:0;padding:15px 22px;font-size:18px;text-align:left;border-left:4px solid transparent}
 nav>button.on{color:var(--ink);background:var(--bg);border-left-color:var(--hi)}
-.nvb{display:flex;gap:8px;justify-content:flex-end;padding:2px 22px 10px}.nvb button{padding:6px 18px;font-size:16px}.nvb button:disabled{opacity:.35}nav.nvm>button[data-t]{pointer-events:none;opacity:.85}nav.srch .nvb{display:none}
+nav.nvm>button[data-t]{pointer-events:none;display:flex;justify-content:space-between;align-items:center}nav.nvm .dh{pointer-events:auto;touch-action:none;cursor:grab;padding:6px 12px;margin:-6px -8px;font-size:24px;color:var(--acc)}.dg{position:relative;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.3);background:var(--card);border-radius:8px;opacity:.97}.ordbar{touch-action:none;cursor:grab;user-select:none;-webkit-user-select:none}.ordbar .dh{font-size:22px;line-height:1;letter-spacing:0}
 #bd{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:35;display:none}
 body.mo #bd{display:block}
 #mb{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:12px;width:36px;height:36px;border-radius:50%;padding:0;z-index:20;background:var(--card);color:var(--ink);border:1px solid var(--line);font-size:20px;line-height:1}
@@ -452,6 +452,24 @@ function ln(m){const f=fo(m.f)||{name:'(alimento eliminato)',k:0,p:0,c:0,f:0},r=
 const ORDN={scan:'Scansione codice a barre',obj:'Data e obiettivi',tot:'Riepilogo del giorno',td:'Fabbisogno giornaliero',vsm:'Pasti preferiti',add:'Aggiungi pasto',meals:'Pasti del giorno',kc:'Calorie giornaliere',nf:'Nuovo alimento',db:'Database alimenti'};
 const ordKey=()=>V.tab=='pp'?'pp'+(V.pv||'p'):V.tab;
 function ordName(el){let n='';if(el.dataset&&el.dataset.bn)n=el.dataset.bn;else if(el.tagName=='H2')n=el.textContent;else{const q=el.tagName=='DETAILS'?el.querySelector('summary'):el.querySelector('h2,h3,summary,b,strong');n=q?q.textContent:el.textContent}n=n.trim().split('\n')[0].split(' · ')[0].trim();return n.length>34?n.slice(0,33)+'…':n||'Blocco'}
+
+function dragInit(e,U,idx,done,sc){
+ if(e.button>0)return;e.preventDefault();const h=e.currentTarget;try{h.setPointerCapture(e.pointerId)}catch(x){}
+ const g=U[idx];let py=e.clientY,raf=0;U=[...U];
+ const rect=u=>{const a=u.els[0].getBoundingClientRect(),b=u.els[u.els.length-1].getBoundingClientRect();return{t:a.top,b:b.bottom}};
+ const clr=()=>g.els.forEach(x=>x.style.transform='');
+ clr();const grab=e.clientY-g.els[0].getBoundingClientRect().top;
+ g.els.forEach(x=>x.classList.add('dg'));if(navigator.vibrate)navigator.vibrate(15);
+ const step=()=>{
+  let ci=U.indexOf(g),mv=1;
+  while(mv){mv=0;ci=U.indexOf(g);
+   const a=U[ci-1],b=U[ci+1];
+   if(a){const r=rect(a);if(py<(r.t+r.b)/2){clr();a.els[0].before(...g.els);U.splice(ci,1);U.splice(ci-1,0,g);mv=1;continue}}
+   if(b){const r=rect(b);if(py>(r.t+r.b)/2){clr();b.els[b.els.length-1].after(...g.els);U.splice(ci,1);U.splice(ci+1,0,g);mv=1}}}
+  clr();const nt=g.els[0].getBoundingClientRect().top;g.els.forEach(x=>x.style.transform=`translateY(${py-grab-nt}px)`)};
+ const loop=()=>{const H=innerHeight,zone=90;let d=0;const bt=sc?sc.getBoundingClientRect():{top:0,bottom:H};if(py<bt.top+zone)d=-Math.ceil((bt.top+zone-py)/6);else if(py>bt.bottom-zone)d=Math.ceil((py-(bt.bottom-zone))/6);if(d){if(sc)sc.scrollTop+=d;else scrollBy(0,d)}step();raf=requestAnimationFrame(loop)};
+ const mv=ev=>{py=ev.clientY},end=ev=>{cancelAnimationFrame(raf);h.removeEventListener('pointermove',mv);h.removeEventListener('pointerup',end);h.removeEventListener('pointercancel',end);clr();g.els.forEach(x=>x.classList.remove('dg'));if(ev.type=='pointerup')done(U.map(u=>u.key));else render()};
+ h.addEventListener('pointermove',mv);h.addEventListener('pointerup',end);h.addEventListener('pointercancel',end);raf=requestAnimationFrame(loop)}
 function ordApply(){
  const v=$('#v');if(!v)return;v.classList.remove('ordm');if(V.tab=='ss')return;
  let title=null,lead=[],bl=[],cur=null,h2=false;
@@ -470,9 +488,10 @@ function ordApply(){
  if(title){f.append(title);if(ok){title.style.cssText='display:flex;justify-content:space-between;align-items:center;gap:8px';const g=document.createElement('button');g.className=ed?'p':'g';g.dataset.a=ed?'ordx':'ordq';g.textContent=ed?'Fine':'⚙';g.style.cssText='flex:0 0 auto;font-size:15px';g.setAttribute('aria-label',ed?'Fine riordino':'Riordina i menu');title.append(g)}}
  const tx=(h)=>{const d=document.createElement('div');d.innerHTML=h;return d.firstElementChild};
  if(ok&&V.ordq==K&&!ed)f.append(tx('<div class="card"><h2>Riordinare i menu?</h2><p class="hint">Potrai spostare su e giù i blocchi di questa schermata. Nessun dato viene modificato.</p><div class="row"><button class="p" data-a="ordy">Sì, sposta ordine</button><button class="g" data-a="ordn">Annulla</button></div></div>'));
- if(ed&&ok)f.append(tx('<p class="hint">Modalità riordino: usa ▲ e ▼ sulla barra sopra ogni menu, poi tocca Fine. Durante il riordino i contenuti non rispondono ai tocchi.</p>'));
+ if(ed&&ok)f.append(tx('<p class="hint">Modalità riordino: tieni premuta la barra colorata sopra un menu (⠿) e trascinala su o giù, poi tocca Fine. Durante il riordino i contenuti non rispondono ai tocchi.</p>'));
  lead.forEach(e=>{if(ed)e.classList.add('obc');f.append(e)});
- bl.forEach((b,i)=>{if(ed&&ok)f.append(tx(`<div class="ordbar"><span>${esc(b.n)}</span><span><button data-a="ordu" data-i="${i}" ${i?'':'disabled'} aria-label="Sposta su">▲</button> <button data-a="ordd" data-i="${i}" ${i<bl.length-1?'':'disabled'} aria-label="Sposta giù">▼</button></span></div>`));b.e.forEach(e=>{if(ed)e.classList.add('obc');f.append(e)})});
+ bl.forEach((b,i)=>{if(ed&&ok){const bar=tx(`<div class="ordbar" tabindex="0" role="button" aria-label="Sposta ${esc(b.n)}: trascina o usa le frecce su e giù"><span>${esc(b.n)}</span><span class="dh">⠿</span></div>`);b.bar=bar;f.append(bar)}b.e.forEach(e=>{if(ed)e.classList.add('obc');f.append(e)})});
+ if(ed&&ok){V.ordu=bl.map(b=>({els:[b.bar,...b.e],key:b.k}));bl.forEach((b,i)=>{b.bar.addEventListener('pointerdown',e=>dragInit(e,V.ordu,i,ks=>{S.ord=S.ord||{};S.ord[K]=ks;save();render()}));b.bar.addEventListener('keydown',e=>{const d=e.key=='ArrowUp'?-1:e.key=='ArrowDown'?1:0;if(!d)return;e.preventDefault();const o=bl.map(x=>x.k),j=i+d;if(j<0||j>=o.length)return;[o[i],o[j]]=[o[j],o[i]];S.ord=S.ord||{};S.ord[K]=o;save();render();const nb=document.querySelectorAll('.ordbar')[j];if(nb)nb.focus()})})}
  v.append(f);if(ed&&ok)v.classList.add('ordm')}
 function vn(){
  const FE=S.food.find(x=>x.id==V.fe);
@@ -790,7 +809,7 @@ function vr(){
  GR('barcode','Codice a barre',`<ul><li>In <b>Dieta → Aggiungi pasto</b> tocca «Scansiona codice a barre» e inquadra il prodotto: se il codice è già tra i tuoi alimenti lo trovo subito, altrimenti lo cerco su <b>Open Food Facts</b> (serve internet) e ti mostro nome e valori per 100 g da controllare.</li><li>Se il prodotto non c’è o sei offline, scrivi i valori dall’etichetta: li collego al codice e dalla volta dopo basta scansionare, anche <b>senza rete</b>.</li><li>La lettura dalla fotocamera funziona solo nell’<b>app installata</b> (Chrome su Android); nell’anteprima dentro Claude puoi scrivere le cifre a mano. In alternativa scrivi il codice nella casella.</li><li>I valori di Open Food Facts li inseriscono gli utenti: confrontali con l’etichetta. Se calorie e macro non tornano ti avviso.</li><li>Dati © contributori di Open Food Facts, licenza ODbL (openfoodfacts.org).</li></ul>`)+
  GR('cardio','Cardio',`<ul><li>Gli <b>obiettivi macro</b> in Dieta si stimano da soli (peso, stile di vita scelto nel Fabbisogno e calorie); scrivendo un tuo valore lo sostituisci, svuotando il campo torna l’automatico.</li><li>Nell’elenco alimenti il tasto <b>▾</b> mostra il rapporto tra i macro e i micronutrienti (sodio, potassio, calcio, magnesio, ferro, zinco, vitamine C, B12 e D) per 100 g. Per ${Object.keys(MS).length} alimenti su 210 sono verificati su tabelle USDA o INRAN (la fonte è indicata nel pannello); gli altri sono stime non verificate. “n.d.” = dato non riportato dalla fonte.</li><li>In <b>Dieta</b> ogni alimento di un pasto ha il tasto <b>Modifica</b> (grammi e pasto) e ogni pasto ha “+ Aggiungi alimento”.</li><li>I <b>grafici</b> si aprono sugli ultimi 3 mesi; con 1M, 3M, 6M, Tutto o lo zoom cambi la vista.</li><li>Le <b>kcal</b> si calcolano da sole (attività, durata, distanza e peso); se hai un dato più preciso scrivilo nel campo e sostituisce la stima. Le stime nello storico hanno il simbolo ~.</li><li>Nello <b>Storico</b> tocca <b>Modifica</b> per cambiare data, attività, durata, km, kcal o note di una sessione.</li><li>In alto scegli l’<b>obiettivo settimanale</b> di sessioni cardio: la barra segue le sessioni di questa settimana e il dato compare anche in Home.</li><li>Nella tab <b>Cardio</b> scegli data e attività (corsa, camminata, bici…) e inserisci i minuti; distanza, calorie e note sono facoltative.</li><li>Se indichi sia minuti sia km l’app calcola il <b>ritmo</b> (minuti al km).</li><li>In alto vedi il riepilogo della settimana (da lunedì). Il grafico mostra minuti o km per giorno e si può filtrare per attività; come gli altri grafici si può ingrandire e spostare.</li><li>Le sessioni di oggi compaiono anche nella Home. Per eliminarne una tocca ×.</li></ul>`)+
  GR('peso','Peso e misure',`<ul><li><b>Massa grassa</b>: serve l’altezza, il sesso (si imposta lì stesso) e le misure di <b>collo</b> e <b>vita</b> (per le donne anche i <b>fianchi</b>), in cm. L’app usa la formula della Marina USA: l’errore tipico è di 3–4 punti percentuali, quindi guarda soprattutto l’andamento nel tempo.</li><li>Inserisci l’altezza e, se vuoi, un peso obiettivo. Poi registra le misurazioni: se ne salvi due nello stesso giorno vale l’ultima.</li><li>Il <b>BMI</b> è calcolato dall’app (peso diviso altezza al quadrato). È un valore indicativo: non distingue massa muscolare e grasso.</li><li><b>Misure corporee</b>: scegli la data, compila quelle che vuoi (anche solo una) e salva. Se riusi la stessa data, le misure si aggiungono a quelle già presenti.</li></ul>`)+
- GR('menu','Menu e ricerca',`<ul><li>Il menu delle sezioni si apre con ☰ in alto a sinistra oppure <b>strisciando dal bordo sinistro</b> dello schermo verso destra (sui dispositivi touch). Per chiuderlo striscia verso sinistra o tocca fuori.</li><li>In cima al menu c’è la <b>ricerca</b>: scrivi il nome di un esercizio, di una scheda, di un alimento o di una sezione. Un esercizio apre i suoi grafici, una scheda apre Schede, un alimento apre Dieta già selezionato.</li><li><b>Riordinare i menu</b>: in ogni sezione tocca ⚙ accanto al titolo e conferma «Sì, sposta ordine». Sopra ogni menu compare una barra con ▲ ▼ per spostarlo; i contenuti restano visibili ma non rispondono ai tocchi. Tocca Fine per terminare: l’ordine resta salvato.</li><li><b>Ordine delle sezioni nel menu</b>: apri ☰, tocca «⚙ Riordina sezioni», conferma e usa ▲ ▼ sotto ogni voce. Tocca Fine per salvare.</li></ul>`)+
+ GR('menu','Menu e ricerca',`<ul><li>Il menu delle sezioni si apre con ☰ in alto a sinistra oppure <b>strisciando dal bordo sinistro</b> dello schermo verso destra (sui dispositivi touch). Per chiuderlo striscia verso sinistra o tocca fuori.</li><li>In cima al menu c’è la <b>ricerca</b>: scrivi il nome di un esercizio, di una scheda, di un alimento o di una sezione. Un esercizio apre i suoi grafici, una scheda apre Schede, un alimento apre Dieta già selezionato.</li><li><b>Riordinare i menu</b>: in ogni sezione tocca ⚙ accanto al titolo e conferma «Sì, sposta ordine». Sopra ogni menu compare una barra con la maniglia ⠿: tienila premuta e trascina; i contenuti restano visibili ma non rispondono ai tocchi. Tocca Fine per terminare: l’ordine resta salvato.</li><li><b>Ordine delle sezioni nel menu</b>: apri ☰, tocca «⚙ Riordina sezioni», conferma e trascina ⠿ di ogni voce. Tocca Fine per salvare.</li></ul>`)+
  GR('foto','Foto di progresso',`<ul><li>Nella tab <b>Corpo</b>, sezione “Foto di progresso”, scegli la data e la posa (Fronte, Lato, Retro), poi “Scatta o scegli foto”. La foto viene ridimensionata e salvata solo su questo dispositivo.</li><li>Per confronti utili usa sempre la stessa posa, la stessa luce e la stessa ora del giorno.</li><li><b>Promemoria mensile</b>: dal primo lunedì del mese, finché non salvi una foto, compare un avviso nella Home e un puntino accanto a “Corpo”. “Salta questo mese” lo nasconde fino al mese dopo. Il promemoria compare solo quando apri l’app.</li><li><b>Confronto</b>: scegli due date con la stessa posa. Con <b>Cursore</b> trascini una linea sull’immagine (o usi la barra sotto) per vedere “prima” e “dopo” sovrapposte; con <b>Affiancate</b> le vedi una accanto all’altra.</li></ul>`)+
  GR('dati','Dati e backup',`<ul><li>I dati restano <b>solo nel browser di questo dispositivo</b>. Telefono e computer non si sincronizzano, e cancellare i dati del sito li elimina.</li><li><b>Esporta backup</b> (nel menu a sinistra, in fondo: tocca ☰) crea un solo file con dati e foto: confermi il salvataggio e lo conservi dove vuoi. Se l’ultimo backup ha più di 14 giorni, nella Home compare un avviso rosso.</li><li><b>Importa backup</b> legge quel file: prima di sostituire i dati ti mostra un riepilogo e chiede conferma. Il “backup come testo” è un’alternativa senza foto.</li><li>Per eliminare qualcosa tocca ×: l’elemento sparisce subito e in basso compare per qualche secondo <b>Annulla</b>, che lo ripristina (foto comprese). Passati i secondi, o dopo un’altra azione, l’eliminazione è definitiva.</li></ul>`);
 }
@@ -903,17 +922,19 @@ function navOrd(){
  const o=(S.nord||[]).filter(k=>NVT.includes(k));NVT.forEach(k=>{if(!o.includes(k))o.push(k)});
  V.nvk=o;const ed=!!V.nvm,bs={};
  nav.querySelectorAll(':scope>button[data-a="tab"]').forEach(b=>bs[b.dataset.t]=b);
- o.forEach((k,i)=>{const b=bs[k];if(!b)return;nav.insertBefore(b,ctl);if(ed){const d=document.createElement('div');d.className='nvb';d.innerHTML=`<button data-a="nvu" data-i="${i}" ${i?'':'disabled'} aria-label="Sposta su">▲</button><button data-a="nvd" data-i="${i}" ${i<o.length-1?'':'disabled'} aria-label="Sposta giù">▼</button>`;nav.insertBefore(d,ctl)}});
+ o.forEach((k,i)=>{const b=bs[k];if(!b)return;nav.insertBefore(b,ctl);let h=b.querySelector('.dh');if(ed&&!h){h=document.createElement('span');h.className='dh';h.textContent='⠿';b.append(h)}else if(!ed&&h)h.remove()});
+ if(ed){const U=o.map(k=>({els:[bs[k]],key:k}));o.forEach((k,i)=>{const h=bs[k].querySelector('.dh');if(h)h.onpointerdown=e=>dragInit(e,U,i,ks=>{S.nord=ks;save();render()},nav)})}
  nav.classList.toggle('nvm',ed);
- ctl.innerHTML=ed?'<p class="hint">Riordino: usa ▲ ▼ sotto ogni voce. Le voci non si aprono finché non tocchi Fine.</p><button class="p" data-a="nvx" style="width:100%">Fine</button>':V.nvq?'<p class="hint">Riordinare le sezioni del menu? Nessun dato viene modificato.</p><div class="row"><button class="p" data-a="nvy">Sì, sposta ordine</button><button class="g" data-a="nvn">Annulla</button></div>':'<button class="g" data-a="nvq" style="width:100%">⚙ Riordina sezioni</button>'}
+ ctl.innerHTML=ed?'<p class="hint">Riordino: tieni premuto ⠿ e trascina la voce. Le voci non si aprono finché non tocchi Fine.</p><button class="p" data-a="nvx" style="width:100%">Fine</button>':V.nvq?'<p class="hint">Riordinare le sezioni del menu? Nessun dato viene modificato.</p><div class="row"><button class="p" data-a="nvy">Sì, sposta ordine</button><button class="g" data-a="nvn">Annulla</button></div>':'<button class="g" data-a="nvq" style="width:100%">⚙ Riordina sezioni</button>'}
 function render(){
  if(V.tab=='ss'&&!V.ss)V.tab='h';
- document.body.classList.toggle('ssm',V.tab=='ss');navOrd();
+ document.body.classList.toggle('ssm',V.tab=='ss');
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==V.tab));
  {const nb=$('#nbk');if(nb)nb.innerHTML=bkMenu()}
  {const nt=$('#nth');if(nt)nt.innerHTML=thMenu();const q=$('#qs');if(q){q.classList.toggle('on',!!V.fab);q.innerHTML=V.fab?qsHtml():''}}
  try{if(V.ss)localStorage.setItem('ghisa-ss',JSON.stringify(V.ss));else localStorage.removeItem('ghisa-ss')}catch(e){}
  {const nf=document.querySelector('nav [data-t="p"]');if(nf)nf.textContent=phDue()?'Corpo •':'Corpo';const mb=$('#mb');if(mb)mb.classList.toggle('dot',!!phDue())}
+ navOrd();
  $('#v').innerHTML={w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,pp:vpp}[V.tab]();ordApply();
  if(V.tab=='r')grFilter();
  if(V.tab=='p')drawBf();
@@ -928,6 +949,7 @@ document.addEventListener('click',e=>{
  const a=b.dataset.a,id=b.dataset.i;
  if(a!='undo'){hideUndo();UN=null;if(UD.includes(a))UN={s:JSON.stringify(S),ph:a=='del'&&(b.dataset.k||'').startsWith('ph:')?PH.find(p=>p.id==b.dataset.k.slice(3)):null,pre:true}}
  if(a!='fab')V.fab=false;
+ if(a=='tab'&&V.nvm&&b.parentElement.tagName=='NAV')return;
  if(a=='tab'){V.tab=b.dataset.t;V.del='';V.ordm='';V.ordq=''}
  else if(a=='th'){S.th=b.dataset.v;applyTh();save()}
  else if(a=='fab'){V.fab=true}
