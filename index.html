@@ -261,6 +261,8 @@ button.bad{background:var(--bad);color:#fff}
 .hpl.m{background:color-mix(in srgb,var(--acc) 14%,var(--card));color:var(--acc)}.hpl.s{background:color-mix(in srgb,var(--c3) 16%,var(--card));color:var(--c3)}
 .hee{padding:6px 0;border-top:1px solid var(--line)}.hee .ex{display:flex;justify-content:space-between;align-items:center;margin:4px 0}
 .bt.bt2{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+nav .nwp{margin-top:10px;padding:14px 22px 24px;border-top:1px solid var(--line)}.wpb{width:100%;background:transparent;color:var(--bad);border:1px solid var(--bad);border-radius:8px;padding:10px;font-weight:600}
+#wpq{width:100%;margin:4px 0 10px;text-transform:uppercase}
 </style></head>
 <body>
 <main id="v"></main>
@@ -284,6 +286,7 @@ button.bad{background:var(--bad);color:#fff}
 <div id="nth" class="nb"></div>
 <div id="ndp" class="nb"></div>
 <div id="nbk" class="nb"></div>
+<div class="nwp"><button class="wpb" data-a="wipe">🗑 Cancella tutti i dati</button></div>
 </nav>
 <button id="hb" data-a="tab" data-t="r" aria-label="Guida">?</button>
 <button id="fab" class="p" data-a="fab" aria-label="Aggiunta rapida">+</button>
@@ -315,7 +318,7 @@ try{S=JSON.parse(localStorage.getItem('ghisa'))}catch(e){}
 if(!S||!Array.isArray(S.ex))S={ex:[],sch:[],log:[]};
 S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mc=S.mc||{};
 const sfShow=on=>{try{let b=document.getElementById('sfw');if(!on){if(b)b.remove();return}if(!b){b=document.createElement('div');b.id='sfw';b.setAttribute('role','alert');b.innerHTML='<b>Salvataggio non riuscito.</b> La memoria dell’app sul telefono è piena o bloccata: le ultime modifiche resteranno solo finché l’app è aperta. <button data-a="sfb">Fai subito il backup</button>';document.body.appendChild(b)}}catch(e){}};
-let SV=0;const save=()=>{SV++;let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);try{fcOff()}catch(e){}return ok};
+let SV=0;const save=()=>{if(window.__wiped)return;SV++;let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);try{fcOff()}catch(e){}return ok};
 if(S.ord&&Array.isArray(S.ord.n)&&!S.ord.n.includes('mi')){const i=S.ord.n.indexOf('tot');S.ord.n.splice(i<0?S.ord.n.length:i+1,0,'mi')}
 const V={tab:'h',ed:'',sel:'',fe:'',me:'',mk:'vita',sc:'',date:today(),del:'',cx:'',cm:'max',vg:'',o:{},nd:today(),pd:today(),mm:(h=>h<11?'Colazione':h<15?'Pranzo':h<18.5?'Spuntino':'Cena')(new Date().getHours()+new Date().getMinutes()/60),fq:'',cdd:today(),ct:'Corsa',cc:'min',cf:'',fd:today(),fa:'Fronte',ca:'Fronte',c1:'',c2:'',pend:null,txt:'',cmv:'s',cpos:50};
 const nm=id=>(S.ex.find(e=>e.id==id)||{name:'?'}).name;
@@ -1527,6 +1530,9 @@ document.addEventListener('click',e=>{
   if(V.ed){const E=S.sch.find(s=>s.id==V.ed);if(E){E.name=n;E.ex=ex;E.t=t;E.rt=rt;E.ss=ss}V.ed=''}else S.sch.push({id:uid(),name:n,ex,t,rt,ss});V.sd=null;toast('Scheda salvata');
  }
  else if(a=='use'){V.sc=id;V.tab='w'}
+ else if(a=='wipe'){document.body.classList.remove('mo');cfOpen(`<h2>Cancellare tutti i dati?</h2><p class="hint" style="margin:8px 0 10px">Verranno eliminati da questo dispositivo <b>allenamenti, sedute, schede, esercizi, cardio, dieta, piano pasti, peso, misure, obiettivi e foto</b>. Non si può annullare.</p><p class="hint" style="margin:0 0 14px">Se vuoi poterli recuperare, fai prima un backup.</p><button class="g" data-a="bkx" style="width:100%">Esporta prima un backup</button><button class="bad" data-a="wipe2" style="width:100%;margin-top:8px">Sì, continua</button><button class="lk" data-a="cfx" style="display:block;margin:12px auto 0;font-size:15px">Annulla</button>`);return}
+ else if(a=='wipe2'){cfOpen(`<h2>Ultima conferma</h2><p class="hint" style="margin:8px 0 10px">Tutti i dati di Ghisa su questo dispositivo verranno cancellati <b>definitivamente</b>. Per confermare scrivi <b>CANCELLA</b>.</p><input id="wpq" autocomplete="off" autocapitalize="characters" placeholder="CANCELLA" aria-label="Scrivi CANCELLA per confermare"><button class="bad" data-a="wipe3" id="wpb3" style="width:100%" disabled>Cancella definitivamente</button><button class="g" data-a="cfx" style="width:100%;margin-top:8px">Annulla</button>`);setTimeout(()=>{const q=$('#wpq');if(q)q.focus()},30);return}
+ else if(a=='wipe3'){const q=$('#wpq');if(!q||q.value.trim().toUpperCase()!='CANCELLA')return;cfClose();try{tmHide()}catch(e){}try{['ghisa','ghisa-ss','ghisa-tmp'].forEach(k=>localStorage.removeItem(k))}catch(e){}window.__wiped=1;pClear().catch(()=>{}).then(()=>{toast('Tutti i dati sono stati cancellati');setTimeout(()=>location.reload(),600)});return}
  else if(a=='phgo'){if(V.tab!='p'||V.fd!=today()){V.tab='p';V.fd=today();render()}const i=$('#pfc');if(i){i.value='';i.click()}return}
  else if(a=='se'){V.se=id;render();setTimeout(()=>{const i=document.querySelector('.sed .sek,.sed .ser');if(i){i.focus({preventScroll:true});i.select&&i.select()}},20);return}
  else if(a=='sex'){V.se=''}
@@ -1770,7 +1776,7 @@ function xpOpen(sel,b){XP={sel,b};const p=$('#xp'),many=sel.options.length>8;
 function xpClose(){const p=$('#xp');if(!p||p.hidden)return;p.hidden=true;p.innerHTML='';document.body.classList.remove('xpo-on');const b=XP&&XP.b;XP=null;if(b&&b.isConnected)b.focus({preventScroll:true})}
 function xpPick(v){const {sel,b}=XP;xpClose();if(sel.value==v)return;sel.value=v;if(b&&b.isConnected){b.firstChild.textContent=xpTxt(sel);b.setAttribute('aria-label',(sel.getAttribute('aria-label')||'Esercizio')+': '+xpTxt(sel))}sel.dispatchEvent(new Event('change',{bubbles:true}))}
 document.addEventListener('click',e=>{const p=$('#xp');if(!p||p.hidden)return;if(e.target==p||e.target.closest('[data-xc]')){xpClose();return}const o=e.target.closest('.xpo');if(o)xpPick(o.dataset.xv)},true);
-document.addEventListener('input',e=>{if(e.target.id=='xpq')xpList();if(e.target.id=='sdq')sdFilt()},true);
+document.addEventListener('input',e=>{if(e.target.id=='wpq'){const b3=$('#wpb3');if(b3)b3.disabled=e.target.value.trim().toUpperCase()!='CANCELLA'}if(e.target.id=='xpq')xpList();if(e.target.id=='sdq')sdFilt()},true);
 document.addEventListener('click',e=>{const c=e.target.closest&&e.target.closest('.sdgr [data-sg]');if(c){document.querySelectorAll('.sdgr [data-sg]').forEach(x=>x.classList.toggle('on',x==c));sdFilt();return}if(e.target.id=='cfm'){cfClose();return}if(e.target.id=='sdov'){V.sd&&(V.sd.pk=0);document.body.classList.remove('sdo-on');render()}},true);
 document.addEventListener('input',e=>{const t=e.target;if(!t.classList||!t.classList.contains('ts'))return;const c=document.querySelector('.tsl[data-i="'+t.dataset.i+'"]');if(!c)return;const n=Math.min(12,Math.max(0,parseInt(t.value)||0)),bw=!!c.dataset.bw,R=[...c.querySelectorAll('.tsrow')];
  if(n>0){const ck=t.closest('.ck')&&t.closest('.ck').querySelector('.cks');if(ck&&!ck.checked)ck.checked=true}
