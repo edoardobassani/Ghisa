@@ -193,6 +193,7 @@ body.ssm #undo{bottom:150px}
 <button data-a="tab" data-t="n">Dieta</button>
 <button data-a="tab" data-t="pp">Piano pasti</button>
 <button data-a="tab" data-t="p">Corpo</button>
+<button data-a="tab" data-t="o">Obiettivi e misure</button>
 <div id="nvc" class="nb"></div>
 <div id="nth" class="nb"></div>
 <div id="nbk" class="nb"></div>
@@ -675,6 +676,21 @@ function drawPw(){
  const bs=S.h>0?ps.map(p=>({...p,v:Math.round(p.v/Math.pow(S.h/100,2)*10)/10})):[];
  b.innerHTML=bs.length?plot(bs,'BMI'):'<p class="hint">Servono altezza e almeno un peso (tab Corpo).</p>';
 }
+/* ---- Obiettivi e misure: stessi campi (stessi id e azioni) di Corpo, Palestra, Cardio e Dieta, quindi stessi dati ---- */
+function vo(){const ws=[...S.wt].sort((x,y)=>x.d<y.d?1:-1),last=ws[0],bmi=last&&S.h>0?Math.round(last.kg/Math.pow(S.h/100,2)*10)/10:null,GE=gmEff();
+ const dw=(k,t,b)=>`<details id="ob_${k}" ${V.o['ob_'+k]?'open':''}><summary>${t}</summary>${b}</details>`,hs=x=>` <span class="hint">· ${x}</span>`;
+ const lm=[...S.ms].sort((a,b)=>a.d<b.d?1:-1)[0],bl=bfSeries().pop();
+ let h=`<h1>Obiettivi e misure</h1><p class="hint">Peso, misure e obiettivi in un solo posto. Sono gli stessi dati delle sezioni Corpo, Palestra, Cardio e Dieta: se ne cambi uno qui, cambia anche lì, e viceversa.</p>`;
+ h+=dw('wt','Peso e altezza'+(last?hs(last.kg+' kg'+(S.wg?' · obiettivo '+S.wg+' kg':'')):''),
+  `${last?`<p class="hint" style="margin-top:4px">Ultimo peso (${fd(last.d)}): <b>${last.kg} kg</b>${bmi?' · BMI '+bmi:''}${S.wg?' · mancano '+hvNum(Math.round(Math.abs(last.kg-S.wg)*10)/10)+' kg all’obiettivo':''}</p>`:''}<div class="row" style="margin-top:8px"><input type="date" id="pd" value="${V.pd}" aria-label="Data del peso"><input id="pk" inputmode="decimal" placeholder="kg" aria-label="Peso in kg"></div><button class="p" data-a="pa" style="width:100%;margin-bottom:10px">Salva peso</button><div class="row" style="margin-bottom:2px"><label class="hint" for="hh" style="margin:0">Altezza (cm)</label><label class="hint" for="wgi" style="margin:0">Peso obiettivo (kg)</label></div><div class="row"><input id="hh" inputmode="decimal" placeholder="cm" value="${S.h||''}" aria-label="Altezza in cm"><input id="wgi" inputmode="decimal" placeholder="kg" value="${S.wg||''}" aria-label="Peso obiettivo in kg"></div><p class="hint">Altezza e peso obiettivo si salvano appena esci dal campo.</p>`);
+ h+=dw('ms','Misure corporee'+(lm?hs('ultime del '+fd(lm.d)):''),
+  `<p class="hint" style="margin-top:4px">In cm. Puoi compilare solo alcune misure: le altre restano invariate.</p><div class="row"><input type="date" id="msd" value="${V.pd}" aria-label="Data misure"></div><div class="row">${MK.slice(0,3).map(([k,l])=>`<input class="ms" data-k="${k}" inputmode="decimal" placeholder="${l} cm" aria-label="${l} in cm">`).join('')}</div><div class="row">${MK.slice(3).map(([k,l])=>`<input class="ms" data-k="${k}" inputmode="decimal" placeholder="${l} cm" aria-label="${l} in cm">`).join('')}</div><button class="p" data-a="msa" style="width:100%;margin-bottom:10px">Salva misure</button>${msh()}`);
+ h+=dw('bf','Massa grassa stimata'+(bl?hs(hvNum(bl.p)+'%'):''),bfCard().replace('<h2>Massa grassa stimata</h2>',''));
+ h+=dw('gw','Obiettivo palestra'+hs(S.gw?wkGym()+' di '+S.gw+' allenamenti questa settimana':'nessun obiettivo'),gCard('Allenamenti a settimana',{s:'allenamento',p:'allenamenti'},wkGym(),S.gw,'gwi'));
+ h+=dw('gc','Obiettivo cardio'+hs(S.gc?wkCar()+' di '+S.gc+' sessioni questa settimana':'nessun obiettivo'),gCard('Sessioni di cardio a settimana',{s:'sessione',p:'sessioni'},wkCar(),S.gc,'gci'));
+ h+=dw('dt','Obiettivi dieta'+hs(S.goal?S.goal+' kcal al giorno':'nessun obiettivo calorico'),
+  `<div class="row" style="margin-top:8px"><input id="goal" inputmode="numeric" placeholder="Obiettivo kcal" value="${S.goal||''}" aria-label="Obiettivo calorico giornaliero"></div><p class="hint" style="margin:0 0 4px">Obiettivi macro (g al giorno). ${GE.au.p?'Se lasci vuoto, li stimo: <b>P '+GE.au.p+(GE.au.c?' · C '+GE.au.c+' · G '+GE.au.f:'')+' g</b>.':'Per la stima automatica serve almeno un peso.'}</p><div class="row"><input id="gp" inputmode="numeric" placeholder="Proteine" value="${S.gm.p||''}" aria-label="Obiettivo proteine in grammi"><input id="gc" inputmode="numeric" placeholder="Carboidrati" value="${S.gm.c||''}" aria-label="Obiettivo carboidrati in grammi"><input id="gf" inputmode="numeric" placeholder="Grassi" value="${S.gm.f||''}" aria-label="Obiettivo grassi in grammi"></div>${tdCard()}`);
+ return h}
 function vp(){
  const ws=[...S.wt].sort((x,y)=>x.d<y.d?1:-1),last=ws[0];
  const B=k=>S.h>0?Math.round(k/Math.pow(S.h/100,2)*10)/10:null;
@@ -952,6 +968,7 @@ function vr(){
  GR('piano','Piano pasti e spesa',`<ul><li>Nella tab <b>Piano pasti</b> scegli un giorno della settimana e componi i quattro pasti con un <b>preferito</b> (anche ×0,5, ×1,5, ×2) o con un <b>alimento</b> in grammi. Vedi subito calorie e macro contro i tuoi obiettivi.</li><li><b>Copia in altri giorni</b> ripete un giorno su quelli che scegli. <b>Applica al diario</b> aggiunge i pasti al giorno corrispondente della settimana in corso.</li><li><b>Spesa</b>: somma gli alimenti di tutta la settimana o dei giorni scelti, divisi per categoria. Riso e pasta cotti sono convertiti in peso a crudo. Spunta quello che hai comprato; «Copia come testo» ti dà la lista da incollare.</li></ul>`)+
  GR('barcode','Codice a barre',`<ul><li>In <b>Dieta → Aggiungi pasto</b> tocca «Scansiona codice a barre» e inquadra il prodotto: se il codice è già tra i tuoi alimenti lo trovo subito, altrimenti lo cerco su <b>Open Food Facts</b> (serve internet) e ti mostro nome e valori per 100 g da controllare.</li><li>Se il prodotto non c’è o sei offline, scrivi i valori dall’etichetta: li collego al codice e dalla volta dopo basta scansionare, anche <b>senza rete</b>.</li><li>La lettura dalla fotocamera funziona solo nell’<b>app installata</b> (Chrome su Android); nell’anteprima dentro Claude puoi scrivere le cifre a mano. In alternativa scrivi il codice nella casella.</li><li>I valori di Open Food Facts li inseriscono gli utenti: confrontali con l’etichetta. Se calorie e macro non tornano ti avviso.</li><li>Dati © contributori di Open Food Facts, licenza ODbL (openfoodfacts.org).</li></ul>`)+
  GR('cardio','Cardio',`<ul><li>Gli <b>obiettivi macro</b> in Dieta si stimano da soli (peso, stile di vita scelto nel Fabbisogno e calorie); scrivendo un tuo valore lo sostituisci, svuotando il campo torna l’automatico.</li><li>Nell’elenco alimenti il tasto <b>▾</b> mostra il rapporto tra i macro e i micronutrienti (sodio, potassio, calcio, magnesio, ferro, zinco, vitamine C, B12 e D) per 100 g. Per ${Object.keys(MS).length} alimenti su 210 sono verificati su tabelle USDA o INRAN (la fonte è indicata nel pannello); gli altri sono stime non verificate. “n.d.” = dato non riportato dalla fonte.</li><li>In <b>Dieta</b> ogni alimento di un pasto ha il tasto <b>Modifica</b> (grammi e pasto) e ogni pasto ha “+ Aggiungi alimento”.</li><li>I <b>grafici</b> si aprono sugli ultimi 3 mesi; con 1M, 3M, 6M, Tutto o lo zoom cambi la vista.</li><li>Le <b>kcal</b> si calcolano da sole (attività, durata, distanza e peso); se hai un dato più preciso scrivilo nel campo e sostituisce la stima. Le stime nello storico hanno il simbolo ~.</li><li>Nello <b>Storico</b> tocca <b>Modifica</b> per cambiare data, attività, durata, km, kcal o note di una sessione.</li><li>In alto scegli l’<b>obiettivo settimanale</b> di sessioni cardio: la barra segue le sessioni di questa settimana e il dato compare anche in Home.</li><li>Nella tab <b>Cardio</b> scegli data e attività (corsa, camminata, bici…) e inserisci i minuti; distanza, calorie e note sono facoltative.</li><li>Se indichi sia minuti sia km l’app calcola il <b>ritmo</b> (minuti al km).</li><li>In alto vedi il riepilogo della settimana (da lunedì). Il grafico mostra minuti o km per giorno e si può filtrare per attività; come gli altri grafici si può ingrandire e spostare.</li><li>Le sessioni di oggi compaiono anche nella Home. Per eliminarne una tocca ×.</li></ul>`)+
+ GR('obm','Obiettivi e misure',`<p>Raccoglie in un posto i dati di peso, misure e obiettivi: peso e altezza con peso obiettivo, misure corporee, massa grassa stimata, obiettivo settimanale di palestra e di cardio, obiettivi di calorie e macro e fabbisogno giornaliero.</p><p>Non sostituisce le altre sezioni: usa gli stessi dati. Un peso salvato qui compare in Corpo e nei Grafici, un obiettivo cambiato qui si vede in Palestra, Cardio o Dieta, e viceversa.</p><p>I menu si aprono chiusi; il titolo mostra già il valore principale.</p>`)+
  GR('peso','Peso e misure',`<ul><li><b>Massa grassa</b>: serve l’altezza, il sesso (si imposta lì stesso) e le misure di <b>collo</b> e <b>vita</b> (per le donne anche i <b>fianchi</b>), in cm. L’app usa la formula della Marina USA: l’errore tipico è di 3–4 punti percentuali, quindi guarda soprattutto l’andamento nel tempo.</li><li>Inserisci l’altezza e, se vuoi, un peso obiettivo. Poi registra le misurazioni: se ne salvi due nello stesso giorno vale l’ultima.</li><li>Il <b>BMI</b> è calcolato dall’app (peso diviso altezza al quadrato). È un valore indicativo: non distingue massa muscolare e grasso.</li><li><b>Misure corporee</b>: scegli la data, compila quelle che vuoi (anche solo una) e salva. Se riusi la stessa data, le misure si aggiungono a quelle già presenti.</li></ul>`)+
  GR('menu','Menu e ricerca',`<ul><li>Il menu delle sezioni si apre con ☰ in alto a sinistra oppure <b>strisciando dal bordo sinistro</b> dello schermo verso destra (sui dispositivi touch). Per chiuderlo striscia verso sinistra o tocca fuori.</li><li>In cima al menu c’è la <b>ricerca</b>: scrivi il nome di un esercizio, di una scheda, di un alimento o di una sezione. Un esercizio apre i suoi grafici, una scheda apre Schede, un alimento apre Dieta già selezionato.</li><li><b>Riordinare i menu</b>: in ogni sezione tocca ⚙ accanto al titolo e conferma «Sì, sposta ordine». Sopra ogni menu compare una barra con la maniglia ⠿: tienila premuta e trascina; i contenuti restano visibili ma non rispondono ai tocchi. Tocca Fine per terminare: l’ordine resta salvato.</li><li><b>Ordine delle sezioni nel menu</b>: apri ☰, tocca «⚙ Riordina sezioni», conferma e trascina ⠿ di ogni voce. Tocca Fine per salvare.</li></ul>`)+
  GR('foto','Foto di progresso',`<ul><li>Nella tab <b>Corpo</b>, sezione “Foto di progresso”, scegli la data e la posa (Fronte, Lato, Retro), poi “Scatta o scegli foto”. La foto viene ridimensionata e salvata solo su questo dispositivo.</li><li>Per confronti utili usa sempre la stessa posa, la stessa luce e la stessa ora del giorno.</li><li><b>Promemoria mensile</b>: dal primo lunedì del mese, finché non salvi una foto, compare un avviso nella Home e un puntino accanto a “Corpo”. “Salta questo mese” lo nasconde fino al mese dopo. Il promemoria compare solo quando apri l’app.</li><li><b>Confronto</b>: scegli due date con la stessa posa. Con <b>Cursore</b> trascini una linea sull’immagine (o usi la barra sotto) per vedere “prima” e “dopo” sovrapposte; con <b>Affiancate</b> le vedi una accanto all’altra.</li></ul>`)+
@@ -1059,7 +1076,7 @@ function vss(){
  <div class="ssb"><button class="g" data-a="ssp" ${i==0?'disabled':''}>‹ Precedente</button><button class="p" data-a="ssn">${lastEx?'Termina seduta':'Successivo ›'}</button></div>`;
 }
 
-const NVT=['h','w','c','s','e','g','n','pp','p'];
+const NVT=['h','w','c','s','e','g','n','pp','p','o'];
 function navOrd(){
  const nav=$('nav'),ctl=$('#nvc');if(!nav||!ctl)return;
  nav.querySelectorAll('.nvb').forEach(x=>x.remove());
@@ -1079,9 +1096,9 @@ function render(){
  try{if(V.ss)localStorage.setItem('ghisa-ss',JSON.stringify(V.ss));else localStorage.removeItem('ghisa-ss')}catch(e){}
  {const nf=document.querySelector('nav [data-t="p"]');if(nf)nf.textContent=phDue()?'Corpo •':'Corpo';const mb=$('#mb');if(mb)mb.classList.toggle('dot',!!phDue())}
  navOrd();
- $('#v').innerHTML={w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,pp:vpp}[V.tab]();ordApply();
+ $('#v').innerHTML=({w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,pp:vpp,o:vo}[V.tab]||vh)();ordApply();
  if(V.tab=='r')grFilter();
- if(V.tab=='p')drawBf();
+ if(V.tab=='p'||V.tab=='o')drawBf();
  if(V.tab=='g'){draw();drawVol();drawPw();drawMs();drawCd();drawCdW();drawKc()}if(V.tab=='n'){drawKc();pzUpd()}if(V.tab=='c'){drawCd();cdUpd()}
 }
 
@@ -1243,7 +1260,7 @@ document.addEventListener('click',e=>{
 const nrm=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function gsearch(q){
  q=nrm(q.trim());const nv=$('nav'),box=$('#gsr');nv.classList.toggle('srch',!!q);if(!q){box.innerHTML='';return}
- const sec=[['h','Home'],['w','Palestra'],['c','Cardio'],['s','Schede'],['e','Esercizi'],['g','Grafici'],['n','Dieta'],['p','Corpo (peso, misure, foto)']].filter(x=>nrm(x[1]).includes(q)),
+ const sec=[['h','Home'],['w','Palestra'],['c','Cardio'],['s','Schede'],['e','Esercizi'],['g','Grafici'],['n','Dieta'],['p','Corpo (peso, misure, foto)'],['o','Obiettivi e misure']].filter(x=>nrm(x[1]).includes(q)),
  ex=S.ex.filter(e=>nrm(e.name).includes(q)||nrm(e.g||'').includes(q)).slice(0,8),sc=S.sch.filter(x=>nrm(x.name).includes(q)).slice(0,6),fl2=allF().filter(f=>nrm(f.name).includes(q)).slice(0,10),
  it=(k,i,t,sub)=>`<button class="sr" data-a="gsr" data-k="${k}" data-i="${i}"><span>${esc(t)}</span>${sub?`<small>${esc(sub)}</small>`:''}</button>`,
  sect=(t,l)=>l.length?`<h3>${t}</h3>`+l.join(''):'';
