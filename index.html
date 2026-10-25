@@ -197,6 +197,7 @@ details.hsx{border:1px solid var(--line);border-radius:10px;padding:8px 10px;mar
 .fcu{margin:6px 0 10px}.fcu .fdl{color:var(--bad);border-color:var(--bad)}
 .ndb{display:flex;gap:8px;align-items:center;margin:0 0 4px}.ndb input{flex:1;min-width:0;margin:0}.ndb button{flex:0 0 auto;width:46px;font-size:20px;padding:6px 0}.ndl{margin:0 0 12px;text-align:center}
 .obs{font-weight:600;margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--line);display:flex;align-items:center;gap:6px}details>.obs:first-of-type,.obs:first-child{border-top:0;padding-top:4px}.obg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:4px 0 6px}.obt{background:var(--bg);border-radius:8px;padding:8px 10px}.obt .hint{display:block;margin:0;font-size:12px}.obt b{font-size:18px}.obb{display:flex;flex-direction:column;align-items:center;line-height:1.2;padding:8px 4px}.obb b{font-size:15px}.obk{align-items:center}.obk label{flex:0 0 auto;margin:0}.obk input{max-width:120px}.obk .hint{flex:0 0 auto;margin:0}
+.adr{margin:8px 0 0}.adr .lk{font-size:inherit}
 #toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;opacity:0;transition:opacity .2s;pointer-events:none}
 #toast.on{opacity:1}
 @media (prefers-reduced-motion:reduce){#toast{transition:none}}
@@ -762,12 +763,16 @@ function vp(){
  const ws=[...S.wt].sort((x,y)=>x.d<y.d?1:-1),last=ws[0];
  const B=k=>S.h>0?Math.round(k/Math.pow(S.h/100,2)*10)/10:null;
  const cat=b=>b<18.5?'sottopeso':b<25?'normopeso':b<30?'sovrappeso':'obesità';
- let h=`<h1>Corpo</h1>`+phCard()+`<div class="card"><h2>Altezza e obiettivo</h2><div class="row" style="margin:10px 0 2px"><label class="hint" for="hh" style="margin:0">Altezza (cm)</label><label class="hint" for="wgi" style="margin:0">Peso obiettivo (kg)</label></div><div class="row"><input id="hh" inputmode="decimal" placeholder="cm" value="${S.h||''}" aria-label="Altezza in cm"><input id="wgi" inputmode="decimal" placeholder="kg" value="${S.wg||''}" aria-label="Peso obiettivo in kg"></div>${S.h?'':'<p class="hint">Inserisci l’altezza per calcolare il BMI.</p>'}</div>`;
- if(last){const b=B(last.kg);h+=`<div class="card"><h2>${last.kg} kg${b?` · BMI ${b}`:''}</h2><p class="hint">${fd(last.d)}${b?' · '+cat(b)+'. ⓘ BMI = peso / altezza², classi dell’OMS. Valore indicativo: non distingue massa muscolare e grasso.':''}</p></div>`}
- h+=trCard();
+ let h=`<h1>Corpo</h1>`+phCard();
+ {const T=wTr(),L=T[T.length-1],p=L?T.filter(x=>x.d<=hvAdd(L.d,-7)).pop():null,wr=p?(L.tr-p.tr)/((L.t-p.t)/DAY)*7:null,b=last?B(last.kg):null,e=adShow();
+  h+=`<div class="card" data-bn="Peso"><h2>Peso</h2>${last?`<div class="obg" style="margin-top:8px"><div class="obt"><span class="hint">Ultimo peso · ${fd(last.d)}</span><b>${nI(last.kg)} kg</b><span class="hint">${b?'BMI '+nI(b)+' · '+cat(b):'BMI: serve l’altezza'}</span></div><div class="obt"><span class="hint">Tendenza</span><b>${T.length>1?nI(Math.round(L.tr*10)/10)+' kg':'–'}</b><span class="hint">${wr!=null?sgn(wr)+' kg nell’ultima settimana':'servono più pesi'}</span></div></div>`:'<p class="hint">Registra il primo peso qui sotto.</p>'}
+  ${e?`<p class="hint adr">Nuovo obiettivo calorico proposto: <b>${NF1.format(e.tg)} kcal</b>. <button class="lk" data-a="tab" data-t="n">Vedi in Dieta ›</button></p>`:''}
+  <div class="row" style="margin-top:10px"><input type="date" id="pd" value="${V.pd}" aria-label="Data del peso"><input id="pk" inputmode="decimal" placeholder="kg" aria-label="Peso in kg"></div><button class="p" data-a="pa" style="width:100%">Salva peso</button>
+  <div class="row" style="margin:12px 0 2px"><label class="hint" for="hh" style="margin:0">Altezza (cm)</label><label class="hint" for="wgi" style="margin:0">Peso obiettivo (kg)</label></div><div class="row"><input id="hh" inputmode="decimal" placeholder="cm" value="${S.h||''}" aria-label="Altezza in cm"><input id="wgi" inputmode="decimal" placeholder="kg" value="${S.wg||''}" aria-label="Peso obiettivo in kg"></div>
+  <p class="hint">ⓘ BMI = peso / altezza², classi dell’OMS: indicativo, non distingue muscolo e grasso. Tendenza: media mobile esponenziale al 10% al giorno («The Hacker’s Diet»): guarda questa, non il singolo peso.</p></div>`}
  h+=bfCard();
- h+=`<div class="card"><h2>Nuova misurazione</h2><div class="row" style="margin-top:10px"><input type="date" id="pd" value="${V.pd}" aria-label="Data"><input id="pk" inputmode="decimal" placeholder="kg" aria-label="Peso in kg"></div><button class="p" data-a="pa" style="width:100%">Salva peso</button></div><div class="card"><h2>Misure corporee</h2>${msBody()}<button class="p" data-a="msa" style="width:100%">Salva misure</button></div>${msh()}`;
- if(ws.length)h+=`<details id="dPs" ${V.o.dPs?'open':''}><summary>Storico (${ws.length})</summary>`+ws.map(w=>{const b=B(w.kg);return `<div class="set"><span>${fd(w.d)}/${w.d.slice(2,4)} · <b>${w.kg} kg</b>${b?` <span class="hint">BMI ${b}</span>`:''}</span><button class="x" data-a="pdl" data-i="${w.id}" aria-label="Elimina">×</button></div>`}).join('')+`</details>`;
+ h+=`<div class="card"><h2>Misure corporee</h2>${msBody()}<button class="p" data-a="msa" style="width:100%">Salva misure</button></div>${msh()}`;
+ if(ws.length)h+=`<details id="dPs" ${V.o.dPs?'open':''}><summary>Storico pesi (${ws.length})</summary>`+ws.map(w=>{const b=B(w.kg);return `<div class="set"><span>${fd(w.d)}/${w.d.slice(2,4)} · <b>${w.kg} kg</b>${b?` <span class="hint">BMI ${b}</span>`:''}</span><button class="x" data-a="pdl" data-i="${w.id}" aria-label="Elimina">×</button></div>`}).join('')+`</details>`;
  return h+vfb();
 }
 
