@@ -1035,7 +1035,7 @@ function av7(){
  const end=new Date(V.nd+'T12:00:00'),ds=[];
  for(let i=0;i<7;i++){const x=new Date(end);x.setDate(x.getDate()-i);ds.push(x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate()))}
  const act=ds.filter(d=>S.meal.some(m=>m.d==d));
- let h=`<h2 style="margin:18px 0 8px">Media ultimi 7 giorni</h2><div class="card">`;
+ let h=`<div class="card">`;
  if(!act.length)return h+'<p class="hint">Nessun pasto registrato negli ultimi 7 giorni.</p></div>';
  const T={k:0,p:0,c:0,g:0};S.meal.filter(m=>act.includes(m.d)).forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g});
  const n=act.length,R=Math.round;
