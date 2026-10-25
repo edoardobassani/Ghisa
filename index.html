@@ -1327,7 +1327,7 @@ function vss(){
   return `<div class="ssq"><button class="lk" data-a="ssp" ${i==0?'disabled':''}>‹ Esercizio precedente</button><button class="lk" data-a="ssn">${lastEx?'Termina seduta':'Salta a: '+esc(nm(ids[i+1]))+' ›'}</button></div>`})()}`;
 }
 
-const NVT=['h','w','c','s','e','g','n','pp','p','o'];
+const NVT=['h','o','e','s','w','c','pp','n','g','p'];
 function navOrd(){
  const nav=$('nav'),ctl=$('#nvc');if(!nav||!ctl)return;
  nav.querySelectorAll('.nvb').forEach(x=>x.remove());
@@ -1366,7 +1366,7 @@ document.addEventListener('click',e=>{
  if(a!='fab')V.fab=false;
  if(a=='tab'&&V.nvm&&b.parentElement.tagName=='NAV')return;
  if(['rtpp','ppaf','ppag','ppdl','ppcl','ppcp','pmcp'].includes(a))mpMat();
- if(a=='tab'){if(b.dataset.t=='w')V.wv='';V.tab=b.dataset.t;V.del='';V.ordm='';V.ordq='';if(V.rt&&V.rt.pp){RV.on=false;if(REC){const r=REC;REC=null;try{r.abort()}catch(e){}}V.rt=null}}
+ if(a=='tab'){if(b.dataset.t=='r'&&V.tab!='r'){const k={h:'oggi',w:'allena',ss:'seduta',s:'schede',e:'esercizi',g:'grafici',n:'dieta',pp:'piano',c:'cardio',o:'obm',p:'peso'}[V.tab];Object.keys(V.o).forEach(x=>{if(x.startsWith('gr_'))delete V.o[x]});V.grq='';if(k){V.o['gr_'+k]=true;setTimeout(()=>{const d=$('#gr_'+k);if(d)d.scrollIntoView({block:'start'});window.scrollBy(0,-70)},30)}}if(b.dataset.t=='w')V.wv='';V.tab=b.dataset.t;V.del='';V.ordm='';V.ordq='';if(V.rt&&V.rt.pp){RV.on=false;if(REC){const r=REC;REC=null;try{r.abort()}catch(e){}}V.rt=null}}
  else if(a=='mxt'){const on=b.getAttribute('aria-pressed')!='true';b.setAttribute('aria-pressed',on);b.classList.toggle('p',on);b.classList.toggle('g',!on);const i=b.parentElement.querySelector('.tr,.rp,#ssr');if(i){if(i.classList.contains('tr')){i.disabled=on;if(on)i.value='';i.placeholder=on?'max':'rip.'}else i.placeholder=on?'rip. fatte':'rip.'}return}
  else if(a=='sfb'){document.body.classList.add('mo');$('#mb').setAttribute('aria-expanded','true');const x=document.querySelector('nav [data-a="bkx"]');if(x)x.scrollIntoView({block:'center'});return}
  else if(a=='th'){S.th=b.dataset.v;applyTh();save()}
