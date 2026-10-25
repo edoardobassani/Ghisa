@@ -537,19 +537,30 @@ function rtSpoken(t){let s=' '+String(t).replace(/\s+/g,' ')+' ';
  const out=[];s.split('\n').forEach(seg=>{const w=seg.trim().split(' ').filter(Boolean);let cur=[];w.forEach((x,i)=>{if(cur.length&&q.test(x)&&!(i>0&&/^(di|del|della|con|da|in)$/i.test(w[i-1])&&!/^\d/.test(x))&&cur.some(y=>!q.test(y)&&!pre.test(y))){out.push(cur);cur=[]}cur.push(x)});if(cur.length)out.push(cur)});
  const qb=/^(.*\S)\s+(\S+)\s+(quanto basta|a piacere|q\.? ?b\.?)$/i;
  return out.map(c=>c.join(' ').replace(/^(e|ed)\s+/i,'').replace(/\s+(e|ed)$/i,'').trim()).filter(Boolean).flatMap(x=>{const m=x.match(qb);return m&&q.test(m[1].split(' ')[0])&&m[1].split(' ').length>1?[m[1],m[2]+' '+m[3]]:[x]}).map(x=>x[0].toUpperCase()+x.slice(1))}
-function rtVoice(){const T=V.rt;if(REC){try{REC.stop()}catch(e){}return}
+/* Dettatura a frasi: una sessione breve per volta, riavviata finché l'utente non tocca Fine.
+   Chrome su Android ripete i risultati nelle sessioni continue: si tiene solo la versione più lunga di ogni frase. */
+const RV={on:false,fin:[],cur:'',quiet:0,err:''};
+function rvMerge(list){let o='';list.forEach(t=>{t=String(t||'').trim();if(!t)return;const lo=o.toLowerCase(),lt=t.toLowerCase();if(!o||lt.startsWith(lo))o=t;else if(lo.endsWith(lt)||lo.includes(lt))return;else o+=' '+t});return o}
+function rvDedup(t){let w=String(t).trim().split(/\s+/).filter(Boolean);for(let n=4;n>=1;n--){const r=[];for(let i=0;i<w.length;){const a=w.slice(i,i+n).join(' ').toLowerCase(),p=r.slice(-n).join(' ').toLowerCase();if(r.length>=n&&i+n<=w.length&&a==p){i+=n;continue}r.push(w[i]);i++}w=r}return w.join(' ')}
+function rvText(){return rvDedup([...RV.fin,RV.cur].filter(Boolean).join(' '))}
+function rvShow(it){const x=$('#rtvi');if(x)x.textContent=rvDedup([rvText(),it||''].join(' '))||'In ascolto… elenca gli ingredienti con le quantità, poi tocca Fine.'}
+function rvSession(){if(!RV.on)return;let rec;try{rec=new SRC()}catch(x){RV.on=false;return rvFinish('start')}
+ REC=rec;rec.lang='it-IT';rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;RV.cur='';
+ rec.onresult=ev=>{const all=Array.from(ev.results),fin=all.filter(r=>r.isFinal).map(r=>r[0].transcript),it=all.filter(r=>!r.isFinal).map(r=>r[0].transcript);if(fin.length)RV.cur=rvMerge([RV.cur,...fin]);rvShow(rvMerge(it))};
+ rec.onerror=ev=>{RV.err=ev.error;if(['not-allowed','service-not-allowed','audio-capture','network','language-not-supported'].includes(ev.error))RV.on=false};
+ rec.onend=()=>{if(REC===rec)REC=null;const c=RV.cur.trim();RV.cur='';if(c){const last=RV.fin[RV.fin.length-1]||'';if(c.toLowerCase()!=last.toLowerCase())RV.fin.push(c);RV.quiet=0}else RV.quiet++;
+  if(RV.err=='no-speech'||RV.err=='aborted')RV.err='';
+  if(RV.on&&RV.quiet<3&&V.rt){setTimeout(rvSession,120);return}
+  RV.on=false;rvFinish()};
+ try{rec.start()}catch(x){REC=null;RV.on=false;rvFinish('start')}}
+function rvFinish(why){const T=V.rt,txt=rvText(),er=why||RV.err;RV.fin=[];RV.cur='';RV.err='';RV.quiet=0;if(!T)return;T.lis=false;
+ if(txt){const L=rtSpoken(txt);T.txt=(T.txt.trim()?T.txt.trim()+'\n':'')+L.join('\n');T.rows=T.txt.split(/\n+/).map(rtParse).filter(Boolean);V.del='';toast(L.length+(L.length==1?' riga aggiunta':' righe aggiunte'))}
+ else toast(er=='not-allowed'||er=='service-not-allowed'?'Microfono non consentito: permettilo nelle impostazioni del sito (nell’anteprima di Claude non funziona)':er=='network'?'Per la dettatura serve la connessione':er=='start'?'Impossibile avviare la dettatura':er&&er!='no-speech'?'Dettatura interrotta ('+er+')':'Non ho sentito nulla: riprova');
+ render()}
+function rtVoice(){const T=V.rt;
+ if(RV.on||REC){RV.on=false;if(REC){try{REC.stop()}catch(e){}}else rvFinish();return}
  if(!SRC)return toast('La dettatura non è disponibile in questo browser');
- const e=$('#rtt');if(e)T.txt=e.value;let fin='';
- try{REC=new SRC()}catch(x){REC=null;return toast('Impossibile avviare la dettatura')}
- REC.lang='it-IT';REC.continuous=true;REC.interimResults=true;
- REC.onresult=ev=>{let it='';for(let i=ev.resultIndex;i<ev.results.length;i++){const r=ev.results[i];if(r.isFinal)fin+=' '+r[0].transcript;else it+=r[0].transcript}const x=$('#rtvi');if(x)x.textContent=(fin+' '+it).trim()||'In ascolto…'};
- REC.onerror=ev=>{if(V.rt)V.rt.lerr=ev.error};
- REC.onend=()=>{REC=null;const T=V.rt;if(!T)return;T.lis=false;const er=T.lerr;T.lerr='';
-  if(fin.trim()){const L=rtSpoken(fin);T.txt=(T.txt.trim()?T.txt.trim()+'\n':'')+L.join('\n');T.rows=T.txt.split(/\n+/).map(rtParse).filter(Boolean);V.del='';toast(L.length+(L.length==1?' riga aggiunta':' righe aggiunte'))}
-  else if(er)toast(er=='not-allowed'||er=='service-not-allowed'?'Microfono non consentito: permettilo nelle impostazioni del sito (nell’anteprima di Claude non funziona)':er=='network'?'Per la dettatura serve la connessione':er=='no-speech'?'Non ho sentito nulla: riprova':'Dettatura interrotta ('+er+')');
-  else toast('Non ho sentito nulla: riprova');
-  render()};
- try{REC.start();T.lis=true;render()}catch(x){REC=null;toast('Impossibile avviare la dettatura')}}
+ const e=$('#rtt');if(e)T.txt=e.value;RV.on=true;RV.fin=[];RV.cur='';RV.err='';RV.quiet=0;T.lis=true;render();rvSession()}
 function rtCard(){const T=V.rt;let h=`<div class="card" id="rtf" style="margin-top:8px;background:var(--bg)"><h2>Ricetta da testo o a voce</h2><p class="hint">Incolla l’elenco degli ingredienti, uno per riga, anche copiato da un sito o da un messaggio, oppure dettalo. Le righe con «q.b.» vengono ignorate.</p><div class="row"><input id="rtn" placeholder="Nome ricetta" value="${esc(T.n)}" aria-label="Nome ricetta"></div><textarea id="rtt" rows="6" placeholder="320 g pasta&#10;1 scatoletta di tonno al naturale&#10;200 g pomodorini&#10;2 cucchiai di olio evo" aria-label="Elenco degli ingredienti">${esc(T.txt)}</textarea>${SRC?`<button class="${T.lis?'p':'g'}" data-a="rtv" style="width:100%;margin-top:8px" aria-pressed="${!!T.lis}">${T.lis?'■ Fine dettatura':'🎤 Detta gli ingredienti'}</button>${T.lis?'<p class="hint" id="rtvi" role="status" aria-live="polite" style="margin-top:6px">In ascolto… elenca gli ingredienti con le quantità, poi tocca Fine.</p>':''}`:'<p class="hint" style="margin-top:6px">Per dettare usa il microfono della tastiera dentro il riquadro.</p>'}<button class="${T.rows?'g':'p'}" data-a="rtp" style="width:100%;margin-top:8px">${T.rows?'Rileggi il testo':'Riconosci gli ingredienti'}</button>`;
  if(T.rows)h+=`<p class="hint" style="margin-top:10px">✓ riconosciuto · ? da controllare · ✕ non trovato. Pesi a crudo.</p><div id="rtr">${T.rows.map(rtRow).join('')}</div><div class="row" style="margin-top:8px"><input id="rtw" inputmode="decimal" placeholder="Peso finale cotto (g)" value="${esc(T.w)}" aria-label="Peso finale cotto in grammi, facoltativo"><input id="rtz" inputmode="numeric" placeholder="Porzioni" value="${esc(T.pn)}" aria-label="Numero di porzioni"></div><div id="rts">${rtSum()}</div><div class="row" style="margin-top:8px"><button class="${V.del=='rts'?'x arm':'p'}" data-a="rts">${V.del=='rts'?'Salva senza le righe incomplete':'Salva ricetta'}</button><button class="g" data-a="rte">Apri nell’editor</button></div>`;
  return h+`<button class="g" data-a="rtx" style="width:100%;margin-top:8px">Annulla</button></div>`}
@@ -1194,7 +1205,7 @@ document.addEventListener('click',e=>{
  else if(a=='rtp'){const T=V.rt,e=$('#rtt');T.txt=e?e.value:T.txt;const L=T.txt.split(/\n+/).map(rtParse).filter(Boolean);if(!L.length)return toast('Incolla almeno un ingrediente');T.rows=L;V.del='';if(!T.n.trim()){const nm2=($('#rtn')||{}).value;if(nm2)T.n=nm2}render();return}
  else if(a=='rtd'){V.rt.rows.splice(+id,1);V.del=''}
  else if(a=='rtv'){rtVoice();return}
- else if(a=='rtx'){if(REC){try{REC.abort()}catch(e){}REC=null}V.rt=null;V.del=''}
+ else if(a=='rtx'){RV.on=false;RV.fin=[];RV.cur='';if(REC){const r=REC;REC=null;try{r.abort()}catch(e){}}V.rt=null;V.del=''}
  else if(a=='rts'){const T=V.rt,it=rtIt(),miss=T.rows.filter(r=>r.st!='ign'&&!(r.f&&parseFloat(String(r.g).replace(',','.'))>0)).length;if(!T.n.trim())return toast('Dai un nome alla ricetta');if(!it.length)return toast('Nessun ingrediente completo');if(miss&&V.del!='rts'){V.del='rts';return render()}const pz=rtPz();if(!rcStore({n:T.n,it,w:T.w,pz:pz||''}))return;V.rt=null;V.del='';toast('Ricetta salvata')}
  else if(a=='rte'){const T=V.rt,pz=rtPz();V.rc={n:T.n,it:rtIt(),w:T.w,pz:pz?String(pz):'',q:'',f:'',g:''};V.rt=null;V.del=''}
  else if(a=='nvq'){V.nvq=true}
