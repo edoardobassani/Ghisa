@@ -153,7 +153,7 @@ td:first-child,th:first-child{text-align:left}
 .hvc.today{border-color:var(--hi);box-shadow:0 0 0 3px color-mix(in srgb,var(--hi) 30%,transparent)}
 .hvc.today:not(.ok){color:var(--ink)}
 .hvc.rest{border-color:transparent;color:var(--line)}
-.hvcd{width:8px;height:8px;border-radius:50%;background:var(--c3)}.hvcd.no{background:transparent}
+.hvcd{width:8px;height:8px;border-radius:50%;background:var(--c3)}.hvcd.no{background:transparent}.hvcd.pl{background:transparent;box-shadow:inset 0 0 0 2px var(--c3)}.hvcd.ms{background:transparent;box-shadow:inset 0 0 0 1.5px var(--mut);opacity:.6}.hvn{text-align:right;white-space:nowrap;line-height:1.35}
 .hvleg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut)}
 .hvleg span{display:inline-flex;align-items:center;gap:5px}.hvleg i{width:10px;height:10px;border-radius:50%;display:inline-block}
 .hvst{display:flex;align-items:center;gap:12px;justify-content:space-between}
@@ -1529,9 +1529,9 @@ function vh(){
  /* settimana */
  const days=[0,1,2,3,4,5,6].map(i=>{const d=hvAdd(mon,i),pl=S.sch.find(x=>x.id==plId(i)),done=wd.has(d),td=d==t;let st,tx;
   if(done){st='ok';tx='✓'}else if(pl){st=td?'today':d>t?'':'miss';tx=pl.name[0].toUpperCase()}else{st=td?'today':'rest';tx='–'}
-  if(td&&done)st='ok today';return{l:DN[i][0],st,tx,c:cdd.has(d),done}});
+  if(td&&done)st='ok today';const cpd=!!(S.cpr&&cpCur()&&S.cpr.days.includes(i)&&d>=(S.cpr.start||''));return{l:DN[i][0],st,tx,c:cdd.has(d)?'':cpd?(d<t?'ms':'pl'):'no',done,cpd}});
  const nd=days.filter(x=>x.done).length;
- h+=`<div class="card hv"><div class="hvst"><h2>Questa settimana</h2><span class="hint">${np?nd+' di '+np+' allenamenti':nd+' allenament'+(nd==1?'o':'i')}</span></div><div class="hvwk">${days.map(x=>`<div class="hvd"><small>${x.l}</small><div class="hvc ${x.st}">${x.tx}</div><div class="hvcd ${x.c?'':'no'}"></div></div>`).join('')}</div><div class="hvleg"><span><i style="background:var(--acc)"></i>Fatto</span><span><i style="border:2px dashed var(--line)"></i>Saltato</span><span><i style="background:var(--c3)"></i>Cardio</span></div></div>`;
+ h+=`<div class="card hv"><div class="hvst"><h2>Questa settimana</h2><span class="hint hvn">${np?nd+' di '+np+' allenamenti':nd+' allenament'+(nd==1?'o':'i')}${S.cpr&&cpCur()?'<br>'+days.filter(x=>x.cpd&&x.c=='').length+' di '+days.filter(x=>x.cpd).length+' cardio':''}</span></div><div class="hvwk">${days.map(x=>`<div class="hvd"><small>${x.l}</small><div class="hvc ${x.st}">${x.tx}</div><div class="hvcd ${x.c}"></div></div>`).join('')}</div><div class="hvleg"><span><i style="background:var(--acc)"></i>Fatto</span><span><i style="border:2px dashed var(--line)"></i>Saltato</span><span><i style="background:var(--c3)"></i>Cardio</span>${S.cpr&&cpCur()?'<span><i style="box-shadow:inset 0 0 0 2px var(--c3)"></i>Cardio previsto</span>':''}</div></div>`;
  /* costanza */
  if(S.log.length){
   const tg=Math.max(1,np),wkn=m=>{let n=0;for(let i=0;i<7;i++)if(wd.has(hvAdd(m,i)))n++;return n};
