@@ -64,6 +64,10 @@ details details summary{font-size:17px}
 .fin{background:var(--card);padding:10px 8px 12px;border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:8px}
 .fin p{margin:0}
 .fbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}
+.fpie{display:flex;align-items:center;gap:16px;margin:8px 0}
+.fpie .pie{flex:0 0 96px;height:96px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line)}
+.fpie .fleg{flex-direction:column;gap:6px;font-size:14px}
+.fpie .fleg b{color:var(--fg,inherit)}
 .fbar i{display:block;min-width:2px}
 .fleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--mut)}
 .fleg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
@@ -1770,7 +1774,7 @@ function fSrc(f){const x=MS[f.name];return `<p class="hint">Fonte: ${esc(x[0])}$
 function fInfo(f){
  const P=f.p*4,C=f.c*4,G=f.f*9,T=P+C+G||1,pc=v=>Math.round(v/T*100),z=FZ[f.name],m=MC[f.name];
  const seg=(v,col)=>v>0?`<i style="flex:${v};background:${col}"></i>`:'';
- let h=`<div class="fin"><b>Rapporto tra i macro</b> <span class="hint">(% delle calorie, per 100 g)</span><div class="fbar" role="img" aria-label="Proteine ${pc(P)}%, carboidrati ${pc(C)}%, grassi ${pc(G)}%">${seg(P,'var(--acc)')}${seg(C,'var(--hi)')}${seg(G,'var(--c3)')}</div><div class="fleg"><span><i style="background:var(--acc)"></i>Proteine ${f.p} g · ${pc(P)}%</span><span><i style="background:var(--hi)"></i>Carboidrati ${f.c} g · ${pc(C)}%</span><span><i style="background:var(--c3)"></i>Grassi ${f.f} g · ${pc(G)}%</span></div>`;
+ let h=`<div class="fin"><b>Rapporto tra i macro</b> <span class="hint">(% delle calorie, per 100 g)</span><div class="fpie"><div class="pie" role="img" aria-label="Proteine ${pc(P)}%, carboidrati ${pc(C)}%, grassi ${pc(G)}%" style="background:${P+C+G>0?`conic-gradient(var(--acc) 0 ${P/T*100}%,var(--hi) 0 ${(P+C)/T*100}%,var(--c3) 0)`:'var(--line)'}"></div><div class="fleg"><span><i style="background:var(--acc)"></i>Proteine ${f.p} g · <b>${pc(P)}%</b></span><span><i style="background:var(--hi)"></i>Carboidrati ${f.c} g · <b>${pc(C)}%</b></span><span><i style="background:var(--c3)"></i>Grassi ${f.f} g · <b>${pc(G)}%</b></span></div></div>`;
  if(z)h+=`<p class="hint">Fibre ${z[0]} g · Zuccheri ${z[1]} g</p>`;
  if(m)h+=`<b>Micronutrienti</b> <span class="hint">(per 100 g, % del fabbisogno giornaliero di riferimento)</span>`+miL().map(([n,u,r],i)=>{const v=m[i],q=v==null?0:Math.min(100,v/r*100);return `<div class="fmi"><span>${n}</span><span class="fmb"><i style="width:${q}%"></i></span><span>${v==null?'<span class="hint">n.d.</span>':v+' '+u+' <span class="hint">'+Math.round(v/r*100)+'%</span>'}</span></div>`}).join('')+(MS[f.name]?fSrc(f)+'<p class="hint">n.d. = dato non riportato dalla fonte.</p>':`<p class="hint">Stima non verificata, inserita a mano.</p>`)+`<p class="hint">L’etichetta ha sempre la precedenza. I riferimenti sono quelli EFSA/LARN per un adulto, adattati a sesso ed età se li hai indicati in Dieta → Fabbisogno. Il sodio è un limite massimo (2000 mg), non un obiettivo. Per la vitamina D si usa 15 µg (AI).</p>`;
  else h+=`<p class="hint">Micronutrienti non disponibili per questo alimento.</p>`+(MS[f.name]?fSrc(f):'');
