@@ -64,6 +64,19 @@ details details summary{font-size:17px}
 .fin{background:var(--card);padding:10px 8px 12px;border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:8px}
 .fin p{margin:0}
 .fbar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line)}
+.xsg{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}.xsg button{padding:7px 11px;font-size:14px}
+.xbt{display:flex;align-items:center;gap:10px;width:100%;text-align:left;margin-top:8px;background:var(--card);border:1px solid var(--line);color:inherit}
+.xbt b{display:block;font-size:15px}.xbt small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.xic{flex:0 0 36px;height:36px;border-radius:8px;background:#1f7a45;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+#prt{display:none}
+@media print{@page{size:A4;margin:12mm}body>*:not(#prt){display:none!important}body{background:#fff!important}#prt{display:block!important;color:#1c262b;font:11px/1.4 system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+#prt h1{font-size:22px;margin:0}#prt .sub{color:#6a7479;margin:2px 0 12px}
+#prt .kp{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}#prt .kp div{border:1px solid #dde2dd;border-radius:8px;padding:7px}#prt .kp span{color:#6a7479}#prt .kp b{display:block;font-size:16px}#prt .kp i{font-style:normal;color:#1f7a45;font-size:10px}#prt .kp i.dn{color:#b33a2e}
+#prt h2{font-size:13px;border-bottom:2px solid #2a5f8f;padding-bottom:3px;margin:14px 0 6px;break-after:avoid}
+#prt table{width:100%;border-collapse:collapse;margin:4px 0;break-inside:avoid}#prt th{background:#2a5f8f;color:#fff;text-align:left;padding:3px 6px;font-weight:600}#prt td{border-bottom:1px solid #e1e5e1;padding:3px 6px}
+#prt .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;break-inside:avoid}#prt .bl{display:grid;grid-template-columns:95px 1fr 40px;gap:6px;align-items:center;margin:4px 0}#prt .bar{height:8px;background:#e6eae6;border-radius:4px;overflow:hidden}#prt .bar i{display:block;height:100%;background:#2a5f8f}
+#prt .mu{color:#6a7479}#prt .ph2{display:flex;gap:10px;break-inside:avoid}#prt .ph2 figure{margin:0;flex:1}#prt .ph2 img{width:100%;max-height:300px;object-fit:contain}#prt figcaption{text-align:center;color:#6a7479}
+#prt .ft{margin-top:14px;color:#8a9398;font-size:9px;border-top:1px solid #e1e5e1;padding-top:5px}
 .fpie{display:flex;align-items:center;gap:16px;margin:8px 0}
 .fpie .pie{flex:0 0 96px;height:96px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line)}
 .fpie .fleg{flex-direction:column;gap:6px;font-size:14px}
@@ -387,7 +400,7 @@ details.gdx[open]{border-width:2px}details.gdx[open]>summary{border-bottom:1px s
 <button data-a="tab" data-t="n">Dieta</button>
 <button data-a="tab" data-t="pp">Piano pasti</button>
 <button data-a="tab" data-t="p">Foto</button>
-<button data-a="tab" data-t="o">Obiettivi e misure</button>
+<button data-a="tab" data-t="o">Obiettivi e misure</button> <button data-a="tab" data-t="x">Esporta dati</button>
 <div id="nvc" class="nb"></div>
 <div id="nth" class="nb"></div>
 <div id="ndp" class="nb"></div>
@@ -1945,6 +1958,143 @@ function refClean(){const E=new Set(S.ex.map(e=>e.id)),SC=new Set(S.sch.map(x=>x
 function norm(d){S=d;try{const n=exMig();if(n)setTimeout(()=>toast('Gruppi muscolari aggiornati: '+n+' esercizi spostati da Braccia/Gambe ai nuovi gruppi'),800)}catch(e){}S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mc=S.mc||{};try{mpInit(S)}catch(e){}try{refClean()}catch(e){}return S}
 function parseBk(tx){try{const o=JSON.parse(tx),d=o.data||o;if(!d||!Array.isArray(d.ex)||!Array.isArray(d.sch)||!Array.isArray(d.log))return null;return{d,ph:Array.isArray(o.photos)?o.photos:[],at:o.at||''}}catch(e){return null}}
 function pendCard(){const p=V.pend;return `<div class="card" style="border-color:var(--bad)"><p><b>Ripristinare questo backup?</b></p><p class="hint">${p.d.log.length} serie, ${(p.d.meal||[]).length} voci di dieta, ${p.ph.length} foto${p.at?' · del '+fdy(p.at):''}. Sostituisce tutti i dati attuali.</p><div class="row"><button class="p" data-a="bkok">Ripristina</button><button class="g" data-a="bkno">Annulla</button></div></div>`}
+/* ---- Esporta dati: Excel (.xlsx scritto in casa, nessuna libreria), CSV e riepilogo PDF (stampa del browser) ---- */
+const XPER=[['m1','Ultimo mese'],['m3','3 mesi'],['y','Anno'],['all','Tutto'],['c','Date…']];
+function xRange(){const t=today(),p=V.xp||'m3';
+ if(p=='c'){let a=V.xa||dShift(t,-30),b=V.xb||t;if(a>b)[a,b]=[b,a];return[a,b]}
+ if(p=='all'){const ds=[...S.log,...S.cd,...S.meal,...S.wt,...S.ms].map(x=>x.d).filter(Boolean).sort();return[ds[0]||t,t]}
+ return[dShift(t,p=='m1'?-30:p=='m3'?-91:-365),t]}
+const xBike=t=>/bici|cicl|bike|spinning/i.test(t||'');
+const xIn=(d,a,b)=>d&&d>=a&&d<=b;
+const xDays=(a,b)=>Math.round((Date.parse(b+'T12:00:00')-Date.parse(a+'T12:00:00'))/864e5)+1;
+const fdl=d=>d.slice(8)+'/'+d.slice(5,7)+'/'+d.slice(0,4);
+const xr1=v=>Math.round(v*10)/10,xr2=v=>Math.round(v*100)/100;
+function xCount(){const[a,b]=xRange();return{a,b,ses:new Set(S.log.filter(l=>xIn(l.d,a,b)).map(l=>l.ss||l.d)).size,cd:S.cd.filter(c=>xIn(c.d,a,b)).length,md:new Set(S.meal.filter(m=>xIn(m.d,a,b)).map(m=>m.d)).size}}
+
+/* --- dati per i fogli --- */
+function xGym(a,b){
+ const sesN=id=>{const q=S.ses&&S.ses.find(x=>x.id==id),sc=q&&S.sch.find(x=>x.id==q.sc);return sc?sc.name:(q?'Libera':'')};
+ const all=S.log.map((l,i)=>({l,i})).sort((x,y)=>x.l.d<y.l.d?-1:x.l.d>y.l.d?1:x.i-y.i),best={},cnt={},rows=[],per={};
+ all.forEach(({l})=>{const bw=isBW(l.e),v=rV(l.e,l),prev=best[l.e]||0,rec=prev>0&&v>prev;if(v>prev)best[l.e]=v;
+  if(!xIn(l.d,a,b)||isCX(l.e))return;
+  const k=(l.ss||l.d)+'|'+l.e;cnt[k]=(cnt[k]||0)+1;const ex=S.ex.find(e=>e.id==l.e)||{},vol=bw?0:l.kg*l.r,rm=bw||!(l.kg>0)?null:xr1(rm1(l.kg,l.r));
+  rows.push([{d:l.d},sesN(l.ss),nm(l.e),grp(ex),cnt[k],bw?null:l.kg,l.r,l.rir!=null?l.rir:null,bw?null:vol,rm,rec?'🏆':'']);
+  const p=per[l.e]||(per[l.e]={n:nm(l.e),g:grp(ex),bw,days:{},s:0,v:0,mx:0,rm:0});p.s++;p.v+=vol;p.mx=Math.max(p.mx,bw?l.r:l.kg);
+  const dv=bw?l.r:(rm||0);p.rm=Math.max(p.rm,dv);p.days[l.d]=Math.max(p.days[l.d]||0,dv)});
+ const sum=Object.values(per).sort((x,y)=>x.g.localeCompare(y.g)||x.n.localeCompare(y.n)).map(p=>{const ds=Object.keys(p.days).sort(),f=p.days[ds[0]],l=p.days[ds[ds.length-1]];
+  return[p.n,p.g,ds.length,p.s,p.bw?null:Math.round(p.v),p.bw?null:p.mx,p.bw?p.mx:null,p.bw?null:xr1(p.rm),ds.length>1&&f>0?xr1((l-f)/f*100):null]});
+ return[{n:'Serie',h:['Data','Seduta','Esercizio','Gruppo','Serie','Kg','Ripetizioni','RIR','Volume kg','1RM stimato kg','Record'],w:[11,14,24,16,7,7,11,6,10,14,8],r:rows},
+  {n:'Riepilogo esercizi',h:['Esercizio','Gruppo','Sedute','Serie','Volume kg','Carico max kg','Rip. max (corpo libero)','1RM migliore kg','Variazione % nel periodo'],w:[24,16,8,7,11,13,20,15,22],r:sum}]}
+function xCardio(a,b){
+ const C=S.cd.filter(c=>xIn(c.d,a,b)).sort((x,y)=>x.d<y.d?-1:1),kc=c=>c.kc||cdEst(c.t,c.min,c.km,c.d)||null;
+ const rows=C.map(c=>[{d:c.d},c.t||'',c.gx?'In seduta palestra':(c.cp||''),c.min>0?xr1(c.min):null,c.km>0?xr2(c.km):null,cdPace(c).replace(' /km',''),c.km>0&&c.min>0?xr1(c.km/c.min*60):null,kc(c),c.kc&&!c.est?'no':'sì',c.n||'']);
+ const wk={};C.forEach(c=>{const t=new Date(c.d+'T12:00:00'),dw=(t.getDay()+6)%7,m=dShift(c.d,-dw),o=wk[m]||(wk[m]={n:0,min:0,km:0,kc:0});o.n++;o.min+=c.min||0;o.km+=c.km||0;o.kc+=kc(c)||0});
+ return[{n:'Attività',h:['Data','Attività','Contesto','Minuti','Km','Passo min/km','Velocità km/h','Kcal','Kcal stimate','Note'],w:[11,20,18,8,7,12,13,7,12,24],r:rows},
+  {n:'Settimane',h:['Settimana dal','Attività','Minuti','Km','Kcal'],w:[14,9,9,8,8],r:Object.keys(wk).sort().map(k=>[{d:k},wk[k].n,Math.round(wk[k].min),xr1(wk[k].km),Math.round(wk[k].kc)])}]}
+function xFood(a,b){
+ const M=S.meal.map((m,i)=>({m,i})).filter(x=>xIn(x.m.d,a,b)).sort((x,y)=>x.m.d<y.m.d?-1:x.m.d>y.m.d?1:x.i-y.i).map(x=>x.m);
+ const src=f=>!f?'':f.cu||String(f.id).startsWith('u')?'Personale':f.rc?'Ricetta':MS[f.name]&&MS[f.name][0].startsWith('CREA')?'CREA':'Altra fonte';
+ const rows=M.map(m=>{const f=fo(m.f),l=ln(m);return[{d:m.d},m.m||'',l.n,m.g,Math.round(l.k),xr1(l.p),xr1(l.c),xr1(l.g),xr1(l.fi),xr1(l.zu),src(f)]});
+ const D={};M.forEach(m=>{const l=ln(m),o=D[m.d]||(D[m.d]={k:0,p:0,c:0,g:0,fi:0,n:0});o.k+=l.k;o.p+=l.p;o.c+=l.c;o.g+=l.g;o.fi+=l.fi;o.n++});
+ const gl=S.goal||0,GE=gmEff();
+ const tot=Object.keys(D).sort().map(d=>{const o=D[d];return[{d},Math.round(o.k),gl||null,gl?Math.round(o.k-gl):null,xr1(o.p),GE.p||null,xr1(o.c),xr1(o.g),xr1(o.fi),o.n]});
+ const L=miL(),t=Array(9).fill(0),days=Object.keys(D);days.forEach(d=>S.meal.filter(m=>m.d==d).forEach(m=>{const x=microOf(fo(m.f));if(x)x.forEach((v,j)=>t[j]+=v*m.g/100)}));
+ const nd=days.length||1,mi=L.map(([n,u,r],j)=>{const v=t[j]/nd;return[n,u,xr1(v),r,Math.round(v/r*100)]});
+ mi.unshift(['Fibre','g',xr1(days.reduce((s,d)=>s+D[d].fi,0)/nd),25,Math.round(days.reduce((s,d)=>s+D[d].fi,0)/nd/25*100)]);
+ return[{n:'Diario',h:['Data','Pasto','Alimento','Grammi','Kcal','Proteine g','Carboidrati g','Grassi g','Fibre g','Zuccheri g','Fonte'],w:[11,12,30,8,7,10,12,9,8,10,11],r:rows},
+  {n:'Totali giornalieri',h:['Data','Kcal','Obiettivo kcal','Differenza','Proteine g','Obiettivo prot. g','Carboidrati g','Grassi g','Fibre g','Voci'],w:[11,8,13,10,10,15,12,9,8,6],r:tot},
+  {n:'Micronutrienti',h:['Nutriente','Unità','Media giornaliera','Riferimento','% del riferimento'],w:[22,7,16,12,16],r:mi}]}
+
+/* --- scrittura .xlsx (zip senza compressione) --- */
+const CRCT=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(u){let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=CRCT[(c^u[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0}
+function zipStore(files){const te=new TextEncoder(),parts=[],cd=[];let off=0;
+ files.forEach(([name,txt])=>{const nb=te.encode(name),db=te.encode(txt),cr=crc32(db),h=new DataView(new ArrayBuffer(30));
+  h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint16(10,0,true);h.setUint16(12,0x21,true);h.setUint32(14,cr,true);h.setUint32(18,db.length,true);h.setUint32(22,db.length,true);h.setUint16(26,nb.length,true);h.setUint16(28,0,true);
+  parts.push(new Uint8Array(h.buffer),nb,db);
+  const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(10,0,true);c.setUint16(12,0,true);c.setUint16(14,0x21,true);c.setUint32(16,cr,true);c.setUint32(20,db.length,true);c.setUint32(24,db.length,true);c.setUint16(28,nb.length,true);c.setUint32(42,off,true);
+  cd.push(new Uint8Array(c.buffer),nb);off+=30+nb.length+db.length});
+ const cs=cd.reduce((s,x)=>s+x.length,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+ return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})}
+const xE=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'');
+const xCol=i=>{let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s};
+const xSer=d=>(Date.UTC(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10))-Date.UTC(1899,11,30))/864e5;
+function xlsx(sheets){
+ const sx=sheets.map(sh=>{const cell=(v,c,r,st)=>{const ref=xCol(c)+r;if(v==null||v==='')return '';if(typeof v=='object'&&v.d)return `<c r="${ref}" s="2"><v>${xSer(v.d)}</v></c>`;if(typeof v=='number'&&isFinite(v))return `<c r="${ref}"${st?' s="'+st+'"':''}><v>${v}</v></c>`;return `<c r="${ref}" t="inlineStr"${st?' s="'+st+'"':''}><is><t xml:space="preserve">${xE(v)}</t></is></c>`};
+  const rows=[`<row r="1">${sh.h.map((h,c)=>cell(h,c,1,1)).join('')}</row>`].concat(sh.r.map((r,i)=>`<row r="${i+2}">${r.map((v,c)=>cell(v,c,i+2)).join('')}</row>`)),last=xCol(sh.h.length-1)+(sh.r.length+1);
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols>${sh.w.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${rows.join('')}</sheetData>${sh.r.length?`<autoFilter ref="A1:${last}"/>`:''}</worksheet>`});
+ const ns='xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"',H='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+ const files=[['[Content_Types].xml',H+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>'+sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')+'</Types>'],
+  ['_rels/.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'],
+  ['xl/workbook.xml',H+`<workbook ${ns}><sheets>${sheets.map((s,i)=>`<sheet name="${xE(s.n.slice(0,31))}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`],
+  ['xl/_rels/workbook.xml.rels',H+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')+`<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`],
+  ['xl/styles.xml',H+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF1F7A45"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>']];
+ sheets.forEach((s,i)=>files.push([`xl/worksheets/sheet${i+1}.xml`,sx[i]]));
+ return zipStore(files)}
+function csvOf(sh){const q=v=>{if(v==null)return '';if(typeof v=='object'&&v.d)return fdl(v.d);if(typeof v=='number')return String(v).replace('.',',');const s=String(v);return /[;"\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+ return '﻿'+[sh.h.map(q).join(';')].concat(sh.r.map(r=>r.map(q).join(';'))).join('\r\n')}
+function saveBlob(fn,blob,msg){
+ const dl=()=>{try{const u=URL.createObjectURL(blob),a2=document.createElement('a');a2.href=u;a2.download=fn;document.body.appendChild(a2);a2.click();a2.remove();setTimeout(()=>URL.revokeObjectURL(u),30000);toast(msg+': '+fn)}catch(e){toast('Salvataggio non riuscito')}};
+ if(window.claude&&claude.use){claude.use('downloads').then(d=>d?d.save({filename:fn,data:blob}).then(()=>toast(msg)):dl()).catch(e=>{if(!(e&&e.code=='declined'))dl()});return}
+ let file=null;try{file=new File([blob],fn,{type:blob.type})}catch(e){}
+ if(file&&navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:fn}).then(()=>toast(msg)).catch(e=>{if(!(e&&e.name=='AbortError'))dl()})}else dl()}
+function xExport(k){const[a,b]=xRange(),sh=k=='g'?xGym(a,b):k=='c'?xCardio(a,b):xFood(a,b),nm0={g:'Palestra',c:'Cardio',n:'Alimentazione'}[k],base='Ghisa_'+nm0+'_'+a+'_'+b;
+ if(!sh[0].r.length)return toast('Nessun dato di '+nm0.toLowerCase()+' nel periodo');
+ if(V.xf=='csv')saveBlob(base+'.csv',new Blob([csvOf(sh[0])],{type:'text/csv;charset=utf-8'}),'CSV pronto');
+ else saveBlob(base+'.xlsx',xlsx(sh),'Excel pronto')}
+
+/* --- riepilogo PDF --- */
+function xReport(){const[a,b]=xRange(),R=Math.round,X=moStat(a,b),nw=xDays(a,b)/7,sel=V.xs||{w:1,g:1,c:1,n:1},F=v=>nI(Math.round(v)),F1=v=>String(xr1(v)).replace('.',',');
+ const W=X.W,pw=[...S.wt].filter(x=>x.d<a).sort((p,q)=>p.d<q.d?1:-1)[0],w0=W.length?W[0].kg:null,w1=X.last,dw=w1!=null&&(pw||W.length>1)?xr1(w1-(pw?pw.kg:w0)):null;
+ const ses=new Set(X.L.map(l=>l.ss||l.d)).size,C=X.C,km=X.ck,M=X.md,kc=X.kc,gl=S.goal||0;
+ const tile=(l,v,s,bad)=>`<div><span>${l}</span><b>${v}</b><i${bad?' class="dn"':''}>${s||'&nbsp;'}</i></div>`;
+ let h=`<div class="rp"><h1>Ghisa · Riepilogo</h1><div class="sub">${fdl(a)} – ${fdl(b)} (${xDays(a,b)} giorni)</div><div class="kp">`+
+  tile('Peso',w1!=null?F1(w1)+' kg':'—',dw!=null?(dw>0?'+':dw<0?'−':'±')+F1(Math.abs(dw))+' kg':'')+
+  tile('Sedute palestra',ses,ses?F1(ses/nw)+' / sett.':'')+
+  tile('Cardio',C.length+(km?' · '+F1(km)+' km':''),X.cm?Math.floor(X.cm/60)+' h '+X.cm%60+' min':'')+
+  tile('Kcal medie',M?nI(kc):'—',gl?'obiettivo '+nI(gl):'',gl&&M&&Math.abs(kc-gl)/gl>.1)+`</div>`;
+ if(sel.w){h+=`<h2>Peso e misure</h2>`;
+  if(W.length>1){const t0=Date.parse(a),t1=Date.parse(b)||t0+1,mn=Math.min(...W.map(x=>x.kg)),mx=Math.max(...W.map(x=>x.kg)),pad0=(mx-mn)*.15||1,y=v=>8+(1-(v-mn+pad0)/(mx-mn+2*pad0))*92,x=d=>(Date.parse(d)-t0)/(t1-t0||1)*660;
+   h+=`<svg viewBox="0 0 660 118" width="100%" height="118"><text x="0" y="10" font-size="9" fill="#888">${F1(mx)} kg</text><text x="0" y="114" font-size="9" fill="#888">${F1(mn)} kg</text>${W.map(p=>`<circle cx="${xr1(x(p.d))}" cy="${xr1(y(p.kg))}" r="1.8" fill="#9bb8d3"/>`).join('')}<polyline fill="none" stroke="#2a5f8f" stroke-width="2.2" points="${W.map(p=>{const t=Date.parse(p.d),L=W.filter(q=>Math.abs(Date.parse(q.d)-t)<=3*864e5);return xr1(x(p.d))+','+xr1(y(L.reduce((s,q)=>s+q.kg,0)/L.length))}).join(' ')}"/></svg><p class="mu">Punti: pesate · linea: media mobile di 7 giorni.</p>`}
+  else h+=`<p class="mu">${W.length?'Una sola pesata nel periodo.':'Nessuna pesata nel periodo.'}</p>`;
+  const msIn=S.ms.filter(m=>xIn(m.d,a,b)).sort((p,q)=>p.d<q.d?-1:1),msB=[...S.ms].filter(m=>m.d<a).sort((p,q)=>p.d<q.d?1:-1)[0],first=msB||msIn[0],last=msIn[msIn.length-1];
+  if(last&&first&&first!==last){const rows=MK.filter(([k])=>first.v&&last.v&&first.v[k]>0&&last.v[k]>0).map(([k,n])=>{const d=xr1(last.v[k]-first.v[k]);return `<tr><td>${n}</td><td>${F1(first.v[k])}</td><td>${F1(last.v[k])}</td><td>${d>0?'+':d<0?'−':'±'}${F1(Math.abs(d))} cm</td></tr>`});
+   const b0=bfAt(first.d),b1=bfAt(last.d);if(b0&&b1){const v0=b0.p,v1=b1.p;if(typeof v0=='number'&&typeof v1=='number'){const d=xr1(v1-v0);rows.push(`<tr><td>Massa grassa stimata</td><td>${F1(v0)}%</td><td>${F1(v1)}%</td><td>${d>0?'+':d<0?'−':'±'}${F1(Math.abs(d))} punti</td></tr>`)}}
+   if(rows.length)h+=`<table><tr><th>Misura</th><th>${fdl(first.d)}</th><th>${fdl(last.d)}</th><th>Differenza</th></tr>${rows.join('')}</table>`}}
+ if(sel.g){h+=`<h2>Palestra</h2>`;if(!X.L.length)h+=`<p class="mu">Nessuna serie nel periodo.</p>`;else{
+  const gv={};X.L.forEach(l=>{if(isCX(l.e)||isBW(l.e))return;const g=grp(S.ex.find(e=>e.id==l.e)||{});gv[g]=(gv[g]||0)+l.kg*l.r});const gs=Object.entries(gv).sort((p,q)=>q[1]-p[1]),gm=gs.length?gs[0][1]:1;
+  const ids=[...new Set(X.L.map(l=>l.e))].filter(id=>!isCX(id)),rec=ids.map(id=>{const p=recOf(id,l=>l.d<a),L=X.L.filter(l=>l.e==id),bv=Math.max(...L.map(l=>rV(id,l))),bl=L.find(l=>rV(id,l)==bv);return{id,p,bv,bl,pc:p>0?(bv-p)/p*100:null}}).filter(r=>r.pc>0).sort((p,q)=>q.pc-p.pc).slice(0,8);
+  h+=`<p>${ses} sedute · ${nI(X.L.length)} serie · volume ${nI(R(X.v))} kg${X.recs?' · 🏆 '+X.recs+' esercizi con nuovo record':''}</p><div class="two"><div><b>Volume per gruppo muscolare</b>${gs.slice(0,8).map(([g,v])=>`<div class="bl"><span>${esc(g)}</span><span class="bar"><i style="width:${R(v/gm*100)}%"></i></span><span>${nI(R(v/1000*10)/10)} t</span></div>`).join('')}</div>
+  <div><b>🏆 Record del periodo</b>${rec.length?`<table><tr><th>Esercizio</th><th>Migliore</th><th>Prima</th><th>Var.</th></tr>${rec.map(r=>`<tr><td>${esc(nm(r.id))}</td><td>${isBW(r.id)?r.bv+' rip.':F1(r.bv)+' kg × '+r.bl.r}</td><td>${isBW(r.id)?r.p:F1(r.p)}</td><td>+${R(r.pc)}%</td></tr>`).join('')}</table>`:'<p class="mu">Nessun nuovo record rispetto a prima del periodo.</p>'}</div></div>`}}
+ if(sel.c){h+=`<h2>Cardio</h2>`;if(!C.length)h+=`<p class="mu">Nessuna attività nel periodo.</p>`;else{const by={};C.forEach(c=>{const o=by[c.t]||(by[c.t]={n:0,min:0,km:0,kc:0});o.n++;o.min+=c.min||0;o.km+=c.km||0;o.kc+=c.kc||cdEst(c.t,c.min,c.km,c.d)||0});
+  const ks=C.reduce((s,c)=>s+(c.kc||cdEst(c.t,c.min,c.km,c.d)||0),0);
+  h+=`<p>${C.length} attività · ${Math.floor(X.cm/60)} h ${X.cm%60} min${km?' · '+F1(km)+' km':''} · circa ${nI(R(ks))} kcal</p><table><tr><th>Attività</th><th>Sessioni</th><th>Tempo</th><th>Km</th><th>Passo / velocità</th></tr>${Object.entries(by).sort((p,q)=>q[1].n-p[1].n).map(([t,o])=>`<tr><td>${esc(t)}</td><td>${o.n}</td><td>${R(o.min)} min</td><td>${o.km?F1(o.km):'—'}</td><td>${o.km>0&&o.min>0?(xBike(t)?String(xr1(o.km/o.min*60)).replace('.',',')+' km/h':cdPace({km:o.km,min:o.min})):'—'}</td></tr>`).join('')}</table>`}}
+ if(sel.n){h+=`<h2>Alimentazione</h2>`;if(!M)h+=`<p class="mu">Nessun pasto registrato nel periodo.</p>`;else{
+  const Ms=S.meal.filter(m=>xIn(m.d,a,b)),T={k:0,p:0,c:0,g:0,fi:0};Ms.forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g;T.fi+=l.fi});const GE=gmEff();
+  const row=(n,v,t,u)=>`<tr><td>${n}</td><td>${nI(R(v))}${u}</td><td>${t?nI(t)+u:'—'}</td><td>${t?R(v/t*100)+'%':'—'}</td></tr>`;
+  h+=`<p>${M} giorni con diario su ${xDays(a,b)}</p><table><tr><th>Media giornaliera</th><th>Media</th><th>Obiettivo</th><th>Aderenza</th></tr>${row('Kcal',T.k/M,gl,'')}${row('Proteine',T.p/M,GE.p,' g')}${row('Carboidrati',T.c/M,GE.c,' g')}${row('Grassi',T.g/M,GE.f,' g')}${row('Fibre',T.fi/M,25,' g')}</table>`;
+  const mi=xFood(a,b)[2].r.slice(1),lo=mi.filter((r,j)=>j>0&&r[4]<70).map(r=>r[0].replace(' (limite max)','')),hi=mi[0]&&mi[0][4]>100;
+  if(lo.length||hi)h+=`<p>⚠️ ${lo.length?'Sotto il 70% del riferimento: '+lo.join(', ')+'.':''}${hi?' Sodio sopra il limite massimo.':''}</p>`}}
+ if(sel.f){const P=PH.filter(p=>xIn(p.d,a,b));if(P.length){const ds=[...new Set(P.map(p=>p.d))].sort(),d0=ds[0],d1=ds[ds.length-1],an=P.filter(p=>p.d==d1).map(p=>p.a).find(x=>P.some(p=>p.d==d0&&p.a==x))||P[0].a,p0=P.find(p=>p.d==d0&&p.a==an)||P.find(p=>p.d==d0),p1=P.find(p=>p.d==d1&&p.a==an)||P.find(p=>p.d==d1);
+  h+=`<h2>Foto</h2><div class="ph2"><figure><img src="${p0.u}"><figcaption>${fdl(p0.d)}</figcaption></figure>${p1!==p0?`<figure><img src="${p1.u}"><figcaption>${fdl(p1.d)}</figcaption></figure>`:''}</div>`}}
+ return h+`<div class="ft">Generato con Ghisa il ${fdl(today())} · Valori nutrizionali: CREA, Tabelle di composizione degli alimenti (2019) · Le stime (kcal cardio, 1RM, massa grassa) sono indicative.</div></div>`}
+function xPdf(){const el=document.getElementById('prt')||document.body.appendChild(Object.assign(document.createElement('div'),{id:'prt'}));el.innerHTML=xReport();
+ const t0=document.title,[a,b]=xRange();document.title='Ghisa_Riepilogo_'+a+'_'+b;const done=()=>{document.title=t0;el.innerHTML='';window.removeEventListener('afterprint',done)};window.addEventListener('afterprint',done);
+ setTimeout(()=>{try{window.print()}catch(e){toast('Stampa non disponibile qui: apri Ghisa dal telefono');done()}},60)}
+
+/* --- vista --- */
+function vx(){const c=xCount(),p=V.xp||'m3',f=V.xf||'xlsx',sel=V.xs||{w:1,g:1,c:1,n:1},bt=(k,t,s)=>`<button class="xbt" data-a="xex" data-k="${k}"><span class="xic">${f=='csv'?'CSV':'XLS'}</span><span><b>${t}</b><small>${s}</small></span></button>`;
+ return `<h1>Esporta dati</h1><div class="card"><h2>Periodo</h2><div class="xsg">${XPER.map(([k,l])=>`<button class="${p==k?'p':'g'}" data-a="xper" data-k="${k}">${l}</button>`).join('')}</div>
+ ${p=='c'?`<div class="row"><input type="date" id="xa" value="${c.a}" aria-label="Dal"><input type="date" id="xb" value="${c.b}" aria-label="Al"></div>`:''}
+ <p class="hint">${fdl(c.a)} – ${fdl(c.b)} · ${c.ses} sedute · ${c.cd} attività cardio · ${c.md} giorni di diario</p></div>
+ <div class="card"><h2>Tabelle</h2><div class="xsg"><button class="${f=='xlsx'?'p':'g'}" data-a="xfmt" data-k="xlsx">Excel (.xlsx)</button><button class="${f=='csv'?'p':'g'}" data-a="xfmt" data-k="csv">CSV</button></div>
+ <p class="hint">${f=='csv'?'Un file di testo con il foglio principale (separatore «;», decimali con virgola): si apre ovunque, anche in Excel italiano.':'Un file per area con più fogli, apribile con Excel, Fogli Google o LibreOffice.'}</p>
+ ${bt('g','Palestra',f=='csv'?'Tutte le serie':'Serie, carichi, volume, record · 2 fogli')}${bt('c','Cardio',f=='csv'?'Tutte le attività':'Attività, durata, distanza, passo, kcal · 2 fogli')}${bt('n','Alimentazione',f=='csv'?'Diario dei pasti':'Diario, totali giornalieri, micronutrienti · 3 fogli')}</div>
+ <div class="card"><h2>Riepilogo PDF</h2><p class="hint">Una panoramica del periodo da tenere o mandare a coach e nutrizionista.</p><div class="xsg">${[['w','Peso e misure'],['g','Palestra'],['c','Cardio'],['n','Alimentazione'],['f','Foto']].map(([k,l])=>`<button class="${sel[k]?'p':'g'}" data-a="xsec" data-k="${k}">${sel[k]?'✓ ':''}${l}</button>`).join('')}</div>
+ <button class="p" data-a="xpdf" style="width:100%;margin-top:10px">Crea PDF</button><p class="hint" style="margin-top:8px">Si apre la stampa del telefono: come stampante scegli «Salva come PDF».</p></div>
+ <p class="hint">Tutto funziona offline: i file restano sul telefono finché non li condividi.</p>`}
+
+document.addEventListener('change',e=>{const t=e.target;if(t&&(t.id=='xa'||t.id=='xb')&&t.value){V[t.id]=t.value;render()}});
 function bkMenu(){return bkCard().replace('<div class="card">','<div class="card nbc">')}
 const bkAge=()=>S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null;
 const bkF=()=>S.bkf==null?14:S.bkf;
@@ -2111,7 +2261,7 @@ function render(){
  try{if(V.cs)localStorage.setItem('ghisa-cs',JSON.stringify(V.cs));else localStorage.removeItem('ghisa-cs')}catch(e){}
  {const pd=!!phDue();let ad=false;try{ad=!!adShow()||mMiss(today()).length>0||mMiss(hvAdd(today(),-1)).length>0}catch(e){}const nf=document.querySelector('nav [data-t="p"]');if(nf)nf.textContent=pd?'Foto •':'Foto';const nd=document.querySelector('nav [data-t="n"]');if(nd)nd.textContent=ad?'Dieta •':'Dieta';const mb=$('#mb');if(mb)mb.classList.toggle('dot',pd||ad)}
  navOrd();
- $('#v').innerHTML=({w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,cs:vcs,pp:vpp,o:vo}[V.tab]||vh)();if(V.tab=='cs'&&V.cs&&!V.cs.fin){V.cs.ci=null;csTick();if(!CST)CST=setInterval(csTick,250)}if(V.tab=='ss'&&V.ss&&V.ss.ct){gxTick();if(!GXT)GXT=setInterval(gxTick,250)}ordApply();
+ $('#v').innerHTML=({w:vw,s:vs,e:ve,g:vg,n:vn,p:vp,h:vh,r:vr,c:vc,ss:vss,cs:vcs,pp:vpp,o:vo,x:vx}[V.tab]||vh)();if(V.tab=='cs'&&V.cs&&!V.cs.fin){V.cs.ci=null;csTick();if(!CST)CST=setInterval(csTick,250)}if(V.tab=='ss'&&V.ss&&V.ss.ct){gxTick();if(!GXT)GXT=setInterval(gxTick,250)}ordApply();
  if(V.tab=='r')grFilter();
  if(V.tab=='p'||V.tab=='o')drawBf();
  try{xpEnh($('#v'))}catch(e){}
@@ -2454,6 +2604,11 @@ document.addEventListener('click',e=>{
  else if(a=='bkok'){const r=V.pend;V.pend=null;if(r){norm(r.d);S.lb=S.lb||'';pClear().catch(()=>{}).then(()=>Promise.all(r.ph.map(x=>pPut(x)))).catch(()=>{}).then(loadPh).then(()=>render());toast('Backup ripristinato')}}
  else if(a=='pskip'){S.ps=today().slice(0,7)}
  else if(a=='goalk'){S.goal=parseInt(b.dataset.k)||0;toast('Obiettivo impostato: '+S.goal+' kcal')}
+ else if(a=='xper'){V.xp=b.dataset.k;if(V.xp=='c'){const r=xRange();V.xa=V.xa||r[0];V.xb=V.xb||r[1]}}
+ else if(a=='xfmt'){V.xf=b.dataset.k}
+ else if(a=='xsec'){const o={...(V.xs||{w:1,g:1,c:1,n:1})},k=b.dataset.k;o[k]=o[k]?0:1;V.xs=o}
+ else if(a=='xex'){xExport(b.dataset.k);return}
+ else if(a=='xpdf'){const o=V.xs||{w:1,g:1,c:1,n:1};if(!Object.values(o).some(Boolean))return toast('Scegli almeno una sezione');xPdf();return}
  else if(a=='bkx'){
   const fn='ghisa-backup-'+today()+'.json',data=JSON.stringify({v:2,at:today(),data:{...S,lb:today()},photos:PH}),fb=()=>{V.txt=JSON.stringify(S);V.o.dBt=true;render();toast('Salvataggio file non disponibile: usa il backup come testo')};
   const ok=m=>{S.lb=today();save();render();toast(m)};
