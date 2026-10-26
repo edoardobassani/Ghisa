@@ -339,6 +339,7 @@ details.gdx[open]{border-width:2px}details.gdx[open]>summary{border-bottom:1px s
 .ogc{display:inline-block;font-size:12.5px;border-radius:10px;padding:3px 10px;background:color-mix(in srgb,var(--mut) 12%,var(--card));color:var(--mut);border:0;font-weight:500}.ogc.ok{background:color-mix(in srgb,var(--c3) 18%,var(--card));color:var(--c3)}.ogc.nx{background:var(--acc);color:#fff}.ogc.ms{background:color-mix(in srgb,var(--bad) 15%,var(--card));color:var(--bad);font-weight:700}.ogc.sk{text-decoration:line-through}
 .ogmiss{border-left:4px solid var(--bad);background:color-mix(in srgb,var(--bad) 9%,var(--card));border-radius:8px;padding:8px 10px;margin:8px 0 0}.ogmiss>b{color:var(--bad)}.ogmiss .row button{flex:1;padding:7px}
 .adq .cmp{display:flex;gap:8px;margin:8px 0}.adq .cmp div{flex:1;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px;text-align:center}.adq .cmp b{display:block;font-size:19px}.adq button{width:100%;margin-top:6px}
+.ogall{width:100%;margin-top:10px;text-align:center}
 </style></head>
 <body>
 <main id="v"></main>
@@ -402,7 +403,7 @@ const GD=['Petto','Schiena','Spalle','Bicipiti','Tricipiti','Quadricipiti','Femo
 const grp=e=>e.g||'Senza gruppo';
 const groups=()=>[...new Set([...GD,...S.ex.map(e=>e.g).filter(Boolean)])];
 const byG=()=>{const o={};S.ex.forEach(e=>(o[grp(e)]=o[grp(e)]||[]).push(e));return Object.keys(o).sort((a,b)=>(a=='Senza gruppo')-(b=='Senza gruppo')||a.localeCompare(b)).map(k=>[k,o[k]])};
-const UD=['del','dl','md','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd','hsdd','ses','imok','ipok','pgok','swp','sta','dpok','dprc','cpst','cpend','cssv','mskp'];let UN=null,ut;
+const UD=['del','dl','md','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd','hsdd','ses','imok','ipok','pgok','swp','sta','dpok','dprc','cpst','cpend','cssv','mskp','ogma'];let UN=null,ut;
 function showUndo(){$('#undo').classList.add('on');clearTimeout(ut);ut=setTimeout(()=>{hideUndo();UN=null},7000)}
 function hideUndo(){const u=$('#undo');if(u)u.classList.remove('on');clearTimeout(ut)}
 let tt,LT=null;const toast=m=>{if(LT!==null)LT=m;const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)};
@@ -1514,8 +1515,8 @@ function oggi(t,di,sets,exs,vol,T){const R=Math.round,ps=S.sch.find(x=>x.id==plI
  const pd=mpGet(hvMon(today()))[di]||{},pm=MPC.filter(m=>(pd[m]||[]).length),has=m=>S.meal.some(x=>x.d==t&&x.m==m),sk=m=>mSk(t,m),sl=mSlot(),gl=S.goal;
  let nx=V.ogseld==t&&pm.includes(V.ogsel)&&!has(V.ogsel)?V.ogsel:null;if(!nx)nx=MPC.slice(sl).find(x=>pm.includes(x)&&!has(x)&&!sk(x))||null;
  const ms=mMiss(t).filter(x=>x!=nx),chip=x=>`<button class="ogc ${has(x)?'ok':sk(x)?'sk':x==nx?'nx':ms.includes(x)?'ms':''}" data-a="ogsel" data-pm="${x}">${x}${has(x)?' ✓':ms.includes(x)?' !':''}</button>`;
- let m;if(nx){const L=pd[nx]||[],kc=Math.round(L.reduce((a,x)=>a+ln(x).k,0));m=`<div class="ogr ogp"><div class="ogh"><b>${nx==MPC[sl]||!V.ogsel?'Prossimo pasto':'Pasto'}: ${nx.toLowerCase()}</b><span class="hint">${kc} kcal</span></div><ul class="ogl">${L.map(x=>{const f=fo(x.f)||{name:'?'};return `<li><span>${esc(f.name)}</span><span>${nI(x.g)} g</span></li>`}).join('')}</ul><div class="ogmb2"><button class="p" data-a="ogm" data-pm="${nx}">✓ Segna ${nx.toLowerCase()}</button><button class="lk" data-a="ogx" data-pm="${nx}">Ho mangiato altro ›</button></div>${ms.map(x=>mMissBox(t,x,pm.includes(x))).join('')}<div class="ogs">${pm.map(chip).join('')}</div><p class="hint" style="margin:6px 0 0">Tocca un’etichetta per vedere e segnare quel pasto.</p></div>`}
- else if(pm.length){const kc=Math.round(S.meal.filter(x=>x.d==t).reduce((a,x)=>a+ln(x).k,0));m=`<div class="ogr ogp"><div class="ogh"><b>Pasti del piano${ms.length?'':' ✓'}</b><span class="hint">${NF1.format(kc)} kcal</span></div>${ms.map(x=>mMissBox(t,x,true)).join('')}<div class="ogs">${pm.map(chip).join('')}</div><button class="g" data-a="gd" data-d="${t}" data-t="n" style="margin-top:8px">Diario</button></div>`}
+ let m;if(nx){const L=pd[nx]||[],kc=Math.round(L.reduce((a,x)=>a+ln(x).k,0));m=`<div class="ogr ogp"><div class="ogh"><b>${nx==MPC[sl]||!V.ogsel?'Prossimo pasto':'Pasto'}: ${nx.toLowerCase()}</b><span class="hint">${kc} kcal</span></div><ul class="ogl">${L.map(x=>{const f=fo(x.f)||{name:'?'};return `<li><span>${esc(f.name)}</span><span>${nI(x.g)} g</span></li>`}).join('')}</ul><div class="ogmb2"><button class="p" data-a="ogm" data-pm="${nx}">✓ Segna ${nx.toLowerCase()}</button><button class="lk" data-a="ogx" data-pm="${nx}">Ho mangiato altro ›</button></div>${ms.map(x=>mMissBox(t,x,pm.includes(x))).join('')}<div class="ogs">${pm.map(chip).join('')}</div><p class="hint" style="margin:6px 0 0">Tocca un’etichetta per vedere e segnare quel pasto.</p>${ogAll(pm,has,sk)}</div>`}
+ else if(pm.length){const kc=Math.round(S.meal.filter(x=>x.d==t).reduce((a,x)=>a+ln(x).k,0));m=`<div class="ogr ogp"><div class="ogh"><b>Pasti del piano${ms.length?'':' ✓'}</b><span class="hint">${NF1.format(kc)} kcal</span></div>${ms.map(x=>mMissBox(t,x,true)).join('')}<div class="ogs">${pm.map(chip).join('')}</div>${ogAll(pm,has,sk)}<button class="g" data-a="gd" data-d="${t}" data-t="n" style="margin-top:8px">Diario</button></div>`}
  else m=`<div class="ogr${ms.length?' ogp':''}"><div${ms.length?' class="ogh"':''}><b>Pasti</b><span class="hint">Nessun piano pasti per oggi</span></div>${ms.length?ms.map(x=>mMissBox(t,x,false)).join(''):''}<button class="g" data-a="gd" data-d="${t}" data-t="n"${ms.length?' style="margin-top:8px"':''}>Diario</button></div>`;
  return `<div class="oggi"><h2>Oggi</h2>${w}${m}</div>`}
 /* Pasti principali: fasce orarie, pasti saltati, avvisi */
@@ -1528,6 +1529,7 @@ function mActive(){const t=today();let n=0;for(let i=1;i<=7;i++)if(S.meal.some(x
 function mMiss(d){if(!mActive())return [];const t=today(),h=mHour();return MPM.filter(m=>(d<t||h>=MPE[m]+1)&&!mHas(d,m)&&!mSk(d,m))}
 const mFem=m=>m!='Pranzo';
 function mMissBox(d,m,pl){const f=mFem(m),y=d!=today();return `<div class="ogmiss"><b>${y?m+' di '+DNF[(new Date(d+'T12:00:00').getDay()+6)%7].toLowerCase():m} non segnat${f?'a':'o'}</b>${y?'<p class="hint" style="margin:2px 0 0">Se non la segni, quel giorno non entra nel calcolo del fabbisogno reale.</p>'.replace('la segni',f?'la segni':'lo segni'):''}<div class="row" style="margin:6px 0 0"><button class="g" data-a="${pl&&!y?'ogsel':'ogx'}" data-pm="${m}" data-d="${d}">${y?'Segna':'Segna ora'}</button><button class="g" data-a="mskp" data-pm="${m}" data-d="${d}">Non l’ho fatt${f?'a':'o'}</button></div></div>`}
+function ogAll(pm,has,sk){const L=pm.filter(x=>!has(x)&&!sk(x));if(L.length<2)return '';return `<button class="g ogall" data-a="ogma">✓✓ Segna tutti i pasti del piano <span class="hint" style="display:inline">(${L.map(x=>x.toLowerCase()).join(', ')})</span></button>`}
 function ieriCard(){const y=hvAdd(today(),-1),L=mMiss(y);if(!L.length)return '';return `<div class="card"><h2>Ieri</h2>${L.map(m=>mMissBox(y,m,false)).join('')}</div>`}
 function vh(){
  const t=today(),sets=S.log.filter(l=>l.d==t),R=Math.round,exs=[...new Set(sets.map(l=>l.e))],vol=sets.reduce((a,l)=>a+l.kg*l.r,0);
@@ -2113,6 +2115,7 @@ document.addEventListener('click',e=>{
  else if(a=='adno'){S.adN=today();toast('Obiettivo invariato · ricordati di segnare anche olio, bevande e spuntini')}
  else if(a=='adl2'){S.adL=hvAdd(today(),7);toast('Te lo ripropongo fra 2 settimane')}
  else if(a=='adl'){S.adL=today();toast('Te lo ripropongo tra una settimana')}
+ else if(a=='ogma'){const di=(new Date().getDay()+6)%7,t=today(),pd=mpGet(hvMon(t))[di]||{},L=MPC.filter(m=>(pd[m]||[]).length&&!mHas(t,m)&&!mSk(t,m));let n=0;L.forEach(m=>pd[m].forEach(x=>{S.meal.push({id:uid(),d:t,m,f:x.f,g:x.g,pp:1});n++}));V.ogsel='';toast(L.length+' pasti del piano segnati nel diario · '+n+' voci')}
  else if(a=='ogsel'){V.ogsel=b.dataset.pm;V.ogseld=today()}
  else if(a=='mskp'){const d=b.dataset.d,m=b.dataset.pm;S.msk=S.msk||{};const L=S.msk[d]=S.msk[d]||[];if(!L.includes(m))L.push(m);const lim=hvAdd(today(),-60);Object.keys(S.msk).forEach(k=>{if(k<lim)delete S.msk[k]});if(V.ogsel==m)V.ogsel='';toast(m+' segnat'+(mFem(m)?'a':'o')+' come non fatt'+(mFem(m)?'a':'o'))}
  else if(a=='ogm'){const di=(new Date().getDay()+6)%7,m=b.dataset.pm,t=today(),it=((mpGet(hvMon(today()))[di]||{})[m]||[]);S.meal=S.meal.filter(x=>!(x.d==t&&x.m==m&&x.pp));it.forEach(x=>S.meal.push({id:uid(),d:t,m,f:x.f,g:x.g,pp:1}));if(V.ogsel==m)V.ogsel='';toast(m+' del piano segnato nel diario · '+it.length+(it.length==1?' voce':' voci'))}
