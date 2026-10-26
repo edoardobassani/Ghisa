@@ -1189,7 +1189,7 @@ function miCard(){const D=miRows(V.nd),R=Math.round;if(!D.n)return '';
  if(low.length){h+=`<p class="hint" style="margin:10px 0 2px"><b>Per completare</b> · tocca per aggiungere ${MPA[V.mm]||'al pasto'}</p>`;low.forEach(x=>{const s=miSug(x);if(!s.length)return;h+=`<div style="margin:6px 0 0"><span style="font-weight:600">${x.n}</span><div class="sgl">${s.map(o=>`<button class="g" data-a="sga" data-i="${esc(o.f.id)}" data-g="${o.g}" aria-label="Aggiungi ${esc(o.f.name)} ${o.g} grammi, ${miFmt(o.a)} ${x.u} di ${x.n.toLowerCase()}">${esc(o.f.name)} ${o.g} g <span class="hint" style="margin:0">+${miFmt(o.a)} ${x.u}</span></button>`).join('')}</div></div>`})}
  return h+'</details>'}
 
-const ORDN={scan:'Scansione codice a barre',obj:'Obiettivi',tot:'Riepilogo del giorno',mi:'Micronutrienti del giorno',vsm:'Pasti preferiti',add:'Aggiungi pasto',meals:'Pasti del giorno',kc:'Media ultimi 7 giorni',rcp:'Ricette',nf:'Nuovo alimento'};
+const ORDN={scan:'Scansione codice a barre',tot:'Riepilogo del giorno',mi:'Micronutrienti del giorno',vsm:'Pasti preferiti',add:'Aggiungi pasto',meals:'Pasti del giorno',kc:'Media ultimi 7 giorni',rcp:'Ricette',nf:'Nuovo alimento'};
 const ordKey=()=>V.tab=='pp'?'pp'+(V.pv||'p'):V.tab;
 function ordName(el){let n='';if(el.dataset&&el.dataset.bn)n=el.dataset.bn;else if(el.tagName=='H2')n=el.textContent;else{const q=el.tagName=='DETAILS'?el.querySelector('summary'):el.querySelector('h2,h3,summary,b,strong');n=q?q.textContent:el.textContent}n=n.trim().split('\n')[0].split(' · ')[0].trim();return n.length>34?n.slice(0,33)+'…':n||'Blocco'}
 
@@ -1239,7 +1239,7 @@ function vn(){
  day.forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g;T.fi+=l.fi;T.zu+=l.zu});
  const dw=(k,t,b)=>`<details id="dn_${k}" ${V.o['dn_'+k]?'open':''}><summary>${t}</summary>${b}</details>`;
  let B={},h=`<div class="card" style="padding:8px"><button class="p" data-a="bcs" style="width:100%">▌▌▍ Scansiona codice a barre</button></div>`;B.scan=h;h='';
- B.obj=dw('obj','Obiettivi <span class="hint">· '+objTit()+'</span>',objBody());
+
  h+=`<div class="card"><h2>${R(T.k)} kcal${goal?` <span class="hint">/ ${goal}</span>`:''}</h2>`;
  if(goal)h+=`<div style="height:10px;background:var(--bg);border-radius:6px;margin:8px 0;overflow:hidden"><div style="height:100%;width:${Math.min(100,T.k/goal*100)}%;background:${T.k>goal?'var(--bad)':'var(--acc)'}"></div></div><p class="hint">${T.k>goal?'Oltre di '+R(T.k-goal):'Rimangono '+R(goal-T.k)} kcal</p>`;
  h+=`${mb('Proteine',T.p,GE.p,GE.a.p)}${mb('Carboidrati',T.c,GE.c,GE.a.c)}${mb('Grassi',T.g,GE.f,GE.a.f)}<p class="hint" style="margin-top:8px">Fibre ${R(T.fi)} g · Zuccheri ${R(T.zu)} g (stima, solo alimenti con dati)</p></div>`;
