@@ -171,7 +171,7 @@ td:first-child,th:first-child{text-align:left}
 .hvtl small{font-size:12px;color:var(--mut)}.hvtl b{font-size:19px;font-variant-numeric:tabular-nums}.hvtl em{font-style:normal;font-size:12px;font-weight:600}
 .hvtl svg{width:100%;height:22px}
 #undo{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);z-index:60;display:none;align-items:center;gap:14px;background:var(--ink);color:var(--bg);padding:8px 8px 8px 16px;border-radius:10px;font-weight:600;white-space:nowrap}
-#undo.on{display:flex}
+#undo.on{display:flex}#undo{white-space:normal;width:max-content;max-width:calc(100vw - 32px);box-sizing:border-box;line-height:1.3}#undo span{flex:1;min-width:0}#undo button{flex:0 0 auto}
 #undo button{background:transparent;color:var(--hi);border:1px solid var(--hi);padding:6px 14px}
 body.ssm #undo{bottom:150px}
 .rtw{border-bottom:1px dashed var(--line);padding:8px 0}.rtw .row{margin:4px 0 0}.rtw .hint{margin:0}.rti{flex:0 0 22px!important;text-align:center;font-weight:700}.rti.ok{color:var(--c3)}.rti.q{color:var(--hi)}.rti.no{color:var(--bad)}
@@ -380,7 +380,7 @@ const byG=()=>{const o={};S.ex.forEach(e=>(o[grp(e)]=o[grp(e)]||[]).push(e));ret
 const UD=['del','dl','md','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd','hsdd','ses','imok','ipok','pgok','swp','sta'];let UN=null,ut;
 function showUndo(){$('#undo').classList.add('on');clearTimeout(ut);ut=setTimeout(()=>{hideUndo();UN=null},7000)}
 function hideUndo(){const u=$('#undo');if(u)u.classList.remove('on');clearTimeout(ut)}
-let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)};
+let tt,LT=null;const toast=m=>{if(LT!==null)LT=m;const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)};
 
 function empty(){return `<h1>Ghisa</h1><div class="card"><h2>Inizia dagli esercizi</h2><p class="hint">Non hai ancora esercizi. Aggiungi quelli base o creali tu.</p><div class="row"><button class="p" data-a="seed">Scegli dal catalogo</button><button class="g" data-a="tab" data-t="e">Crea i miei</button></div></div>`}
 
@@ -1751,7 +1751,7 @@ document.addEventListener('click',e=>{
  const b=e.target.closest('[data-a]');if(!b)return;
  if(b.dataset.a=='tab'){document.body.classList.remove('mo');$('#mb').setAttribute('aria-expanded','false');window.scrollTo(0,0)}
  const a=b.dataset.a,id=b.dataset.i;if(a!='ssend'&&V.del=='ssend')V.del='';if(V.tab=='s'&&V.sd)sdSync();if(a=='tab'&&V.sd){V.sd.pk=0;document.body.classList.remove('sdo-on')}
- if(a!='undo'){hideUndo();UN=null;if(UD.includes(a))UN={s:JSON.stringify(S),ph:a=='del'&&(b.dataset.k||'').startsWith('ph:')?PH.find(p=>p.id==b.dataset.k.slice(3)):null,pre:true}}
+ if(a!='undo'){hideUndo();UN=null;if(UD.includes(a))UN={s:JSON.stringify(S),ph:a=='del'&&(b.dataset.k||'').startsWith('ph:')?PH.find(p=>p.id==b.dataset.k.slice(3)):null,pre:true};LT=''}
  if(a!='fab')V.fab=false;
  if(a=='tab'&&V.nvm&&b.parentElement.tagName=='NAV')return;
  if(['rtpp','ppaf','ppag','ppdl','ppcl','ppcp','pmcp'].includes(a))mpMat();
@@ -2001,7 +2001,7 @@ document.addEventListener('click',e=>{
   if(file&&navigator.canShare&&navigator.share&&navigator.canShare({files:[file]})){navigator.share({files:[file],title:'Backup Ghisa'}).then(()=>ok('Backup salvato')).catch(e=>{if(e&&e.name=='AbortError')toast('Backup annullato');else dl()})}else dl();
   return;
  }
- if(UN&&UN.pre){UN.pre=false;const us=document.querySelector('#undo span');if(us)us.textContent=['ppwc','pmcp'].includes(a)?'Copiato':'Eliminato';showUndo()}
+ if(UN&&UN.pre){UN.pre=false;const us=document.querySelector('#undo span');if(us)us.textContent=LT||({ppwc:'Copiato',pmcp:'Copiato',pgok:'Creato',imok:'Importato',ipok:'Importato',swp:'Sostituito',sta:'Scheda aggiornata',ses:'Salvato'})[a]||'Eliminato';if(LT){clearTimeout(tt);$('#toast').classList.remove('on')}showUndo()}LT=null;
  save();render();
 });
 const nrm=t=>String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
