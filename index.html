@@ -314,6 +314,7 @@ details.gdx[open]{border-width:2px}details.gdx[open]>summary{border-bottom:1px s
 .dlw{border-left:4px solid var(--c3);background:color-mix(in srgb,var(--c3) 12%,var(--card));border-radius:8px;padding:10px 12px;margin:0 0 12px}
 .tsr.dlo{opacity:.45;text-decoration:line-through}
 .sopt .row{align-items:center}.sopt label{display:flex;gap:8px;align-items:center;font-size:14px;margin:6px 0}.sopt input[type=checkbox]{width:18px;height:18px}
+.bkw{border-color:var(--acc);border-width:2px}
 </style></head>
 <body>
 <main id="v"></main>
@@ -1393,7 +1394,7 @@ function vh(){
  const w=[...S.wt].sort((x,y)=>x.d<y.d?1:-1)[0],b=w&&S.h>0?Math.round(w.kg/Math.pow(S.h/100,2)*10)/10:null;
  const wd=new Set(S.log.map(l=>l.d)),cdd=new Set(S.cd.map(c=>c.d)),mon=hvMon(t),di=(new Date().getDay()+6)%7;
  const npl=Object.keys(S.pl).filter(k=>S.sch.some(x=>x.id==plId(k))).length,np=S.gw||npl;
- let h=`<h1>Home</h1><p class="hint">${DNF[di]} ${fd(t)}</p>`+dlCard()+oggi(t,di,sets,exs,vol,T);
+ let h=`<h1>Home</h1><p class="hint">${DNF[di]} ${fd(t)}</p>`+bkWarn()+dlCard()+oggi(t,di,sets,exs,vol,T);
  /* settimana */
  const days=[0,1,2,3,4,5,6].map(i=>{const d=hvAdd(mon,i),pl=S.sch.find(x=>x.id==plId(i)),done=wd.has(d),td=d==t;let st,tx;
   if(done){st='ok';tx='✓'}else if(pl){st=td?'today':d>t?'':'miss';tx=pl.name[0].toUpperCase()}else{st=td?'today':'rest';tx='–'}
@@ -1412,7 +1413,7 @@ function vh(){
   const ms=[['Proteine',T.p,gm.p,'var(--acc)'],['Carboidrati',T.c,gm.c,'var(--hi)'],['Grassi',T.g,gm.f,'var(--c3)']];
   let cm='';if(!S.meal.some(m=>m.d==t))cm='Nessun pasto registrato oggi.';else{const pr=[];if(gl)pr.push(T.k>gl?'Superato di '+R(T.k-gl)+' kcal.':'Mancano '+R(gl-T.k)+' kcal.');const mm=ms.filter(x=>x[2]>0).sort((a,c)=>a[1]/a[2]-c[1]/c[2]);if(mm.length&&(!gl||T.k<gl))pr.push('Più indietro: '+mm[0][0].toLowerCase()+' ('+R(mm[0][1]/mm[0][2]*100)+'%).');cm=pr.join(' ')}
   h+=`<div class="card hv"><h2>Oggi a tavola</h2><div class="hvrg"><div class="hvbig"><svg viewBox="0 0 120 120" aria-hidden="true">${hvRing(48,12,gl?T.k/gl:0,over?'var(--bad)':'var(--acc)')}</svg><div class="hvt"><b>${R(T.k)}</b><span>${gl?'su '+gl+' kcal':'kcal'}</span></div></div><div class="hvmc">${ms.map(([n,v,g,c])=>`<div class="hvm"><svg viewBox="0 0 120 120" aria-hidden="true">${hvRing(46,16,g>0?v/g:0,c)}</svg><div>${n}<b>${R(v)}${g?' / '+g:''} g</b></div></div>`).join('')}</div></div>${cm?`<p class="hint">${cm}</p>`:''}<button class="g" data-a="gd" data-d="${t}" data-t="n">Apri il diario</button></div>`}
- h+=vwk()+bkWarn()+hist();
+ h+=vwk()+hist();
  return h;
 }
 
@@ -1603,10 +1604,20 @@ function norm(d){S=d;try{const n=exMig();if(n)setTimeout(()=>toast('Gruppi musco
 function parseBk(tx){try{const o=JSON.parse(tx),d=o.data||o;if(!d||!Array.isArray(d.ex)||!Array.isArray(d.sch)||!Array.isArray(d.log))return null;return{d,ph:Array.isArray(o.photos)?o.photos:[],at:o.at||''}}catch(e){return null}}
 function pendCard(){const p=V.pend;return `<div class="card" style="border-color:var(--bad)"><p><b>Ripristinare questo backup?</b></p><p class="hint">${p.d.log.length} serie, ${(p.d.meal||[]).length} voci di dieta, ${p.ph.length} foto${p.at?' · del '+fdy(p.at):''}. Sostituisce tutti i dati attuali.</p><div class="row"><button class="p" data-a="bkok">Ripristina</button><button class="g" data-a="bkno">Annulla</button></div></div>`}
 function bkMenu(){return bkCard().replace('<div class="card">','<div class="card nbc">')}
-function bkWarn(){const age=S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null;if(age!=null&&age<14)return '';return `<div class="card" style="border-color:var(--bad)"><h2>Backup</h2><p class="hint" style="color:var(--bad)">${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+age+' giorni fa).':'Non hai ancora fatto nessun backup.'} Conviene farne uno ora.</p><button class="p" data-m="1">Apri il menu</button></div>`}
+const bkAge=()=>S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null;
+const bkF=()=>S.bkf==null?14:S.bkf;
+function bkNew(){const L=S.lb||'';return{s:S.log.filter(l=>l.d>=L).length,m:S.meal.filter(l=>l.d>=L).length,p:S.lb?0:(typeof PH!='undefined'?PH.length:0)}}
+function bkDue(){const f=bkF();if(!f)return false;if(S.bks&&S.bks>today())return false;const a=bkAge(),n=bkNew();if(a==null)return n.s+n.m>=30;return a>=f&&n.s+n.m>0}
+function bkWarn(){if(!bkDue())return '';const a=bkAge(),n=bkNew(),nt=[n.s?n.s+' serie':'',n.m?n.m+' voci di dieta':''].filter(Boolean).join(' e ');
+ return `<div class="card bkw"><h2>💾 È ora del backup</h2><p class="hint" style="margin:2px 0 8px">${a==null?'Non hai ancora fatto nessun backup.':'Ultimo backup '+a+' giorni fa.'}${nt?' Da allora: '+nt+' che esistono solo su questo telefono.':''}</p><div class="row" style="margin:0"><button class="p" data-a="bkx">Salva backup ora</button><button class="g" data-a="bksn">Fra 3 giorni</button></div><p class="hint" style="margin:8px 0 0">Si apre la condivisione: scegli <b>Drive</b> per averlo al sicuro anche se cambi telefono.</p></div>`}
+let PS=null;
+function psInit(){try{const st=navigator.storage;if(!st||!st.persisted){PS={no:1};return}st.persisted().then(p=>p||(st.persist?st.persist():false)).then(p=>{PS={p:!!p};return st.estimate?st.estimate():null}).then(e=>{if(e&&PS)PS.u=e.usage;if(document.body.classList.contains('mo'))render()}).catch(()=>{PS={no:1}})}catch(e){PS={no:1}}}
+function psBox(){if(!PS)return '';let ln0=0;try{ln0=(localStorage.getItem('ghisa')||'').length}catch(e){}const mb=ln0?' · dati: '+(ln0/1048576).toFixed(1).replace('.',',')+' MB su circa 5':'';
+ if(PS.no)return `<p class="hint">Questo browser non permette di proteggere la memoria: il backup è l'unica garanzia.</p>`;
+ return PS.p?`<p class="hint" style="color:var(--c3)">🔒 Memoria protetta: il telefono non cancellerà i dati di Ghisa da solo${mb}.</p>`:`<p class="hint">⚠️ Memoria non protetta: se il telefono resta senza spazio, il browser potrebbe cancellare i dati. Di solito la protezione arriva quando Ghisa è installata nella schermata Home e la usi spesso${mb}. <button class="lk" data-a="psr">Riprova</button></p>`}
 function bkCard(){
- const age=S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null,old=age==null||age>=14;
- return `<div class="card"><h2>Backup</h2><p class="hint" ${old?'style="color:var(--bad)"':''}>${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+(age<=0?'oggi':age+' giorni fa')+').':'Non hai ancora fatto nessun backup.'}${old?' Conviene farne uno ora.':''}</p><div class="row"><button class="p" data-a="bkx">Esporta backup</button><label class="bt g">Importa backup<input type="file" id="bkf" accept=".json,application/json" class="vh"></label></div><p class="hint">Il backup è un solo file con tutti i dati e le foto. Sul telefono si apre la condivisione: scegli dove salvarlo (File, Drive o un messaggio a te stesso); dentro Claude ti viene chiesto di confermare il salvataggio: tienilo in un posto sicuro, per esempio su Drive.</p>${V.pend?pendCard():''}<details id="dBt" ${V.o.dBt?'open':''}><summary>Backup come testo (senza foto)</summary><textarea id="bk" rows="4" aria-label="Dati di backup">${esc(V.txt||'')}</textarea><div class="row" style="margin-top:8px"><button class="g" data-a="exp">Mostra testo</button><button class="g" data-a="bkc">Copia</button><button class="g" data-a="imp">Importa testo</button></div><p class="hint" style="margin-top:6px">Riserva da usare solo se il file non funziona: non contiene le foto di progresso.</p></details></div>`;
+ const age=bkAge(),old=age==null||(bkF()&&age>=bkF());
+ return `<div class="card"><h2>Backup</h2><p class="hint" ${old?'style="color:var(--bad)"':''}>${S.lb?'Ultimo backup: '+fdy(S.lb)+' ('+(age<=0?'oggi':age+' giorni fa')+').':'Non hai ancora fatto nessun backup.'}${old?' Conviene farne uno ora.':''}</p><div class="row"><button class="p" data-a="bkx">Esporta backup</button><label class="bt g">Importa backup<input type="file" id="bkf" accept=".json,application/json" class="vh"></label></div><p class="hint">Il backup è un solo file con tutti i dati e le foto. Sul telefono si apre la condivisione: scegli dove salvarlo (File, Drive o un messaggio a te stesso); dentro Claude ti viene chiesto di confermare il salvataggio: tienilo in un posto sicuro, per esempio su Drive.</p><div class="row" style="align-items:center"><span class="hint" style="margin:0;flex:1">Promemoria in Home</span><select id="bkfq" style="flex:0 0 auto;width:auto" aria-label="Frequenza promemoria backup">${[[7,'ogni settimana'],[14,'ogni 2 settimane'],[30,'ogni mese'],[0,'mai']].map(([v,l])=>`<option value="${v}" ${bkF()==v?'selected':''}>${l}</option>`).join('')}</select></div>${psBox()}${V.pend?pendCard():''}<details id="dBt" ${V.o.dBt?'open':''}><summary>Backup come testo (senza foto)</summary><textarea id="bk" rows="4" aria-label="Dati di backup">${esc(V.txt||'')}</textarea><div class="row" style="margin-top:8px"><button class="g" data-a="exp">Mostra testo</button><button class="g" data-a="bkc">Copia</button><button class="g" data-a="imp">Importa testo</button></div><p class="hint" style="margin-top:6px">Riserva da usare solo se il file non funziona: non contiene le foto di progresso.</p></details></div>`;
 }
 
 let wl=null;
@@ -1989,6 +2000,8 @@ document.addEventListener('click',e=>{
  else if(a=='bkc'){const t=V.txt||JSON.stringify(S);V.txt=t;const sel=()=>{const e=$('#bk');if(e){e.value=t;e.focus();e.select()}};try{navigator.clipboard.writeText(t).then(()=>toast('Backup copiato negli appunti (senza foto)')).catch(()=>{sel();toast('Seleziona e copia il testo')})}catch(e){sel();toast('Seleziona e copia il testo')}return}
  else if(a=='imp'){const r=parseBk($('#bk').value);if(!r)return toast('Testo di backup non valido');V.pend=r;V.txt=''}
  else if(a=='bkno'){V.pend=null}
+ else if(a=='bksn'){S.bks=hvAdd(today(),3);toast('Te lo ricordo fra 3 giorni')}
+ else if(a=='psr'){try{navigator.storage.persist().then(p=>{PS=PS||{};PS.p=!!p;toast(p?'Memoria protetta':'Il browser non ha concesso la protezione');render()})}catch(e){}return}
  else if(a=='bkok'){const r=V.pend;V.pend=null;if(r){norm(r.d);S.lb=S.lb||'';pClear().catch(()=>{}).then(()=>Promise.all(r.ph.map(x=>pPut(x)))).catch(()=>{}).then(loadPh).then(()=>render());toast('Backup ripristinato')}}
  else if(a=='pskip'){S.ps=today().slice(0,7)}
  else if(a=='goalk'){S.goal=parseInt(b.dataset.k)||0;toast('Obiettivo impostato: '+S.goal+' kcal')}
@@ -2042,6 +2055,7 @@ document.addEventListener('change',e=>{
  else if(t.classList&&t.classList.contains('imn')){if(V.im)V.im.names[t.dataset.k]=t.value;return}
  else if(t.id=='pgkeep'){V.pg.keep=t.checked;render();return}
  else if(t.classList&&t.classList.contains('pgpl')){V.pg.pl[+t.dataset.d]=+t.value;return}
+ else if(t.id=='bkfq'){S.bkf=+t.value;save();render();return}
  else if(t.id=='opwu'){S.wuOff=!t.checked;save();return}
  else if(t.id=='oprir'){S.rirOff=!t.checked;save();return}
  else if(t.id=='opdl'){S.dlw=+t.value;save();render();return}
@@ -2137,4 +2151,6 @@ try{new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(decFix))).observ
 render();
 loadPh().then(()=>render());
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+
+try{psInit()}catch(e){}
 </script></body></html>
