@@ -1250,7 +1250,7 @@ function vo(){const ws=[...S.wt].sort((x,y)=>x.d<y.d?1:-1),last=ws[0],bmi=last&&
  h+=dw('dt','Obiettivi dieta'+hs(objTit()),`<div style="margin-top:8px">${objBody()}</div>`);
  return h}
 function vp(){
- return `<h1>Foto</h1>`+phCard()+`<button class="g" data-a="tab" data-t="o" style="width:100%;margin:0 0 12px;text-align:left">⚖️ Peso, misure e massa grassa sono in <b>Obiettivi e misure ›</b></button>`+vfb().replace('<h2 style="margin:22px 0 8px">Foto di progresso</h2>','');
+ return `<h1>Foto</h1>`+phCard()+vfb().replace('<h2 style="margin:22px 0 8px">Foto di progresso</h2>','');
 }
 
 const PZ={'Uovo intero':[['1 uovo',50]],'Mela':[['1 mela',150]],'Banana':[['1 banana (sbucciata)',120]],'Arancia':[['1 arancia',150]],'Kiwi':[['1 kiwi',75]],'Pera':[['1 pera',160]],'Pane bianco':[['1 fetta di pagnotta',50],['1 fetta di pane in cassetta',30]],'Fette biscottate':[['1 fetta',9]],'Yogurt bianco intero':[['1 vasetto',125]],'Yogurt greco 0%':[['1 vasetto',125]],'Mozzarella':[['1 mozzarella',100]],'Olio extravergine d’oliva':[['1 cucchiaio',10],['1 cucchiaino',5]],'Miele':[['1 cucchiaino raso',7],['1 cucchiaino colmo',10]],'Zucchero':[['1 cucchiaino',5]],'Burro':[['1 noce',20],['1 porzione LARN',10]],'Proteine whey (polvere)':[['1 misurino',30]],'Latte intero':[['1 tazza',200],['1 bicchiere',130]],'Latte parz. scremato':[['1 tazza',200],['1 bicchiere',130]],'Caffè (senza zucchero)':[['1 tazzina',30]],'Avocado':[['1/2 avocado',80]],'Pomodori':[['1 pomodoro',100]]};
