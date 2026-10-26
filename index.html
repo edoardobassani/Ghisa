@@ -346,6 +346,11 @@ details.gdx[open]{border-width:2px}details.gdx[open]>summary{border-bottom:1px s
 .cxc{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0}.cxc button{background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:5px 10px;font-size:13px;font-weight:500}.cxc button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 .cxr{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px dashed var(--line)}.cxr:last-of-type{border-bottom:0}
 #cdk:disabled{opacity:.45}
+.exk{margin:0 0 12px}.exk button{padding:10px 4px;font-size:14px}
+.cxst{margin:10px 0 3px!important;font-weight:600;color:var(--acc)!important}
+.cxbig{display:flex;gap:8px}.cxbig button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:9px 6px;font-weight:400}.cxbig button b{font-size:15px}.cxbig button.on{border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 8%,var(--card))}
+.cxr2{border-bottom:1px dashed var(--line);padding-bottom:4px}.cxr2 .cxr{border:0}.cxr2:last-child{border:0}
+.cxh{margin:14px 0 6px;font-size:17px}.cxgd summary{font-size:13px;color:var(--acc);border:0;padding:4px 0;margin:2px 0 0}.cxgd p{margin:2px 0 4px;font-size:14px}.cxgd a{font-size:13px}
 </style></head>
 <body>
 <main id="v"></main>
@@ -738,7 +743,9 @@ function vs(){if(V.pg)return '<h1>Schede</h1>'+pgView();if(V.im)return '<h1>Sche
 }
 
 function ve(){
- let h=`<h1>Esercizi</h1><div class="row"><input id="exn" placeholder="Nuovo esercizio" aria-label="Nome esercizio"><input id="exg" list="gl" placeholder="Gruppo (es. Bicipiti)" aria-label="Gruppo muscolare"></div><div class="row"><select id="ext" aria-label="Tipo di esercizio"><option value="">Con sovraccarico (record: peso caricato)</option><option value="bw">A corpo libero (record: ripetizioni)</option></select></div><datalist id="gl">${groups().map(g=>`<option value="${esc(g)}">`).join('')}</datalist><div class="row"><button class="p" data-a="exa">Aggiungi esercizio</button></div>`;
+ const ek=V.ek||'p',tabs=`<div class="seg2 exk" role="group" aria-label="Tipo di esercizi"><button class="${ek=='p'?'on':''}" data-a="exk" data-v="p">🏋️ Palestra (${S.ex.length})</button><button class="${ek=='c'?'on':''}" data-a="exk" data-v="c">🏃 Cardio (${cxAll().length+CT.length})</button></div>`;
+ if(ek=='c')return `<h1>Esercizi</h1>`+tabs+veCardio();
+ let h=`<h1>Esercizi</h1>`+tabs+`<div class="row"><input id="exn" placeholder="Nuovo esercizio" aria-label="Nome esercizio"><input id="exg" list="gl" placeholder="Gruppo (es. Bicipiti)" aria-label="Gruppo muscolare"></div><div class="row"><select id="ext" aria-label="Tipo di esercizio"><option value="">Con sovraccarico (record: peso caricato)</option><option value="bw">A corpo libero (record: ripetizioni)</option></select></div><datalist id="gl">${groups().map(g=>`<option value="${esc(g)}">`).join('')}</datalist><div class="row"><button class="p" data-a="exa">Aggiungi esercizio</button></div>`;
  h+=`<button class="g" data-a="seed" style="width:100%;margin-bottom:10px">📚 Aggiungi dal catalogo (${XBL.length} esercizi)</button>`;
  if(S.ex.length)h+=`<details id="dEl" ${V.o.dEl?'open':''}><summary>Elenco esercizi (${S.ex.length})</summary>`;
  byG().forEach(([g,l])=>{h+=`<details ${og('ge_',g)}><summary>${esc(g)} (${l.length})</summary>`;l.forEach(e=>{const k='e:'+e.id,n=S.log.filter(x=>x.e==e.id).length;h+=`<div class="exr"><div class="exh"><div style="flex:1;min-width:0"><b>${esc(e.name)}</b><br><span class="hint">${n} serie · ${e.t=='bw'?'corpo libero':'sovraccarico'}</span></div><button class="x ${V.del==k?'arm':''}" data-a="del" data-k="${k}" aria-label="Elimina ${esc(e.name)}">${V.del==k?'Elimina?':'×'}</button></div><div class="row"><select class="eg" data-i="${e.id}" aria-label="Gruppo di ${esc(e.name)}"><option value="">Senza gruppo</option>${groups().map(x=>`<option value="${esc(x)}" ${x==e.g?'selected':''}>${esc(x)}</option>`).join('')}</select><select class="et" data-i="${e.id}" aria-label="Tipo di ${esc(e.name)}"><option value="" ${e.t!='bw'?'selected':''}>Sovraccarico</option><option value="bw" ${e.t=='bw'?'selected':''}>Corpo libero</option></select></div><input class="ent" data-i="${e.id}" value="${esc(e.nt||'')}" maxlength="300" placeholder="📌 Nota fissa (es. sedile al 4)" aria-label="Nota fissa di ${esc(e.name)}" style="margin-top:6px"></div>`});h+='</details>'});if(S.ex.length)h+='</details>';
@@ -1423,23 +1430,59 @@ function vcs(){const q=V.cs;if(!q)return '';const p=CPM.find(x=>x[0]==q.pid);
 function csStart(){const A=S.cpr,p=cpCur();if(!p)return;const sp=cpSes(p,A.pos);try{CSA=CSA||new (window.AudioContext||window.webkitAudioContext)();CSA.resume&&CSA.resume()}catch(e){}
  V.cs={pid:p[0],pos:A.pos,sp,F:cpFlat(sp),t:A.t,t0:Date.now(),pt:0,pa:0,sk:0,ci:null};V.tab='cs';wlOn();window.scrollTo(0,0)}
 function csClose(){V.cs=null;clearInterval(CST);CST=null;wlOff();V.tab='c';window.scrollTo(0,0)}
-/* ---- Attività cardio personali ---- */
+/* ---- Esercizi cardio: «a tempo» (circuiti) e «continui» (sessioni). MET dal Compendium of Physical Activities 2024 ---- */
 const CXS=[['🎾','Padel',6,0,'stima: paddleball 15500'],['🎾','Tennis',6.8,0,'15675'],['⚽','Calcetto',7,0,'15610'],['🏀','Basket',7.5,0,'15055'],['🥾','Escursionismo',6,1,'17080'],['🚴','Spinning',9,0,'01270'],['💃','Zumba',6.5,0,'02310'],['🪢','Salto con la corda',11.8,0,'15551'],['🥊','Boxe al sacco',5.8,0,'15110'],['⛷️','Sci',6.3,0,'19160'],['🧗','Arrampicata',8,0,'15533'],['🏐','Pallavolo',4,0,'15710']];
-const caOf=t=>(S.ca||[]).find(x=>x.n==t);
-const ctAll=()=>[...CT.filter(x=>x!='Altro'),...(S.ca||[]).map(x=>x.n),'Altro'];
-function ctOpts(sel,nw,extra){const C=S.ca||[],std=CT.filter(x=>x!='Altro'),ex=extra&&!ctAll().includes(extra)?[extra]:[],o=v=>`<option value="${esc(v)}" ${v==sel?'selected':''}>${esc((caOf(v)||{}).e?caOf(v).e+' '+v:v)}</option>`;
+const CXSC={Padel:'Sport',Tennis:'Sport',Calcetto:'Sport',Basket:'Sport',Escursionismo:'Corsa e camminata',Spinning:'Bici','Salto con la corda':'Sport','Boxe al sacco':'Sport',Sci:'Sport',Arrampicata:'Sport',Pallavolo:'Sport',Zumba:'Sport'};
+const CXZ=['Total body','Gambe','Core','Braccia e spalle'],CXC=['Corsa e camminata','Bici','Acqua','Macchine','Sport','Altro'];
+const CTC={Corsa:'Corsa e camminata',Camminata:'Corsa e camminata','Tapis roulant':'Corsa e camminata',Bici:'Bici',Nuoto:'Acqua',Cyclette:'Macchine',Ellittica:'Macchine',Vogatore:'Macchine',Altro:'Altro'};
+const CXD=[['🤸','Burpees','Total body',11,'Da in piedi scendi in squat con le mani a terra, porta i piedi indietro in plank, torna in squat e salta con le braccia in alto.','Senza salto e portando indietro un piede alla volta.','02214'],
+ ['⭐','Jumping jack','Total body',7.5,'Salta aprendo le gambe e portando le braccia sopra la testa, poi richiudi. Atterra morbido sugli avampiedi.','Senza salto: apri un piede alla volta di lato alzando le braccia.','02020'],
+ ['⛰️','Mountain climber','Total body',11,'In plank sulle mani porta le ginocchia verso il petto alternandole veloce. Bacino basso e fermo.','Più lento, con le mani su una panca o un gradino.','02214'],
+ ['✳️','Plank jack','Total body',7.5,'In plank sulle mani apri e chiudi i piedi saltando. Addome contratto, schiena dritta.','Apri un piede alla volta.','02020'],
+ ['🪢','Salto della corda','Total body',11.8,'Piccoli salti sugli avampiedi, gomiti vicini al corpo: la corda gira con i polsi.','Senza corda, imitando il movimento.','15551'],
+ ['🦘','Squat jump','Gambe',11,'Scendi in squat e risali con un salto esplosivo. Atterra morbido tornando subito in squat.','Squat veloce senza salto, salendo sulle punte.','02214'],
+ ['🪑','Squat a corpo libero','Gambe',6.5,'Piedi alla larghezza delle spalle: scendi come per sederti con il petto alto, poi risali spingendo sui talloni.','Scendi solo a metà o fino a una sedia.','02057'],
+ ['🚶','Affondi alternati','Gambe',6.5,'Passo avanti e scendi finché il ginocchio dietro quasi tocca terra, poi torna e cambia gamba.','Passo più corto, scendi meno.','02057'],
+ ['🏃','Skip','Gambe',7.5,'Corsa sul posto portando le ginocchia all’altezza delle anche, con le braccia che spingono.','Marcia sul posto con le ginocchia alte.','stima: 02020'],
+ ['👟','Calciata dietro','Gambe',7.5,'Corsa sul posto portando i talloni verso i glutei.','Marcia sul posto portando i talloni indietro.','stima: 02020'],
+ ['🏃','Corsa sul posto','Gambe',4.8,'Corsa leggera sul posto sugli avampiedi, braccia rilassate.','Marcia sul posto.','12025'],
+ ['🪜','Step sul gradino','Gambe',7.3,'Sali e scendi da un gradino di 15–20 cm alternando il piede che parte, busto dritto.','Gradino più basso e ritmo più lento.','02002'],
+ ['➖','Plank','Core',2.8,'Avambracci a terra, corpo in linea dalla testa ai talloni, addome e glutei contratti. Respira.','Con le ginocchia a terra.','02024'],
+ ['🚲','Bicycle crunch','Core',3.8,'Sdraiato con le mani dietro la testa, porta il gomito verso il ginocchio opposto pedalando con le gambe.','Piedi a terra: solo la rotazione del busto.','02022'],
+ ['🔄','Russian twist','Core',3.8,'Seduto con il busto inclinato indietro, ruota il busto da un lato all’altro toccando terra con le mani.','Con i piedi a terra.','02022'],
+ ['💪','Piegamenti','Braccia e spalle',3.8,'Mani poco più larghe delle spalle, corpo in linea: scendi con il petto verso terra e spingi.','Con le ginocchia a terra o le mani su un rialzo.','02022'],
+ ['🥊','Pugni al vuoto','Braccia e spalle',9.3,'In guardia, colpi dritti alternati e veloci ruotando il busto, restando sugli avampiedi.','Ritmo più lento, senza saltellare.','15125'],
+ ['🖐️','Plank con tocco spalla','Braccia e spalle',3.8,'In plank sulle mani tocca la spalla opposta con una mano alla volta, senza far ruotare il bacino.','Con le ginocchia a terra.','02022']];
+const cxD=d=>({id:'cx'+uid(),e:d[0],n:d[1],m:'t',g:d[2],met:d[3],gd:d[4],ez:d[5],src:d[6],d:1});
+function cxAll(){if(!S.cxv){S.cx=S.cx||[];CXD.forEach(d=>{if(!S.cx.some(x=>x.n==d[1]))S.cx.push(cxD(d))});(S.ca||[]).forEach(a=>{if(!S.cx.some(x=>x.n==a.n))S.cx.push({id:a.id,e:a.e,n:a.n,m:'c',g:CXSC[a.n]||'Sport',met:a.met,km:a.km,b:a.b||0})});delete S.ca;S.cxv=1}return S.cx}
+const caList=()=>cxAll().filter(x=>x.m=='c');
+const caOf=t=>caList().find(x=>x.n==t);
+const ctAll=()=>[...CT.filter(x=>x!='Altro'),...caList().map(x=>x.n),'Altro'];
+function ctOpts(sel,nw,extra){const C=caList(),std=CT.filter(x=>x!='Altro'),ex=extra&&!ctAll().includes(extra)?[extra]:[],o=v=>`<option value="${esc(v)}" ${v==sel?'selected':''}>${esc((caOf(v)||{}).e?caOf(v).e+' '+v:v)}</option>`;
  return std.map(o).join('')+(C.length?`<optgroup label="Le tue attività">${C.map(x=>o(x.n)).join('')}</optgroup>`:'')+o('Altro')+ex.map(o).join('')+(nw?'<option value="__new">＋ Nuova attività…</option>':'')}
-function cxSheet(id){const x=id?(S.ca||[]).find(c=>c.id==id):null,V0=V.cxf||(x?{e:x.e,n:x.n,met:x.met,km:x.km,b:x.b||x.met}:{e:'🏃',n:'',met:'',km:0,b:0});V.cxf=V0;
- const lv=V0.b?[[.75,'Leggera'],[1,'Moderata'],[1.25,'Intensa']].map(([f,l])=>{const m=Math.round(V0.b*f*10)/10;return `<button class="${Math.abs((+V0.met||0)-m)<.05?'on':''}" data-a="cxi" data-v="${m}">${l} · ${nI(m)}</button>`}).join(''):'';
- cfOpen(`<h2>${x?'Modifica attività':'Nuova attività cardio'}</h2>${x?'':`<p class="hint" style="margin:4px 0 2px">Suggerite (MET dal Compendium of Physical Activities 2024)</p><div class="cxc">${CXS.map(c=>`<button class="${V0.n==c[1]?'on':''}" data-a="cxs" data-n="${c[1]}">${c[0]} ${c[1]} ${nI(c[2])}</button>`).join('')}</div>`}
- <div class="row" style="margin-top:8px"><input id="cxe" value="${esc(V0.e)}" aria-label="Emoji" style="flex:0 0 52px;text-align:center"><input id="cxn" value="${esc(V0.n)}" placeholder="Nome (es. Padel)" aria-label="Nome dell’attività"></div>
- ${lv?`<p class="hint" style="margin:6px 0 2px">Intensità</p><div class="seg2" role="group" aria-label="Intensità">${lv}</div>`:''}
- <div class="row" style="align-items:center;margin-top:6px"><label class="hint" for="cxm" style="flex:1;margin:0">${lv?'oppure scrivi tu il MET':'MET (fatica dell’attività: 3 leggera, 6 moderata, 9+ intensa)'}</label><input id="cxm" inputmode="decimal" value="${V0.met?String(V0.met).replace('.',','):''}" style="flex:0 0 76px" aria-label="MET"></div>
- <label class="row" style="align-items:center;gap:8px;margin:8px 0;font-size:15px"><input type="checkbox" id="cxk" ${V0.km?'checked':''} style="width:18px;height:18px;flex:0 0 auto">Registra anche i km</label>
- <p class="hint" style="margin:0 0 10px">Le kcal si stimano come MET × peso × ore, come per le altre attività.</p>
- <button class="p" data-a="cxok" data-i="${id||''}" style="width:100%">${x?'Salva modifiche':'Aggiungi attività'}</button><button class="g" data-a="cxx" style="width:100%;margin-top:8px">Annulla</button>`)}
-function cxRead(){const f=V.cxf||{};const e=$('#cxe'),n=$('#cxn'),m=$('#cxm'),k=$('#cxk');if(e)f.e=e.value.trim();if(n)f.n=n.value.trim();if(m)f.met=parseFloat(m.value.replace(',','.'))||'';if(k)f.km=k.checked?1:0;V.cxf=f;return f}
-function cxCard(){const C=S.ca||[];return `<details id="dCx" ${V.o.dCx?'open':''}><summary>Le tue attività${C.length?' ('+C.length+')':''}</summary><div class="card" style="margin-top:8px">${C.length?C.map(x=>{const n=S.cd.filter(c=>c.t==x.n).length;return `<div class="cxr"><span>${esc(x.e||'')} <b>${esc(x.n)}</b><br><span class="hint">MET ${nI(x.met)}${x.km?' · km sì':''} · ${n} ${n==1?'sessione':'sessioni'}</span></span><span><button class="lk" data-a="cxe" data-i="${x.id}">Modifica</button> <button class="x" data-a="cxd" data-i="${x.id}" aria-label="Elimina ${esc(x.n)}">×</button></span></div>`}).join(''):'<p class="hint" style="margin:0 0 8px">Aggiungi sport e attività che non sono nell’elenco: padel, calcetto, escursionismo…</p>'}<button class="g" data-a="cxn" style="width:100%;margin-top:8px">＋ Nuova attività</button><p class="hint" style="margin:8px 0 0">Se elimini un’attività, le sessioni già registrate restano con il loro nome.</p></div></details>`}
+function cxSheet(id){const x=id?cxAll().find(c=>c.id==id):null,V0=V.cxf||(x?{m:x.m,g:x.g,e:x.e,n:x.n,met:x.met,km:x.km,b:x.b||x.met,gd:x.gd||'',ez:x.ez||''}:{m:'c',g:'Sport',e:'🏃',n:'',met:'',km:0,b:0,gd:'',ez:''});V.cxf=V0;const tm=V0.m=='t';
+ const lv=V0.b?[[.75,'Leggera'],[1,'Moderata'],[1.25,'Intensa']].map(([f,l])=>{const m=Math.round(V0.b*f*10)/10;return `<button class="${Math.abs((+V0.met||0)-m)<.05?'on':''}" data-a="cxi" data-v="${m}">${l} · ${nI(m)}</button>`}).join(''):[[4,'Leggera'],[6,'Moderata'],[8,'Intensa']].map(([m,l])=>`<button class="${+V0.met==m?'on':''}" data-a="cxi" data-v="${m}">${l} · ${m}</button>`).join('');
+ cfOpen(`<h2>${x?'Modifica esercizio cardio':'Nuovo esercizio cardio'}</h2>
+ <p class="hint cxst">Come lo fai</p><div class="cxbig">${[['t','⏱️','A tempo','nei circuiti, es. 40"'],['c','🛣️','Continuo','sessione con minuti e km']].map(([v,i,l,d])=>`<button class="${V0.m==v?'on':''}" data-a="cxm" data-v="${v}">${i}<b>${l}</b><span class="hint">${d}</span></button>`).join('')}</div>
+ ${!x&&!tm?`<p class="hint cxst">Suggerite (MET dal Compendium of Physical Activities 2024)</p><div class="cxc">${CXS.filter(c=>!caOf(c[1])).map(c=>`<button class="${V0.n==c[1]?'on':''}" data-a="cxs" data-n="${c[1]}">${c[0]} ${c[1]} ${nI(c[2])}</button>`).join('')}</div>`:''}
+ <div class="row" style="margin-top:8px"><input id="cxe" value="${esc(V0.e)}" aria-label="Emoji" style="flex:0 0 52px;text-align:center"><input id="cxn" value="${esc(V0.n)}" placeholder="${tm?'Nome (es. Mountain climber)':'Nome (es. Padel)'}" aria-label="Nome"></div>
+ <p class="hint cxst">${tm?'Cosa allena':'Categoria'}</p><div class="cxc">${(tm?CXZ:CXC).map(g=>`<button class="${V0.g==g?'on':''}" data-a="cxg" data-v="${g}">${g}</button>`).join('')}</div>
+ <p class="hint cxst">Intensità</p><div class="seg2" role="group" aria-label="Intensità">${lv}</div>
+ <div class="row" style="align-items:center;margin-top:6px"><label class="hint" for="cxmt" style="flex:1;margin:0">oppure scrivi tu il MET (3 leggera · 6 moderata · 9+ intensa)</label><input id="cxmt" inputmode="decimal" value="${V0.met?String(V0.met).replace('.',','):''}" style="flex:0 0 76px" aria-label="MET"></div>
+ ${tm?`<input id="cxgd" value="${esc(V0.gd)}" placeholder="Come si esegue (facoltativo)" aria-label="Come si esegue" style="margin-top:8px"><input id="cxez" value="${esc(V0.ez)}" placeholder="Versione facile (facoltativo)" aria-label="Versione facile" style="margin-top:6px">`:`<label class="row" style="align-items:center;gap:8px;margin:8px 0;font-size:15px"><input type="checkbox" id="cxk" ${V0.km?'checked':''} style="width:18px;height:18px;flex:0 0 auto">Registra anche i km</label>`}
+ <p class="hint" style="margin:8px 0 10px">Le kcal si stimano come MET × peso × ore.</p>
+ <button class="p" data-a="cxok" data-i="${id||''}" style="width:100%">${x?'Salva modifiche':'Aggiungi'}</button><button class="g" data-a="cxx" style="width:100%;margin-top:8px">Annulla</button>`)}
+function cxRead(){const f=V.cxf||{};const g=i=>$(i),e=g('#cxe'),n=g('#cxn'),m=g('#cxmt'),k=g('#cxk'),gd=g('#cxgd'),ez=g('#cxez');if(e)f.e=e.value.trim();if(n)f.n=n.value.trim();if(m)f.met=parseFloat(m.value.replace(',','.'))||'';if(k)f.km=k.checked?1:0;if(gd)f.gd=gd.value.trim();if(ez)f.ez=ez.value.trim();V.cxf=f;return f}
+function cxCat(){const L=CXD.filter(d=>!cxAll().some(x=>x.n==d[1])),Sp=CXS.filter(c=>!caOf(c[1]));cfOpen(`<h2>Catalogo cardio</h2><p class="hint" style="margin:4px 0 8px">Tocca per aggiungere. MET dal Compendium of Physical Activities 2024.</p>${L.length?`<p class="hint cxst">Esercizi a tempo</p><div class="cxc">${L.map(d=>`<button data-a="cxca" data-n="${esc(d[1])}">${d[0]} ${esc(d[1])} · ${nI(d[3])}</button>`).join('')}</div>`:''}${Sp.length?`<p class="hint cxst">Sport e attività</p><div class="cxc">${Sp.map(c=>`<button data-a="cxcs" data-n="${c[1]}">${c[0]} ${c[1]} · ${nI(c[2])}</button>`).join('')}</div>`:''}${!L.length&&!Sp.length?'<p class="hint">Hai già tutto il catalogo.</p>':''}<button class="g" data-a="cfx" style="width:100%;margin-top:10px">Chiudi</button>`)}
+function cxRow(x,tm){const n=tm?0:S.cd.filter(c=>c.t==x.n).length;return `<div class="cxr2"><div class="cxr"><div style="flex:1;min-width:0"><span>${esc(x.e||'')} <b>${esc(x.n)}</b></span><br><span class="hint">MET ${nI(x.met)}${!tm&&x.km?' · km sì':''}${!tm?' · '+n+(n==1?' sessione':' sessioni'):''}</span></div><span style="flex:0 0 auto"><button class="lk" data-a="cxe" data-i="${x.id}">Modifica</button> <button class="x" data-a="cxd" data-i="${x.id}" aria-label="Elimina ${esc(x.n)}">×</button></span></div>${tm&&(x.gd||x.ez)?`<details class="cxgd"><summary>ⓘ Come si esegue</summary><p>${esc(x.gd||'')}</p>${x.ez?`<p class="hint"><b>Versione facile:</b> ${esc(x.ez)}</p>`:''}<a href="https://www.youtube.com/results?search_query=${encodeURIComponent(x.n+' esercizio esecuzione')}" target="_blank" rel="noopener">▶ Cerca un video su YouTube</a></details>`:''}</div>`}
+function veCardio(){const A=cxAll(),T=A.filter(x=>x.m=='t'),C=A.filter(x=>x.m=='c'),miss=CXD.filter(d=>!A.some(x=>x.n==d[1])).length+CXS.filter(c=>!caOf(c[1])).length;
+ let h=`<div class="row"><button class="p" data-a="cxnt" style="flex:1">＋ Nuovo esercizio cardio</button></div><button class="g" data-a="cxcat" style="width:100%;margin-bottom:10px">📚 Catalogo cardio${miss?' ('+miss+' da aggiungere)':''}</button>`;
+ h+=`<h2 class="cxh">Esercizi a tempo <span class="hint">· per i circuiti</span></h2>`;
+ CXZ.forEach(z=>{const L=T.filter(x=>x.g==z);if(!L.length)return;h+=`<details ${og('cxz_',z)}><summary>${z} (${L.length})</summary>${L.map(x=>cxRow(x,1)).join('')}</details>`});
+ h+=`<h2 class="cxh">Attività continue <span class="hint">· sessioni con minuti e km</span></h2>`;
+ CXC.forEach(c=>{const B=CT.filter(t=>CTC[t]==c),L=C.filter(x=>(x.g||'Sport')==c);if(!B.length&&!L.length)return;h+=`<details ${og('cxc_',c)}><summary>${c} (${B.length+L.length})</summary>${B.map(t=>`<div class="cxr"><div style="flex:1"><b>${t}</b><br><span class="hint">predefinita · MET in base a ${['Corsa','Camminata','Bici','Tapis roulant'].includes(t)?'velocità (km e minuti)':'attività'}</span></div></div>`).join('')}${L.map(x=>cxRow(x,0)).join('')}</details>`});
+ return h}
+function cxCard(){const n=caList().length;return `<button class="g" data-a="cxgo" style="width:100%;margin:0 0 12px">🏃 Esercizi e attività cardio${n?' · '+n+' tue':''} › in Esercizi</button>`}
 function vc(){if(V.cp)return '<h1>Cardio</h1>'+cpView();
  const n=new Date(),dow=(n.getDay()+6)%7,wf=iso(new Date(n.getFullYear(),n.getMonth(),n.getDate()-dow)),w=S.cd.filter(c=>c.d>=wf),sum=(a,k)=>a.reduce((t,c)=>t+(c[k]||0),0),R=x=>Math.round(x*10)/10;
  let h=`<h1>Cardio</h1>${wkCard('c',`<span>Sessioni <b>${w.length}</b></span><span>Minuti <b>${R(sum(w,'min'))}</b></span><span>Km <b>${R(sum(w,'km'))}</b></span>${sum(w,'kc')?`<span>Kcal <b>${R(sum(w,'kc'))}</b></span>`:''}`)}`;
@@ -2028,19 +2071,27 @@ document.addEventListener('click',e=>{
  else if(a=='cpre'){if(S.cpr){S.cpr.pos=0;S.cpr.last='';S.cpr.start=today()}}
  else if(a=='cprep'){const A=S.cpr,p=cpCur();if(A&&p){const n=p[5],w=Math.floor(A.pos/n);A.pos=(A.pos%n==0&&w>0?w-1:w)*n;toast('Riparti dalla settimana '+(Math.floor(A.pos/n)+1))}}
  else if(a=='cpgo'){csStart()}
+ else if(a=='exk'){V.ek=b.dataset.v}
+ else if(a=='cxgo'){V.tab='e';V.ek='c';window.scrollTo(0,0)}
  else if(a=='cxn'){V.cxf=null;cxSheet();return}
+ else if(a=='cxnt'){V.cxf={m:'t',g:'Total body',e:'🔥',n:'',met:'',km:0,b:0,gd:'',ez:''};cxSheet();return}
  else if(a=='cxe'){V.cxf=null;cxSheet(id);return}
  else if(a=='cxx'){V.cxf=null;cfClose();return}
- else if(a=='cxs'){const c=CXS.find(x=>x[1]==b.dataset.n);V.cxf={e:c[0],n:c[1],met:c[2],km:c[3],b:c[2]};cxSheet();return}
+ else if(a=='cxm'){const f=cxRead();if(f.m!=b.dataset.v){f.m=b.dataset.v;f.g=f.m=='t'?'Total body':'Sport'}cxSheet((document.querySelector('#cfm [data-a="cxok"]')||{dataset:{}}).dataset.i);return}
+ else if(a=='cxg'){const f=cxRead();f.g=b.dataset.v;cxSheet((document.querySelector('#cfm [data-a="cxok"]')||{dataset:{}}).dataset.i);return}
+ else if(a=='cxs'){const c=CXS.find(x=>x[1]==b.dataset.n);V.cxf={m:'c',g:CXSC[c[1]]||'Sport',e:c[0],n:c[1],met:c[2],km:c[3],b:c[2]};cxSheet();return}
  else if(a=='cxi'){const f=cxRead();f.met=+b.dataset.v;cxSheet((document.querySelector('#cfm [data-a="cxok"]')||{dataset:{}}).dataset.i);return}
- else if(a=='cxok'){const f=cxRead(),eid=b.dataset.i;if(!f.n)return toast('Scrivi il nome dell’attività');if(!(f.met>=1&&f.met<=25))return toast('Indica un MET tra 1 e 25');S.ca=S.ca||[];
-  if((CT.includes(f.n)||S.ca.some(x=>x.n.toLowerCase()==f.n.toLowerCase()&&x.id!=eid)))return toast('Esiste già un’attività con questo nome');
-  if(eid){const x=S.ca.find(c=>c.id==eid),old=x.n,om=x.met;S.cd.forEach(c=>{if(c.t==old)c.t=f.n});Object.assign(x,{e:f.e,n:f.n,met:f.met,km:f.km});if(!f.km)S.cd.forEach(c=>{});if(V.ct==old)V.ct=f.n;V.cxf=null;
-   const L=S.cd.filter(c=>c.t==f.n&&c.est);if(om!=f.met&&L.length){save();cfOpen(`<h2>Ricalcolare le kcal passate?</h2><p class="hint" style="margin:6px 0 14px">Hai cambiato il MET di «${esc(f.n)}» da ${nI(om)} a ${nI(f.met)}. Ci sono ${L.length} ${L.length==1?'sessione':'sessioni'} con le kcal stimate.</p><button class="p" data-a="cxr" data-n="${esc(f.n)}" style="width:100%">Sì, ricalcola</button><button class="g" data-a="cfx" style="width:100%;margin-top:8px">No, lasciale così</button>`);render();return}
-   cfClose();toast('Attività aggiornata')}
-  else{S.ca.push({id:uid(),e:f.e||'🏃',n:f.n,met:f.met,km:f.km,b:f.b||0});V.ct=f.n;V.cxf=null;cfClose();V.o.dCx=true;toast('Attività «'+f.n+'» aggiunta')}}
+ else if(a=='cxcat'){cxCat();return}
+ else if(a=='cxca'){const d=CXD.find(x=>x[1]==b.dataset.n);if(d&&!cxAll().some(x=>x.n==d[1]))S.cx.push(cxD(d));save();toast(d[1]+' aggiunto');cxCat();render();return}
+ else if(a=='cxcs'){const c=CXS.find(x=>x[1]==b.dataset.n);if(c&&!caOf(c[1]))cxAll().push({id:'cx'+uid(),e:c[0],n:c[1],m:'c',g:CXSC[c[1]]||'Sport',met:c[2],km:c[3],b:c[2]});save();toast(c[1]+' aggiunto');cxCat();render();return}
+ else if(a=='cxok'){const f=cxRead(),eid=b.dataset.i,A=cxAll();if(!f.n)return toast('Scrivi il nome');if(!(f.met>=1&&f.met<=25))return toast('Indica un MET tra 1 e 25');
+  if(CT.includes(f.n)||A.some(x=>x.n.toLowerCase()==f.n.toLowerCase()&&x.id!=eid))return toast('Esiste già con questo nome');
+  if(eid){const x=A.find(c=>c.id==eid),old=x.n,om=x.met;if(x.m=='c')S.cd.forEach(c=>{if(c.t==old)c.t=f.n});Object.assign(x,{e:f.e,n:f.n,met:f.met,m:f.m,g:f.g,km:f.m=='c'?f.km:0,gd:f.gd,ez:f.ez});if(V.ct==old)V.ct=f.n;V.cxf=null;
+   const L=S.cd.filter(c=>c.t==f.n&&c.est);if(x.m=='c'&&om!=f.met&&L.length){save();cfOpen(`<h2>Ricalcolare le kcal passate?</h2><p class="hint" style="margin:6px 0 14px">Hai cambiato il MET di «${esc(f.n)}» da ${nI(om)} a ${nI(f.met)}. Ci sono ${L.length} ${L.length==1?'sessione':'sessioni'} con le kcal stimate.</p><button class="p" data-a="cxr" data-n="${esc(f.n)}" style="width:100%">Sì, ricalcola</button><button class="g" data-a="cfx" style="width:100%;margin-top:8px">No, lasciale così</button>`);render();return}
+   cfClose();toast('Esercizio aggiornato')}
+  else{A.push({id:'cx'+uid(),e:f.e||(f.m=='t'?'🔥':'🏃'),n:f.n,m:f.m,g:f.g,met:f.met,km:f.m=='c'?f.km:0,b:f.b||0,gd:f.gd||'',ez:f.ez||''});if(f.m=='c')V.ct=f.n;V.cxf=null;cfClose();V.o[(f.m=='t'?'cxz_':'cxc_')+f.g.replace(/\W/g,'_')]=true;toast('«'+f.n+'» aggiunto')}}
  else if(a=='cxr'){const n=b.dataset.n;let k=0;S.cd.forEach(c=>{if(c.t==n&&c.est){const e=cdEst(c.t,c.min,c.km,c.d);if(e){c.kc=e;k++}}});cfClose();toast('Kcal ricalcolate su '+k+' sessioni')}
- else if(a=='cxd'){const x=(S.ca||[]).find(c=>c.id==id);if(x){S.ca=S.ca.filter(c=>c.id!=id);if(V.ct==x.n)V.ct='';toast('Attività «'+x.n+'» eliminata')}}
+ else if(a=='cxd'){const x=cxAll().find(c=>c.id==id);if(x){S.cx=S.cx.filter(c=>c.id!=id);if(V.ct==x.n)V.ct='';toast('«'+x.n+'» eliminato')}}
  else if(a=='csp'){const q=V.cs;if(q.pa){q.pt+=Date.now()-q.pa;q.pa=0}else q.pa=Date.now()}
  else if(a=='csk'){const q=V.cs,a2=csAt(q,csEl(q));q.sk+=a2.left;q.lb=null}
  else if(a=='cse'){const q=V.cs;q.fe=Date.now();if(q.pa){q.pt+=q.fe-q.pa;q.pa=0}q.fin=1;q.ok=csAt(q,csEl(q)).i>=q.F.length?1:0;window.scrollTo(0,0)}
@@ -2296,7 +2347,7 @@ document.addEventListener('change',e=>{
  else if(t.id=='wsx'){if(t.value){V.wsw=t.value;V.wso=false}render()}
  else if(t.id=='gwi'||t.id=='gci'){S[t.id=='gwi'?'gw':'gc']=parseInt(t.value)||0;save();render()}
  else if(t.id=='cdd'&&t.value){V.cdd=t.value;cdUpd()}
- else if(t.id=='cdt'){if(t.value=='__new'){t.value=V.ct||CT[0];V.cxf=null;cxSheet();return}V.ct=t.value;cdUpd()}
+ else if(t.id=='cdt'){if(t.value=='__new'){t.value=V.ct||CT[0];V.cxf={m:'c',g:'Sport',e:'🏃',n:'',met:'',km:0,b:0};cxSheet();return}V.ct=t.value;cdUpd()}
  else if(t.id=='cdv'){V.cc=t.value;drawCd()}
  else if(t.id=='cdf'){V.cf=t.value;drawCd();drawCdW()}
  else if(t.id=='mmp'){V.mp=t.value;render()}
