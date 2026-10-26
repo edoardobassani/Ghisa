@@ -1524,7 +1524,7 @@ const cbStep=s=>s<120?15:s<300?30:60;
 function cscRead(){const x=V.csd;if(!x)return;const n=$('#cdn2'),t=$('#cdt2'),nt=$('#cdnt');if(n)x.n=n.value.trim();if(t)x.t=t.value;if(nt)x.nt=nt.value.trim()}
 function csStartSc(id){const x=csc().find(c=>c.id==id);if(!x)return;const sp=cbSpec(x.B);if(!sp)return toast('La scheda è vuota');try{CSA=CSA||new (window.AudioContext||window.webkitAudioContext)();CSA.resume&&CSA.resume()}catch(e){}
  V.cs={sc:x.id,scn:x.n,sp,F:cpFlat(sp),t:x.t,t0:Date.now(),pt:0,pa:0,sk:0,ci:null};V.tab='cs';wlOn();window.scrollTo(0,0)}
-function csLbl(q){if(q.sc)return esc(q.scn||'Scheda cardio');const p=CPM.find(x=>x[0]==q.pid);return csLbl(q)}
+function csLbl(q){if(q.sc)return esc(q.scn||'Scheda cardio');const p=CPM.find(x=>x[0]==q.pid);return p?esc(p[1])+' · '+cpLbl(p,q.pos):''}
 function cscToday(){const di=(new Date().getDay()+6)%7,id=(S.plc||{})[di],x=id&&csc().find(c=>c.id==id);if(!x||S.cd.some(c=>c.d==today()&&c.sc==x.id))return null;return x}
 function vc(){if(V.cp)return '<h1>Cardio</h1>'+cpView();if(V.csd)return '<h1>Cardio</h1>'+cscEd();
  const n=new Date(),dow=(n.getDay()+6)%7,wf=iso(new Date(n.getFullYear(),n.getMonth(),n.getDate()-dow)),w=S.cd.filter(c=>c.d>=wf),sum=(a,k)=>a.reduce((t,c)=>t+(c[k]||0),0),R=x=>Math.round(x*10)/10;
