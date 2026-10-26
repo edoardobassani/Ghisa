@@ -1644,6 +1644,30 @@ function wkEv(){
   const e=[];if(Object.keys(mx).some(x=>run[x]>0&&mx[x]>run[x]))e.push('');if(v>0&&mv>0&&v>mv)e.push('🏆');if(w.c>0&&mc>0&&w.c>mc)e.push('');if(S.gw&&new Set(w.l.map(l=>l.d)).size>=S.gw)e.push('');
   ev[k]=e.join('');Object.keys(mx).forEach(x=>{run[x]=Math.max(run[x]||0,mx[x])});mv=Math.max(mv,v);mc=Math.max(mc,w.c)});
  return ev}
+/* Riepilogo mensile: stessa maschera del settimanale, con confronto sul mese precedente */
+const MNF=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const ymOf=d=>d.slice(0,7),ymAdd=(ym,k)=>{const [y,m]=ym.split('-').map(Number),x=new Date(y,m-1+k,1);return x.getFullYear()+'-'+pad(x.getMonth()+1)},ymEnd=ym=>{const [y,m]=ym.split('-').map(Number);return ym+'-'+pad(new Date(y,m,0).getDate())},ymLab=ym=>MNF[+ym.slice(5)-1]+' '+ym.slice(0,4);
+function moStat(a,e){const R=Math.round,L=S.log.filter(l=>l.d>=a&&l.d<=e),v=L.reduce((x,l)=>x+l.kg*l.r,0),days=new Set(L.map(l=>l.d)).size,recs=[...new Set(L.map(l=>l.e))].filter(x=>{const p=recOf(x,l=>l.d<a);return p>0&&Math.max(...L.filter(l=>l.e==x).map(l=>rV(x,l)))>p}).length;
+ const C=S.cd.filter(c=>c.d>=a&&c.d<=e),cm=R(C.reduce((t,c)=>t+(c.min||0),0)),ck=Math.round(C.reduce((t,c)=>t+(c.km||0),0)*10)/10;
+ const M=S.meal.filter(x=>x.d>=a&&x.d<=e),md=new Set(M.map(x=>x.d)).size,kc=md?R(M.reduce((t,x)=>t+ln(x).k,0)/md):0;
+ const W=S.wt.filter(x=>x.d>=a&&x.d<=e).sort((p,q)=>p.d<q.d?-1:1);return{L,v,days,recs,C,cm,ck,md,kc,W,last:W.length?W[W.length-1].kg:null}}
+function vmo(){const t=today(),R=Math.round,cur=ymOf(t),ms0=V.msw||(+t.slice(8)<=3?'s':'q'),prv=ymAdd(cur,-1),ym=/^\d{4}-\d\d$/.test(ms0)?ms0:ms0=='s'?prv:cur,a=ym+'-01',e=ymEnd(ym),pym=ymAdd(ym,-1);
+ const nd=+e.slice(8),el=ym==cur?+t.slice(8):nd,wk=el/7,pe=ym==cur?pym+'-'+pad(Math.min(el,+ymEnd(pym).slice(8))):ymEnd(pym),X=moStat(a,ym==cur?t:e),P=moStat(pym+'-01',pe);
+ const pc=(c,p)=>p>0&&c>0?R((c-p)/p*100):null,pt=(c,p,lab)=>{const v=pc(c,p);return v==null?'':(v>0?'+':v<0?'':'±')+v+'% '+(lab||'vs '+MNF[+pym.slice(5)-1].slice(0,3).toLowerCase()+'.')};
+ const pw=[...S.wt].filter(x=>x.d<a).sort((p,q)=>p.d<q.d?1:-1)[0],dw=X.last!=null&&pw?Math.round((X.last-pw.kg)*10)/10:null;
+ const gw=S.gw?Math.round(S.gw*wk):0,gc=S.gc?Math.round(S.gc*wk):0;
+ const T=(l,b,s,x)=>`<div><small>${l}</small><b>${b}</b>${s?`<small>${s}</small>`:''}${x||''}</div>`;
+ const sw=(()=>{const A=[...S.wt].filter(x=>x.d<=e).sort((p,q)=>p.d<q.d?-1:1).slice(-8);if(A.length<2)return '';const lo=Math.min(...A.map(x=>x.kg)),hi=Math.max(...A.map(x=>x.kg)),XX=i=>4+i*(72/(A.length-1)),Y=v=>3+(hi==lo?.5:1-(v-lo)/(hi-lo))*16;return `<svg class="wksp" viewBox="0 0 80 22" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="var(--acc)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" points="${A.map((x,i)=>XX(i)+','+Y(x.kg)).join(' ')}"/></svg><i class="wkdot" style="left:${(XX(A.length-1)/80*100).toFixed(1)}%;top:${(Y(A[A.length-1].kg)/22*100).toFixed(1)}%"></i>`})();
+ const all=[...S.log,...S.cd,...S.meal,...S.wt].map(x=>x.d).sort(),f0=all[0]?ymOf(all[0]):prv,opts=[];for(let k=2;k<=60;k++){const y=ymAdd(cur,-k);if(y<f0)break;opts.push(y)}
+ const part=ym==cur?` <span class="hint">(fino a oggi)</span>`:'';
+ return `<div class="card hv"><div class="hvst"><h2>Riepilogo mensile</h2><span class="hint">${ymLab(ym)}</span></div><div class="row"><button class="${ym==cur?'p':'g'}" data-a="msw" data-v="q">Questo</button><button class="${ym==prv?'p':'g'}" data-a="msw" data-v="s">Scorso</button><button class="${ym!=cur&&ym!=prv||V.mso?'p':'g'}" data-a="mso">Altri ▾</button></div>${ym!=cur&&ym!=prv||V.mso?`<select id="msx" aria-label="Scegli il mese"><option value="" ${ym==cur||ym==prv?'selected':''}>Mesi passati…</option>${opts.map(y=>`<option value="${y}" ${y==ym?'selected':''}>${ymLab(y)}</option>`).join('')}</select>`:''}${ym==cur?`<p class="hint" style="margin:6px 0 0">Mese in corso: confronto con i primi ${el} giorni di ${MNF[+pym.slice(5)-1].toLowerCase()}.</p>`:''}<div class="hvtl">`
+ +T('Allenamenti',gw?X.days+' di '+gw:X.days,X.L.length+' serie'+(pt(X.days,P.days)?' · '+pt(X.days,P.days):''))
+ +T('Volume',X.v?(X.v>=1000?hvNum(R(X.v/100)/10)+'k':R(X.v)):'–',X.v?pt(X.v,P.v):'')
+ +T('Record',X.recs?'🏆 '+X.recs:'–',X.recs?'esercizi migliorati'+(P.recs?' (prec. '+P.recs+')':''):'')
+ +T('Cardio',X.cm+' min',(gc?X.C.length+' di '+gc+' sessioni':X.C.length+(X.C.length==1?' sessione':' sessioni'))+(X.ck?' · '+hvNum(X.ck)+' km':'')+(pt(X.cm,P.cm)?' · '+pt(X.cm,P.cm):''))
+ +T('Kcal medie',X.md?X.kc:'–',X.md?(S.goal?'obiettivo '+S.goal:X.md+' giorni registrati')+(pt(X.kc,P.kc)?' · '+pt(X.kc,P.kc):''):'nessun pasto')
+ +T('Peso',X.last!=null?hvNum(X.last)+' kg':'–',dw!=null?(dw>0?'+':'')+hvNum(dw)+' kg nel mese':'',sw?`<span class="wksw">${sw}</span>`:'')
+ +`</div></div>`}
 function vwk(){
  const t=today(),R=Math.round,cur=hvMon(t),ws0=V.wsw||((new Date().getDay()==1)?'s':'q'),prv=hvAdd(cur,-7),m=/^\d{4}-/.test(ws0)?ws0:ws0=='s'?prv:cur,e=hvAdd(m,6),pm=hvAdd(m,-7),pe=hvAdd(m,-1);
  const L=S.log.filter(l=>l.d>=m&&l.d<=e),vol=a=>a.reduce((x,l)=>x+l.kg*l.r,0),v=vol(L),vp=vol(S.log.filter(l=>l.d>=pm&&l.d<=pe)),dv=vp>0?R((v-vp)/vp*100):null;
@@ -1712,7 +1736,7 @@ function vh(){
   const ms=[['Proteine',T.p,gm.p,'var(--acc)'],['Carboidrati',T.c,gm.c,'var(--hi)'],['Grassi',T.g,gm.f,'var(--c3)']];
   let cm='';if(!S.meal.some(m=>m.d==t))cm='Nessun pasto registrato oggi.';else{const pr=[];if(gl)pr.push(T.k>gl?'Superato di '+R(T.k-gl)+' kcal.':'Mancano '+R(gl-T.k)+' kcal.');const mm=ms.filter(x=>x[2]>0).sort((a,c)=>a[1]/a[2]-c[1]/c[2]);if(mm.length&&(!gl||T.k<gl))pr.push('Più indietro: '+mm[0][0].toLowerCase()+' ('+R(mm[0][1]/mm[0][2]*100)+'%).');cm=pr.join(' ')}
   h+=`<div class="card hv"><h2>Oggi a tavola</h2><div class="hvrg"><div class="hvbig"><svg viewBox="0 0 120 120" aria-hidden="true">${hvRing(48,12,gl?T.k/gl:0,over?'var(--bad)':'var(--acc)')}</svg><div class="hvt"><b>${R(T.k)}</b><span>${gl?'su '+gl+' kcal':'kcal'}</span></div></div><div class="hvmc">${ms.map(([n,v,g,c])=>`<div class="hvm"><svg viewBox="0 0 120 120" aria-hidden="true">${hvRing(46,16,g>0?v/g:0,c)}</svg><div>${n}<b>${R(v)}${g?' / '+g:''} g</b></div></div>`).join('')}</div></div>${cm?`<p class="hint">${cm}</p>`:''}<button class="g" data-a="gd" data-d="${t}" data-t="n">Apri il diario</button></div>`}
- h+=vwk()+hist();
+ h+=vwk()+vmo()+hist();
  return h;
 }
 
@@ -2094,6 +2118,8 @@ document.addEventListener('click',e=>{
  else if(a=='mmv'){V.mv=b.dataset.v}
  else if(a=='wsw'){V.wsw=b.dataset.v;V.wso=false}
  else if(a=='wso'){V.wso=!V.wso}
+ else if(a=='msw'){V.msw=b.dataset.v;V.mso=false}
+ else if(a=='mso'){V.mso=!V.mso}
  else if(a=='qgo'){V.tab=b.dataset.t;if(V.tab=='w'){V.o.dMan=true;V.wv=''}V.del='';V.date=today();V.nd=today();window.scrollTo(0,0)}
  else if(a=='qw'){const kg=parseFloat(($('#qw').value||'').replace(',','.'));if(!(kg>=20&&kg<=500)){V.fab=true;render();return toast('Inserisci un peso valido in kg')}S.wt=S.wt.filter(w=>w.d!=today());S.wt.push({id:uid(),d:today(),kg:Math.round(kg*10)/10});toast('Peso salvato')}
  else if(a=='ssaa'){const rows=spRows(b.closest('.card'));if(!rows)return;spLog(V.ss.d,rows,ssSc(),V.ss.sid)}
@@ -2471,6 +2497,7 @@ document.addEventListener('change',e=>{
  else if(t.id=='ssfx'){const v=t.value,q=V.ss;if(!v||!q)return;q.L=q.L||[];if(!q.L.includes(v))q.L.push(v);q.i=Math.max(0,ssIds().indexOf(v));q.done=false;q.t1=0;render();window.scrollTo(0,0)}
  else if(t.id=='ssel'){V.ss.i=parseInt(t.value)||0;V.ss.done=false;V.ss.t1=0;render();window.scrollTo(0,0)}
  else if(t.id=='scs'){V.sc=t.value;render()}
+ else if(t.id=='msx'){if(t.value){V.msw=t.value;V.mso=false}render()}
  else if(t.id=='wsx'){if(t.value){V.wsw=t.value;V.wso=false}render()}
  else if(t.id=='gwi'||t.id=='gci'){S[t.id=='gwi'?'gw':'gc']=parseInt(t.value)||0;save();render()}
  else if(t.id=='cdd'&&t.value){V.cdd=t.value;cdUpd()}
