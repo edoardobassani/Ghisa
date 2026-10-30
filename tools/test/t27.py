@@ -35,7 +35,7 @@ async def main():
     await ev("()=>{S.bp.sch.forEach((id,k)=>{S.ses.push({id:'sx'+k,d:today(),sc:id,t0:Date.now(),t1:Date.now()+1000,n:5})});V.ss=null;V.tab='s';render()}")
     print('dopo sett.',await ev("()=>[S.bp.wk,S.sch.find(x=>x.id==S.bp.sch[0]).t[S.bp.D[0].it[0].e].sets.map(x=>x.r+'@'+x.kg).join(',')]"))
     # costruttore
-    await ev("()=>{V.tab='s';render()}");await pg.click('details.mor summary');await pg.click('[data-a=bpnew]');await pg.wait_for_timeout(200)
+    await ev("()=>{V.tab='s';render()}");await pg.click('[data-a=bpnew]');await pg.wait_for_timeout(200)
     sid=await ev("()=>S.ex.find(x=>x.name=='Squat').id")
     await pg.select_option('#bpadd',sid);await pg.wait_for_timeout(200)
     await pg.click('[data-a=bpty][data-v=t]');await pg.wait_for_timeout(150);await pg.click('[data-a=bpty][data-v=p]');await pg.wait_for_timeout(150)
