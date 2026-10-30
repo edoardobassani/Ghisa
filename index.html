@@ -448,7 +448,31 @@ try{S=JSON.parse(localStorage.getItem('ghisa'))}catch(e){}
 if(!S||!Array.isArray(S.ex))S={ex:[],sch:[],log:[]};
 S.food=S.food||[];S.meal=S.meal||[];S.goal=S.goal||0;S.wt=S.wt||[];S.h=S.h||0;if(S.rest==null)S.rest=90;S.sm=S.sm||[];S.gm=S.gm||{p:0,c:0,f:0};S.wg=S.wg||0;S.pl=S.pl||{};S.ms=S.ms||[];S.cd=S.cd||[];S.gw=S.gw||0;S.gc=S.gc||0;S.pf=S.pf||{sx:'',age:0,act:1.5};S.lb=S.lb||'';S.ps=S.ps||'';S.sp=S.sp||{};S.mc=S.mc||{};
 const sfShow=on=>{try{let b=document.getElementById('sfw');if(!on){if(b)b.remove();return}if(!b){b=document.createElement('div');b.id='sfw';b.setAttribute('role','alert');b.innerHTML='<b>Salvataggio non riuscito.</b> La memoria dell’app sul telefono è piena o bloccata: le ultime modifiche resteranno solo finché l’app è aperta. <button data-a="sfb">Fai subito il backup</button>';document.body.appendChild(b)}}catch(e){}};
-let SV=0;const save=()=>{if(window.__wiped)return;SV++;let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);try{fcOff()}catch(e){}return ok};
+/* ---- Dati in IndexedDB (database «ghisa-dati», chiave «S»); localStorage solo come ripiego se IndexedDB non è disponibile ---- */
+let DDBp=null;const DDB=()=>DDBp||(DDBp=new Promise((res,rej)=>{const r=indexedDB.open('ghisa-dati',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);r.onblocked=()=>rej(new Error('blocked'))}));
+const dGet=k=>DDB().then(d=>new Promise((res,rej)=>{const q=d.transaction('kv','readonly').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)}));
+const dPut=(k,v)=>DDB().then(d=>new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error);t.onabort=()=>rej(t.error||new Error('abort'))}));
+let DBM='',BOOTED=false,DPEND=false,DTM=0;
+function dFlush(){clearTimeout(DTM);if(!DPEND||DBM!='idb'||window.__wiped)return Promise.resolve();DPEND=false;const sv=S.svd;return dPut('S',S).then(()=>{sfShow(false);if(!DPEND){try{const w=localStorage.getItem('ghisa-wal');if(w&&(JSON.parse(w).svd||0)<=sv)localStorage.removeItem('ghisa-wal')}catch(e){}}}).catch(()=>{DPEND=true;sfShow(true)})}
+/* quando l'app va in background o si chiude: copia di sicurezza immediata (sincrona) in localStorage, nel caso la scrittura in IndexedDB non faccia in tempo */
+function dWal(){if(DBM=='idb'&&DPEND&&!window.__wiped){try{localStorage.setItem('ghisa-wal',JSON.stringify(S))}catch(e){}}dFlush()}
+let SV=0;const save=()=>{if(window.__wiped)return;SV++;S.svd=Date.now();try{fcOff()}catch(e){}if(!BOOTED){DPEND=true;return true}if(DBM=='idb'){DPEND=true;clearTimeout(DTM);DTM=setTimeout(dFlush,60);return true}let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);return ok};
+function dataBoot(){return new Promise(done=>{
+ const rd=k=>{try{const t=localStorage.getItem(k);const o=t?JSON.parse(t):null;return o&&Array.isArray(o.ex)?{t,o}:null}catch(e){return null}};
+ const ls=rd('ghisa'),wal=rd('ghisa-wal');
+ try{const od=localStorage.getItem('ghisa-old-d');if(od&&hvAdd(od,30)<today()){localStorage.removeItem('ghisa-old');localStorage.removeItem('ghisa-old-d')}}catch(e){}
+ const fin=m=>{if(BOOTED)return;DBM=m;BOOTED=true;try{if(S.ord&&Array.isArray(S.ord.n)&&!S.ord.n.includes('mi')){const i=S.ord.n.indexOf('tot');S.ord.n.splice(i<0?S.ord.n.length:i+1,0,'mi')}}catch(e){}if(DPEND)save();done()};
+ if(!window.indexedDB)return fin('ls');
+ const to=setTimeout(()=>fin('ls'),8000);
+ dGet('S').then(v=>{clearTimeout(to);if(BOOTED)return;
+  const C=[];if(v&&Array.isArray(v.ex))C.push({k:'idb',o:v});if(wal)C.push({k:'wal',o:wal.o});if(ls)C.push({k:'ls',o:ls.o});
+  if(!C.length)return fin('idb');
+  const b=C.reduce((a,x)=>(x.o.svd||0)>(a.o.svd||0)?x:a);
+  if(b.k=='idb'){norm(b.o);try{localStorage.removeItem('ghisa-wal');if(ls){localStorage.removeItem('ghisa');localStorage.setItem('ghisa-old',ls.t);localStorage.setItem('ghisa-old-d',today())}}catch(e){}return fin('idb')}
+  /* i dati più recenti sono in localStorage (prima volta, o copia di sicurezza): passano in IndexedDB; la vecchia copia principale resta 30 giorni come «ghisa-old» */
+  norm(b.o);return dPut('S',S).then(()=>{try{localStorage.removeItem('ghisa-wal');if(ls){localStorage.removeItem('ghisa');localStorage.setItem('ghisa-old',ls.t);localStorage.setItem('ghisa-old-d',today())}}catch(e){}fin('idb')}).catch(()=>fin('ls'))
+ }).catch(()=>{clearTimeout(to);fin('ls')})})}
+addEventListener('visibilitychange',()=>{if(document.visibilityState=='hidden')dWal()});addEventListener('pagehide',()=>{dWal()});
 if(S.ord&&Array.isArray(S.ord.n)&&!S.ord.n.includes('mi')){const i=S.ord.n.indexOf('tot');S.ord.n.splice(i<0?S.ord.n.length:i+1,0,'mi')}
 const V={tab:'h',ed:'',sel:'',fe:'',me:'',mk:'vita',sc:'',date:today(),del:'',cx:'',cm:'max',vg:'',o:{},nd:today(),pd:today(),mm:(h=>h<11?'Colazione':h<15?'Pranzo':h<18.5?'Spuntino':'Cena')(new Date().getHours()+new Date().getMinutes()/60),fq:'',cdd:today(),ct:'Corsa',cc:'min',cf:'',fd:today(),fa:'Fronte',ca:'Fronte',c1:'',c2:'',pend:null,txt:'',cmv:'s',cpos:50};
 const isCX=id=>typeof id=='string'&&(id.startsWith('ct:')||(id.startsWith('cx')&&!!(S.cx||[]).find(x=>x.id==id)));
@@ -2136,7 +2160,7 @@ function bkWarn(){if(!bkDue())return '';const a=bkAge(),n=bkNew(),nt=[n.s?n.s+' 
  return `<div class="card bkw"><h2>È ora del backup</h2><p class="hint" style="margin:2px 0 8px">${a==null?'Non hai ancora fatto nessun backup.':'Ultimo backup '+a+' giorni fa.'}${nt?' Da allora: '+nt+' che esistono solo su questo telefono.':''}</p><div class="row" style="margin:0"><button class="p" data-a="bkx">Salva backup ora</button><button class="g" data-a="bksn">Fra 3 giorni</button></div><p class="hint" style="margin:8px 0 0">Si apre la condivisione: scegli <b>Drive</b> per averlo al sicuro anche se cambi telefono.</p></div>`}
 let PS=null;
 function psInit(){try{const st=navigator.storage;if(!st||!st.persisted){PS={no:1};return}st.persisted().then(p=>p||(st.persist?st.persist():false)).then(p=>{PS={p:!!p};return st.estimate?st.estimate():null}).then(e=>{if(e&&PS)PS.u=e.usage;if(document.body.classList.contains('mo'))render()}).catch(()=>{PS={no:1}})}catch(e){PS={no:1}}}
-function psBox(){if(!PS)return '';let ln0=0;try{ln0=(localStorage.getItem('ghisa')||'').length}catch(e){}const mb=ln0?' · dati: '+(ln0/1048576).toFixed(1).replace('.',',')+' MB su circa 5':'';
+function psBox(){if(!PS)return '';let ln0=0;if(DBM=='ls'){try{ln0=(localStorage.getItem('ghisa')||'').length}catch(e){}}const mb=ln0?' · dati: '+(ln0/1048576).toFixed(1).replace('.',',')+' MB su circa 5':DBM=='idb'&&PS.u?' · spazio usato: '+(PS.u/1048576).toFixed(1).replace('.',',')+' MB':'';
  if(PS.no)return `<p class="hint">Questo browser non permette di proteggere la memoria: il backup è l'unica garanzia.</p>`;
  return PS.p?`<p class="hint" style="color:var(--c3)">Memoria protetta: il telefono non cancellerà i dati di Ghisa da solo${mb}.</p>`:`<p class="hint">⚠️ Memoria non protetta: se il telefono resta senza spazio, il browser potrebbe cancellare i dati. Di solito la protezione arriva quando Ghisa è installata nella schermata Home e la usi spesso${mb}. <button class="lk" data-a="psr">Riprova</button></p>`}
 function bkCard(){
@@ -2510,7 +2534,7 @@ document.addEventListener('click',e=>{
  else if(a=='imok'){imDo();window.scrollTo(0,0)}
  else if(a=='wipe'){document.body.classList.remove('mo');cfOpen(`<h2>Cancellare tutti i dati?</h2><p class="hint" style="margin:8px 0 10px">Verranno eliminati da questo dispositivo <b>allenamenti, sedute, schede, esercizi, cardio, dieta, piano pasti, peso, misure, obiettivi e foto</b>. Non si può annullare.</p><p class="hint" style="margin:0 0 14px">Se vuoi poterli recuperare, fai prima un backup.</p><button class="g" data-a="bkx" style="width:100%">Esporta prima un backup</button><button class="bad" data-a="wipe2" style="width:100%;margin-top:8px">Sì, continua</button><button class="lk" data-a="cfx" style="display:block;margin:12px auto 0;font-size:15px">Annulla</button>`);return}
  else if(a=='wipe2'){cfOpen(`<h2>Ultima conferma</h2><p class="hint" style="margin:8px 0 10px">Tutti i dati di Ghisa su questo dispositivo verranno cancellati <b>definitivamente</b>. Per confermare scrivi <b>CANCELLA</b>.</p><input id="wpq" autocomplete="off" autocapitalize="characters" placeholder="CANCELLA" aria-label="Scrivi CANCELLA per confermare"><button class="bad" data-a="wipe3" id="wpb3" style="width:100%" disabled>Cancella definitivamente</button><button class="g" data-a="cfx" style="width:100%;margin-top:8px">Annulla</button>`);setTimeout(()=>{const q=$('#wpq');if(q)q.focus()},30);return}
- else if(a=='wipe3'){const q=$('#wpq');if(!q||q.value.trim().toUpperCase()!='CANCELLA')return;cfClose();try{tmHide()}catch(e){}try{['ghisa','ghisa-ss','ghisa-tmp'].forEach(k=>localStorage.removeItem(k))}catch(e){}window.__wiped=1;pClear().catch(()=>{}).then(()=>{toast('Tutti i dati sono stati cancellati');setTimeout(()=>location.reload(),600)});return}
+ else if(a=='wipe3'){const q=$('#wpq');if(!q||q.value.trim().toUpperCase()!='CANCELLA')return;cfClose();try{tmHide()}catch(e){}try{['ghisa','ghisa-ss','ghisa-cs','ghisa-tmp','ghisa-old','ghisa-old-d','ghisa-wal'].forEach(k=>localStorage.removeItem(k))}catch(e){}window.__wiped=1;Promise.all([pClear().catch(()=>{}),dPut('S',null).catch(()=>{})]).then(()=>{toast('Tutti i dati sono stati cancellati');setTimeout(()=>location.reload(),600)});return}
  else if(a=='phgo'){if(V.tab!='p'||V.fd!=today()){V.tab='p';V.fd=today();render()}const i=$('#pfc');if(i){i.value='';i.click()}return}
  else if(a=='se'){V.se=id;render();setTimeout(()=>{const i=document.querySelector('.sed .sek,.sed .ser');if(i){i.focus({preventScroll:true});i.select&&i.select()}},20);return}
  else if(a=='sex'){V.se=''}
@@ -2814,9 +2838,9 @@ try{if(refClean())save()}catch(e){}
 const DEC=/(\d)\.(\d{1,2})(?!\d)/g;
 function decFix(n){if(!n)return;if(n.nodeType==3){const v=n.nodeValue;if(v&&/\d\.\d/.test(v)){const w=v.replace(DEC,'$1,$2');if(w!=v)n.nodeValue=w}return}if(n.nodeType!=1||/^(INPUT|TEXTAREA|SCRIPT|STYLE|SELECT)$/.test(n.tagName)&&n.tagName!='SELECT')return;const tw=document.createTreeWalker(n,NodeFilter.SHOW_TEXT,{acceptNode:t=>t.parentElement&&/^(SCRIPT|STYLE|TEXTAREA)$/.test(t.parentElement.tagName)?2:1});const L=[];let t;while(t=tw.nextNode())L.push(t);L.forEach(decFix)}
 try{new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(decFix))).observe(document.body,{childList:true,subtree:true})}catch(e){}
-render();
-loadPh().then(()=>render());
+{const v=$('#v');if(v)v.innerHTML='<p class="hint" style="margin:40px 0;text-align:center">Caricamento dati…</p>'}
 if('serviceWorker' in navigator&&location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+dataBoot().then(()=>{render();loadPh().then(()=>render())});
 
 try{psInit()}catch(e){}
 </script></body></html>
