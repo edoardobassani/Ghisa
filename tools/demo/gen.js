@@ -14,7 +14,7 @@ function stOf(id){if(st[id])return st[id];const e=exS(id);const b=base[e.name];s
 const NOTES=['ottime sensazioni','tecnica pulita','pausa lunga, stanco','ultima serie al cedimento','spalla un po’ rigida','presa larga','dormito poco'];
 let ses=0,dl=0;
 const off=d=>(d>='2025-12-22'&&d<='2026-01-04')||(d>='2026-08-08'&&d<='2026-08-23')||(d>='2026-04-04'&&d<='2026-04-06');
-days.forEach((d,k)=>{const w=wd(d),prog=d<'2026-03-02'?PPL:UL,pl=d<'2026-03-02'?[0,-1,1,-1,2,-1,-1]:[0,1,-1,2,3,-1,-1];
+days.forEach((d,k)=>{if(d>='2026-08-31')return;const w=wd(d),prog=d<'2026-03-02'?PPL:UL,pl=d<'2026-03-02'?[0,-1,1,-1,2,-1,-1]:[0,1,-1,2,3,-1,-1];
  let j=pl[w];if(off(d)&&rnd()<.85)j=-1;
  if(j>=0&&rnd()<.12)j=-1; // saltata
  const wk=Math.floor(k/7),deload=wk%6==5;
@@ -27,7 +27,7 @@ days.forEach((d,k)=>{const w=wd(d),prog=d<'2026-03-02'?PPL:UL,pl=d<'2026-03-02'?
   const dur=ri(48,78);S.ses.push({id:sid,d,sc:sc.id,t0,t1:t0+dur*60000,n});}
 });
 // --- cardio
-days.forEach(d=>{const w=wd(d);if(off(d)&&rnd()<.6)return;let t=null,min=0,km=0;
+days.forEach(d=>{const w=wd(d);if(off(d)&&rnd()<.6)return;if(d>='2026-09-07'&&w!=6)return;let t=null,min=0,km=0;
  if(w==6&&rnd()<.75){t='Camminata';min=ri(45,80);km=Math.round(min/60*5.2*10)/10}
  else if((w==1||w==3)&&rnd()<.55){t=pick(['Corsa','Corsa','Cyclette','Ellittica']);min=t=='Corsa'?ri(25,40):ri(20,35);km=t=='Corsa'?Math.round(min/60*(9.5+rnd()*1.8)*10)/10:t=='Cyclette'?Math.round(min/60*24*10)/10:0}
  else if(w==5&&rnd()<.25){t='Bici';min=ri(60,110);km=Math.round(min/60*22*10)/10}
@@ -43,11 +43,30 @@ const MEALS={Colazione:[[['latte di vacca, uht, parzialmente',200,250],['fette b
  Cena:[[['salmone',150,180],['patate',200,300],['olio extra',10,10],['lattuga',80,100]],[['uova di gallina, intero, cotto, alla coque',110,165],['pane integrale',50,70],['spinaci',200,250],['olio extra',10,10]],[['merluzzo',180,220],['pane integrale',50,70],['finocchi',150,200],['olio extra',10,10]],[['manzo magro',150,170],['patate',200,250],['carote',150,150],['olio extra',10,10]]],
  Spuntino:[[['mela',150,180]],[['mandorle',20,30]],[['yogurt greco 0%',125,170]],[['banana',110,130]]]};
 const PZ0=[['pizza margherita',300,330]];
-days.forEach(d=>{if(rnd()<.14)return;const w=wd(d),cut=d<'2026-05-10';MP.forEach(m=>{if(m=='Spuntino'&&rnd()<.35)return;if(m=='Colazione'&&rnd()<.05)return;let T=pick(MEALS[m]);if(m=='Cena'&&w==5&&rnd()<.6)T=PZ0;const sc=cut?.92:1.08;T.forEach(([q,a,b])=>S.meal.push({id:uid(),d,m,f:F(q),g:Math.round(ri(a,b)*(q.includes('olio')?1:sc))}))})});
+days.forEach(d=>{if(rnd()<.14&&d<'2026-10-25')return;const w=wd(d),cut=d<'2026-05-10';MP.forEach(m=>{if(m=='Spuntino'&&rnd()<.35)return;if(m=='Colazione'&&rnd()<.05)return;let T=pick(MEALS[m]);if(m=='Cena'&&w==5&&rnd()<.6)T=PZ0;const sc=cut?.92:1.08;T.forEach(([q,a,b])=>S.meal.push({id:uid(),d,m,f:F(q),g:Math.round(ri(a,b)*(q.includes('olio')?1:sc))}))})});
 {const by={};S.meal.forEach(m=>(by[m.d]=by[m.d]||[]).push(m));Object.entries(by).forEach(([d,L])=>{const tg=(d<'2026-05-10'?2150:2600)*(0.9+rnd()*0.22)+(wd(d)==5?250:0),k=L.reduce((t,m)=>t+ln(m).k,0);if(!k)return;const f=Math.max(.8,Math.min(2.2,tg/k));L.forEach(m=>{const n=(fo(m.f)||{}).name||'';if(!/olio/i.test(n))m.g=Math.round(m.g*f/5)*5||m.g})})}
 {const t=today();[['latte di vacca, uht, parzialmente',250],['fette biscottate',40],['marmellata',25]].forEach(([q,g])=>S.meal.push({id:uid(),d:t,m:'Colazione',f:F(q),g}));S.wt.push({id:uid(),d:t,kg:80.1})}
 S.goal=2450;S.gm={p:150,c:0,f:0};
 S.sm=[{id:uid(),name:'Colazione classica',items:[{f:F('latte di vacca, uht, parzialmente'),g:250},{f:F('fette biscottate'),g:35},{f:F('marmellata'),g:20}],u:40},{id:uid(),name:'Pollo e riso',items:[{f:F('riso basmati, crudo'),g:85},{f:F('petto di pollo (crudo)'),g:170},{f:F('zucchine'),g:200},{f:F('olio extra'),g:10}],u:25}];
+
+// --- da settembre: programma di forza a blocchi (Forza lineare 12 sett.), lun/mer/ven
+S.tmp=90;
+{const p=bpStart(bpRes(bpmLin()),[0,2,4]);const d0='2026-08-31';
+ const doSes=(j,d)=>{const sc=S.sch.find(x=>x.id==p.sch[j]),sid='ss'+(++ses),t0=new Date(d+'T'+pad(ri(17,19))+':'+pad(ri(0,59))+':00').getTime();let n=0;
+  sc.ex.forEach(id=>{const T=sc.t[id],s=stOf(id);(T.sets||[]).forEach((x,i)=>{const kg=x.kg||s.kg,am=x.r=='max',r=am?ri(4,8):Math.max(1,+x.r-(rnd()<.08?1:0));const L={id:uid()+i,d,e:id,kg,r,ss:sid,...(am?{f:1}:{})};if(rnd()<.3)L.rir=am?0:ri(1,3);S.log.push(L);n++});if(T.sets&&T.sets[0]&&T.sets[0].kg)s.kg=T.sets[0].kg});
+  S.ses.push({id:sid,d,sc:sc.id,t0,t1:t0+ri(55,75)*60000,n});return t0};
+ for(let k=0;k<9;k++){const ws=Date.parse(hvAdd(d0,7*k)+'T00:00:00');p.ws=ws;const L=k<8?[0,1,2]:[0,1];L.forEach(j=>doSes(j,hvAdd(d0,7*k+2*j)));if(k<8){bpNext(1);p.ws=Date.parse(hvAdd(d0,7*(k+1))+'T00:00:00')}}
+ const sq=S.ex.find(e=>e.name=='Stacco da terra');S.rm={[sq.id]:{kg:170,src:'t',d:'2026-09-05',h:[{d:'2026-09-05',kg:170,src:'t'}]}}}
+// --- cardio da settembre: programma a blocchi «Fondo e VO2max» (mar/gio) e uscite importate dall'orologio
+{const p=CPM.find(x=>x[0]=='vo2');S.cpr={id:'vo2',days:[1,3,6],t:'Cyclette',pos:0,start:'2026-09-08',last:''};S.gc=3;
+ days.filter(d=>d>='2026-09-08'&&[1,3].includes(wd(d))).forEach(d=>{if(rnd()<.1)return;const sp=cpSes(p,S.cpr.pos),min=cpMin(sp),o={id:uid(),d,t:'Cyclette',min,cp:'vo2',rt:pick(['g','g','f','d'])};const e=cdEst('Cyclette',min,0,d);if(e){o.kc=e;o.est=1}S.cd.push(o);if(o.rt!='d')S.cpr.pos++;S.cpr.last=d});}
+// percorsi GPX (domenica) con battito, e due sessioni registrate dal vivo
+{const route=(n,R,amp,t0,secPt)=>{const P=[];for(let i=0;i<=n;i++){const a=i/n*2*Math.PI,r=R*(1+.18*Math.sin(3*a));P.push({lat:45.4642+r*Math.sin(a)/111000,lon:9.19+r*Math.cos(a)/(111000*.7),e:120+amp*Math.sin(2*a)+6*Math.sin(5*a),t:t0+i*secPt*1000,hr:Math.round(105+20*Math.min(1,i/(n*.15))+(rnd()-.5)*6)})}return P};
+ days.filter(d=>d>='2026-09-06'&&wd(d)==6).forEach((d,k)=>{if(rnd()<.15)return;const run=k%2==1,t0=new Date(d+'T09:'+pad(ri(0,40))+':00').getTime(),P=route(240,run?1100:900,run?25:15,t0,run?7.5:12).map(x=>({...x,hr:run?x.hr+30:x.hr}));
+  const a=gxStats({nm:'',ty:run?'Corsa':'Camminata',P,src:'Huawei Health'});a.sel=a.ty;a.d=d;const K=gxKc(a);const o={id:uid(),d,t:a.sel,min:Math.round(a.mv/60*10)/10,km:a.km,src:'file',from:'Huawei Health',st:a.st,el:a.el,asc:a.asc,elv:a.elv,hr:a.hr,rte:a.rt,sp:a.sp};if(K.kc){o.kc=K.kc;if(K.s=='met')o.est=1}S.cd=S.cd.filter(c=>!(c.d==d&&c.t=='Camminata'&&!c.src));S.cd.push(o)});
+ ['2026-10-17','2026-10-24'].forEach(d=>{const t0=new Date(d+'T10:15:00').getTime(),N=35*60;const hs=[],hz=[0,0,0,0,0];for(let i=0;i<240;i++){const b=Math.round(100+52*Math.min(1,i/30)+(i>150&&i<190?10:0)+(rnd()-.5)*5);hs.push(b);const z=hrZ(b);if(z>=0)hz[z]+=N/240/60}
+  const a=Math.round(hs.reduce((x,y)=>x+y,0)/hs.length),o={id:uid(),d,t:'Corsa',min:35,km:5.6,src:'live',st:t0,el:N+120,hr:{a,m:Math.max(...hs)},hs,hz:hz.map(x=>Math.round(x*10)/10)};o.kc=hrKcal(a,35,d);S.cd.push(o)})}
+S.cd.sort((a,b)=>a.d<b.d?-1:1);
 S.lb=hvAdd(D1,-3);S.bks=hvAdd(D1,-3);
 save();
-return {ex:S.ex.length,sch:S.sch.length,log:S.log.length,ses:S.ses.length,cd:S.cd.length,meal:S.meal.length,wt:S.wt.length,ms:S.ms.length,last:S.wt.slice(-1)[0].kg,panca:st[S.ex.find(e=>e.name=='Panca piana bilanciere').id].kg,squat:st[S.ex.find(e=>e.name=='Squat').id].kg}}
+return {bp:S.bp&&[S.bp.n,S.bp.wk],cpr:S.cpr&&S.cpr.pos,ex:S.ex.length,sch:S.sch.length,log:S.log.length,ses:S.ses.length,cd:S.cd.length,meal:S.meal.length,wt:S.wt.length,ms:S.ms.length,last:S.wt.slice(-1)[0].kg,panca:st[S.ex.find(e=>e.name=='Panca piana bilanciere').id].kg,squat:st[S.ex.find(e=>e.name=='Squat').id].kg}}

@@ -1985,7 +1985,7 @@ function bpRes(def){const o=JSON.parse(JSON.stringify(def));o.D.forEach(d=>{d.it
 function bpStart(def,days){const p=JSON.parse(JSON.stringify(def));delete p.src;const names=new Set(S.sch.map(x=>x.name));
  p.sch=p.D.map(d=>{let n0=p.n.split(' · ')[0]+' · '+d.n;if(names.has(n0)){let k=2;while(names.has(n0+' ('+k+')'))k++;n0+=' ('+k+')'}names.add(n0);const id=uid();S.sch.push({id,name:n0,ex:[],t:{},rt:{},ss:[]});return id});
  p.wk=0;p.ws=Date.now();p.cyc=0;p.amf={};p.tm={};p.D.forEach(d=>d.it.forEach(it=>{if(it.W.some(w=>w.some(x=>x.p!=null))){const t=tmOf(it.e);if(t)p.tm[it.e]=t}}));
- p.pl0={...S.pl};if(days&&days.length){for(let d=0;d<7;d++)S.pl[d]=days.includes(d)?'bp':''}S.prog=null;
+ p.pl0={...S.pl};p.gw0=S.gw;if(days&&days.length){for(let d=0;d<7;d++)S.pl[d]=days.includes(d)?'bp':'';S.gw=days.length}S.prog=null;
  S.bp=p;bpGen(p);return p}
 
 /* giorno «bp» nel programma settimanale: la prossima seduta non ancora fatta questa settimana, in ordine */
@@ -2504,7 +2504,7 @@ function vfb(){
 
 /* Toglie i riferimenti a schede, esercizi e alimenti che non esistono più (programma, superserie, obiettivi, piano pasti, preferiti) */
 function refClean(){const E=new Set(S.ex.map(e=>e.id)),SC=new Set(S.sch.map(x=>x.id)),F=new Set([...FB.map(f=>f.id),...S.food.map(f=>f.id)]);let n=0;
- if(S.rot){S.rot.sch=S.rot.sch.filter(i=>SC.has(i));if(!S.rot.sch.length){delete S.rot;n++}}Object.keys(S.pl||{}).forEach(k=>{if(S.pl[k]&&!(S.pl[k]=='rot'&&S.rot)&&!SC.has(S.pl[k])){delete S.pl[k];n++}});
+ if(S.rot){S.rot.sch=S.rot.sch.filter(i=>SC.has(i));if(!S.rot.sch.length){delete S.rot;n++}}Object.keys(S.pl||{}).forEach(k=>{if(S.pl[k]&&!(S.pl[k]=='rot'&&S.rot)&&!(S.pl[k]=='bp'&&S.bp&&!S.bp.fin)&&!SC.has(S.pl[k])){delete S.pl[k];n++}});
  S.sch.forEach(x=>{const ex0=x.ex.length;x.ex=x.ex.filter(i=>E.has(i));n+=ex0-x.ex.length;['t','rt'].forEach(k=>{if(x[k])Object.keys(x[k]).forEach(i=>{if(!E.has(i)){delete x[k][i];n++}})});if(x.ss){const g0=JSON.stringify(x.ss);x.ss=x.ss.map(g=>g.filter(i=>E.has(i))).filter(g=>g.length>1);if(JSON.stringify(x.ss)!=g0)n++}});
  Object.keys(S.sp||{}).forEach(d=>{const g0=JSON.stringify(S.sp[d]);S.sp[d]=(S.sp[d]||[]).map(g=>g.filter(i=>E.has(i))).filter(g=>g.length>1);if(JSON.stringify(S.sp[d])!=g0)n++;if(!S.sp[d].length)delete S.sp[d]});
  Object.values(S.mpw||{}).flatMap(W=>Object.values(W||{})).forEach(D=>Object.keys(D||{}).forEach(m=>{const a0=D[m].length;D[m]=D[m].filter(x=>F.has(x.f));n+=a0-D[m].length}));
@@ -3117,7 +3117,7 @@ document.addEventListener('click',e=>{
  else if(a=='bpex'){V.bpe=null;window.scrollTo(0,0)}
  else if(a=='bpsk'){bpNext(0)}
  else if(a=='bprs'){const p=S.bp;p.fin=0;p.wk=0;p.ws=Date.now();p.cyc=0;p.D.forEach(d=>d.it.forEach(it=>{const t=tmOf(it.e);if(t)p.tm[it.e]=t}));for(let d=0;d<7;d++)if(S.pl[d]=='bp'||p.sch.includes(S.pl[d]))S.pl[d]='bp';bpGen(p);toast('Programma ricominciato')}
- else if(a=='bpend'){if(S.bp&&!S.bp.fin&&V.del!='bpend'){V.del='bpend';render();return}V.del='';const p=S.bp;if(p&&!p.fin&&p.pl0)S.pl={...p.pl0};S.bp=null;toast('Programma chiuso: le schede e le serie restano')}
+ else if(a=='bpend'){if(S.bp&&!S.bp.fin&&V.del!='bpend'){V.del='bpend';render();return}V.del='';const p=S.bp;if(p&&!p.fin&&p.pl0){S.pl={...p.pl0};if(p.gw0)S.gw=p.gw0}S.bp=null;toast('Programma chiuso: le schede e le serie restano')}
  else if(a=='bpsv'){bpEdSave(1);window.scrollTo(0,0)}
  else if(a=='bpsl'){bpEdSave(0);window.scrollTo(0,0)}
  else if(a=='bplo'){const d=S.bpl[+id];V.bpe={def:JSON.parse(JSON.stringify(d)),dk:0,li:+id}}

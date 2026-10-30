@@ -17,7 +17,7 @@ if '--rigenera' in sys.argv:asyncio.run(gen())
 s=open(SRC).read();d=open(os.path.join(D,'demo_data.json')).read()
 def R(a,b):
   global s;c=s.count(a);assert c==1,(c,a[:80]);s=s.replace(a,b)
-R("<title>Ghisa – tracker palestra</title>","<title>Ghisa – demo un anno</title>")
+R("<title>Gym-Bo – tracker palestra</title>","<title>Gym-Bo – demo un anno</title>")
 R("let S=null;\ntry{S=JSON.parse(localStorage.getItem('ghisa'))}catch(e){}","const DEMO="+d.replace('</','<\\/')+";\nlet S=null;\nS=JSON.parse(JSON.stringify(DEMO));")
 # demo: niente salvataggio e avvio immediato con i dati incorporati
 R("function dataBoot(){return new Promise(done=>{","function dataBoot(){DBM='demo';BOOTED=true;return Promise.resolve();return new Promise(done=>{")
@@ -25,4 +25,4 @@ R("let SV=0;const save=()=>{if(window.__wiped)return;","let SV=0;const save=()=>
 R("#prt{display:none}","#prt{display:none}\n#demo{position:fixed;top:calc(15px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:21;background:var(--hi);color:#1c262b;font:600 11.5px Barlow,sans-serif;padding:4px 10px;border-radius:10px;white-space:nowrap;pointer-events:none}body.ssm #demo,body.mo #demo{display:none}")
 i=s.index('<body');j=s.index('>',i)+1
 s=s[:j]+'\n<div id="demo">DEMO · un anno simulato · non si salva</div>'+s[j:]
-open(os.path.join(D,'ghisa-demo.html'),'w').write(s);print('Demo scritta:',os.path.join(D,'ghisa-demo.html'),len(s),'byte')
+open(os.path.join(D,'gymbo-demo.html'),'w').write(s);print('Demo scritta:',os.path.join(D,'gymbo-demo.html'),len(s),'byte')
