@@ -1,12 +1,12 @@
 {
-  "name": "Ghisa",
-  "short_name": "Ghisa",
+  "name": "Gym-Bo",
+  "short_name": "Gym-Bo",
   "description": "Tracker per palestra, cardio, dieta e corpo",
   "lang": "it",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#1c262b",
+  "background_color": "#f1e9d6",
   "theme_color": "#1c262b",
   "icons": [
     {
