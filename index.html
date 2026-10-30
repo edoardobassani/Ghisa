@@ -408,6 +408,12 @@ details.gdx[open]{border-width:2px}
 .ssth{display:inline-flex;align-items:center;gap:8px}
 .zl{display:flex;flex-wrap:wrap;gap:3px 12px;font-size:13px;color:var(--mut)}.zl i,.zd{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}.hzb{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:8px 0 6px;background:var(--bg)}
 .big{font:700 64px/1 Barlow,sans-serif;letter-spacing:-1px;font-variant-numeric:tabular-nums}.lv{text-align:center;padding:8px 0}.lv small{display:block;color:var(--mut);font-size:14px;margin-bottom:2px}
+.bk2 .bkh,.cfb .bkh{display:flex;justify-content:space-between;align-items:center;gap:8px}.bk2 h2{margin:0}.bkwn{color:var(--bad);font-size:14px;font-weight:600}
+.dvok{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:#3f9f7a;font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.dvok i{width:9px;height:9px;border-radius:50%;background:#3f9f7a;flex:0 0 auto}
+#cfm.sht{align-items:flex-end;padding:0}#cfm.sht .cfb{max-width:560px;max-height:90vh;overflow:auto;border-radius:16px 16px 0 0;padding:18px 18px 28px}
+.bks{border-top:1px solid var(--line);padding:12px 0 6px;margin-top:10px}.bks h3{margin:0 0 6px;font-size:17px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.dvg{padding-left:20px;margin:6px 0 10px;font-size:14px;line-height:1.45}.dvg li{margin:0 0 6px}.dvc{display:inline-block;background:var(--bg);border-radius:6px;padding:2px 6px;margin:2px 0;user-select:all;word-break:break-all}
+.dvm{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed var(--line);font-size:15px}.dvm .lk{padding:10px 4px}
 </style></head>
 <body>
 <main id="v"></main>
@@ -431,7 +437,7 @@ details.gdx[open]{border-width:2px}
 <div id="nth" class="nb"></div>
 <div id="ndp" class="nb"></div>
 <div id="nbk" class="nb"></div>
-<div class="nwp"><button class="wpb" data-a="wipe">Cancella tutti i dati</button></div>
+
 </nav>
 <button id="hb" data-a="tab" data-t="r" aria-label="Guida">?</button>
 <button id="fab" class="p" data-a="fab" aria-label="Aggiunta rapida">+</button>
@@ -471,7 +477,7 @@ let DBM='',BOOTED=false,DPEND=false,DTM=0;
 function dFlush(){clearTimeout(DTM);if(!DPEND||DBM!='idb'||window.__wiped)return Promise.resolve();DPEND=false;const sv=S.svd;return dPut('S',S).then(()=>{sfShow(false);if(!DPEND){try{const w=localStorage.getItem('ghisa-wal');if(w&&(JSON.parse(w).svd||0)<=sv)localStorage.removeItem('ghisa-wal')}catch(e){}}}).catch(()=>{DPEND=true;sfShow(true)})}
 /* quando l'app va in background o si chiude: copia di sicurezza immediata (sincrona) in localStorage, nel caso la scrittura in IndexedDB non faccia in tempo */
 function dWal(){if(DBM=='idb'&&DPEND&&!window.__wiped){try{localStorage.setItem('ghisa-wal',JSON.stringify(S))}catch(e){}}dFlush()}
-let SV=0;const save=()=>{if(window.__wiped)return;SV++;S.svd=Date.now();try{fcOff()}catch(e){}if(!BOOTED){DPEND=true;return true}if(DBM=='idb'){DPEND=true;clearTimeout(DTM);DTM=setTimeout(dFlush,60);return true}let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);return ok};
+let SV=0;const save=()=>{if(window.__wiped)return;SV++;S.svd=Date.now();try{fcOff()}catch(e){}try{dvSoon()}catch(e){}if(!BOOTED){DPEND=true;return true}if(DBM=='idb'){DPEND=true;clearTimeout(DTM);DTM=setTimeout(dFlush,60);return true}let ok=true;try{localStorage.setItem('ghisa',JSON.stringify(S))}catch(e){ok=false}sfShow(!ok);return ok};
 function dataBoot(){return new Promise(done=>{
  const rd=k=>{try{const t=localStorage.getItem(k);const o=t?JSON.parse(t):null;return o&&Array.isArray(o.ex)?{t,o}:null}catch(e){return null}};
  const ls=rd('ghisa'),wal=rd('ghisa-wal');
@@ -1453,7 +1459,7 @@ function tick(){const el=$('#tm'),t=$('#tt');if(!t)return;const s=Math.ceil((tE-
  if(s<=0){clearInterval(tI);tI=0;el.classList.add('end');t.textContent='VAI';const r=el.querySelector('.tmr');if(r)r.style.strokeDashoffset=TMC;beep();clearTimeout(tH);tH=setTimeout(()=>{if(el.classList.contains('end'))tmHide()},8000);return}
  t.textContent=Math.floor(s/60)+':'+pad(s%60);const r=el.querySelector('.tmr');if(r)r.style.strokeDashoffset=(TMC*(1-Math.min(1,s/Math.max(1,tT)))).toFixed(1)}
 function tStart(n){tT=n;HR.rs=HR.st=='on'?HR.bpm:0;tE=Date.now()+n*1000;const el=$('#tm');if(!el.querySelector('.tmr'))el.innerHTML=tmHtml();el.classList.remove('end');el.classList.add('on');tmPos();clearTimeout(tH);clearInterval(tI);tick();tI=setInterval(tick,500)}
-function cfOpen(h){let o=$('#cfm');if(!o){o=document.createElement('div');o.id='cfm';document.body.append(o)}o.innerHTML=`<div class="cfb" role="alertdialog" aria-modal="true">${h}</div>`;o.hidden=false;const f=o.querySelector('button');if(f)f.focus()}
+function cfOpen(h){let o=$('#cfm');if(!o){o=document.createElement('div');o.id='cfm';document.body.append(o)}o.className='';o.innerHTML=`<div class="cfb" role="alertdialog" aria-modal="true">${h}</div>`;o.hidden=false;const f=o.querySelector('button');if(f)f.focus()}
 function cfClose(){const o=$('#cfm');if(o){o.hidden=true;o.innerHTML=''}}
 function tmHide(){clearInterval(tI);tI=0;clearTimeout(tH);const el=$('#tm');el.classList.remove('on','end');tmMenu(false)}
 function tmMenu(on){const m=$('#tmm'),el=$('#tm');if(!m)return;if(on===undefined)on=!m.classList.contains('on');m.classList.toggle('on',on);if(!on)return;
@@ -1751,6 +1757,79 @@ function lcSave(){const q=V.lc,H=lcStat(q),min=Math.round(lcEl(q)/60*10)/10,t=$(
 function hrBoot(){try{const q=JSON.parse(localStorage.getItem('ghisa-lc'));if(q&&q.t0&&Date.now()-q.t0<12*3600e3){V.lc=q;V.tab='c';if(!q.fin)wlOn()}else localStorage.removeItem('ghisa-lc')}catch(e){}
  let ch=0;(S.cd||[]).forEach(c=>{if(typeof c.rt=='string'&&c.rt.includes(',')){c.rte=c.rt;delete c.rt;ch=1}});if(ch)save()}
 function hrSesBox(sid){const x=(S.ses||[]).find(s=>s.id==sid);if(!x||!x.hr)return '';return `<div class="card"><h2>Battito</h2><div class="gtl"><div><small>FC media</small><b>${x.hr.a}</b></div><div><small>FC massima</small><b>${x.hr.m}</b></div><div><small>Kcal</small><b>${x.kc||'–'}</b></div></div>${hrCurve(x.hs)}${hzBar(x.hz)}${x.kc?'<p class="hint" style="margin:6px 0 0">Kcal calcolate dal battito.</p>':'<p class="hint" style="margin:6px 0 0">Per le kcal dal battito servono età e sesso nel profilo.</p>'}</div>`}
+
+/* ---- Google Drive: copia automatica dei dati (un file al giorno, ultimi 10) e delle foto (un file per foto) nella cartella nascosta dell'app (appDataFolder). Accesso con Google Identity Services: il permesso dura circa un'ora, poi serve un tocco. ---- */
+const DRV={tk:'',exp:0,busy:0,err:'',L:null,t:0};
+let DVS={};try{DVS=JSON.parse(localStorage.getItem('gymbo-drv'))||{}}catch(e){}
+try{const t=JSON.parse(localStorage.getItem('gymbo-drt'));if(t&&t.exp>Date.now()+60e3){DRV.tk=t.tk;DRV.exp=t.exp}}catch(e){}
+const dvKeep=()=>{try{localStorage.setItem('gymbo-drv',JSON.stringify(DVS))}catch(e){}};
+const dvDev=()=>/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)?'telefono':'computer';
+const dvOk=()=>!!(DRV.tk&&DRV.exp>Date.now()+30e3);
+const dvOn=()=>!!DVS.on;const dvCid=()=>DVS.cid||'';
+const dvPhSig=()=>typeof PH!='undefined'?PH.map(p=>p.id).sort().join(','):'';
+const dvDirty=()=>dvOn()&&((S.svd||0)>(DVS.svd||0)||dvPhSig()!=(DVS.phs||''));
+function dvWhen(t){if(!t)return 'mai';const d=new Date(t),td=today(),dd=gxD(t);return dd==td?'oggi alle '+gxH(t):dd==dShift(td,-1)?'ieri alle '+gxH(t):fdy(dd)+' '+gxH(t)}
+function dvGis(){return window.google&&google.accounts&&google.accounts.oauth2?Promise.resolve():new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;s.onload=()=>res();s.onerror=()=>rej(new Error('Google non raggiungibile: sei online?'));document.head.append(s)})}
+/* chiede il permesso: va chiamata da un tocco dell'utente (Google apre una finestra) */
+function dvAuth(first){if(location.protocol!='file:'&&!/github\.io$|^localhost$/.test(location.hostname))return Promise.reject(new Error('Google Drive funziona dall’app installata, non da claude.ai'));if(!dvCid())return Promise.reject(new Error('Prima inserisci la tua chiave Google (Altre opzioni di backup)'));
+ return dvGis().then(()=>new Promise((res,rej)=>{const c=google.accounts.oauth2.initTokenClient({client_id:dvCid(),scope:'https://www.googleapis.com/auth/drive.appdata email',...(DVS.em&&!first?{login_hint:DVS.em}:{}),callback:r=>{if(r.error)return rej(new Error(r.error=='access_denied'?'Permesso negato':r.error));if(!google.accounts.oauth2.hasGrantedAllScopes(r,'https://www.googleapis.com/auth/drive.appdata'))return rej(new Error('Serve il permesso per Drive: riprova e lascia la spunta'));DRV.tk=r.access_token;DRV.exp=Date.now()+(+r.expires_in||3600)*1000;try{localStorage.setItem('gymbo-drt',JSON.stringify({tk:DRV.tk,exp:DRV.exp}))}catch(e){}res()},error_callback:e=>rej(new Error(e&&e.type=='popup_closed'?'Finestra di Google chiusa':'Finestra di Google bloccata'))});c.requestAccessToken({prompt:first?'consent':''})}))}
+async function dvF(url,o){o=o||{};const r=await fetch(url,{...o,headers:{...(o.headers||{}),Authorization:'Bearer '+DRV.tk}});if(r.status==401){DRV.tk='';DRV.exp=0;throw new Error('auth')}if(!r.ok)throw new Error('Drive: errore '+r.status);return r}
+const DVA='https://www.googleapis.com/drive/v3/files',DVU='https://www.googleapis.com/upload/drive/v3/files';
+async function dvList(){const L=[];let pt='';do{const r=await dvF(DVA+'?spaces=appDataFolder&pageSize=1000&fields=nextPageToken,files(id,name,modifiedTime,size,appProperties)'+(pt?'&pageToken='+pt:''));const j=await r.json();L.push(...(j.files||[]));pt=j.nextPageToken||''}while(pt);DRV.L=L;return L}
+async function dvPut(name,body,ap,id){const b='gymbo'+Math.random().toString(36).slice(2),meta={name,...(id?{}:{parents:['appDataFolder']}),...(ap?{appProperties:ap}:{})};
+ const blob=new Blob(['--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n',body,'\r\n--'+b+'--'],{type:'multipart/related; boundary='+b});
+ const r=await dvF(DVU+(id?'/'+id:'')+'?uploadType=multipart&fields=id,name,modifiedTime,size,appProperties',{method:id?'PATCH':'POST',body:blob});return r.json()}
+const dvDel=id=>dvF(DVA+'/'+id,{method:'DELETE'}).catch(()=>{});
+const dvGet=id=>dvF(DVA+'/'+id+'?alt=media').then(r=>r.json());
+const dvData=L=>(L||[]).filter(f=>/^d-\d{4}-\d\d-\d\d\.json$/.test(f.name)).sort((a,b)=>(+(b.appProperties||{}).svd||0)-(+(a.appProperties||{}).svd||0));
+/* salvataggio: dati di oggi (sovrascritto durante il giorno) + foto nuove; tiene 10 giorni */
+async function dvSync(){if(DRV.busy||!dvOn()||!dvOk())return;DRV.busy=1;DRV.err='';dvUi();
+ try{const L=await dvList(),svd=S.svd||Date.now(),dn='d-'+today()+'.json',ex=L.find(f=>f.name==dn);
+  await dvPut(dn,JSON.stringify({v:2,at:today(),dev:dvDev(),svd,data:S}),{svd:String(svd),dev:dvDev()},ex&&ex.id);
+  const P=L.filter(f=>/^p-.+\.json$/.test(f.name)),have=new Set(P.map(f=>f.name)),loc=new Set((PH||[]).map(p=>'p-'+p.id+'.json'));
+  for(const p of (PH||[]))if(!have.has('p-'+p.id+'.json'))await dvPut('p-'+p.id+'.json',JSON.stringify(p));
+  for(const f of P)if(!loc.has(f.name))await dvDel(f.id);
+  const D=dvData(await dvList());for(const f of D.slice(10))await dvDel(f.id);
+  DVS.svd=svd;DVS.phs=dvPhSig();DVS.last=Date.now();DVS.sz=D.reduce((t,f)=>t+(+f.size||0),0);DVS.np=(PH||[]).length;dvKeep()}
+ catch(e){DRV.err=e.message=='auth'?'Serve di nuovo il permesso di Google':e.message||'Errore'}DRV.busy=0;dvUi()}
+let DVT=0;function dvSoon(){if(!dvOn())return;clearTimeout(DVT);DVT=setTimeout(()=>{if(dvDirty())dvSync()},5000)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&dvDirty()&&dvOk())dvSync()});
+/* dopo il permesso: se su Drive c'è una versione più recente fatta da un altro dispositivo, chiede quale tenere */
+async function dvCheck(){const D=dvData(await dvList()),n=D[0];if(!n)return false;const ap=n.appProperties||{},rs=+ap.svd||0;
+ if(rs>(S.svd||0)+1000&&rs!=DVS.svd){cfOpen(`<h2>Dati più recenti su Drive</h2><p class="hint" style="margin:8px 0">Su Drive c’è una versione più nuova di quella su questo dispositivo.</p><div class="gtl" style="grid-template-columns:1fr 1fr"><div><small>Su Drive</small><b style="font-size:16px">${dvWhen(rs)}</b><small>da ${esc(ap.dev||'altro dispositivo')}</small></div><div><small>Qui</small><b style="font-size:16px">${dvWhen(S.svd)}</b><small>questo ${dvDev()}</small></div></div><button class="p" data-a="dvuse" data-i="${n.id}" style="width:100%">Usa i dati di Drive</button><button class="g" data-a="dvkeep" style="width:100%;margin-top:8px">Tieni questi (Drive viene aggiornato)</button><p class="hint" style="margin:10px 0 0">Prima di sostituire, Gym-Bo tiene una copia dei dati di adesso.</p>`);return true}return false}
+async function dvRestore(id){const o=await dvGet(id),d=o&&(o.data||o);if(!d||!Array.isArray(d.ex))throw new Error('Copia non valida');
+ try{await dPut('prev',{at:Date.now(),S:JSON.parse(JSON.stringify(S))})}catch(e){}
+ const L=DRV.L||await dvList(),P=L.filter(f=>/^p-.+\.json$/.test(f.name)),ph=[];for(const f of P){try{ph.push(await dvGet(f.id))}catch(e){}}
+ norm(d);S.lb=S.lb||'';save();await pClear().catch(()=>{});for(const p of ph)if(p&&p.id&&p.u)await pPut(p).catch(()=>{});await loadPh();DVS.svd=S.svd;DVS.phs=dvPhSig();DVS.last=Date.now();dvKeep();render()}
+/* il tocco che collega o ricollega e salva */
+function dvGo(first){dvAuth(first).then(async()=>{if(first||!DVS.em){try{const u=await (await dvF('https://www.googleapis.com/oauth2/v3/userinfo')).json();DVS.em=u.email||''}catch(e){}}DVS.on=1;dvKeep();
+ const asked=await dvCheck().catch(()=>false);if(!asked){await dvSync();toast(DRV.err?'Drive: '+DRV.err:'Salvato su Google Drive')}render()}).catch(e=>{DRV.err=e.message;toast(e.message);dvUi()})}
+function dvUi(){const nb=$('#nbk');if(nb)nb.innerHTML=bkMenu();const s=$('#cfm.sht');if(s&&!s.hidden)s.querySelector('.cfb').innerHTML=dvSheetH();const h=$('#dvbar');if(h)h.outerHTML=dvBar()}
+const dvMB=b=>b>=1048576?(b/1048576).toFixed(1).replace('.',',')+' MB':Math.max(1,Math.round(b/1024))+' KB';
+/* riquadro piccolo nel menu */
+function bkMenu(){const age=bkAge(),old=age==null||(bkF()&&age>=bkF());
+ if(!dvOn())return `<div class="bk2"><div class="bkh"><h2>Backup</h2>${old&&!dvOn()?`<span class="bkwn">⚠️ ${S.lb?age+' giorni fa':'mai fatto'}</span>`:`<span class="hint">su file ${fdy(S.lb)}</span>`}</div><button class="p" data-a="${dvCid()?'dvcon':'dvsh'}" style="width:100%;margin:10px 0 8px">Collega Google Drive</button><button class="g" data-a="bkx" style="width:100%">Esporta su file</button><button class="lk" data-a="dvsh" style="display:block;margin:10px 0 0;font-size:15px">Altre opzioni di backup ›</button></div>`;
+ const st=DRV.busy?'<span class="dvok">Salvataggio…</span>':DRV.err?`<span class="bkwn">⚠️ ${esc(DRV.err)}</span>`:dvDirty()?`<span class="bkwn" style="color:var(--mut)">${DVS.last?'Drive · ultimo '+dvWhen(DVS.last):'Drive · primo salvataggio da fare'}</span>`:`<span class="dvok"><i></i>Drive · salvato ${dvWhen(DVS.last).replace('oggi ','')}</span>`;
+ return `<div class="bk2"><div class="bkh"><h2>Backup</h2></div><p style="margin:6px 0 10px">${st}<br><span class="hint" style="font-size:13px">${dvOk()?'Automatico, foto comprese':dvDirty()?'Modifiche da salvare: tocca Salva ora':'Automatico, foto comprese'}</span></p><div class="row" style="margin:0"><button class="${dvDirty()&&!dvOk()?'p':'g'}" data-a="dvnow">Salva ora</button><button class="g" data-a="bkx">Su file</button></div><button class="lk" data-a="dvsh" style="display:block;margin:10px 0 0;font-size:15px">Altre opzioni di backup ›</button></div>`}
+/* chiave Google personale: ognuno crea la sua (gratis) e la incolla qui; resta solo su questo dispositivo */
+function dvKey(){const has=!!dvCid(),o=location.origin.startsWith('http')?location.origin:'https://edoardobassani.github.io';
+ return `<details id="dDk" ${V.o.dDk||!has?'open':''} style="margin-top:10px"><summary style="font-size:15px">${has?'La tua chiave Google ✓':'Prima: la tua chiave Google (una volta sola)'}</summary>${has?'':'<p class="hint" style="margin:6px 0">Per usare Drive, Google vuole che ognuno colleghi l’app con una propria chiave. È gratuita e serve una volta sola, circa 10 minuti (meglio dal computer):</p>'}
+ <ol class="dvg"><li>Apri <a href="https://console.cloud.google.com/projectcreate" target="_blank" rel="noopener"><b>console.cloud.google.com/projectcreate</b></a>, chiama il progetto <b>Gym-Bo</b> e premi Crea (se chiede la fatturazione, salta). Controlla che in alto sia selezionato Gym-Bo.</li><li>Cerca <b>Google Drive API</b> nella barra in alto e premi <b>Abilita</b>.</li><li>Menu ☰ › API e servizi › <b>Schermata consenso OAuth</b> › Inizia: nome app Gym-Bo, la tua email, pubblico <b>Esterno</b>, contatto la tua email, poi Crea.</li><li>Sezione <b>Pubblico</b> › Utenti di test › <b>Aggiungi utenti</b>: la tua email Google.</li><li>Sezione <b>Client</b> › <b>Crea client</b> › tipo <b>Applicazione web</b>. In <b>Origini JavaScript autorizzate</b> scrivi:<br><code class="dvc">${esc(o)}</code><br>Lascia vuoti gli URI di reindirizzamento e premi Crea.</li><li>Copia l’<b>ID client</b> (finisce con <i>.apps.googleusercontent.com</i>) e incollalo qui sotto. Il «client secret» non serve.</li></ol>
+ <div class="row"><input id="dvcid" placeholder="ID client ….apps.googleusercontent.com" value="${esc(dvCid())}" aria-label="ID client Google" autocomplete="off" spellcheck="false"></div><button class="${has?'g':'p'}" data-a="dvck" style="width:100%">${has?'Aggiorna chiave':'Salva chiave'}</button><p class="hint" style="margin:6px 0 0">Al primo collegamento Google mostra «App non verificata»: è normale, l’app è la tua. Tocca Avanzate › Vai a Gym-Bo. La chiave resta solo su questo dispositivo: sul computer incollala di nuovo.</p></details>`}
+/* foglio «Backup e dati» */
+function dvSheet(){cfOpen(dvSheetH());$('#cfm').classList.add('sht');if(dvOn()&&dvOk()&&!DRV.L)dvList().then(dvUi).catch(()=>{})}
+function dvSheetH(){const D=dvData(DRV.L),age=bkAge();
+ let h=`<div class="bkh"><h2 style="margin:0">Backup e dati</h2><button class="g" data-a="cfx" style="flex:0 0 auto">Chiudi</button></div>`;
+ h+=`<div class="bks" style="border:0"><h3>Google Drive ${dvOn()?`<span class="dvok"><i></i>${esc(DVS.em||'collegato')}</span>`:''}</h3>`;
+ if(!dvOn())h+=`<p class="hint" style="margin:0 0 8px">Copia automatica di dati e foto nel tuo Google Drive, in una cartella nascosta che usa solo Gym-Bo. Non perdi niente se cambi telefono, e ritrovi i dati anche sul computer.</p>${dvCid()?'<button class="p" data-a="dvcon" style="width:100%">Collega Google Drive</button>':''}${dvKey()}`;
+ else{h+=`<p class="hint" style="margin:0 0 6px">Ultimo salvataggio: <b>${dvWhen(DVS.last)}</b>${DVS.sz?' · '+dvMB(DVS.sz)+' di dati':''} · ${(PH||[]).length} foto. Salva da solo pochi secondi dopo ogni modifica. Il permesso di Google dura circa un’ora: dopo basta un tocco su Salva ora.</p>${DRV.err?`<p class="hint" style="color:var(--bad);margin:0 0 6px">⚠️ ${esc(DRV.err)}</p>`:''}<button class="g" data-a="dvnow" style="width:100%">${DRV.busy?'Salvataggio…':'Salva ora'}</button>`;
+  h+=`<p class="hint" style="margin:10px 0 2px">Copie su Drive (una al giorno, ultimi 10 giorni)</p>`+(D.length?D.map(f=>{const ap=f.appProperties||{};return `<div class="dvm"><span><b>${dvWhen(+ap.svd||Date.parse(f.modifiedTime))}</b> · ${esc(ap.dev||'')}</span><button class="lk" data-a="dvres" data-i="${f.id}">${V.del=='dv:'+f.id?'Conferma':'Usa'}</button></div>`}).join(''):dvOk()?'<p class="hint">Nessuna copia ancora.</p>':'<button class="lk" data-a="dvnow" style="font-size:15px">Tocca per vedere le copie</button>')+`${dvKey()}<button class="lk" data-a="dvoff" style="font-size:14px;margin-top:8px">${V.del=='dvoff'?'Conferma: scollega (le copie restano su Drive)':'Scollega Drive'}</button>`}
+ h+=`</div><div class="bks"><h3>Su file (offline)</h3><p class="hint" style="margin:0 0 8px">${S.lb?'Ultimo: '+fdy(S.lb)+' ('+(age<=0?'oggi':age+' giorni fa')+')':'Mai fatto'} · un file .json con dati e foto. Sul telefono si apre la condivisione: scegli dove salvarlo.</p><div class="row"><button class="g" data-a="bkx">Esporta</button><label class="bt g" style="text-align:center">Importa<input type="file" id="bkf" accept=".json,application/json" class="vh"></label></div>${V.pend?pendCard():''}<div class="row" style="align-items:center"><span class="hint" style="margin:0;flex:1">Promemoria in Home</span><select id="bkfq" style="flex:0 0 auto;width:auto" aria-label="Frequenza promemoria backup">${[[7,'ogni settimana'],[14,'ogni 2 settimane'],[30,'ogni mese'],[0,'mai']].map(([v,l])=>`<option value="${v}" ${bkF()==v?'selected':''}>${l}</option>`).join('')}</select></div>
+ <details id="dBt" ${V.o.dBt?'open':''}><summary style="font-size:15px">Backup come testo (senza foto)</summary><textarea id="bk" rows="4" aria-label="Dati di backup">${esc(V.txt||'')}</textarea><div class="row" style="margin-top:8px"><button class="g" data-a="exp">Mostra testo</button><button class="g" data-a="bkc">Copia</button><button class="g" data-a="imp">Importa testo</button></div><p class="hint" style="margin-top:6px">Riserva da usare solo se il file non funziona.</p></details></div>`;
+ h+=`<div class="bks"><h3>Memoria del telefono</h3>${psBox()}<button class="wpb" data-a="wipe" style="width:100%">Cancella tutti i dati</button></div>`;return h}
+/* barra in Home quando i dati non sono su Drive da più di un giorno */
+function dvBar(){if(!dvOn()||!dvDirty()||dvOk()&&!DRV.err)return '<span id="dvbar" hidden></span>';const a=DVS.last?Math.floor((Date.now()-DVS.last)/864e5):99;if(a<1&&!DRV.err)return '<span id="dvbar" hidden></span>';
+ return `<div id="dvbar" class="card bkw"><b>${a>=3?'⚠️ Backup su Drive fermo da '+a+' giorni':'Drive: modifiche da salvare'}</b><p class="hint" style="margin:2px 0 8px">${DRV.err?esc(DRV.err):'Google chiede un tocco per dare di nuovo il permesso.'}</p><button class="p" data-a="dvnow" style="width:100%">Salva su Drive</button></div>`}
 
 function cxCard(){const n=caList().length;return `<button class="g" data-a="cxgo" style="width:100%;margin:0 0 12px">Esercizi e attività cardio${n?' · '+n+' tue':''} › in Esercizi</button>`}
 /* ---- Schede cardio a blocchi ---- */
@@ -2134,7 +2213,7 @@ let PH=[],PHok=false,PHerr=false,DBp=null;
 const pdb=()=>DBp||(DBp=new Promise((res,rej)=>{const r=indexedDB.open('ghisa-foto',1);r.onupgradeneeded=()=>r.result.createObjectStore('p',{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}));
 const pTx=(mode,f)=>pdb().then(d=>new Promise((res,rej)=>{const t=d.transaction('p',mode),s=t.objectStore('p'),q=f(s);t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error)}));
 const pAll=()=>pTx('readonly',s=>s.getAll()),pPut=o=>pTx('readwrite',s=>s.put(o)),pDel=id=>pTx('readwrite',s=>s.delete(id)),pClear=()=>pTx('readwrite',s=>s.clear());
-function loadPh(){return pAll().then(a=>{PH=(a||[]).sort((x,y)=>x.d<y.d?-1:1);PHok=true}).catch(()=>{PHerr=true;PHok=true})}
+function loadPh(){return pAll().then(a=>{PH=(a||[]).sort((x,y)=>x.d<y.d?-1:1);PHok=true;try{dvSoon()}catch(e){}}).catch(()=>{PHerr=true;PHok=true})}
 function shrink(file){return new Promise((res,rej)=>{const u=URL.createObjectURL(file),im=new Image();im.onload=()=>{const k=Math.min(1,900/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.75))};im.onerror=()=>rej(new Error('img'));im.src=u})}
 
 function phDue(){
@@ -2325,12 +2404,12 @@ function vx(){const c=xCount(),p=V.xp||'m3',f=V.xf||'xlsx',sel=V.xs||{w:1,g:1,c:
  <p class="hint">Tutto funziona offline: i file restano sul telefono finché non li condividi.</p>`}
 
 document.addEventListener('change',e=>{const t=e.target;if(t&&(t.id=='xa'||t.id=='xb')&&t.value){V[t.id]=t.value;render()}});
-function bkMenu(){return bkCard().replace('<div class="card">','<div class="card nbc">')}
+
 const bkAge=()=>S.lb?Math.round((Date.now()-Date.parse(S.lb+'T12:00:00'))/864e5):null;
 const bkF=()=>S.bkf==null?14:S.bkf;
 function bkNew(){const L=S.lb||'';return{s:S.log.filter(l=>l.d>=L).length,m:S.meal.filter(l=>l.d>=L).length,p:S.lb?0:(typeof PH!='undefined'?PH.length:0)}}
 function bkDue(){const f=bkF();if(!f)return false;if(S.bks&&S.bks>today())return false;const a=bkAge(),n=bkNew();if(a==null)return n.s+n.m>=30;return a>=f&&n.s+n.m>0}
-function bkWarn(){if(!bkDue())return '';const a=bkAge(),n=bkNew(),nt=[n.s?n.s+' serie':'',n.m?n.m+' voci di dieta':''].filter(Boolean).join(' e ');
+function bkWarn(){if(dvOn())return dvBar();if(!bkDue())return '';const a=bkAge(),n=bkNew(),nt=[n.s?n.s+' serie':'',n.m?n.m+' voci di dieta':''].filter(Boolean).join(' e ');
  return `<div class="card bkw"><h2>È ora del backup</h2><p class="hint" style="margin:2px 0 8px">${a==null?'Non hai ancora fatto nessun backup.':'Ultimo backup '+a+' giorni fa.'}${nt?' Da allora: '+nt+' che esistono solo su questo telefono.':''}</p><div class="row" style="margin:0"><button class="p" data-a="bkx">Salva backup ora</button><button class="g" data-a="bksn">Fra 3 giorni</button></div><p class="hint" style="margin:8px 0 0">Si apre la condivisione: scegli <b>Drive</b> per averlo al sicuro anche se cambi telefono.</p></div>`}
 let PS=null;
 function psInit(){try{const st=navigator.storage;if(!st||!st.persisted){PS={no:1};return}st.persisted().then(p=>p||(st.persist?st.persist():false)).then(p=>{PS={p:!!p};return st.estimate?st.estimate():null}).then(e=>{if(e&&PS)PS.u=e.usage;if(document.body.classList.contains('mo'))render()}).catch(()=>{PS={no:1}})}catch(e){PS={no:1}}}
@@ -2488,7 +2567,7 @@ function render(){
  if(V.tab=='ss'&&!V.ss)V.tab='h';
  document.body.classList.toggle('ssm',V.tab=='ss'||V.tab=='cs');if(V.tab=='cs'&&!V.cs)V.tab='c';
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==V.tab));
- {const nb=$('#nbk');if(nb)nb.innerHTML=bkMenu()}
+ {const nb=$('#nbk');if(nb)nb.innerHTML=bkMenu();const sh=$('#cfm.sht');if(sh&&!sh.hidden)sh.querySelector('.cfb').innerHTML=dvSheetH()}
  {const nd=$('#ndp');if(nd)nd.innerHTML=dpMenu()}
  {const nt=$('#nth');if(nt)nt.innerHTML=thMenu();const q=$('#qs');if(q){q.classList.toggle('on',!!V.fab);q.innerHTML=V.fab?qsHtml():''}}
  try{if(V.ss)localStorage.setItem('ghisa-ss',JSON.stringify(V.ss));else localStorage.removeItem('ghisa-ss')}catch(e){}
@@ -2761,6 +2840,14 @@ document.addEventListener('click',e=>{
  else if(a=='lcr'){const q=V.lc,n=Date.now();q.pa=q.fin;q.fin=0;lcKeep();wlOn()}
  else if(a=='lcx'){if(V.del!='lcx'){V.del='lcx';render();return}V.del='';V.lc=null;lcKeep();wlOff();toast('Cardio dal vivo scartato');window.scrollTo(0,0)}
  else if(a=='lcs'){lcSave();window.scrollTo(0,0)}
+ else if(a=='dvck'){const v=($('#dvcid').value||'').trim().replace(/\s/g,'');if(!/^[\w-]+\.apps\.googleusercontent\.com$/.test(v))return toast('Non sembra un ID client: deve finire con .apps.googleusercontent.com');DVS.cid=v;dvKeep();V.o.dDk=false;dvUi();toast('Chiave salvata: ora tocca Collega Google Drive');return}
+ else if(a=='dvcon'){dvGo(1);return}
+ else if(a=='dvnow'){if(!dvOn()){dvGo(1);return}if(dvOk()){dvSync().then(()=>{toast(DRV.err?'Drive: '+DRV.err:'Salvato su Google Drive');dvUi()});dvUi();return}dvGo(0);return}
+ else if(a=='dvsh'){document.body.classList.remove('mo');$('#mb').setAttribute('aria-expanded','false');dvSheet();return}
+ else if(a=='dvres'){const k='dv:'+id;if(V.del!=k){V.del=k;dvUi();return}V.del='';if(!dvOk()){dvGo(0);return}toast('Ripristino da Drive…');dvRestore(id).then(()=>{cfClose();toast('Dati ripristinati da Drive')}).catch(e=>toast(e.message=='auth'?'Serve di nuovo il permesso: tocca Salva ora':e.message));return}
+ else if(a=='dvuse'){toast('Scarico i dati da Drive…');dvRestore(id).then(()=>{cfClose();toast('Ora usi i dati di Drive')}).catch(e=>toast(e.message));return}
+ else if(a=='dvkeep'){cfClose();DVS.svd=0;dvSync().then(()=>{toast('Drive aggiornato con i dati di questo dispositivo');dvUi()});return}
+ else if(a=='dvoff'){if(V.del!='dvoff'){V.del='dvoff';dvUi();return}V.del='';try{window.google&&google.accounts&&DRV.tk&&google.accounts.oauth2.revoke(DRV.tk,()=>{})}catch(e){}DVS={cid:DVS.cid};dvKeep();DRV.tk='';DRV.exp=0;DRV.L=null;try{localStorage.removeItem('gymbo-drt')}catch(e){}dvUi();toast('Drive scollegato');return}
  else if(a=='gisk'){const G=V.gi,x=G.L[id!=null?+id:G.i];if(x.dup=='skip'){x.dup='';x.skip=0}else x.skip=!x.skip}
  else if(a=='gidp'){V.gi.L[V.gi.i].dup=b.dataset.v}
  else if(a=='gity'){V.gi.L[V.gi.i].sel=b.dataset.v}
