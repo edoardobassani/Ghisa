@@ -1,0 +1,83 @@
+# nome app|fonte:codice|categoria|porzione g|sinonimi (separati da ,)
+Pancarrè|C:7200|Cereali, pane, pasta e patate|25|pan carrè,pane in cassetta,pancarre,pan bauletto
+Pancarrè integrale|C:7111|Cereali, pane, pasta e patate|25|pane in cassetta integrale,pan bauletto integrale
+Tortilla di frumento (wrap)|C:7815|Cereali, pane, pasta e patate|60|wrap,tortilla,tortillas
+Pane pita|C:7180|Cereali, pane, pasta e patate|60|pita
+Bulgur (crudo)|C:9690|Cereali, pane, pasta e patate|80|
+Bulgur, cotto|C:9691|Cereali, pane, pasta e patate|150|
+Amaranto (crudo)|C:9345|Cereali, pane, pasta e patate|60|
+Pasta senza glutine (cruda)|C:9874|Cereali, pane, pasta e patate|80|pasta gluten free
+Pasta di lenticchie rosse, cotta|C:9876|Cereali, pane, pasta e patate|180|pasta di legumi,pasta di lenticchie
+Tortellini o ravioli al formaggio, freschi (crudi)|C:25181|Cereali, pane, pasta e patate|125|ravioli al formaggio,pasta ripiena
+Tortellini o ravioli al formaggio, freschi, cotti|C:25149|Cereali, pane, pasta e patate|200|
+Gallette di mais|C:7354|Cereali, pane, pasta e patate|10|galletta di mais
+Pancake|C:23827|Dolci e snack|40|pancakes
+Waffle|U:175038|Dolci e snack|35|waffles
+Pain au chocolat|C:7733|Dolci e snack|70|saccottino,saccottino al cioccolato
+Muesli croccante al cioccolato|C:32109|Cereali, pane, pasta e patate|45|granola,granola al cioccolato
+Cereali al cioccolato|C:32013|Cereali, pane, pasta e patate|30|cereali cioccolato,palline al cioccolato
+Crusca d’avena|C:9640|Cereali, pane, pasta e patate|30|crusca avena
+Patate al forno|C:4026|Cereali, pane, pasta e patate|200|patate arrosto
+Edamame|U:168410|Legumi e derivati|100|fagioli di soia
+Fagioli neri, secchi|U:173734|Legumi e derivati|80|
+Tofu affumicato|C:20912|Legumi e derivati|100|
+Wurstel di pollo|C:30131|Salumi e affettati|50|wurstel pollo
+Polpette di manzo, cotte|C:25163|Carne|100|polpette
+Cotoletta di vitello impanata, cotta|C:25173|Carne|120|cotoletta,cotoletta alla milanese
+Cotoletta di tacchino impanata, cotta|C:36318|Carne|120|
+Hamburger di manzo 5% grassi (crudo)|C:6250|Carne|100|hamburger,svizzera,hamburger magro
+Hamburger di manzo 15% grassi (crudo)|C:6254|Carne|100|
+Surimi|C:26046|Pesce e frutti di mare|50|bastoncini di surimi
+Sgombro al naturale, in scatola (sgocciolato)|C:26123|Pesce e frutti di mare|90|sgombro in scatola
+Sardine sott’olio, sgocciolate|C:26040|Pesce e frutti di mare|90|sardine in scatola
+Anatra, petto (crudo)|C:36206|Carne|150|magret,petto d anatra
+Fesa di pollo (affettato)|C:28963|Salumi e affettati|50|affettato di pollo,pollo affettato
+Uova di quaglia|C:22050|Uova|10|
+Kefir|C:19865|Latte e yogurt|200|
+Latte parz. scremato senza lattosio|C:19060|Latte e yogurt|250|latte senza lattosio,latte delattosato,zymil
+Asiago|C:12761|Formaggi|50|
+Burrata|C:12072|Formaggi|100|
+Quark magro|C:19644|Latte e yogurt|150|quark,fromage blanc
+Yogurt proteico, bianco|C:19724|Latte e yogurt|160|yogurt proteico,hipro,yogurt hipro
+Panna da montare|R:140300|Latte e yogurt|30|panna montata
+Frutto della passione|C:13016|Frutta|30|maracuja,passion fruit
+Lime|C:13067|Frutta|50|
+Mirtilli rossi secchi|C:13178|Frutta|30|cranberry,cranberries
+Cavolo riccio (kale)|C:20346|Verdure e ortaggi|100|kale,cavolo nero
+Pak choi (crudo)|C:20340|Verdure e ortaggi|100|bok choy,cavolo cinese
+Scalogno|C:20097|Verdure e ortaggi|20|
+Capperi|U:172238|Condimenti e varie|10|
+Valeriana (songino)|C:20099|Verdure e ortaggi|50|songino,valerianella,soncino
+Noci del Brasile|C:15008|Frutta secca e semi|20|noci brasiliane
+Semi di chia|C:15047|Frutta secca e semi|15|chia
+Semi di lino|C:15034|Frutta secca e semi|15|lino
+Semi di zucca|C:15064|Frutta secca e semi|20|
+Semi di sesamo|C:15010|Frutta secca e semi|10|sesamo
+Tahina (crema di sesamo)|C:15203|Frutta secca e semi|15|tahin,tahini
+Burro di mandorle|U:168588|Frutta secca e semi|15|crema di mandorle
+Senape|C:11013|Condimenti e varie|10|
+Salsa barbecue|C:11100|Condimenti e varie|15|barbecue,bbq
+Aceto di vino|C:11220|Condimenti e varie|10|aceto
+Aceto balsamico|C:11091|Condimenti e varie|10|
+Brodo vegetale (da dado), pronto|C:25948|Condimenti e varie|250|brodo,brodo vegetale
+Ghee (burro chiarificato)|U:171314|Oli e grassi|10|burro chiarificato
+Sciroppo d’acero|C:31034|Condimenti e varie|15|
+Zucchero di canna|C:31017|Condimenti e varie|5|zucchero grezzo
+Cioccolato bianco|C:31010|Dolci e snack|20|
+Tiramisù|C:19698|Dolci e snack|100|tiramisu
+Budino al cioccolato|C:39200|Dolci e snack|125|budino
+Panna cotta|C:19685|Dolci e snack|100|
+Crema pasticcera (preparato)|C:39710|Dolci e snack|100|crema pasticcera
+Tortilla chips|C:38417|Dolci e snack|30|nachos,chips di mais
+Bevanda di riso|C:18904|Bevande|200|latte di riso
+Latte di cocco (in lattina)|C:18041|Bevande|50|
+Succo multifrutti (ACE)|C:2002|Bevande|200|succo ace,ace
+Energy drink|C:18352|Bevande|250|red bull,monster
+Energy drink senza zucchero|C:18353|Bevande|250|red bull zero,monster zero
+Cola senza zucchero|C:18060|Bevande|330|coca zero,cola zero,pepsi max
+Cappuccino (senza zucchero)|C:18151|Bevande|150|caffelatte,caffe latte,cappuccio
+Birra analcolica|C:5030|Bevande|330|
+Kombucha|C:18025|Bevande|250|
+Bevanda isotonica|C:18348|Bevande|500|gatorade,powerade,integratore salino
+Acqua tonica|C:18344|Bevande|200|tonica
+Sushi o maki di pesce|C:25456|Piatti pronti|150|sushi,maki,nigiri,uramaki

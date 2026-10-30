@@ -53,3 +53,8 @@ da `demo_data.json`; con `--rigenera` ricrea anche i dati con `gen.js`. Si pubbl
 - `demo/gen.js` simula anche: programma «Forza lineare a blocchi» da settembre (lun/mer/ven, settimana 9), 1RM testato dello stacco, programma cardio «Fondo e VO2max», uscite GPX con percorso e due corse dal vivo con battito. Pagina: `demo/gymbo-demo.html`.
 - `test/qa-demo.py`: apre ogni sezione della demo e segnala errori, testo «undefined/NaN» e pagine più larghe dello schermo.
 - `test/t29.py`: riapertura sull’ultima schermata (localStorage `gymbo-view`, 12 ore) con campi e scorrimento; stato vecchio o rotto → Home; la seduta in corso ha la precedenza.
+
+## v190 – banca dati alimenti ampliata
+82 alimenti nuovi (1007 in totale). Priorità fonti: CREA 2019 → Ciqual 2025 (ANSES, Licence Ouverte 2.0) → USDA FoodData Central SR Legacy (CC0).
+File sorgente scaricati dalla release `sources-2026-10-05` di github.com/raddatzk/sous (ridistribuiti invariati); valori Ciqual 2025 confrontati con Ciqual 2020: 63/67 identici, 4 revisioni.
+`tools/foods/selezione-v190.txt` = elenco nome app | fonte:codice | categoria | porzione | sinonimi. Script: ciq.py, usda.py, gen.py.
