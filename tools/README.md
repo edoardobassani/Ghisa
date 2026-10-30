@@ -17,7 +17,7 @@ Non fanno parte dell'app: GitHub Pages li pubblica ma l'app non li usa.
 `t.py` è il banco di prova comune (dati di esempio + passi). Gli altri file provano una funzione ciascuno:
 `t1` guida esercizi, `t2` esercizi palestra, `t3` grammi alimenti (vecchio flusso), `t4` riscaldamento,
 `t5` tutte le sezioni, `t6` barra seduta, `t7` sesso fuori dalla dieta, `t8` modelli scheda, `t9` programmi,
-`t11` storico, `t12` nuova Dieta, `tdb` IndexedDB e migrazione, `twipe` cancella tutto, `tbk` ripristino backup.
+`t11` storico, `t12` nuova Dieta, `t19` ricerca alimenti, `t20` gruppi alimenti, `t20d` verdure dei piani pronti uguali alla versione precedente (PRIMA=file), `tdb` IndexedDB e migrazione, `twipe` cancella tutto, `tbk` ripristino backup.
 Il percorso del sorgente si cambia con la variabile `SRC`.
 
 ## Demo
