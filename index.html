@@ -1751,8 +1751,10 @@ const MPC=['Colazione','Pranzo','Spuntino','Cena'],MPE={Colazione:10.5,Pranzo:15
 const mHour=()=>{const n=new Date();return n.getHours()+n.getMinutes()/60};
 const mSlot=()=>{const h=mHour();return MPC.findIndex(m=>h<MPE[m])};
 const mSk=(d,m)=>!!((S.msk||{})[d]||[]).includes(m);
-const mHas=(d,m)=>S.meal.some(x=>x.d==d&&x.m==m);
-function mActive(){const t=today();let n=0;for(let i=1;i<=7;i++)if(S.meal.some(x=>x.d==hvAdd(t,-i)))n++;return n>=3}
+/* indice dei pasti per giorno: rifatto una volta per schermata (e se il diario cambia), invece di scorrere tutto il diario a ogni controllo */
+let MIX=null,MIXk='';function mIdx(){const L=S.meal,k=L.length+'|'+(L.length?L[L.length-1].id:'');if(MIX&&MIXk==k)return MIX;const m=new Map();L.forEach(x=>{let z=m.get(x.d);if(!z)m.set(x.d,z=new Set());z.add(x.m)});MIXk=k;return MIX=m}
+const mHas=(d,m)=>{const z=mIdx().get(d);return !!(z&&z.has(m))};
+function mActive(){const t=today(),I=mIdx();let n=0;for(let i=1;i<=7;i++)if(I.has(hvAdd(t,-i)))n++;return n>=3}
 function mMiss(d){if(!mActive())return [];const t=today(),h=mHour();return MPM.filter(m=>(d<t||h>=MPE[m]+1)&&!mHas(d,m)&&!mSk(d,m))}
 const mFem=m=>m!='Pranzo';
 function mMissBox(d,m,pl){const f=mFem(m),y=d!=today();return `<div class="ogmiss"><b>${y?m+' di '+DNF[(new Date(d+'T12:00:00').getDay()+6)%7].toLowerCase():m} non segnat${f?'a':'o'}</b>${y?'<p class="hint" style="margin:2px 0 0">Se non la segni, quel giorno non entra nel calcolo del fabbisogno reale.</p>'.replace('la segni',f?'la segni':'lo segni'):''}<div class="row" style="margin:6px 0 0"><button class="g" data-a="${pl&&!y?'ogsel':'ogx'}" data-pm="${m}" data-d="${d}">${y?'Segna':'Segna ora'}</button><button class="g" data-a="mskp" data-pm="${m}" data-d="${d}">Non l’ho fatt${f?'a':'o'}</button></div></div>`}
@@ -2284,7 +2286,7 @@ function navOrd(){
  nav.classList.toggle('nvm',ed);
  ctl.innerHTML=ed?'<p class="hint">Riordino: tieni premuto ⠿ e trascina la voce. Le voci non si aprono finché non tocchi Fine.</p><button class="p" data-a="nvx" style="width:100%">Fine</button>':V.nvq?'<p class="hint">Riordinare le sezioni del menu? Nessun dato viene modificato.</p><div class="row"><button class="p" data-a="nvy">Sì, sposta ordine</button><button class="g" data-a="nvn">Annulla</button></div>':'<button class="g" data-a="nvq" style="width:100%">⚙ Riordina sezioni</button>'}
 function render(){
- fcOff();
+ MIX=null;fcOff();
  if(V.tab=='ss'&&!V.ss)V.tab='h';
  document.body.classList.toggle('ssm',V.tab=='ss'||V.tab=='cs');if(V.tab=='cs'&&!V.cs)V.tab='c';
  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==V.tab));
