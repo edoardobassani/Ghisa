@@ -82,3 +82,6 @@ Ogni voce singola del piano (non i preferiti) ha ⇄ (`mpSwB`), con il numero di
 
 ## v197 – scelta alimento compatta nel piano pasti
 Dopo la scelta il pannello «+ Alimento» mostra solo il riquadro `.pps` (nome, kcal e macro per 100 g) al posto di ricerca ed elenco; «Cambia» (`ppch`) svuota la scelta e riapre la ricerca con la stessa parola. Prova in `test/t37.py`.
+
+## v198 – Svuota la settimana
+Tasto «Svuota la settimana» (`ppsv0` apre la conferma, `ppsv` svuota, con Annulla) accanto a «Svuota il giorno». La settimana vuota resta in `S.mpw` e viene segnata in `S.mpe`, così `mpSrc` la fa ereditare alle settimane dopo senza piano proprio. La casella `#ppsvf` toglie anche le settimane successive già pianificate. Toglie `S.dpa` se riguarda le settimane svuotate. Prova: `test/t39.py`.
