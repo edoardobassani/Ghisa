@@ -100,3 +100,6 @@ Ogni voce del diario Dieta ha ⇄ (`.dirw`, `mpso` con `data-k="d"`): stesso fog
 
 ## v203 – codice a barre: grammi e pasto subito
 Nel lettore (`bcGot`) la scheda chiede grammi e pasto (`bcQty`: ultimi grammi usati o prima porzione, pasto da `V.fsh`/`V.mm`/fascia oraria, giorno del diario aperto o oggi). Prodotto nuovo: «Salva e aggiungi al diario» (salva l’limento e aggiunge con `bcAdd`) o «Salva soltanto» (comportamento di prima). Prodotto già salvato: scheda con «Aggiungi al diario» e «Apri nella ricerca alimenti». Prova: `test/t42.py`.
+
+## v204 – lista della spesa per reparto
+`vsp` raggruppa per reparto del supermercato (`SPR`, `spGroups`: frutta e verdura con le patate, pane pasta e cereali, carne e pesce, salumi, latticini e uova, legumi, dispensa, altro), con conteggio «presi», barra di avanzamento, «Nascondi presi» (`V.psh`) e i presi in fondo al reparto. Voci aggiunte a mano in `S.spx` ({id,t,on}; `spxa`, `spxd`, `.spxc`). «Condividi la lista» (`spsh`, API Share o copia) e «Copia come testo» usano `spText`: solo le voci non ancora prese. «Azzera spunte» toglie anche quelle delle voci a mano. Prova: `test/t43.py`.
