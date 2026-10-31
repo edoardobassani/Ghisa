@@ -690,7 +690,7 @@ function imDo(){const I=V.im;imSync();const L=imBuild(),idOf={};
 /* ---- Importazione piano alimentare da Excel/CSV ---- */
 const IPMEAL=x=>{const n=nrm(x);return /colaz/.test(n)?'Colazione':/pranz/.test(n)?'Pranzo':/cena/.test(n)?'Cena':/(spunt|merend|snack|pre|post|break)/.test(n)?'Spuntino':''};
 const IPDAY=['lunedi','martedi','mercoledi','giovedi','venerdi','sabato','domenica'];
-function ipDay(x){const n=nrm(x).trim();if(!n||/tutti|ogni|sempre|tutta/.test(n))return -1;const i=IPDAY.findIndex(d=>n.startsWith(d.slice(0,3)));return i}
+function ipDay(x){const n=nrm(x).trim();if(!n||/tutti|ogni|sempre|tutta/.test(n))return -1;const g=n.match(/^(?:giorno|day|g)\s*\.?\s*(\d+)/);if(g)return(+g[1]+6)%7;const w=(n.match(/^[a-z]+/)||[''])[0];return w.length<3?-1:IPDAY.findIndex(d=>d.startsWith(w))}
 function ipRows(g){const C=(r,c)=>String(((g[r]||[])[c])||'').trim(),out={rows:[],goal:null};
  for(let r=0;r<g.length;r++)(g[r]||[]).forEach((v,c)=>{const h=nrm(v||'');
   if(/^kcal|^calorie/.test(h)&&!out.goal){const k={};for(let j=c;j<c+6;j++){const x=nrm(C(r,j));if(/^(kcal|calorie)/.test(x))k.k=j;else if(/^prot/.test(x))k.p=j;else if(/^carb/.test(x))k.c=j;else if(/^grass/.test(x))k.f=j}const val=j=>j==null?0:parseFloat(C(r+1,j).replace(',','.'))||0;const gl={k:val(k.k),p:val(k.p),c:val(k.c),f:val(k.f)};if(gl.k||gl.p||gl.c||gl.f)out.goal=gl}

@@ -13,4 +13,4 @@ a2='dataBoot().then(';assert s.count(a2)==1;s=s.replace(a2,sw+a2)
 open(sys.argv[2],'w').write(s)
 P
 cd $REPO && git add -A && git commit -q -m "$1" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01J1sGSPronNQehVaLG4kM1G" && git push -q origin main && git log --oneline -1
+Claude-Session: https://claude.ai/code/session_01J1sGSRrunnhFkPP9x5i1Qj" && git push -q origin main && git log --oneline -1
