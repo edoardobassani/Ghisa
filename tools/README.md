@@ -103,3 +103,6 @@ Nel lettore (`bcGot`) la scheda chiede grammi e pasto (`bcQty`: ultimi grammi us
 
 ## v204 – lista della spesa per reparto
 `vsp` raggruppa per reparto del supermercato (`SPR`, `spGroups`: frutta e verdura con le patate, pane pasta e cereali, carne e pesce, salumi, latticini e uova, legumi, dispensa, altro), con conteggio «presi», barra di avanzamento, «Nascondi presi» (`V.psh`) e i presi in fondo al reparto. Voci aggiunte a mano in `S.spx` ({id,t,on}; `spxa`, `spxd`, `.spxc`). «Condividi la lista» (`spsh`, API Share o copia) e «Copia come testo» usano `spText`: solo le voci non ancora prese. «Azzera spunte» toglie anche quelle delle voci a mano. Prova: `test/t43.py`.
+
+## v205 – vista Settimana del piano
+Terzo interruttore nel piano pasti: Giorno / Settimana / Spesa (`V.pv`=p/w/s). `vpw()`: tabella giorni × pasti con le kcal, totale colorato rispetto a `S.goal` (entro 5%, 12%, oltre), riga Media, media dei macro e il menu chiuso «Cosa c’\è in ogni giorno» (`pw_det`). Tocco su un giorno (`ppwd`) apre la vista Giorno su quel giorno. Prova: `test/t44.py`.
