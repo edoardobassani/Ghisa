@@ -15,7 +15,7 @@ async def m():
     await pg.screenshot(path=O+'sw-pp.png',full_page=True)
     # apri ⇄ sulla pasta del pranzo
     await pg.evaluate("()=>{const it=ppD(V.pj).Pranzo.find(x=>x.al&&x.al.length==6);document.querySelector(`[data-a=mpso][data-i=\"${it.id}\"]`).click()}");await pg.wait_for_timeout(200)
-    print('foglio:',await pg.evaluate("()=>[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent)+' | '+[...document.querySelectorAll('#cfm .xpo')].length+' righe | '+[...document.querySelectorAll('#cfm [data-a=mpss]')].map(e=>e.textContent).join('/')"))
+    print('foglio:',await pg.evaluate("()=>[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent)+' | '+[...document.querySelectorAll('#cfm .swr')].length+' righe | '+[...document.querySelectorAll('#cfm [data-a=mpss]')].map(e=>e.textContent).join('/')"))
     await pg.screenshot(path=O+'sw-sheet.png')
     await pg.click('#cfm [data-a=mpss][data-v="1"]')
     await pg.evaluate("()=>{const r=allF().find(x=>x.name=='Riso (crudo)');document.querySelector(`#cfm [data-a=mpsw][data-f=\"${r.id}\"]`).click()}");await pg.wait_for_timeout(200)
@@ -25,10 +25,10 @@ async def m():
     print('dopo Annulla:',await pg.evaluate("()=>[0,1,2,3,4,5,6].map(d=>fo(ppD(d).Pranzo.find(x=>x.al&&x.al.length==6).f).name.split(' ')[0]).join(' ')"))
     # solo oggi, su una voce senza alternative (olio): diventa scambiata e crea al
     await pg.evaluate("()=>{const it=ppD(V.pj).Pranzo.find(x=>!x.al);document.querySelector(`[data-a=mpso][data-i=\"${it.id}\"]`).click()}");await pg.wait_for_timeout(200)
-    print('senza alt:',await pg.evaluate("()=>[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent).join(',')+' | '+[...document.querySelectorAll('#cfm .xpo')].map(e=>e.textContent.slice(0,30)).join(' / ')"))
+    print('senza alt:',await pg.evaluate("()=>[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent).join(',')+' | '+[...document.querySelectorAll('#cfm .swi>b')].map(e=>e.textContent).join(' / ')"))
     await pg.evaluate("()=>document.querySelector('#cfm [data-a=mpsa]').click()");await pg.wait_for_timeout(200)
     print('+⇄:',await pg.evaluate("()=>[document.querySelector('#toast').textContent,[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent).join(',')]"))
-    await pg.evaluate("()=>{const b=[...document.querySelectorAll('#cfm [data-a=mpsw]')].find(b=>!b.classList.contains('on'));b.click()}");await pg.wait_for_timeout(200)
+    await pg.evaluate("()=>{document.querySelector('#cfm [data-a=mpsw]').click()}");await pg.wait_for_timeout(200)
     print('pranzo oggi:',await pg.evaluate("()=>ppD(V.pj).Pranzo.map(x=>fo(x.f).name+' '+x.g+(mpSwd(x)?' [scambiato]':'')+(x.al?' al'+x.al.length:''))"))
     # Home
     await pg.evaluate("()=>{V.tab='h';V.ogsel='Pranzo';V.ogseld=today();render()}");await pg.wait_for_timeout(200)
