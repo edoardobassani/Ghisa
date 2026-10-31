@@ -1,4 +1,4 @@
-const V='ghisa-v3',CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
+const V='ghisa-v4',CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==V&&x!=='ghisa-share').map(x=>caches.delete(x)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
@@ -14,3 +14,5 @@ self.addEventListener('fetch',e=>{
   e.respondWith(caches.match(r).then(m=>m||fetch(r).then(x=>{const c=x.clone();caches.open(V).then(h=>h.put(r,c));return x}).catch(()=>m)));
  }
 });
+/* tocco sulla notifica di fine recupero o di cambio fase: torna all'app aperta, oppure la apre */
+self.addEventListener('notificationclick',e=>{e.notification.close();e.waitUntil(self.clients.matchAll({type:'window',includeUncontrolled:true}).then(L=>{const c=L.find(x=>'focus' in x);return c?c.focus():self.clients.openWindow('./')}))});
