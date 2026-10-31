@@ -91,3 +91,6 @@ Il riquadro `.bcf` non viene più nascosto: in `bcStart` i messaggi (`m`) non to
 
 ## v200 – foglio ⇄ con tasti separati
 Nel foglio di scambio le righe (`.swr`, info in `.swi`) non sono più toccabili: ogni riga ha «⇄ Scambia» (`mpsw`) e, per gli equivalenti, «+ Salva» (`mpsa`, aggiunge ad `al`) nella colonna `.swbx`; la voce attuale mostra «✓ In uso». Attenzione: `.swb` è già usato per un altro tasto.
+
+## v201 – equivalenti per sottofamiglia
+`eqSub` assegna una sottofamiglia dal nome (`EQS`: primo, patate, pane, snack, colaz, dolce, ripiena, salumi, cbianca, lfresco, vprot, oli, grassi, semi; altrimenti la categoria). `eqOf` propone prima la stessa sottofamiglia (macro fino a 0,6 di distanza), poi le affini di `EQA` (fino a 0,2, penalità 0,2); premia `CMN`, gli alimenti base `EQB` e quelli usati di recente; una sola variante per tipo (`stem`); scarta grammi oltre 3× (tranne verdure).
