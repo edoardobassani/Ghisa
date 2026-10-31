@@ -109,3 +109,7 @@ Terzo interruttore nel piano pasti: Giorno / Settimana / Spesa (`V.pv`=p/w/s). `
 
 ## v206 – riepilogo dell’uscita cardio
 `cdSumOpen(id)` apre un foglio con durata, distanza, passo (velocità per bici/cyclette, `cdBike`), kcal, battito, dislivello, tempo nelle zone (`hzBar`) e il confronto con l’uscita simile precedente (`cdPrev`: stesso tipo, distanza o durata entro ±25%). Si apre da solo dopo il salvataggio (dal vivo `lcSave`, timer guidato, a mano `cda`, import di un solo file in `gxSave`) e toccando una riga dello storico (`cdsum`). Prova: `test/t45.py`. Nota: `t24.py` cerca il vecchio tasto `[data-a=hrc]` e va aggiornato (falliva già dalla v179).
+
+## v207 – lettura al tocco sui grafici piccoli
+I grafici nel tempo della pagina Grafici (`plot`) avevano già la lettura al tocco. Ora ce l'hanno anche la curva del battito (`hrCurve(hs,h,dur)`: minuto · bpm), il profilo altimetrico (`gxElv(e,km)`: km · m) e la linea del peso nel Riepilogo della Home (settimana e mese: data · kg). Contenitore `.tsc` con `data-l` (etichette in ordine) e `data-p` (inizio e fine del tracciato in frazione della larghezza); `tsAt` mostra linea e etichetta (`.tsl`, `.tst`), che spariscono dopo 3,5 s. La mappa muscolare mostra già i valori in testo sotto il grafico. Prova: `test/t46.py`.
+Attenzione: `tools/demo/make-demo.py` riscrive `tools/demo/gymbo-demo.html` nel repo; per i test copiarla altrove e fare `git checkout` del file (la demo si aggiorna solo se lo chiede Edo).
