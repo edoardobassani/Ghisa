@@ -97,3 +97,6 @@ Nel foglio di scambio le righe (`.swr`, info in `.swi`) non sono più toccabili:
 
 ## v202 – ⇄ nel diario
 Ogni voce del diario Dieta ha ⇄ (`.dirw`, `mpso` con `data-k="d"`): stesso foglio del piano (`V.sw.k=="d"`, niente «tutti i giorni»), scambia `f`/`g` della voce in `S.meal` e tiene le scelte in `al`. Quando il piano viene segnato nel diario (`ogm`, «Segna tutti», «Applica al diario») le voci portano anche `al`. Prova: `test/t41.py`.
+
+## v203 – codice a barre: grammi e pasto subito
+Nel lettore (`bcGot`) la scheda chiede grammi e pasto (`bcQty`: ultimi grammi usati o prima porzione, pasto da `V.fsh`/`V.mm`/fascia oraria, giorno del diario aperto o oggi). Prodotto nuovo: «Salva e aggiungi al diario» (salva l’limento e aggiunge con `bcAdd`) o «Salva soltanto» (comportamento di prima). Prodotto già salvato: scheda con «Aggiungi al diario» e «Apri nella ricerca alimenti». Prova: `test/t42.py`.
