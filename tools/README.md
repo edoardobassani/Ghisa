@@ -73,3 +73,6 @@ Cardio: nuova importazione sedute (PDF/Excel/CSV) → schede cardio a blocchi, o
 
 ## v194 – piano pronto «A scelta, stile nutrizionista»
 Nuovo elemento di `DPM` (id `sce`, onnivoro, equilibrato) ricavato dallo schema Nutrium di Edo, senza nomi: ogni giorno un carboidrato + una proteina dalle scelte equivalenti, verdura libera, olio misurato, due spuntini uniti in Spuntino. Generato da `test/pdft/mk-dpm-sce.py`. Prova: `test/t36.py`.
+
+## v195 – alimenti equivalenti
+`eqOf(f,g,N)`: stessa famiglia (`EQG`: proteici, carboidrati, grassi; altrimenti stessa categoria), ripartizione delle kcal tra P/C/G simile (distanza < 0,3), grammi ricalcolati per le stesse kcal. Esclude farine e ingredienti, sciroppati e canditi, secchi se l'originale non lo è, crudo↔cotto, piatti pronti; penalizza nomi lunghi da banca dati e categorie diverse, favorisce `CMN`. Nel pannello «+ Alimento» del piano pasti: menu chiuso «Vedi equivalenti» (`#ppeq`, `ppEqH`), si aggiorna con i grammi; «Usa» (`ppeu`) sostituisce l'alimento scelto. Prova: `test/t37.py`.
