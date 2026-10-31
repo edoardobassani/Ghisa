@@ -1,0 +1,21 @@
+import asyncio
+from playwright.async_api import async_playwright
+CSS="<style>body{font-family:Arial;font-size:12pt;margin:30px}table{border-collapse:collapse;margin:6px 0 18px}td,th{border:1px solid #999;padding:4px 10px}td.n{text-align:center}h2{font-size:15pt;margin:14px 0 4px}</style>"
+D={
+'gym_table':"<h1>Scheda di allenamento</h1><h2>Giorno A – Push</h2><table><tr><th>Esercizio</th><th>Serie</th><th>Ripetizioni</th><th>Recupero</th><th>Note</th></tr><tr><td>Panca piana bilanciere</td><td class=n>4</td><td class=n>8</td><td class=n>90\"</td><td>fermo al petto</td></tr><tr><td>Military press</td><td class=n>3</td><td class=n>10</td><td class=n>90\"</td><td></td></tr><tr><td>Croci ai cavi</td><td class=n>3</td><td class=n>12</td><td class=n>60\"</td><td></td></tr><tr><td>Push down corda</td><td class=n>3</td><td class=n>12-15</td><td class=n>60\"</td><td></td></tr></table><h2>Giorno B – Pull</h2><table><tr><th>Esercizio</th><th>Serie</th><th>Ripetizioni</th><th>Recupero</th><th>Note</th></tr><tr><td>Lat machine</td><td class=n>4</td><td class=n>10</td><td class=n>2'</td><td></td></tr><tr><td>Rematore con manubrio</td><td class=n>3</td><td class=n>10</td><td class=n>90\"</td><td>per lato</td></tr><tr><td>Curl manubri</td><td class=n>3</td><td class=n>12</td><td class=n>60\"</td><td></td></tr></table>",
+'gym_text':"<h1>SCHEDA PALESTRA – Ottobre</h1><p><b>Giorno 1 - Petto e tricipiti</b></p><p>1. Panca piana 4x8 rec 90''</p><p>2. Croci ai cavi 3 x 12 - 60\"</p><p>3. Push down 3x10-12 rec. 1'</p><p><b>Giorno 2 - Schiena e bicipiti</b></p><p>Lat machine 4x10 50 kg rec 2'</p><p>Rematore bilanciere 4x8 rec 2'</p><p>Curl manubri 3x12 rec 60\"</p><p>Plank 3xmax</p>",
+'diet_text':"<h1>PIANO ALIMENTARE</h1><p>Dott.ssa Rossi – Kcal 2200</p><h2>Lunedì</h2><p>Colazione: latte parzialmente scremato 200 ml, fiocchi d'avena 40 g, banana 120 g</p><p>Spuntino: yogurt greco 0% 150 g</p><p>Pranzo: pasta di semola 80 g, petto di pollo 120 g, zucchine 200 g, olio extravergine 10 g</p><p>Cena: salmone 150 g, patate 200 g, insalata 80 g</p><p>oppure merluzzo 200 g</p><h2>Martedì</h2><p>Colazione: pane integrale 60 g; marmellata 20 g; latte 200 ml</p><p>Pranzo: riso 80 g + tonno al naturale 100 g + pomodori 150 g</p><p>Cena: uova 2 (110 g), spinaci 200 g, pane 50 g</p>",
+'diet_table':"<h1>Piano</h1><table><tr><th>Giorno</th><th>Pasto</th><th>Alimento</th><th>Grammi</th></tr><tr><td>Tutti i giorni</td><td>Colazione</td><td>Latte parz. scremato</td><td class=n>200</td></tr><tr><td></td><td></td><td>Fiocchi d’avena</td><td class=n>40</td></tr><tr><td></td><td>Pranzo</td><td>Pasta di semola</td><td class=n>80</td></tr><tr><td></td><td></td><td>Petto di pollo</td><td class=n>150</td></tr><tr><td></td><td>Cena</td><td>Merluzzo</td><td class=n>200</td></tr></table>",
+'cardio_text':"<h1>Programma corsa</h1><p>Lunedì: 10' riscaldamento, 6x(1' forte + 2' recupero), 5' defaticamento</p><p>Mercoledì - 40 minuti corsa facile Z2</p><p><b>Venerdì</b></p><p>Riscaldamento 15'</p><p>5 x 3' soglia rec 2'</p><p>Defaticamento 10'</p><p>Domenica: lungo 60' lento</p>",
+'cardio_table':"<h1>Bici – piano 2 settimane</h1><table><tr><th>Settimana</th><th>Giorno</th><th>Attività</th><th>Sessione</th></tr><tr><td class=n>1</td><td>Martedì</td><td>Cyclette</td><td>10' facile, 4x(4' Z4 + 3' Z2), 10' defaticamento</td></tr><tr><td></td><td>Sabato</td><td>Bici</td><td>90' Z2 costante</td></tr><tr><td class=n>2</td><td>Martedì</td><td>Cyclette</td><td>10' facile, 5x(4' Z4 + 3' Z2), 10' defaticamento</td></tr><tr><td></td><td>Sabato</td><td>Bici</td><td>1h45' Z2</td></tr></table>",
+}
+async def m():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page()
+    for k,v in D.items():
+      await pg.set_content('<meta charset=utf-8>'+CSS+v);await pg.pdf(path=f'/home/claude/w/pdft/{k}.pdf',format='A4')
+    await pg.set_content('<meta charset=utf-8>'+CSS+D['gym_text']);await pg.screenshot(path='/home/claude/w/pdft/img.png',full_page=True)
+    import base64;im=base64.b64encode(open('/home/claude/w/pdft/img.png','rb').read()).decode()
+    await pg.set_content(f'<img src="data:image/png;base64,{im}" style="width:100%">');await pg.pdf(path='/home/claude/w/pdft/scan.pdf',format='A4')
+    await b.close()
+asyncio.run(m())
