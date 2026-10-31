@@ -1,0 +1,30 @@
+# v202: ⇄ nelle voci del diario (alternative portate dal piano + equivalenti)
+import asyncio,subprocess,time,os
+from playwright.async_api import async_playwright
+SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/'
+srv=subprocess.Popen(['python3','-m','http.server','8777','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+async def m():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
+    await pg.goto('http://127.0.0.1:8777/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.evaluate("()=>{S.wc=1;V.tab='pp';render()}");await pg.set_input_files('#ipf','pdft/nutrium_circ.pdf');await pg.wait_for_timeout(1800)
+    for s in ['2','3']:await pg.click(f'[data-a=ipgo][data-s="{s}"]')
+    await pg.click('[data-a=ipok]');await pg.wait_for_timeout(200)
+    await pg.evaluate("()=>{V.tab='h';V.ogsel='Pranzo';V.ogseld=today();render()}");await pg.click('[data-a=ogm][data-pm=Pranzo]');await pg.wait_for_timeout(200)
+    print('nel diario:',await pg.evaluate("()=>S.meal.map(x=>fo(x.f).name+' '+x.g+(x.al?' al'+x.al.length:''))"))
+    await pg.evaluate("()=>{const f=allF().find(x=>x.name=='Mela');S.meal.push({id:'mm1',d:today(),m:'Spuntino',f:f.id,g:150});V.tab='n';V.nd=today();render()}");await pg.wait_for_timeout(200)
+    print('tasti ⇄ nel diario:',await pg.evaluate("()=>[...document.querySelectorAll('.dirw .swc')].map(b=>b.textContent).join(' ')"))
+    await pg.screenshot(path=O+'dsw-diario.png',full_page=True)
+    await pg.evaluate("()=>{const x=S.meal.find(x=>x.al&&x.al.length==6);document.querySelector(`.dirw [data-i=\"${x.id}\"].swc`).click()}");await pg.wait_for_timeout(200)
+    print('foglio:',await pg.evaluate("()=>document.querySelector('#cfm .hint').textContent+' | '+[...document.querySelectorAll('#cfm .xsec')].map(e=>e.textContent).join(',')+' | scope:'+!!document.querySelector('#cfm [data-a=mpss]')"))
+    await pg.screenshot(path=O+'dsw-sheet.png')
+    await pg.evaluate("()=>{const r=allF().find(x=>x.name=='Riso (crudo)');document.querySelector(`#cfm [data-a=mpsw][data-f=\"${r.id}\"]`).click()}");await pg.wait_for_timeout(200)
+    print('dopo scambio:',await pg.evaluate("()=>[document.querySelector('#toast').textContent,S.meal.filter(x=>x.m=='Pranzo').map(x=>fo(x.f).name+(mpSwd(x)?'*':'')).join(', ')]"))
+    await pg.click('#undo button');await pg.wait_for_timeout(200)
+    print('annulla:',await pg.evaluate("()=>S.meal.filter(x=>x.m=='Pranzo').map(x=>fo(x.f).name).join(', ')"))
+    await pg.evaluate("()=>document.querySelector('.dirw [data-i=\"mm1\"].swc').click()");await pg.wait_for_timeout(200)
+    print('mela:',await pg.evaluate("()=>[...document.querySelectorAll('#cfm .swi>b')].map(e=>e.textContent).join(' / ')"))
+    await pg.evaluate("()=>document.querySelector('#cfm [data-a=mpsw]').click()");await pg.wait_for_timeout(200)
+    print('mela scambiata:',await pg.evaluate("()=>{const x=S.meal.find(x=>x.id=='mm1');return fo(x.f).name+' '+x.g+' al'+(x.al||[]).length}"))
+    print('errori',E);await b.close()
+asyncio.run(m());srv.terminate()
