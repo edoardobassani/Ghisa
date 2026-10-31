@@ -85,3 +85,6 @@ Dopo la scelta il pannello «+ Alimento» mostra solo il riquadro `.pps` (nome, 
 
 ## v198 – Svuota la settimana
 Tasto «Svuota la settimana» (`ppsv0` apre la conferma, `ppsv` svuota, con Annulla) accanto a «Svuota il giorno». La settimana vuota resta in `S.mpw` e viene segnata in `S.mpe`, così `mpSrc` la fa ereditare alle settimane dopo senza piano proprio. La casella `#ppsvf` toglie anche le settimane successive già pianificate. Toglie `S.dpa` se riguarda le settimane svuotate. Prova: `test/t39.py`.
+
+## v199 – codice a barre: fotocamera sempre visibile
+Il riquadro `.bcf` non viene più nascosto: in `bcStart` i messaggi (`m`) non toccano il video; senza fotocamera o senza BarcodeDetector la cornice prende la classe `off` e mostra il motivo in `#bcph`. Dopo una lettura (`bcGot`) la fotocamera resta accesa in pausa (`BC.pause`) e compare «Scansiona di nuovo» (`#bcr`, riparte con `BC.tick`). `bcClose` spegne tutto. Prova: `test/t40.py` (fotocamera finta di Chromium, BarcodeDetector e Open Food Facts simulati).

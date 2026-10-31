@@ -40,7 +40,7 @@ body.ssm #fab,body.mo #fab{display:none}
 .thr{display:flex;gap:6px}.thr button{padding:8px 4px;font-size:14px}
 button.g{background:transparent;color:var(--mut);border:1px solid var(--line)}
 .ordbar{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--acc);color:#fff;border-radius:8px;padding:6px 10px;margin:10px 0 6px;font-weight:600;font-size:14px}.ordbar button{padding:6px 14px;background:rgba(255,255,255,.22);color:#fff;border:0}.ordbar button:disabled{opacity:.35}.obc{pointer-events:none;opacity:.8}
-#bco{position:fixed;inset:0;z-index:99;background:var(--bg);overflow:auto;padding:max(12px,env(safe-area-inset-top,0px)) 16px 24px}#bco video{width:100%;max-height:42vh;background:#000;border-radius:10px;object-fit:cover}#bco .bcf{border:2px solid var(--acc);border-radius:10px;position:relative}
+#bco{position:fixed;inset:0;z-index:99;background:var(--bg);overflow:auto;padding:max(12px,env(safe-area-inset-top,0px)) 16px 24px}#bco video{width:100%;max-height:42vh;background:#000;border-radius:10px;object-fit:cover}#bco .bcf{border:2px solid var(--acc);border-radius:10px;position:relative;overflow:hidden;background:#000}#bco .bcph{display:none}#bco .bcf.off{background:var(--bg);min-height:160px;display:flex;align-items:center;justify-content:center}#bco .bcf.off video{display:none}#bco .bcf.off .bcph{display:block;padding:18px;text-align:center;color:var(--mut);font-size:14px}#bco #bcr[hidden]{display:none}
 
 button.x{background:transparent;color:var(--mut);padding:0 8px;font-size:22px;line-height:1;min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;margin:-7px -6px -7px 0;flex:none}
 #tmm button.x{min-width:0;min-height:0;margin:0;font-size:14px;line-height:normal;display:inline-block}
@@ -1527,28 +1527,29 @@ function fl(){const M=fMatch(V.fq);
 
 const BCOK=c=>{if(!/^\d{8}$|^\d{12,14}$/.test(c))return false;const d=c.split('').map(Number),k=d.pop();let t=0;d.reverse().forEach((x,i)=>t+=x*(i%2?1:3));return (10-t%10)%10==k};
 let BC={st:null,tm:0,det:null};
-function bcStop(){clearTimeout(BC.tm);BC.tm=0;if(BC.st){BC.st.getTracks().forEach(t=>t.stop());BC.st=null}}
+function bcStop(){clearTimeout(BC.tm);BC.tm=0;BC.pause=false;if(BC.st){BC.st.getTracks().forEach(t=>t.stop());BC.st=null}}
 function bcClose(){bcStop();const o=$('#bco');if(o)o.remove()}
 function bcOpen(){
  bcClose();const o=document.createElement('div');o.id='bco';
- o.innerHTML=`<div class="row" style="justify-content:space-between;align-items:center"><h2 style="margin:0">Codice a barre</h2><button class="g" id="bcx" style="flex:0 0 auto">Chiudi</button></div><div class="bcf" style="margin-top:10px"><video id="bcv" playsinline muted></video></div><p class="hint" id="bcm">Avvio la fotocamera…</p><div class="row"><input id="bcc" inputmode="numeric" placeholder="Oppure scrivi il codice (EAN)" aria-label="Codice a barre"><button class="p" id="bcg" style="flex:0 0 auto">Cerca</button></div><div id="bcp"></div>`;
+ o.innerHTML=`<div class="row" style="justify-content:space-between;align-items:center"><h2 style="margin:0">Codice a barre</h2><button class="g" id="bcx" style="flex:0 0 auto">Chiudi</button></div><div class="bcf" style="margin-top:10px"><video id="bcv" playsinline muted></video><div class="bcph" id="bcph"></div></div><p class="hint" id="bcm">Avvio la fotocamera…</p><button class="g" id="bcr" style="width:100%;margin:0 0 10px" hidden>Scansiona di nuovo</button><div class="row"><input id="bcc" inputmode="numeric" placeholder="Oppure scrivi il codice (EAN)" aria-label="Codice a barre"><button class="p" id="bcg" style="flex:0 0 auto">Cerca</button></div><div id="bcp"></div>`;
  document.body.appendChild(o);
  $('#bcx').onclick=bcClose;$('#bcg').onclick=()=>bcGot($('#bcc').value.replace(/\D/g,''));
  $('#bcc').onkeydown=e=>{if(e.key=='Enter')$('#bcg').click()};
+ $('#bcr').onclick=()=>{const P=$('#bcp');if(P)P.innerHTML='';$('#bcr').hidden=true;$('#bcc').value='';const e=$('#bcm');if(e)e.innerHTML='Inquadra il codice a barre del prodotto.';if(BC.st&&BC.tick){BC.pause=false;clearTimeout(BC.tm);BC.tick()}};
  bcStart()}
 async function bcStart(){
- const m=t=>{const e=$('#bcm');if(e)e.innerHTML=t;const v=$('#bcv'),w=v&&v.parentElement;if(w&&w.id!='bco')w.style.display='none';else if(v)v.style.display='none'};
- if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.isSecureContext){m('La fotocamera non è disponibile qui (succede nell’anteprima di Claude). Nell’app installata funziona; intanto puoi scrivere il codice a mano.');return}
- if(!('BarcodeDetector' in window)){m('Questo browser non sa leggere i codici a barre dalla fotocamera. Scrivi le cifre del codice qui sotto.');return}
+ const m=t=>{const e=$('#bcm');if(e)e.innerHTML=t},off=t=>{const f=$('#bco .bcf'),p=$('#bcph');if(f)f.classList.add('off');if(p)p.textContent=t;m('Scrivi le cifre del codice qui sotto.')};
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia||!window.isSecureContext){off('La fotocamera non è disponibile qui (succede nell’anteprima di Claude). Nell’app installata funziona.');return}
+ if(!('BarcodeDetector' in window)){off('Questo browser non sa leggere i codici a barre dalla fotocamera.');return}
  try{BC.det=new BarcodeDetector({formats:['ean_13','ean_8','upc_a','upc_e']})}catch(e){BC.det=new BarcodeDetector()}
- try{BC.st=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false})}catch(e){m('Non ho il permesso di usare la fotocamera. Consentilo dalle impostazioni del sito, oppure scrivi il codice a mano.');return}
+ try{BC.st=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false})}catch(e){off('Non ho il permesso di usare la fotocamera. Consentilo dalle impostazioni del sito.');return}
  const v=$('#bcv');if(!v){bcStop();return}v.srcObject=BC.st;try{await v.play()}catch(e){}
  m('Inquadra il codice a barre del prodotto.');
- const tick=async()=>{if(!BC.st)return;try{const r=await BC.det.detect(v);const c=r.map(x=>x.rawValue).find(x=>BCOK(x));if(c){if(navigator.vibrate)navigator.vibrate(60);bcGot(c);return}}catch(e){}BC.tm=setTimeout(tick,250)};
+ const tick=BC.tick=async()=>{if(!BC.st||BC.pause)return;try{const r=await BC.det.detect(v);const c=r.map(x=>x.rawValue).find(x=>BCOK(x));if(c){if(navigator.vibrate)navigator.vibrate(60);bcGot(c);return}}catch(e){}BC.tm=setTimeout(tick,250)};
  tick()}
 function bcPick(f){V.sel=f.id;V.fq=f.name;V.tab='n';V.fsh=V.fsh||V.mm||'Pranzo';bcClose();render();fgFocus()}
 async function bcGot(c){
- bcStop();const vf=$('#bco .bcf');if(vf)vf.style.display='none';const P=$('#bcp'),m=t=>{const e=$('#bcm');if(e)e.innerHTML=t};
+ BC.pause=true;clearTimeout(BC.tm);const rb=$('#bcr');if(rb)rb.hidden=!BC.st;const P=$('#bcp'),m=t=>{const e=$('#bcm');if(e)e.innerHTML=t};if(P)P.innerHTML='';
  if(!/^\d{8,14}$/.test(c)){m('Codice non valido: servono 8–14 cifre.');return}
  if(!BCOK(c))m('Attenzione: la cifra di controllo non torna, controlla di aver scritto bene.');
  const L=S.food.find(x=>x.bc==c);
