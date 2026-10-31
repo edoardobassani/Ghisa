@@ -70,3 +70,6 @@ Cardio: nuova importazione sedute (PDF/Excel/CSV) → schede cardio a blocchi, o
 - `nuItem` legge quantità e unità, «da 150g», grammi tra parentesi, e tiene la prima voce di «carne bianca o pesce magro» (il resto va nelle note). `ipUnitG` converte le unità con le porzioni di `PZ` o la tabella `NUD`; `IPGEN` abbina le voci generiche (frutta, verdura, carne bianca, legumi…) a un alimento rappresentativo da confermare (≈).
 - Nel piano la voce attiva è la prima; tutte le scelte sono in `al:[{f,g}]` della voce di `S.mpw`.
 - `test/t35.py`: importa `pdft/nutrium_circ.pdf`, `nutrium_o.pdf`, `nutrium_gap.pdf` (stesso piano con «○» scritto, «o» e cerchio disegnato; si rigenerano con `pdft/mk-nutrium.py`) e il vecchio `diet_text.pdf`.
+
+## v194 – piano pronto «A scelta, stile nutrizionista»
+Nuovo elemento di `DPM` (id `sce`, onnivoro, equilibrato) ricavato dallo schema Nutrium di Edo, senza nomi: ogni giorno un carboidrato + una proteina dalle scelte equivalenti, verdura libera, olio misurato, due spuntini uniti in Spuntino. Generato da `test/pdft/mk-dpm-sce.py`. Prova: `test/t36.py`.
