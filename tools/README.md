@@ -79,3 +79,6 @@ Nuovo elemento di `DPM` (id `sce`, onnivoro, equilibrato) ricavato dallo schema 
 
 ## v196 – tasto ⇄ sulle voci del piano
 Ogni voce singola del piano (non i preferiti) ha ⇄ (`mpSwB`), con il numero di scelte se ha `al`; c'è anche in Home nel prossimo pasto. Il foglio (`mpSwOpen`, `#cfm.sht`) mostra «Alternative del piano» (`al`, la prima è l'originale) ed «Equivalenti per macro» (`eqOf`), con kcal e differenza. Tocco = scambia (`mpsw`, con Annulla); «+ ⇄» (`mpsa`) aggiunge l'equivalente ad `al` senza scambiare. «Solo [giorno]» o «Tutti i giorni (n)»: le voci della settimana nello stesso pasto con stesso alimento, grammi e alternative (`mpSwSame`). Le voci cambiate mostrano «scambiato» (`mpSwd`). Se la settimana è ereditata viene materializzata in `S.mpw` al primo scambio. Prova: `test/t38.py`.
+
+## v197 – scelta alimento compatta nel piano pasti
+Dopo la scelta il pannello «+ Alimento» mostra solo il riquadro `.pps` (nome, kcal e macro per 100 g) al posto di ricerca ed elenco; «Cambia» (`ppch`) svuota la scelta e riapre la ricerca con la stessa parola. Prova in `test/t37.py`.
