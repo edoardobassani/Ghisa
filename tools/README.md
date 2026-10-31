@@ -116,3 +116,6 @@ Attenzione: `tools/demo/make-demo.py` riscrive `tools/demo/gymbo-demo.html` nel 
 
 ## v208 – lista della spesa condivisa come link
 «Condividi la lista» apre un foglio (`spShare`) con «Link da spuntare» (`spshl`) e «Testo» (`spsht`, come prima). Il link è `shlBase()` (l'indirizzo della PWA se aperta da github.io, altrimenti `SHL_URL`) + `#spesa=` + `z` e i dati (`spData`: solo voci non prese, per reparto) in JSON compresso deflate-raw e base64url (`j` = senza compressione). All'avvio `shlParse(location.hash)` apre la vista `shl` (`vshl`): spunte salvate solo in localStorage `gymbo-shl`, «Azzera spunte», «Apri Gym-Bo» toglie l'hash. Non tocca `S`. Prova: `test/t47.py`.
+
+## v209 – lista della spesa come immagine
+Nel foglio «Condividi la lista» c'è «Immagine» (`spshi`): `spImg()` disegna su canvas un PNG largo 1080 px (titolo, periodo, reparti, una riga per voce con casella e quantità, nomi lunghi accorciati) dai dati di `spData` e lo condivide come file (API Share); se il telefono non condivide file, lo scarica. Prova: `test/t48.py` (salva `u/lista-spesa.png`).
