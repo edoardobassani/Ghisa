@@ -63,3 +63,10 @@ File sorgente scaricati dalla release `sources-2026-10-05` di github.com/raddatz
 pdf.js 6.2.108 legacy build (Mozilla, Apache 2.0, vedi LICENSE-pdfjs.txt) in `pdf.min.mjs` + `pdf.worker.min.mjs`, caricato solo quando si apre un PDF.
 PDF → griglia (colonne dall'intestazione) → stessi parser di Excel; se non ci sono tabelle, parser del testo libero (imTxt, ipTxt, ccTxt/ccParse).
 Cardio: nuova importazione sedute (PDF/Excel/CSV) → schede cardio a blocchi, opzionale nel programma settimanale. Test: t32–t34, PDF di prova in test/pdft.
+
+## v192–v193 – piano del nutrizionista (formato Nutrium)
+- v192: `ipDay` legge «Giorno N» come N-esimo giorno della settimana (prima «Giorno 1» diventava giovedì).
+- v193: `nuTxt(lines)` riconosce il formato Nutrium (pasti «07:00 COLAZIONE», sottosezioni Antipasto/Primo/Secondo, punti elenco, alternative separate da «○», da «o» seguito da una quantità o da uno spazio largo) e produce una griglia con le colonne in più `Gruppo` (stesso punto elenco = porzione a scelta) e `Porzione` («5 fette»). `ipPrep` la prova prima di `ipTxt`.
+- `nuItem` legge quantità e unità, «da 150g», grammi tra parentesi, e tiene la prima voce di «carne bianca o pesce magro» (il resto va nelle note). `ipUnitG` converte le unità con le porzioni di `PZ` o la tabella `NUD`; `IPGEN` abbina le voci generiche (frutta, verdura, carne bianca, legumi…) a un alimento rappresentativo da confermare (≈).
+- Nel piano la voce attiva è la prima; tutte le scelte sono in `al:[{f,g}]` della voce di `S.mpw`.
+- `test/t35.py`: importa `pdft/nutrium_circ.pdf`, `nutrium_o.pdf`, `nutrium_gap.pdf` (stesso piano con «○» scritto, «o» e cerchio disegnato; si rigenerano con `pdft/mk-nutrium.py`) e il vecchio `diet_text.pdf`.
