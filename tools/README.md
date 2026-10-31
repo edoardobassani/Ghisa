@@ -119,3 +119,6 @@ Attenzione: `tools/demo/make-demo.py` riscrive `tools/demo/gymbo-demo.html` nel 
 
 ## v209 – lista della spesa come immagine
 Nel foglio «Condividi la lista» c'è «Immagine» (`spshi`): `spImg()` disegna su canvas un PNG largo 1080 px (titolo, periodo, reparti, una riga per voce con casella e quantità, nomi lunghi accorciati) dai dati di `spData` e lo condivide come file (API Share); se il telefono non condivide file, lo scarica. Prova: `test/t48.py` (salva `u/lista-spesa.png`).
+
+## v210 – programmi pronti palestra e cardio insieme in Schede
+Il tasto di Schede «Programmi pronti (PGM+BPM+CPM)» apre `pgView` con i tasti Palestra/Cardio (`pgSeg`, azione `pgk`; ultima scelta in localStorage `gymbo-pgk`). Su Cardio mostra l'elenco di `cpView(1)` (senza intestazione) con il filtro in `V.pg.cf`; aprendo un programma (`cpo`) il dettaglio resta nella sezione Cardio con `V.cp.from='s'`, e «indietro» (`cpb`) torna a Schede su Cardio. In Cardio il tasto «Programmi pronti» (`cpl`) apre la stessa pagina già su Cardio; la scorciatoia `bppr` apre Palestra con il filtro A blocchi. Prova: `test/t49.py`. I test t27/t28 vogliono `demo/demo_data.json` accanto al sorgente (`/home/claude/w/demo/`).
