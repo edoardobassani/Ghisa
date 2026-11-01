@@ -8,7 +8,7 @@ async def m():
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
     await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;xbAdd(['Panca piana bilanciere']);const id=S.ex[0].id;S.rm={[id]:{kg:100,src:'m',d:'2026-10-01'}};V.tab='s';render()}")
-    await pg.click('[data-a=pgl]');await pg.click('[data-a=pbo]')
+    await pg.click('[data-a=pbo]')
     await pg.screenshot(path=O+'v226-1.png',full_page=True)
     await pg.click('[data-a=pbg][data-v=m]');await pg.click('[data-a=pbn]')
     for d in ['0','2','4']: await pg.click(f'[data-a=pbd][data-v="{d}"]')   # tolgo i predefiniti
