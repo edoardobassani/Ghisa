@@ -1,4 +1,4 @@
-# v216: riquadro «La volta scorsa» all'inizio della seduta con la stessa scheda e promemoria sull'esercizio
+# v216-v217: riquadro «La volta scorsa» all'inizio della seduta con la stessa scheda e promemoria sull'esercizio
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
 SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
@@ -20,10 +20,12 @@ async def m():
     for s in [('Panca piana bilanciere',62.5,8)]*3+[('Rematore bilanciere',50,8),('Rematore bilanciere',50,8),('Rematore bilanciere',50,7),('Trazioni',0,8),('Trazioni',0,8),('Trazioni',0,8)]: await pg.evaluate(SET,list(s))
     await pg.evaluate("()=>{ssEnd();const o=S.ses.find(x=>x.id=='sB');o.rt='d';o.nt='Spalla un po’ rigida';V.ss=null}")
     await pg.evaluate("()=>{V.ss={sid:'sD',sc:'sx',fr:0,L:[],i:0,t0:Date.now(),d:today(),done:false};V.tab='ss';render();scrollTo(0,0)}");await pg.wait_for_timeout(150)
-    print('riquadro:',await pg.evaluate("()=>{const b=$('.lsb');return b?[b.querySelector('h3').textContent,b.querySelector('.hint').textContent,(b.querySelector('.lsq')||{}).textContent,[...b.querySelectorAll('.smyt li')].map(x=>x.textContent)]:null}"))
+    print('chiuso, una riga:',await pg.evaluate("()=>{const b=$('.lsb');return [b.classList.contains('lsc'),b.querySelector('.lsr span').textContent,Math.round(b.getBoundingClientRect().height),!b.querySelector('.smyt')]}"))
+    await pg.screenshot(path=O+'v217-chiuso.png')
+    await pg.click('[data-a=lsbt]')
+    print('aperto:',await pg.evaluate("()=>{const b=$('.lsb');return [b.querySelector('.hint').textContent,(b.querySelector('.lsq')||{}).textContent,[...b.querySelectorAll('.smyt li')].map(x=>x.textContent)]}"))
     print('subito sotto la barra in alto:',await pg.evaluate("()=>$('.sst').nextElementSibling.classList.contains('lsb')"))
-    await pg.screenshot(path=O+'v216-chiuso.png')
-    await pg.click('[data-a=lsbt]');print('aperto:',await pg.evaluate("()=>[...document.querySelectorAll('.lsb .smyc')].map(c=>c.querySelector('b').textContent+' '+c.querySelector('.smyb').textContent)"))
+    print('confronto:',await pg.evaluate("()=>[...document.querySelectorAll('.lsb .smyc')].map(c=>c.querySelector('b').textContent+' '+c.querySelector('.smyb').textContent)"))
     h=await pg.evaluate('()=>document.documentElement.scrollHeight');await pg.set_viewport_size({'width':390,'height':h});await pg.screenshot(path=O+'v216-aperto.png');await pg.set_viewport_size({'width':390,'height':844})
     await pg.click('[data-a=lsbt]')
     # promemoria sull'esercizio del rematore

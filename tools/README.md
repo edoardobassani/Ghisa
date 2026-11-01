@@ -150,3 +150,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - All'inizio di una seduta con una scheda già fatta (`lsbH`, inserito da `vss()` sotto la barra in alto; il vecchio corpo è `vss0`): data, durata, com'è andata, record, nota, «Da ricordare oggi» (`ssTipsH`) e, aperto (`lsbt`, `V.o.lsb`), il confronto `ssCmpH` con la seduta prima. Sparisce dopo la prima serie; la × (`lsbx`) mette `V.ss.lsx`.
 - `lsChip` mette sotto «Ultima volta» il promemoria dell'esercizio (solo i consigli «resta…», perché «prova X kg» c'è già nella riga). Dati in cache in `LSC` (`lsLast`).
 - `test/t55.py`.
+
+## v217 – riquadro «La volta scorsa» su una riga
+- Chiuso di default: una sola riga (`.lsc`, «Volta scorsa · gio dd/mm · durata · com'è andata · 🏆») con ▾ e ×; toccandola (`lsbt`, `V.o.lsb`) si apre tutto: info, nota, «Da ricordare oggi», confronto. `test/t55.py` aggiornato.
