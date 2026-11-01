@@ -181,3 +181,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - In app: voce ☰ › Dati › «Informazioni» (`inf`, `vinf`, costanti `GBV`, `GBSITE`, `GBREPO`), riga nel Benvenuto, sezione «Gratis per sempre» in cima alla Guida, «app gratuita» nei piè di pagina di PDF, Excel e immagini condivise.
 - `decFix` salta i testi dentro `.nodec` (numeri di versione come «1.0.0»). `GBV` va aggiornato a ogni versione.
 - `test/t60.py`.
+
+## v224 – attrezzatura degli esercizi
+- `ATX[nome]=[modi, zone]`: per ognuno dei 73 esercizi del catalogo i modi di farlo (stringhe di codici, servono tutti: `b` bilanciere e rack, `m` manubri, `p` panca, `s` sbarra e parallele, `c` cavi, `x` macchine, `e` elastici e piccoli attrezzi, `n` corpo libero) e le zone caricate (`sp` spalle, `sb` schiena bassa, `gi` ginocchia).
+- `atOf(e)`: `e.eq` se l'utente l'ha scelta, poi catalogo (anche via `gdCat` per i nomi simili), poi dalle parole del nome; `atTxt`, `atOk(e,H)` (H = codici disponibili). Mostrata nella riga in Esercizi, nella guida «Come si esegue», nel Catalogo; scelta nel foglio dell'esercizio (`exat`, salva `eq` solo se diversa dal catalogo).
+- `test/t61.py`.
