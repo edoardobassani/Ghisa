@@ -145,3 +145,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `ssDoneH` disegna la vista; `ssTipsH` tace sui carichi con un programma a blocchi o in settimana di scarico. «Com'è andata» (`ssrt`, secondo tocco toglie) e la nota (`#ssnt`) finiscono nella seduta: `S.ses[].rt` (f/g/d) e `S.ses[].nt`; `ssEnd` li conserva se la seduta viene riaperta.
 - `ssImg(sid)` crea il PNG del riepilogo (azione `sssh`, condivisione o download).
 - `test/t54.py`.
+
+## v216 – riquadro «La volta scorsa»
+- All'inizio di una seduta con una scheda già fatta (`lsbH`, inserito da `vss()` sotto la barra in alto; il vecchio corpo è `vss0`): data, durata, com'è andata, record, nota, «Da ricordare oggi» (`ssTipsH`) e, aperto (`lsbt`, `V.o.lsb`), il confronto `ssCmpH` con la seduta prima. Sparisce dopo la prima serie; la × (`lsbx`) mette `V.ss.lsx`.
+- `lsChip` mette sotto «Ultima volta» il promemoria dell'esercizio (solo i consigli «resta…», perché «prova X kg» c'è già nella riga). Dati in cache in `LSC` (`lsLast`).
+- `test/t55.py`.
