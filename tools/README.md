@@ -139,3 +139,9 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `S.ts` da −2 a +2 (Molto piccolo … Molto grande, passo 15%): `applyTs()` mette `zoom` su `<html>` e la variabile `--z`; si chiama in `applyTh()` e dopo `dataBoot()`. Voce in ☰ sotto Tema (`tszo`), foglio `tsOpen()` (`#cfm.sht.tsz`, escluso dal rinfresco del foglio Drive in `render`).
 - Con lo zoom sulla radice le unità vw/vh crescono: nel CSS sono scritte `calc(Nvw / var(--z,1))`. Le coordinate dei puntatori sono in px dello schermo: il timer (`tmMenu`, `tmClamp`, `tmPos`, trascinamento), il riordino (`dragInit`) e la lettura al tocco (`tsAt`) dividono per `TZ`.
 - `test/t53.py`.
+
+## v215 – riepilogo di fine seduta più ricco
+- `ssSum(sid,sc)` raccoglie i dati di una seduta conclusa: seduta precedente con la stessa scheda (`P`), per ogni esercizio serie di oggi e di allora (o dell'ultima volta che è stato fatto), badge ↑ ↓ = (prima il carico massimo, poi le ripetizioni totali; a corpo libero solo ripetizioni), consiglio `ssTip`, record con 1RM stimato, serie per gruppo oggi e nella settimana.
+- `ssDoneH` disegna la vista; `ssTipsH` tace sui carichi con un programma a blocchi o in settimana di scarico. «Com'è andata» (`ssrt`, secondo tocco toglie) e la nota (`#ssnt`) finiscono nella seduta: `S.ses[].rt` (f/g/d) e `S.ses[].nt`; `ssEnd` li conserva se la seduta viene riaperta.
+- `ssImg(sid)` crea il PNG del riepilogo (azione `sssh`, condivisione o download).
+- `test/t54.py`.
