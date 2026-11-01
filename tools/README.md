@@ -134,3 +134,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Scorrimento orizzontale (>70 px, poco verticale) su Dieta e Piano pasti › Giorno: `dayOk`/`dayStep` cliccano `ndp`, `ppd` o `ppw` (cambio settimana ai bordi). Non parte da campi, grafici, zone che scorrono di lato, menu aperto, dialoghi o riordino; i primi 30 px restano al menu.
 - Avviso «Scorri col dito» finché non si scorre o lo si tocca (localStorage `gymbo-swd`). Animazione `dsl-n`/`dsl-p` (spenta con riduzione movimento).
 - `test/t52.py`.
+
+## v214 – dimensione del testo
+- `S.ts` da −2 a +2 (Molto piccolo … Molto grande, passo 15%): `applyTs()` mette `zoom` su `<html>` e la variabile `--z`; si chiama in `applyTh()` e dopo `dataBoot()`. Voce in ☰ sotto Tema (`tszo`), foglio `tsOpen()` (`#cfm.sht.tsz`, escluso dal rinfresco del foglio Drive in `render`).
+- Con lo zoom sulla radice le unità vw/vh crescono: nel CSS sono scritte `calc(Nvw / var(--z,1))`. Le coordinate dei puntatori sono in px dello schermo: il timer (`tmMenu`, `tmClamp`, `tmPos`, trascinamento), il riordino (`dragInit`) e la lettura al tocco (`tsAt`) dividono per `TZ`.
+- `test/t53.py`.
