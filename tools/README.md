@@ -153,3 +153,10 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v217 – riquadro «La volta scorsa» su una riga
 - Chiuso di default: una sola riga (`.lsc`, «Volta scorsa · gio dd/mm · durata · com'è andata · 🏆») con ▾ e ×; toccandola (`lsbt`, `V.o.lsb`) si apre tutto: info, nota, «Da ricordare oggi», confronto. `test/t55.py` aggiornato.
+
+## v218 – piani «Allenamento e riposo»
+- 4 piani nuovi in `DPM` (`cym`, `cyp` onnivori, `cyv` vegetariano, `cyn` vegano) con un decimo elemento `{tr:1, st:[spuntini dei giorni di allenamento]}`; i 9 piani di prima restano identici (verificato in `t56`).
+- Giorni di allenamento `td` (7 booleani): di partenza quelli del programma settimanale della palestra (`plId`), altrimenti `DPTD` (3 → Lun Mer Ven); stepper `dptn` (1–6) e tocco sul giorno `dptd`.
+- `dpCyc(K,td)`: giorni di allenamento il 20% (`DPCR`) sopra quelli di riposo, media settimanale = obiettivo; `dpWeek` scala ogni giorno sul suo valore (proteine uguali). Solo «7 giorni diversi». `S.dpa.td` tiene i giorni per «Ricalcola dosi».
+- L'obiettivo del diario resta la media della settimana.
+- `test/t56.py`.
