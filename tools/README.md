@@ -160,3 +160,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `dpCyc(K,td)`: giorni di allenamento il 20% (`DPCR`) sopra quelli di riposo, media settimanale = obiettivo; `dpWeek` scala ogni giorno sul suo valore (proteine uguali). Solo «7 giorni diversi». `S.dpa.td` tiene i giorni per «Ricalcola dosi».
 - L'obiettivo del diario resta la media della settimana.
 - `test/t56.py`.
+
+## v219 – Riepilogo Excel unico con ambiti a scelta
+- In Esporta dati la scheda «Riepilogo Excel» (ambiti `V.xe`: peso, palestra, cardio, alimentazione; azioni `xesec`, `xmx`) crea un solo file `Gym-Bo_Riepilogo_<dal>_<al>.xlsx` con `xmBook(sel)`: Riepilogo (riquadri, settimana per settimana con barre e colori sull'obiettivo, progressi per esercizio), Allenamenti (un blocco per seduta, righe raggruppabili, confronto con la volta prima, nota e com'è andata), Progressi (esercizi × settimane, scala di colore), Serie, Cardio, Alimentazione (un giorno per riga), Calendario kcal, Alimenti, Micronutrienti, Peso e misure, Grafici (grafici veri di Excel).
+- Scrittura `xmWrite(sheets)`: stili interni deduplicati, celle unite, formati condizionali (barre, scala, cellIs con dxf), outline, blocchi, filtri, disegni e grafici `xmChart` (barre o linea). I vecchi Excel per area sono sostituiti; resta il CSV per area dentro «Dati grezzi in CSV» (`xExport(k,'csv')`).
+- `test/t57.py` (apre i file con openpyxl e controlla che gli XML siano ben formati).
