@@ -49,7 +49,10 @@
             "application/gzip",
             "application/xml",
             "text/xml",
-            "application/octet-stream"
+            "application/octet-stream",
+            ".csv",
+            "text/csv",
+            "text/comma-separated-values"
           ]
         }
       ]
