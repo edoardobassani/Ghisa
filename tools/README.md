@@ -219,3 +219,7 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
   - Via la fila «Programmi pronti / Schede cardio / Grafici / Esercizi cardio» e il modulo sempre aperto.
 - Schede: selettore Palestra / Cardio (`V.sk`, azione `skk`); in Cardio «Programmi cardio pronti», programma in corso (`cpCard`), `cscCard`, programma settimanale. Gli editor delle schede cardio impostano `V.sk='c'`. Esercizi aveva già Palestra/Cardio (`V.ek`), Grafici il gruppo Cardio.
 - Menu: anche in riordino le voci restano divise in gruppi; ⠿ sulle voci le sposta dentro il gruppo, ⠿ sul titolo sposta il gruppo intero (`S.ngo`). `dragInit` ascolta il rilascio anche sulla finestra: prima, se il dito si alzava fuori dalla maniglia, il trascinamento restava appeso. Test `test/t66.py`, `test/t67.py`.
+
+## v230 – Programmi pronti separati per Palestra e Cardio
+- Schede › Palestra: «Programmi pronti (PGM+BPM)», lista «Programmi palestra pronti» senza il selettore `pgSeg`; `pgl` forza `k:'p'`.
+- Schede › Cardio: stessa riga della palestra (`.mrow`: «Programmi pronti (12)» + «⋯ Altro» con «Importa sedute (PDF o Excel)», tolto da `cscCard`). Lista «Programmi cardio pronti»: filtri Tutti / A blocchi (più mesi) / Iniziare / Dimagrire / Prestazione / Basso impatto, prima i programmi a blocchi (`p[2]=='m'`) poi quelli a settimane, etichette come in palestra. `pgx` torna alla scheda giusta (`V.sk`).
