@@ -1,4 +1,4 @@
-# v220: i giorni lontani più del 30% dall'obiettivo kcal non entrano nelle medie (Home, Dieta, PDF, Excel, stima del fabbisogno)
+# v220-v221: i giorni sotto il 70% dell'obiettivo kcal non entrano nelle medie (sopra l'obiettivo contano sempre) (Home, Dieta, PDF, Excel, stima del fabbisogno)
 import asyncio,subprocess,time,os,json,base64
 from playwright.async_api import async_playwright
 import openpyxl
@@ -10,8 +10,8 @@ async def m():
     await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
     await pg.evaluate("""()=>{S.wc=1;S.goal=2000;const f=allF().find(x=>x.name=='Pane integrale');const add=(d,k)=>MPM.forEach(m=>S.meal.push({id:uid(),d,m,f:f.id,g:k/MPM.length*100/f.k}));
       [[-3,2000],[-2,500],[-1,1500],[0,2700]].forEach(([o,k])=>add(hvAdd(today(),o),k));render()}""")
-    print('kcOk 2000/1500/1400/2600/2601/500:',await pg.evaluate("()=>[2000,1500,1400,2600,2601,500].map(kcOk)"))
-    r=await pg.evaluate("()=>{const X=moStat(hvAdd(today(),-3),today());return [X.md,X.mx,X.kc]}");print('Riepilogo (giorni, esclusi, media):',r,'atteso [2, 2, 1750]')
+    print('kcOk 2000/1400/1399/2700/4000/500:',await pg.evaluate("()=>[2000,1400,1399,2700,4000,500].map(kcOk)"))
+    r=await pg.evaluate("()=>{const X=moStat(hvAdd(today(),-3),today());return [X.md,X.mx,X.kc]}");print('Riepilogo (giorni, esclusi, media):',r,'atteso [3, 1, 2067]')
     await pg.evaluate("()=>{V.tab='n';V.nd=today();V.o.dn_kc=1;render()}")
     print('Media 7 giorni:',await pg.evaluate("()=>$('#dn_kc').innerText.replace(/\\n/g,' ').slice(0,220)"))
     await pg.evaluate("()=>{V.tab='h';render()}");print('Home, riquadro kcal:',await pg.evaluate("()=>[...document.querySelectorAll('.hvtl>div')].map(x=>x.innerText.replace(/\\n/g,' ')).find(t=>t.startsWith('Kcal'))"))

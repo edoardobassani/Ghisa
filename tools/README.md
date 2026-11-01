@@ -166,7 +166,7 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Scrittura `xmWrite(sheets)`: stili interni deduplicati, celle unite, formati condizionali (barre, scala, cellIs con dxf), outline, blocchi, filtri, disegni e grafici `xmChart` (barre o linea). I vecchi Excel per area sono sostituiti; resta il CSV per area dentro «Dati grezzi in CSV» (`xExport(k,'csv')`).
 - `test/t57.py` (apre i file con openpyxl e controlla che gli XML siano ben formati).
 
-## v220 – giornate incomplete fuori dalle medie
-- `kcOk(k)` / `kcIn(d)`: un giorno di diario entra nelle medie solo se le kcal sono entro ±30% dall'obiettivo (`S.goal`); senza obiettivo, almeno 800 kcal.
+## v220–v221 – giornate incomplete fuori dalle medie
+- `kcOk(k)` / `kcIn(d)`: un giorno di diario entra nelle medie solo se le kcal sono almeno il 70% dell'obiettivo (`S.goal`); sopra l'obiettivo conta sempre (v221: tolto il limite superiore del 130%). Senza obiettivo, almeno 800 kcal.
 - Applicato a: `moStat` e `vwk` (Riepilogo in Home, con «N giorni esclusi»), `av7` (Media ultimi 7 giorni in Dieta), `adEst` (stima del fabbisogno reale: i giorni fuori soglia contano come esclusi, come quelli con pasti non segnati), PDF (`xReport`), Excel (`xmBook`: riquadro, settimane, grafico, media del calendario, colonna «Nelle medie»), micronutrienti di `xFood`. Il grafico giorno per giorno delle calorie resta con tutti i giorni.
 - `test/t58.py`.
