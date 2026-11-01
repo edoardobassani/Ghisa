@@ -1300,6 +1300,8 @@ const FB=`Sale|0|0|0|0;Pasta di semola (cruda)|371|13|74.7|1.5;Pasta (cotta)|158
 /* Indice degli alimenti: costruito una volta e rifatto a ogni tocco, a ogni salvataggio e quando cambia l'elenco personale (prima veniva ricostruito e riordinato a ogni ricerca). */
 let FC=null;const fcOff=()=>{FC=null};
 /* Totali per giorno e indice delle serie per esercizio, calcolati una volta e riusati finché non salvi qualcosa */
+/* giorni di diario che entrano nelle medie: entro ±30% dall'obiettivo kcal (senza obiettivo: almeno 800 kcal) */
+const kcOk=k=>{const g=S.goal;return g?k>0&&Math.abs(k-g)<=g*.3:k>=800},kcIn=d=>kcOk(agg().kc[d]||0);
 let AG=null;const agg=()=>{if(AG&&AG.sv===SV&&AG.S===S&&AG.nl===S.log.length&&AG.nm===S.meal.length)return AG;
  const kc={},le={};S.meal.forEach(m=>{kc[m.d]=(kc[m.d]||0)+ln(m).k});S.log.forEach(l=>{(le[l.e]=le[l.e]||[]).push(l)});
  return AG={sv:SV,S,nl:S.log.length,nm:S.meal.length,kc,le}};
@@ -2481,7 +2483,7 @@ function wTr(){const ws=[...S.wt].filter(w=>w.kg>0).sort((x,y)=>x.d<y.d?-1:1);le
 /* Fabbisogno reale dai dati: calorie medie segnate − variazione del peso di tendenza (7.700 kcal per kg), ultime 4 settimane */
 function adEst(){const T=wTr();if(T.length<8)return null;const t0=today(),from=hvAdd(t0,-28),W=T.filter(x=>x.d>=from&&x.d<t0);if(W.length<6)return null;
  const a=W[0],b=W[W.length-1],days=Math.round((b.t-a.t)/DAY);if(days<14)return null;const kc=agg().kc,hm=new Set(S.meal.map(x=>x.d+'|'+x.m));let n=0,sum=0,tot=0,ex=0;
- for(let d=a.d;d<b.d;d=hvAdd(d,1)){tot++;const k=kc[d]||0;if(k>=800&&MPM.some(m=>!hm.has(d+'|'+m)&&!mSk(d,m))){ex++;continue}if(k>=800){n++;sum+=k}}if(!tot||n/(tot-ex)<.8||n<10)return null;
+ for(let d=a.d;d<b.d;d=hvAdd(d,1)){tot++;const k=kc[d]||0;if(k>=800&&(MPM.some(m=>!hm.has(d+'|'+m)&&!mSk(d,m))||!kcOk(k))){ex++;continue}if(k>=800){n++;sum+=k}}if(!tot||n/(tot-ex)<.8||n<10)return null;
  const avg=sum/n,dTr=b.tr-a.tr,td=Math.round((avg-dTr*7700/days)/10)*10,rate=dTr/days*7,cur=T[T.length-1].tr;
  let tg=td,wk=0,pace=0;if(S.wg>0&&Math.abs(S.wg-cur)>=.5){pace=(S.wg<cur?-.005:.0025)*cur;tg=Math.round((td+pace*7700/7)/10)*10;wk=Math.ceil(Math.abs(S.wg-cur)/Math.abs(pace))}
  const bm=(tdee()||{}).bmr||0;tg=Math.round(Math.max(tg,1200,bm)/10)*10;return{td,avg:Math.round(avg),rate,cur,tg,wk,pace,days,ex,f:(tdee()||{}).t||0}}
@@ -2540,8 +2542,8 @@ const MNF=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Ago
 const ymOf=d=>d.slice(0,7),ymAdd=(ym,k)=>{const [y,m]=ym.split('-').map(Number),x=new Date(y,m-1+k,1);return x.getFullYear()+'-'+pad(x.getMonth()+1)},ymEnd=ym=>{const [y,m]=ym.split('-').map(Number);return ym+'-'+pad(new Date(y,m,0).getDate())},ymLab=ym=>MNF[+ym.slice(5)-1]+' '+ym.slice(0,4);
 function moStat(a,e){const R=Math.round,L=S.log.filter(l=>l.d>=a&&l.d<=e),v=L.reduce((x,l)=>x+l.kg*l.r,0),days=new Set(L.map(l=>l.d)).size,recs=[...new Set(L.map(l=>l.e))].filter(x=>{const p=recOf(x,l=>l.d<a);return p>0&&Math.max(...L.filter(l=>l.e==x).map(l=>rV(x,l)))>p}).length;
  const C=S.cd.filter(c=>c.d>=a&&c.d<=e),cm=R(C.reduce((t,c)=>t+(c.min||0),0)),ck=Math.round(C.reduce((t,c)=>t+(c.km||0),0)*10)/10;
- const M=S.meal.filter(x=>x.d>=a&&x.d<=e),md=new Set(M.map(x=>x.d)).size,kc=md?R(M.reduce((t,x)=>t+ln(x).k,0)/md):0;
- const W=S.wt.filter(x=>x.d>=a&&x.d<=e).sort((p,q)=>p.d<q.d?-1:1);return{L,v,days,recs,C,cm,ck,md,kc,W,last:W.length?W[W.length-1].kg:null}}
+ const M0=S.meal.filter(x=>x.d>=a&&x.d<=e),d0=new Set(M0.map(x=>x.d)),M=M0.filter(x=>kcIn(x.d)),md=new Set(M.map(x=>x.d)).size,mx=d0.size-md,kc=md?R(M.reduce((t,x)=>t+ln(x).k,0)/md):0;
+ const W=S.wt.filter(x=>x.d>=a&&x.d<=e).sort((p,q)=>p.d<q.d?-1:1);return{L,v,days,recs,C,cm,ck,md,mx,kc,W,last:W.length?W[W.length-1].kg:null}}
 function vmo(){const t=today(),R=Math.round,cur=ymOf(t),ms0=V.msw||(+t.slice(8)<=3?'s':'q'),prv=ymAdd(cur,-1),ym=/^\d{4}-\d\d$/.test(ms0)?ms0:ms0=='s'?prv:cur,a=ym+'-01',e=ymEnd(ym),pym=ymAdd(ym,-1);
  const nd=+e.slice(8),el=ym==cur?+t.slice(8):nd,wk=el/7,pe=ym==cur?pym+'-'+pad(Math.min(el,+ymEnd(pym).slice(8))):ymEnd(pym),X=moStat(a,ym==cur?t:e),P=moStat(pym+'-01',pe);
  const pc=(c,p)=>p>0&&c>0?R((c-p)/p*100):null,pt=(c,p,lab)=>{const v=pc(c,p);return v==null?'':(v>0?'+':v<0?'':'±')+v+'% '+(lab||'vs '+MNF[+pym.slice(5)-1].slice(0,3).toLowerCase()+'.')};
@@ -2556,7 +2558,7 @@ function vmo(){const t=today(),R=Math.round,cur=ymOf(t),ms0=V.msw||(+t.slice(8)<
  +T('Volume',X.v?(X.v>=1000?hvNum(R(X.v/100)/10)+'k':R(X.v)):'–',X.v?pt(X.v,P.v):'')
  +T('Record',X.recs?'🏆 '+X.recs:'–',X.recs?'esercizi migliorati'+(P.recs?' (prec. '+P.recs+')':''):'')
  +T('Cardio',X.cm+' min',(gc?X.C.length+' di '+gc+' sessioni':X.C.length+(X.C.length==1?' sessione':' sessioni'))+(X.ck?' · '+hvNum(X.ck)+' km':'')+(pt(X.cm,P.cm)?' · '+pt(X.cm,P.cm):''))
- +T('Kcal medie',X.md?X.kc:'–',X.md?(S.goal?'obiettivo '+S.goal:X.md+' giorni registrati')+(pt(X.kc,P.kc)?' · '+pt(X.kc,P.kc):''):'nessun pasto')
+ +T('Kcal medie',X.md?X.kc:'–',X.md?(S.goal?'obiettivo '+S.goal:X.md+' giorni registrati')+(pt(X.kc,P.kc)?' · '+pt(X.kc,P.kc):'')+(X.mx?' · '+X.mx+(X.mx==1?' giorno escluso':' giorni esclusi'):''):X.mx?'giorni incompleti':'nessun pasto')
  +T('Peso',X.last!=null?hvNum(X.last)+' kg':'–',dw!=null?(dw>0?'+':'')+hvNum(dw)+' kg nel mese':'',sw?`<span class="wksw">${sw}</span>`:'')
  +`</div></div>`}
 function vwk(){
@@ -2564,7 +2566,7 @@ function vwk(){
  const L=S.log.filter(l=>l.d>=m&&l.d<=e),vol=a=>a.reduce((x,l)=>x+l.kg*l.r,0),v=vol(L),vp=vol(S.log.filter(l=>l.d>=pm&&l.d<=pe)),dv=vp>0?R((v-vp)/vp*100):null;
  const days=new Set(L.map(l=>l.d)).size,recs=[...new Set(L.map(l=>l.e))].filter(x=>{const p=recOf(x,l=>l.d<m);return p>0&&Math.max(...L.filter(l=>l.e==x).map(l=>rV(x,l)))>p}).length;
  const C=S.cd.filter(c=>c.d>=m&&c.d<=e),cm=R(C.reduce((a,c)=>a+(c.min||0),0)),ck=Math.round(C.reduce((a,c)=>a+(c.km||0),0)*10)/10;
- const M=S.meal.filter(x=>x.d>=m&&x.d<=e),md=new Set(M.map(x=>x.d)).size,kc=md?R(M.reduce((a,x)=>a+ln(x).k,0)/md):0;
+ const M0=S.meal.filter(x=>x.d>=m&&x.d<=e),d0=new Set(M0.map(x=>x.d)),M=M0.filter(x=>kcIn(x.d)),md=new Set(M.map(x=>x.d)).size,mx=d0.size-md,kc=md?R(M.reduce((a,x)=>a+ln(x).k,0)/md):0;
  const W=S.wt.filter(x=>x.d>=m&&x.d<=e).sort((a,b)=>a.d<b.d?-1:1),pw=[...S.wt].filter(x=>x.d<m).sort((a,b)=>a.d<b.d?1:-1)[0],dw=W.length&&pw?Math.round((W[W.length-1].kg-pw.kg)*10)/10:null;
  const T=(l,b,s,x)=>`<div><small>${l}</small><b>${b}</b>${s?`<small>${s}</small>`:''}${x||''}</div>`;
  const sw=(()=>{const a=[...S.wt].filter(x=>x.d<=e).sort((p,q)=>p.d<q.d?-1:1).slice(-8),WKL=a.map(x=>fd(x.d)+' · '+nI(x.kg)+' kg');if(a.length<2)return '';const lo=Math.min(...a.map(x=>x.kg)),hi=Math.max(...a.map(x=>x.kg)),X=i=>4+i*(72/(a.length-1)),Y=v=>3+(hi==lo?.5:1-(v-lo)/(hi-lo))*16;return `<span class="tsc tsabs" data-p="0.05,0.95" data-l="${esc(JSON.stringify(WKL))}"><svg class="wksp" viewBox="0 0 80 22" preserveAspectRatio="none" aria-hidden="true"><polyline fill="none" stroke="var(--acc)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" points="${a.map((x,i)=>X(i)+','+Y(x.kg)).join(' ')}"/></svg><i class="wkdot" style="left:${(X(a.length-1)/80*100).toFixed(1)}%;top:${(Y(a[a.length-1].kg)/22*100).toFixed(1)}%"></i><i class="tsl"></i><span class="tst"></span></span>`})();
@@ -2573,7 +2575,7 @@ function vwk(){
  +T('Volume',v?(v>=1000?hvNum(R(v/100)/10)+'k':R(v)):'–',dv!=null&&v?(dv>0?'+':'')+dv+'% sulla prec.':'')
  +T('Record',recs?'🏆 '+recs:'–',recs?'esercizi migliorati':'')
  +T('Cardio',cm+' min',S.gc?C.length+' di '+S.gc+' sessioni':C.length+(C.length==1?' sessione':' sessioni')+(ck?' · '+hvNum(ck)+' km':''))
- +T('Kcal medie',md?kc:'–',md?(S.goal?'obiettivo '+S.goal:md+' giorni registrati'):'nessun pasto')
+ +T('Kcal medie',md?kc:'–',md?(S.goal?'obiettivo '+S.goal:md+' giorni registrati')+(mx?' · '+mx+(mx==1?' giorno escluso':' giorni esclusi'):''):mx?'giorni incompleti':'nessun pasto')
  +T('Peso',W.length?hvNum(W[W.length-1].kg)+' kg':'–',dw!=null?(dw>0?'+':'')+hvNum(dw)+' kg':'',sw?`<span class="wksw">${sw}</span>`:'')
  +`</div></div>`}
 function oggi(t,di,sets,exs,vol,T){const R=Math.round,ps=S.sch.find(x=>x.id==plId(di)),anyPl=Object.keys(S.pl).some(k=>S.sch.some(x=>x.id==plId(k))),live=V.ss&&!V.ss.done;
@@ -2733,12 +2735,13 @@ function msh(){if(!S.ms.length)return '';return `<details id="dMs" ${V.o.dMs?'op
 function av7(){
  const end=new Date(V.nd+'T12:00:00'),ds=[];
  for(let i=0;i<7;i++){const x=new Date(end);x.setDate(x.getDate()-i);ds.push(x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate()))}
- const act=ds.filter(d=>S.meal.some(m=>m.d==d));
+ const all=ds.filter(d=>S.meal.some(m=>m.d==d)),act=all.filter(kcIn),ex=all.length-act.length;
  let h=`<div class="card">`;
- if(!act.length)return h+'<p class="hint">Nessun pasto registrato negli ultimi 7 giorni.</p></div>';
+ if(!all.length)return h+'<p class="hint">Nessun pasto registrato negli ultimi 7 giorni.</p></div>';
+ if(!act.length)return h+'<p class="hint">Negli ultimi 7 giorni nessuna giornata è abbastanza completa: per la media contano solo i giorni entro il 30% dall’obiettivo calorico.</p></div>';
  const T={k:0,p:0,c:0,g:0};S.meal.filter(m=>act.includes(m.d)).forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g});
  const n=act.length,R=Math.round;
- return h+`<h2>${R(T.k/n)} kcal${S.goal?` <span class="hint">/ ${S.goal}</span>`:''}</h2><p class="hint">Media sui ${n} giorni con pasti registrati, fino al ${fd(V.nd)}.</p>${(G=>mb('Proteine',T.p/n,G.p,G.a.p)+mb('Carboidrati',T.c/n,G.c,G.a.c)+mb('Grassi',T.g/n,G.f,G.a.f))(gmEff())}</div>`;
+ return h+`<h2>${R(T.k/n)} kcal${S.goal?` <span class="hint">/ ${S.goal}</span>`:''}</h2><p class="hint">Media sui ${n} giorni con pasti registrati, fino al ${fd(V.nd)}.${ex?` ${ex==1?'Esclusa 1 giornata lontana':'Escluse '+ex+' giornate lontane'} più del 30% dall’obiettivo (pasti non segnati).`:''}</p>${(G=>mb('Proteine',T.p/n,G.p,G.a.p)+mb('Carboidrati',T.c/n,G.c,G.a.c)+mb('Grassi',T.g/n,G.f,G.a.f))(gmEff())}</div>`;
 }
 
 function sme(m){return `<div class="set" style="flex-direction:column;align-items:stretch;gap:6px"><input class="mn" value="${esc(m.name)}" aria-label="Nome pasto">`+m.items.map((x,j)=>`<div class="row" style="margin:0"><span style="flex:2">${esc(ln(x).n)}</span><input class="mg" data-j="${j}" inputmode="decimal" value="${x.g}" aria-label="Grammi" style="flex:1"><button class="x" data-a="mrm" data-i="${m.id}" data-j="${j}" style="flex:0 0 auto" aria-label="Rimuovi alimento">×</button></div>`).join('')+`<div class="row"><button class="p" data-a="msv" data-i="${m.id}">Salva</button><button class="g" data-a="mx">Annulla</button></div></div>`}
@@ -2878,7 +2881,7 @@ function xFood(a,b){
  const D={};M.forEach(m=>{const l=ln(m),o=D[m.d]||(D[m.d]={k:0,p:0,c:0,g:0,fi:0,n:0});o.k+=l.k;o.p+=l.p;o.c+=l.c;o.g+=l.g;o.fi+=l.fi;o.n++});
  const gl=S.goal||0,GE=gmEff();
  const tot=Object.keys(D).sort().map(d=>{const o=D[d];return[{d},Math.round(o.k),gl||null,gl?Math.round(o.k-gl):null,xr1(o.p),GE.p||null,xr1(o.c),xr1(o.g),xr1(o.fi),o.n]});
- const L=miL(),t=Array(9).fill(0),days=Object.keys(D);days.forEach(d=>S.meal.filter(m=>m.d==d).forEach(m=>{const x=microOf(fo(m.f));if(x)x.forEach((v,j)=>t[j]+=v*m.g/100)}));
+ const L=miL(),t=Array(9).fill(0),days=Object.keys(D).filter(kcIn);days.forEach(d=>S.meal.filter(m=>m.d==d).forEach(m=>{const x=microOf(fo(m.f));if(x)x.forEach((v,j)=>t[j]+=v*m.g/100)}));
  const nd=days.length||1,mi=L.map(([n,u,r],j)=>{const v=t[j]/nd;return[n,u,xr1(v),r,Math.round(v/r*100)]});
  mi.unshift(['Fibre','g',xr1(days.reduce((s,d)=>s+D[d].fi,0)/nd),25,Math.round(days.reduce((s,d)=>s+D[d].fi,0)/nd/25*100)]);
  return[{n:'Diario',h:['Data','Pasto','Alimento','Grammi','Kcal','Proteine g','Carboidrati g','Grassi g','Fibre g','Zuccheri g','Fonte'],w:[11,12,30,8,7,10,12,9,8,10,11],r:rows},
@@ -2992,18 +2995,18 @@ const xmT=(t,sub)=>[{h:30,c:[{v:t,s:{b:1,sz:18,c:XC.ink}}]},{c:[{v:sub,s:{c:XC.m
 const XD='[$-410]ddd dd/mm';
 function xmBook(sel){const[a,b]=xRange(),R=Math.round,per=fdl(a)+' – '+fdl(b),gl=S.goal||0,sh=[],ch=[],wk={},W=k=>wk[k]||(wk[k]={ses:new Set(),ser:0,vol:0,cn:0,cm:0,km:0,kc:[],p:[],wt:[]});
  const L=S.log.filter(l=>xIn(l.d,a,b)&&!isCX(l.e)).map((l,i)=>({l,i})).sort((x,y)=>x.l.d<y.l.d?-1:x.l.d>y.l.d?1:x.i-y.i).map(x=>x.l),CD=S.cd.filter(c=>xIn(c.d,a,b)).sort((x,y)=>x.d<y.d?-1:1),
-  MD={};S.meal.filter(m=>xIn(m.d,a,b)).forEach(m=>{const o=MD[m.d]||(MD[m.d]={k:0,p:0,c:0,g:0,fi:0,M:{}}),x=ln(m);o.k+=x.k;o.p+=x.p;o.c+=x.c;o.g+=x.g;o.fi+=x.fi;(o.M[m.m]=o.M[m.m]||[]).push(x.n+' '+nI(R(m.g))+' g')}),
+  MD={};S.meal.filter(m=>xIn(m.d,a,b)).forEach(m=>{const o=MD[m.d]||(MD[m.d]={k:0,p:0,c:0,g:0,fi:0,M:{},ok:kcIn(m.d)}),x=ln(m);o.k+=x.k;o.p+=x.p;o.c+=x.c;o.g+=x.g;o.fi+=x.fi;(o.M[m.m]=o.M[m.m]||[]).push(x.n+' '+nI(R(m.g))+' g')}),
   WT=S.wt.filter(w=>xIn(w.d,a,b)).sort((x,y)=>x.d<y.d?-1:1),kcC=c=>c.kc||cdEst(c.t,c.min,c.km,c.d)||0;
  L.forEach(l=>{const w=W(hvMon(l.d));w.ses.add(l.ss||l.d);w.ser++;w.vol+=isBW(l.e)?0:l.kg*l.r});
  CD.forEach(c=>{const w=W(hvMon(c.d));w.cn++;w.cm+=c.min||0;w.km+=c.km||0});
- Object.keys(MD).forEach(d=>{const w=W(hvMon(d));w.kc.push(MD[d].k);w.p.push(MD[d].p)});WT.forEach(x=>W(hvMon(x.d)).wt.push(x.kg));
+ Object.keys(MD).forEach(d=>{if(!MD[d].ok)return;const w=W(hvMon(d));w.kc.push(MD[d].k);w.p.push(MD[d].p)});WT.forEach(x=>W(hvMon(x.d)).wt.push(x.kg));
  const WK=Object.keys(wk).sort(),avg=A=>A.length?A.reduce((s,x)=>s+x,0)/A.length:null;
  // ---------- Riepilogo ----------
  {const rows=xmT('Gym-Bo · Riepilogo',per+' · '+xDays(a,b)+' giorni'),tiles=[];const ses=new Set(L.map(l=>l.ss||l.d)).size;
   if(sel.w&&WT.length){const d=WT[WT.length-1].kg-WT[0].kg;tiles.push(['Peso',nI(WT[WT.length-1].kg)+' kg',WT.length>1?(d>0?'+':d<0?'−':'±')+nI(Math.abs(xr1(d)))+' kg nel periodo':'una pesata','m'])}
   if(sel.g){tiles.push(['Sedute palestra',String(ses),nI(xr1(ses/xDays(a,b)*7))+' a settimana','g']);tiles.push(['Volume',nI(xr1(L.reduce((s,l)=>s+(isBW(l.e)?0:l.kg*l.r),0)/1000))+' t',nI(L.length)+' serie','g'])}
   if(sel.c)tiles.push(['Cardio',CD.length+(CD.length==1?' uscita':' uscite'),nI(xr1(CD.reduce((s,c)=>s+(c.km||0),0)))+' km · '+Math.floor(CD.reduce((s,c)=>s+(c.min||0),0)/60)+' h','g']);
-  if(sel.n){const n=Object.keys(MD).length,k=n?R(Object.values(MD).reduce((s,o)=>s+o.k,0)/n):0;tiles.push(['Kcal medie',n?nI(k):'—',gl?'obiettivo '+nI(gl):n+' giorni','g'])}
+  if(sel.n){const V2=Object.values(MD),O2=V2.filter(o=>o.ok),n=O2.length,x2=V2.length-n,k=n?R(O2.reduce((s,o)=>s+o.k,0)/n):0;tiles.push(['Kcal medie',n?nI(k):'—',(gl?'obiettivo '+nI(gl):n+' giorni')+(x2?' · '+x2+' esclusi':''),'g'])}
   const T=tiles.slice(0,5),m=[];[0,1,2].forEach(j=>{const r={h:j==1?32:undefined,c:[]};T.forEach((t,i)=>{const s=[{c:XC.mut,sz:10,f:XC.tile},{b:1,sz:20,c:XC.ink,f:XC.tile},{sz:10,c:t[2].startsWith('−')?XC.c3:XC.mut,f:XC.tile}][j];r.c[i*2]={v:t[j],s};r.c[i*2+1]={v:'',s:{f:XC.tile}};m.push(xCol(i*2)+(4+j)+':'+xCol(i*2+1)+(4+j))});rows.push(r)});
   rows.push(null);const cols=[['Settimana dal',w=>({v:{d:w},s:{nf:XD}})]];
   if(sel.g)cols.push(['Sedute',(w,o)=>o.ses.size||null],['Serie',(w,o)=>o.ser||null],['Volume kg',(w,o)=>o.vol?R(o.vol):null,'#,##0','bar','7FA6C9']);
@@ -3016,7 +3019,7 @@ function xmBook(sel){const[a,b]=xRange(),R=Math.round,per=fdl(a)+' – '+fdl(b),
    var cfR=cf}
   if(sel.g&&L.length){const sm=xGym(a,b)[1].r.sort((x,y)=>(y[4]||0)-(x[4]||0)).slice(0,12);rows.push(null,{h:22,c:[{v:'Progressi per esercizio',s:{b:1,sz:13,c:XC.ink}}]},xmH(['Esercizio','Gruppo','Sedute','Serie','Volume kg','Carico max','1RM migliore','Variazione']));
    sm.forEach(x=>{const v=x[8]==null?null:x[8]/100;rows.push({c:[x[0],{v:x[1],s:{c:XC.mut}},x[2],x[3],{v:x[4],s:{nf:'#,##0'}},x[5]!=null?x[5]:x[6],x[7],{v,s:{b:1,nf:'+0%;−0%;0%',c:v>0?XC.c3:v<0?XC.bad:XC.mut}}].map(o=>o&&typeof o=='object'&&'s' in o?{...o,s:{...o.s,bb:1}}:{v:o,s:{bb:1}})})})}
-  rows.push(null,{c:[{v:'Creato con Gym-Bo il '+fdl(today())+'. Le kcal del cardio, l’1RM e la massa grassa sono stime.',s:{i:1,sz:9,c:XC.mut}}]});
+  rows.push(null,{c:[{v:'Creato con Gym-Bo il '+fdl(today())+'. Le kcal del cardio, l’1RM e la massa grassa sono stime.'+(sel.n?' Le medie delle calorie contano solo i giorni entro il 30% dall’obiettivo: gli altri hanno di solito pasti non segnati.':''),s:{i:1,sz:9,c:XC.mut}}]});
   sh.push({n:'Riepilogo',w:[22,12,12,12,12,12,12,12,12,12],rows,m,cf:cfR||[],grid:false,tab:XC.acc})}
  // ---------- Palestra ----------
  if(sel.g&&L.length){const S2={},by=[];L.forEach(l=>{const k=l.ss||l.d;if(!S2[k]){S2[k]={d:l.d,ss:l.ss,E:{}};by.push(S2[k])}(S2[k].E[l.e]=S2[k].E[l.e]||[]).push(l)});
@@ -3046,13 +3049,13 @@ function xmBook(sel){const[a,b]=xRange(),R=Math.round,per=fdl(a)+' – '+fdl(b),
   const n=rows.length;rows.push({c:[{v:'Totale',s:{b:1,bt:XC.acc}},{v:CD.length+' attività',s:{bt:XC.acc}},{v:'',s:{bt:XC.acc}},{v:R(CD.reduce((s,c)=>s+(c.min||0),0)),s:{b:1,bt:XC.acc}},{v:xr1(CD.reduce((s,c)=>s+(c.km||0),0)),s:{b:1,bt:XC.acc}},{v:'',s:{bt:XC.acc}},{v:'',s:{bt:XC.acc}},{v:R(CD.reduce((s,c)=>s+kcC(c),0)),s:{b:1,bt:XC.acc,nf:'#,##0'}}]});
   sh.push({n:'Cardio',w:[11,20,18,8,7,12,13,8,12,24],rows,fz:'A5',af:'A4:J'+n,cf:[{t:'bar',r:'D5:D'+n,c:'8CC3B3'}],tab:XC.c3})}
  // ---------- Alimentazione ----------
- if(sel.n&&Object.keys(MD).length){const ds=Object.keys(MD).sort(),rows=xmT('Alimentazione · un giorno per riga',per+(gl?' · obiettivo '+nI(gl)+' kcal':''));rows.push(xmH(['Giorno','Colazione','Pranzo','Cena','Spuntini','Kcal','Rispetto all’obiettivo','Proteine g','Carboidrati g','Grassi g','Fibre g']));
+ if(sel.n&&Object.keys(MD).length){const ds=Object.keys(MD).sort(),rows=xmT('Alimentazione · un giorno per riga',per+(gl?' · obiettivo '+nI(gl)+' kcal':''));rows.push(xmH(['Giorno','Colazione','Pranzo','Cena','Spuntini','Kcal','Rispetto all’obiettivo','Proteine g','Carboidrati g','Grassi g','Fibre g','Nelle medie']));
   ds.forEach(d=>{const o=MD[d],t=new Date(d+'T12:00:00'),df=gl?R(o.k-gl):null,cl=df==null?XC.mut:Math.abs(df)<=gl*.05?XC.c3:df>0?XC.bad:XC.warn,mx=Math.max(1,...['Colazione','Pranzo','Cena','Spuntino'].map(m=>(o.M[m]||[]).reduce((t,x)=>t+Math.ceil(x.length/32),0)));
-   rows.push({h:Math.max(18,mx*15),c:[{v:{d},s:{b:1,nf:XD,v:'top',bb:1}},...['Colazione','Pranzo','Cena','Spuntino'].map(m=>({v:(o.M[m]||[]).join('\n'),s:{w:1,v:'top',bb:1}})),{v:R(o.k),s:{nf:'#,##0',v:'top',bb:1}},{v:df,s:{b:1,c:cl,nf:'+#,##0;−#,##0;0',v:'top',bb:1}},{v:R(o.p),s:{v:'top',bb:1}},{v:R(o.c),s:{v:'top',bb:1}},{v:R(o.g),s:{v:'top',bb:1}},{v:R(o.fi),s:{v:'top',bb:1}}]})});
-  sh.push({n:'Alimentazione',w:[11,30,34,34,26,8,13,10,12,9,8],rows,fz:'B5',land:true,tab:XC.hi});
+   rows.push({h:Math.max(18,mx*15),c:[{v:{d},s:{b:1,nf:XD,v:'top',bb:1}},...['Colazione','Pranzo','Cena','Spuntino'].map(m=>({v:(o.M[m]||[]).join('\n'),s:{w:1,v:'top',bb:1}})),{v:R(o.k),s:{nf:'#,##0',v:'top',bb:1}},{v:df,s:{b:1,c:cl,nf:'+#,##0;−#,##0;0',v:'top',bb:1}},{v:R(o.p),s:{v:'top',bb:1}},{v:R(o.c),s:{v:'top',bb:1}},{v:R(o.g),s:{v:'top',bb:1}},{v:R(o.fi),s:{v:'top',bb:1}},{v:o.ok?'sì':'no, oltre il 30%',s:{v:'top',bb:1,w:1,c:o.ok?XC.mut:XC.bad,i:o.ok?undefined:1}}]})});
+  sh.push({n:'Alimentazione',w:[11,30,34,34,26,8,13,10,12,9,8,12],rows,fz:'B5',land:true,tab:XC.hi});
   // calendario delle calorie
-  const KS=[...new Set(ds.map(hvMon))].sort(),r2=xmT('Calorie giorno per giorno',gl?'Obiettivo '+nI(gl)+' kcal: verde in linea, giallo sotto, rosso sopra':'Imposta un obiettivo in Dieta per vedere i colori');r2.push(xmH(['Settimana',...DNF,'Media']));
-  KS.forEach(k=>{const v=[0,1,2,3,4,5,6].map(i=>{const o=MD[hvAdd(k,i)];return o?R(o.k):null}),nz=v.filter(x=>x!=null);r2.push({h:26,c:[{v:{d:k},s:{b:1,nf:'dd/mm',v:'center'}},...v.map(x=>({v:x,s:{nf:'#,##0',h:'center',v:'center',bb:1}})),{v:nz.length?R(avg(nz)):null,s:{b:1,nf:'#,##0',h:'center',v:'center'}}]})});
+  const KS=[...new Set(ds.map(hvMon))].sort(),r2=xmT('Calorie giorno per giorno',gl?'Obiettivo '+nI(gl)+' kcal: verde in linea, giallo sotto, rosso sopra · in corsivo i giorni oltre il 30%, esclusi dalla media':'Imposta un obiettivo in Dieta per vedere i colori');r2.push(xmH(['Settimana',...DNF,'Media']));
+  KS.forEach(k=>{const O3=[0,1,2,3,4,5,6].map(i=>MD[hvAdd(k,i)]),v=O3.map(o=>o?R(o.k):null),nz=O3.filter(o=>o&&o.ok).map(o=>R(o.k));r2.push({h:26,c:[{v:{d:k},s:{b:1,nf:'dd/mm',v:'center'}},...v.map((x,i)=>({v:x,s:{nf:'#,##0',h:'center',v:'center',bb:1,...(O3[i]&&!O3[i].ok?{i:1,c:XC.mut}:{})}})),{v:nz.length?R(avg(nz)):null,s:{b:1,nf:'#,##0',h:'center',v:'center'}}]})});
   const rg='B5:H'+r2.length,cf=gl?[{op:'between',f:[R(gl*.9),R(gl*1.05)],c:'CDE8DA',r:rg},{op:'greaterThan',f:[R(gl*1.05)],c:'F3CFC8',r:rg},{op:'between',f:[1,R(gl*.9)],c:'F7E7B4',r:rg}]:[];
   sh.push({n:'Calendario kcal',w:[12,11,11,11,11,11,11,11,10],rows:r2,cf,tab:XC.hi});
   const F=xFood(a,b),r3=xmT('Alimentazione · tutti gli alimenti','Una riga per alimento: usa i filtri dell’intestazione');r3.push(xmH(F[0].h));let pd='',band=0;
@@ -3104,10 +3107,10 @@ function xReport(){const[a,b]=xRange(),R=Math.round,X=moStat(a,b),nw=xDays(a,b)/
  if(sel.c){h+=`<h2>Cardio</h2>`;if(!C.length)h+=`<p class="mu">Nessuna attività nel periodo.</p>`;else{const by={};C.forEach(c=>{const o=by[c.t]||(by[c.t]={n:0,min:0,km:0,kc:0});o.n++;o.min+=c.min||0;o.km+=c.km||0;o.kc+=c.kc||cdEst(c.t,c.min,c.km,c.d)||0});
   const ks=C.reduce((s,c)=>s+(c.kc||cdEst(c.t,c.min,c.km,c.d)||0),0);
   h+=`<p>${C.length} attività · ${Math.floor(X.cm/60)} h ${X.cm%60} min${km?' · '+F1(km)+' km':''} · circa ${nI(R(ks))} kcal</p><table><tr><th>Attività</th><th>Sessioni</th><th>Tempo</th><th>Km</th><th>Passo / velocità</th></tr>${Object.entries(by).sort((p,q)=>q[1].n-p[1].n).map(([t,o])=>`<tr><td>${esc(t)}</td><td>${o.n}</td><td>${R(o.min)} min</td><td>${o.km?F1(o.km):'—'}</td><td>${o.km>0&&o.min>0?(xBike(t)?String(xr1(o.km/o.min*60)).replace('.',',')+' km/h':cdPace({km:o.km,min:o.min})):'—'}</td></tr>`).join('')}</table>`}}
- if(sel.n){h+=`<h2>Alimentazione</h2>`;if(!M)h+=`<p class="mu">Nessun pasto registrato nel periodo.</p>`;else{
-  const Ms=S.meal.filter(m=>xIn(m.d,a,b)),T={k:0,p:0,c:0,g:0,fi:0};Ms.forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g;T.fi+=l.fi});const GE=gmEff();
+ if(sel.n){h+=`<h2>Alimentazione</h2>`;if(!M)h+=`<p class="mu">${X.mx?'Nessuna giornata abbastanza completa per le medie (entro il 30% dall’obiettivo).':'Nessun pasto registrato nel periodo.'}</p>`;else{
+  const Ms=S.meal.filter(m=>xIn(m.d,a,b)&&kcIn(m.d)),T={k:0,p:0,c:0,g:0,fi:0};Ms.forEach(m=>{const l=ln(m);T.k+=l.k;T.p+=l.p;T.c+=l.c;T.g+=l.g;T.fi+=l.fi});const GE=gmEff();
   const row=(n,v,t,u)=>`<tr><td>${n}</td><td>${nI(R(v))}${u}</td><td>${t?nI(t)+u:'—'}</td><td>${t?R(v/t*100)+'%':'—'}</td></tr>`;
-  h+=`<p>${M} giorni con diario su ${xDays(a,b)}</p><table><tr><th>Media giornaliera</th><th>Media</th><th>Obiettivo</th><th>Aderenza</th></tr>${row('Kcal',T.k/M,gl,'')}${row('Proteine',T.p/M,GE.p,' g')}${row('Carboidrati',T.c/M,GE.c,' g')}${row('Grassi',T.g/M,GE.f,' g')}${row('Fibre',T.fi/M,25,' g')}</table>`;
+  h+=`<p>${M} giorni con diario su ${xDays(a,b)}${X.mx?` · ${X.mx} ${X.mx==1?'giornata esclusa':'giornate escluse'} perché lontane più del 30% dall’obiettivo (pasti non segnati)`:''}</p><table><tr><th>Media giornaliera</th><th>Media</th><th>Obiettivo</th><th>Aderenza</th></tr>${row('Kcal',T.k/M,gl,'')}${row('Proteine',T.p/M,GE.p,' g')}${row('Carboidrati',T.c/M,GE.c,' g')}${row('Grassi',T.g/M,GE.f,' g')}${row('Fibre',T.fi/M,25,' g')}</table>`;
   const mi=xFood(a,b)[2].r.slice(1),lo=mi.filter((r,j)=>j>0&&r[4]<70).map(r=>r[0].replace(' (limite max)','')),hi=mi[0]&&mi[0][4]>100;
   if(lo.length||hi)h+=`<p>⚠️ ${lo.length?'Sotto il 70% del riferimento: '+lo.join(', ')+'.':''}${hi?' Sodio sopra il limite massimo.':''}</p>`}}
  if(sel.f){const P=PH.filter(p=>xIn(p.d,a,b));if(P.length){const ds=[...new Set(P.map(p=>p.d))].sort(),d0=ds[0],d1=ds[ds.length-1],an=P.filter(p=>p.d==d1).map(p=>p.a).find(x=>P.some(p=>p.d==d0&&p.a==x))||P[0].a,p0=P.find(p=>p.d==d0&&p.a==an)||P.find(p=>p.d==d0),p1=P.find(p=>p.d==d1&&p.a==an)||P.find(p=>p.d==d1);
