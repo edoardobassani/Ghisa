@@ -175,3 +175,9 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `S.dcl[data]=1`: giornata con poche kcal chiusa a mano. `kcIn(d)` la conta nelle medie se ha almeno un pasto; `mSk` considera «non fatti» i pasti principali mancanti, quindi spariscono gli avvisi e la giornata entra anche in `adEst`.
 - `dclH(d,home)`: in Dieta sotto il Riepilogo del giorno (riquadro giallo con «Chiudi la giornata» / «Completa il diario», oppure riga verde «Giornata chiusa · Riapri»), in Home nel riquadro «Ieri». Mai per oggi. Azioni `dcl`, `dclr`, `dclg`; ✓ nell'anello della striscia della settimana (`.dclm`).
 - `test/t59.py`.
+
+## v223 – licenza e «gratis per sempre»
+- Licenza PolyForm Noncommercial 1.0.0: `LICENSE.md` (testo ufficiale dal repository polyformproject/polyform-licenses, con la riga «Required Notice» in cima), `NOTICE.md` (nome e logo non concessi, componenti e dati di terzi), `README.md`. Lo stesso avviso è in un commento in testa al sorgente.
+- In app: voce ☰ › Dati › «Informazioni» (`inf`, `vinf`, costanti `GBV`, `GBSITE`, `GBREPO`), riga nel Benvenuto, sezione «Gratis per sempre» in cima alla Guida, «app gratuita» nei piè di pagina di PDF, Excel e immagini condivise.
+- `decFix` salta i testi dentro `.nodec` (numeri di versione come «1.0.0»). `GBV` va aggiornato a ogni versione.
+- `test/t60.py`.
