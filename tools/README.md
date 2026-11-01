@@ -170,3 +170,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `kcOk(k)` / `kcIn(d)`: un giorno di diario entra nelle medie solo se le kcal sono almeno il 70% dell'obiettivo (`S.goal`); sopra l'obiettivo conta sempre (v221: tolto il limite superiore del 130%). Senza obiettivo, almeno 800 kcal.
 - Applicato a: `moStat` e `vwk` (Riepilogo in Home, con «N giorni esclusi»), `av7` (Media ultimi 7 giorni in Dieta), `adEst` (stima del fabbisogno reale: i giorni fuori soglia contano come esclusi, come quelli con pasti non segnati), PDF (`xReport`), Excel (`xmBook`: riquadro, settimane, grafico, media del calendario, colonna «Nelle medie»), micronutrienti di `xFood`. Il grafico giorno per giorno delle calorie resta con tutti i giorni.
 - `test/t58.py`.
+
+## v222 – chiudere a mano una giornata
+- `S.dcl[data]=1`: giornata con poche kcal chiusa a mano. `kcIn(d)` la conta nelle medie se ha almeno un pasto; `mSk` considera «non fatti» i pasti principali mancanti, quindi spariscono gli avvisi e la giornata entra anche in `adEst`.
+- `dclH(d,home)`: in Dieta sotto il Riepilogo del giorno (riquadro giallo con «Chiudi la giornata» / «Completa il diario», oppure riga verde «Giornata chiusa · Riapri»), in Home nel riquadro «Ieri». Mai per oggi. Azioni `dcl`, `dclr`, `dclg`; ✓ nell'anello della striscia della settimana (`.dclm`).
+- `test/t59.py`.
