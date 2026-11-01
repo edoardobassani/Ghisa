@@ -559,7 +559,7 @@ const GD=['Petto','Schiena','Spalle','Bicipiti','Tricipiti','Quadricipiti','Femo
 const grp=e=>e.g||'Senza gruppo';
 const groups=()=>[...new Set([...GD,...S.ex.map(e=>e.g).filter(Boolean)])];
 const byG=()=>{const o={};S.ex.forEach(e=>(o[grp(e)]=o[grp(e)]||[]).push(e));return Object.keys(o).sort((a,b)=>(a=='Senza gruppo')-(b=='Senza gruppo')||a.localeCompare(b)).map(k=>[k,o[k]])};
-const UD=['pbok','hiok','bpend','bplx','bpix','bpbx','bpdx','scdup','gisave','del','dl','md','ma','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd','hsdd','ses','imok','ipok','pgok','swp','mpsw','ppsv','ppgs','sta','dpok','dprc','cpst','cpend','cssv','mskp','ogma','cxd','csds','csdd','prok','gxok'];let UN=null,ut;
+const UD=['qcok','pbok','hiok','bpend','bplx','bpix','bpbx','bpdx','scdup','gisave','del','dl','md','ma','msx','pdl','mrm','rcd','dpx','dpa','ppwc','pmcp','ssxd','hsdd','ses','imok','ipok','pgok','swp','mpsw','ppsv','ppgs','sta','dpok','dprc','cpst','cpend','cssv','mskp','ogma','cxd','csds','csdd','prok','gxok'];let UN=null,ut;
 function showUndo(){$('#undo').classList.add('on');clearTimeout(ut);ut=setTimeout(()=>{hideUndo();UN=null},7000)}
 function hideUndo(){const u=$('#undo');if(u)u.classList.remove('on');clearTimeout(ut)}
 let tt,LT=null;const toast=m=>{if(LT!==null)LT=m;const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2200)};
@@ -1017,10 +1017,10 @@ function dlCard(){const x=dlInfo();if(!x||x.st)return '';return `<div class="dlw
 function sgOk(tg,ps,id){if(isBW(id)||!ps.length)return false;const zero=ps.filter(x=>x.rir===0).length>=2;if(zero)return false;if(tgMet(tg,ps))return true;return ps.every(x=>x.rir!=null&&x.rir>=3)}
 function rirRow(){if(S.rirOff)return '';const v=V.rir;return `<p class="hint" style="margin:4px 0 0">Quante ripetizioni avresti fatto ancora? <span style="opacity:.8">(facoltativo)</span></p><div class="rirc" role="group" aria-label="Ripetizioni di riserva">${[0,1,2,3,4].map(n=>`<button class="${v===n?'on':''}" data-a="rir" data-v="${n}" aria-pressed="${v===n}">${n==4?'4+':n}</button>`).join('')}</div>`}
 function soptBox(){return `<details id="dSop" class="sopt" ${V.o.dSop?'open':''}><summary>Opzioni seduta</summary><label><input type="checkbox" id="opwu" ${S.wuOff?'':'checked'}>Proponi le serie di riscaldamento</label><label><input type="checkbox" id="oprir" ${S.rirOff?'':'checked'}>Chiedi le ripetizioni di riserva (RIR)</label><div class="row"><span class="hint" style="margin:0;flex:1">Settimana di scarico (programmi pronti)</span><select id="opdl" style="flex:0 0 auto;width:auto">${[[0,'Mai'],[4,'ogni 4 settimane'],[5,'ogni 5 settimane'],[6,'ogni 6 settimane']].map(([v,l])=>`<option value="${v}" ${(S.dlw||0)==v?'selected':''}>${l}</option>`).join('')}</select></div></details>`}
-function vs(){if(V.bpst)return '<h1>Schede</h1>'+bpStartView();if(V.bpe)return '<h1>Schede</h1>'+bpEdView();if(V.bpv)return '<h1>Schede</h1>'+bpPrev();if(V.pb)return '<h1>Schede</h1>'+pbView();if(V.pg)return '<h1>Schede</h1>'+pgView();if(V.im)return '<h1>Schede</h1>'+imView();if(V.ci){V.sk='c';return '<h1>Schede</h1>'+ccView()}if(V.csd)V.sk='c';if(V.csd)return '<h1>Schede</h1>'+(V.csd.ty=='c'?ciEd():cscEd());
+function vs(){if(V.bpst)return '<h1>Schede</h1>'+bpStartView();if(V.bpe)return '<h1>Schede</h1>'+bpEdView();if(V.bpv)return '<h1>Schede</h1>'+bpPrev();if(V.pb)return '<h1>Schede</h1>'+pbView();if(V.qc)return '<h1>Schede</h1>'+qcView();if(V.pg)return '<h1>Schede</h1>'+pgView();if(V.im)return '<h1>Schede</h1>'+imView();if(V.ci){V.sk='c';return '<h1>Schede</h1>'+ccView()}if(V.csd)V.sk='c';if(V.csd)return '<h1>Schede</h1>'+(V.csd.ty=='c'?ciEd():cscEd());
  const E=S.sch.find(s=>s.id==V.ed);
  const sk=V.sk=='c'?'c':'p',skw=`<div class="seg2 exk" role="group" aria-label="Tipo di schede"><button class="${sk=='p'?'on':''}" data-a="skk" data-v="p" aria-pressed="${sk=='p'}">Palestra</button><button class="${sk=='c'?'on':''}" data-a="skk" data-v="c" aria-pressed="${sk=='c'}">Cardio</button></div>`;
- if(sk=='c'){const p=cpCur();return `<h1>Schede</h1>${skw}<div class="row mrow"><button class="p pgb" data-a="cpl">Programmi pronti (${CPM.length})</button><details class="mor"><summary aria-label="Altre azioni">⋯ Altro</summary><div class="morp"><label class="bt g">Importa sedute (PDF o Excel)<input type="file" id="ccf" accept=".pdf,.xlsx,.xlsm,.csv,application/pdf,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="vh"></label></div></details></div>`+(p?cpCard():'')+cscCard()+plan()}
+ if(sk=='c'){const p=cpCur();return `<h1>Schede</h1>${skw}<div class="row mrow"><button class="p pgb" data-a="cpl">Programmi pronti (${CPM.length})</button><details class="mor"><summary aria-label="Altre azioni">⋯ Altro</summary><div class="morp"><label class="bt g">Importa sedute (PDF o Excel)<input type="file" id="ccf" accept=".pdf,.xlsx,.xlsm,.csv,application/pdf,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="vh"></label></div></details></div>`+qcHero()+(p?cpCard():'')+cscCard()+plan()}
  let h=`<h1>Schede</h1>${skw}<div class="row mrow"><button class="p pgb" data-a="pgl">Programmi pronti (${PGM.length+BPM.length})</button><details class="mor"><summary aria-label="Altre azioni">⋯ Altro</summary><div class="morp"><label class="bt g">Importa scheda (Excel o PDF)<input type="file" id="imf" accept=".xlsx,.xlsm,.csv,.pdf,text/csv,application/pdf,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="vh"></label></div></details></div>`+pbRenew()+pbHero()+bpSection()+`<div class="card"><h2>${E?'Modifica scheda palestra':'Nuova scheda palestra'}</h2>${E?'':sdTplRow()}<div class="row" style="margin-top:10px"><input id="scn" placeholder="Nome (es. Push, Gambe)" value="${esc(sdGet().name)}" aria-label="Nome scheda"></div>`;
  h+=S.ex.length?sdEditor(E):`<p class="hint">Prima crea qualche esercizio.</p>`;
  h+=`</div>`;
@@ -1912,7 +1912,68 @@ function cpFlat(t){const o=[];cpTree(t).forEach(x=>{if(x.L){for(let r=1;r<=x.n;r
 const cpDur=s=>s<60?s+'"':s%60?(s<=150?s+'"':Math.floor(s/60)+'’'+(s%60)+'"'):(s/60)+'’';
 function cpTxt(t,short){return cpTree(t).filter(x=>!short||x.L||!'SD'.includes(x.k)).map(x=>x.L?x.n+' × ('+x.L.map(y=>cpDur(y.s)+' '+CPK[y.k][1]).join(' + ')+')':cpDur(x.s)+' '+CPK[x.k][1]).join(' · ')}
 const cpMin=t=>Math.round(cpFlat(t).reduce((a,x)=>a+x.s,0)/60);
-const cpSes=(p,pos)=>{const w=p[9][Math.min(p[9].length-1,Math.floor(pos/p[5]))];return Array.isArray(w)?w[pos%p[5]%w.length]:w};
+const cpSes0=(p,pos)=>{const w=p[9][Math.min(p[9].length-1,Math.floor(pos/p[5]))];return Array.isArray(w)?w[pos%p[5]%w.length]:w},cpSes=(p,pos)=>{const x=cpSes0(p,pos),A=S.cpr;return A&&A.id==p[0]&&A.mx?cpCap(x,A.mx):x};
+/* ---- Crea il programma cardio per me (v231): 5 domande → punteggio dei programmi cardio pronti → attività, giorni e durata adattati ---- */
+const QCG=[['i','Iniziare a muovermi','Da zero, senza fretta: camminata e corsa leggera'],['d','Dimagrire','Più minuti a settimana, intensità moderata'],['s','Più fiato e salute del cuore','Base aerobica, zona 2, qualche intervallo'],['p','Correre più forte o più lontano','5 km, 10 km, mezza maratona']];
+const QCT={c5k:['i','p'],cam:['i','d'],z2:['s','d'],pes:['d'],hiit:['p','s'],c10:['p'],bic:['s','d'],nuo:['s','d'],hm:['p'],m10:['p'],vo2:['s','p'],li12:['d','i']};
+const QCE=[['co','Corsa all’aperto',['Corsa']],['tr','Tapis roulant',['Tapis roulant']],['bc','Bici o cyclette',['Bici','Cyclette']],['el','Ellittica',['Ellittica']],['vo','Vogatore',['Vogatore']],['pi','Piscina',['Nuoto']]];
+const QCZ={gi:'ginocchia',sb:'schiena',cv:'caviglie'};
+const QCLOW=['Ellittica','Cyclette','Bici','Nuoto','Camminata','Vogatore','Tapis roulant','Corsa'];
+const QCS={Camminata:'Cammina','Tapis roulant':'Tapis',Cyclette:'Cyclette',Ellittica:'Ellittica',Vogatore:'Vogatore',Nuoto:'Nuoto',Corsa:'Corsa',Bici:'Bici'};
+const qcRun=t=>/^(Corsa|Tapis roulant)$/.test(t);
+/* durata massima di un'uscita: accorcia le ripetizioni e le parti continue, tiene riscaldamento e defaticamento (max 5′) */
+function cpCap(sp,mx){if(!mx||cpMin(sp)<=mx)return sp;const T=cpTree(sp),fm=x=>x.k+(x.s%60==0?x.s/60+'m':Math.round(x.s)+'s');
+ T.forEach(x=>{if(!x.L&&'SD'.includes(x.k))x.s=Math.min(x.s,300)});const sd=T.filter(x=>!x.L&&'SD'.includes(x.k)).reduce((t,x)=>t+x.s,0),mn=T.filter(x=>x.L||!'SD'.includes(x.k)).reduce((t,x)=>t+(x.L?x.n*x.L.reduce((a,y)=>a+y.s,0):x.s),0);
+ const f=Math.max(.2,(mx*60-sd)/mn);T.forEach(x=>{if(x.L)x.n=Math.max(1,Math.floor(x.n*f));else if(!'SD'.includes(x.k)&&x.s>=120)x.s=Math.max(60,Math.round(x.s*f/60)*60)});
+ return T.map(x=>x.L?x.n+'x('+x.L.map(fm).join(',')+')':fm(x)).join(',')}
+function qcLv(){const t=today(),L=S.cd.filter(c=>c.d>=hvAdd(t,-90)),mx=Math.max(0,...L.map(c=>c.min||0)),km=Math.max(0,...L.filter(c=>qcRun(c.t)).map(c=>c.km||0));return L.length<6?1:(L.length>=24&&(km>=10||mx>=70))?3:2}
+function qcOpen(q,next){const n=S.cd.filter(c=>c.d>=hvAdd(today(),-90)),has=new Set(n.map(c=>c.t)),eq=QCE.filter(([k,l,T])=>T.some(t=>has.has(t))).map(x=>x[0]);
+ V.qc=q?{...q,eq:q.eq.slice(),zz:q.zz.slice(),days:q.days.slice(),st:'res',lv:next?Math.min(3,(q.lv||qcLv())+1):q.lv}:{st:1,go:'d',lv:0,days:[1,3,5],min:45,eq:eq.length?eq:['co'],zz:[]};V.pg=null;window.scrollTo(0,0)}
+const qcLvOf=Q=>Q.lv||qcLv();
+function qcAvail(Q){const A=new Set(['Camminata']);QCE.forEach(([k,l,T])=>{if(Q.eq.includes(k))T.forEach(t=>A.add(t))});return A}
+/* attività scelta per un programma: tra quelle del programma e quelle che hai; con zone da proteggere prima il basso impatto */
+function qcAct(p,Q){const A=qcAvail(Q),C=p[7].filter(t=>A.has(t));if(!C.length)return null;const prot=Q.zz.some(z=>z=='gi'||z=='cv'),sb=Q.zz.includes('sb');
+ const bad=t=>(prot&&qcRun(t))||(sb&&(t=='Vogatore'||t=='Corsa'));if(C.includes(p[6])&&!bad(p[6]))return p[6];const ok=C.filter(t=>!bad(t));
+ return (ok.length?ok:C).sort((a,b)=>QCLOW.indexOf(a)-QCLOW.indexOf(b))[0]}
+const qcMax=p=>Math.max(...p[9].flat().map(cpMin)),qcMin=p=>Math.min(...p[9].flat().map(cpMin));
+function qcScore(Q){const n=Q.days.length,lv=qcLvOf(Q),R=[],gym=S.sch.length>0;
+ CPM.forEach(p=>{const t=qcAct(p,Q);if(!t)return;const T=QCT[p[0]]||['s'],why=[];let s=0;const prot=Q.zz.filter(z=>z=='gi'||z=='cv');
+  if(p[0]=='pes'){if(!gym)return;why.push('Si fa nei giorni di palestra, alla fine della scheda')}
+  else if(p[5]==n){s+=30;why.push(`${n} uscite a settimana: esattamente i tuoi giorni`)}
+  else if(p[5]<n){s+=18;why.push(`Pensato per ${p[5]} uscite: negli altri ${n-p[5]==1?'giorno':n-p[5]+' giorni'} puoi fare un’uscita libera facile`)}
+  else{s+=8-(p[5]-n)*6;why.push(`Pensato per ${p[5]} uscite a settimana: con ${n} ci metterai più settimane`)}
+  s+=T[0]==Q.go?30:T.includes(Q.go)?15:0;if(!T.includes(Q.go))why.push('Pensato per '+{i:'chi inizia',d:'dimagrire',s:'il fiato e la salute del cuore',p:'la prestazione'}[T[0]]+' più che per il tuo obiettivo');
+  const dl=/^tutti/i.test(p[4])?0:Math.abs(p[3]-lv);s+=dl==0?15:dl==1?4:-15;if(dl)why.push('Livello '+p[4].toLowerCase()+(dl==2?', lontano dal tuo':''));
+  if(t!=p[6])why.push(`<b>${esc(t)}</b> al posto di ${esc(p[6].toLowerCase())}`+(prot.length&&!qcRun(t)&&qcRun(p[6])?' (basso impatto)':''));
+  if(prot.length&&qcRun(t)){s-=60;why.push(`⚠️ Si corre: carica ${prot.map(z=>QCZ[z]).join(' e ')}`)}else if(prot.length&&!qcRun(t))why.push('Nessun impatto: rispetta '+prot.map(z=>QCZ[z]).join(' e '));
+  const mx=qcMax(p),mn=qcMin(p);if(mn>Q.min*1.3){s-=30;why.push(`Le uscite partono da ${mn}′: troppo lunghe per i tuoi ${Q.min}′`)}else if(mx>Q.min){s-=Math.min(30,Math.round((mx-Q.min)/Q.min*20));why.push(`Uscite più lunghe accorciate da ${mx}′ a ${Q.min}′`)}else{s+=8;why.push(`Uscite da ${mn==mx?mx:mn+'–'+mx}′: stanno nei tuoi ${Q.min}′`)}
+  R.push({p,t,s,why,mx:Math.min(mx,Q.min)})});return R.sort((a,b)=>b.s-a.s)}
+function qcDays(p,Q){return p[0]=='pes'?cpDefDays(p):Q.days.slice(0,Math.max(1,Math.min(Q.days.length,p[5])))}
+function qcView(){const Q=V.qc,st=Q.st,stp=n=>'<div class="pbst">'+[1,2,3,4,5].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')+'</div>',nav=(back,next,lab)=>`<div class="pbbt">${back?`<button class="g" data-a="qcp">‹ Indietro</button>`:''}<button class="p" data-a="${next||'qcn'}">${lab||'Avanti ›'}</button></div>`;
+ const top=`<div class="row" style="margin-top:0"><button class="g" data-a="qcx" style="flex:0 0 auto">‹ Schede</button></div>`,opt=(a,v,on,t,s2,rad)=>`<button class="pbop${on?' on':''}${rad?' rad':''}" data-a="${a}" data-v="${v}" aria-pressed="${!!on}"><i>${on?'✓':''}</i><span><b>${t}</b>${s2?`<small>${s2}</small>`:''}</span></button>`;
+ const PL=['','Principiante','Intermedio','Avanzato'];
+ if(st==1){const lv=qcLvOf(Q),n90=S.cd.filter(c=>c.d>=hvAdd(today(),-90)).length;return top+stp(1)+`<p class="hint" style="margin:0">Domanda 1 di 5</p><p class="pbq">Qual è il tuo obiettivo?</p>`+QCG.map(([k,t,d])=>opt('qcg',k,Q.go==k,t,d,1)).join('')+
+  `<p class="pbq" style="margin-top:16px;font-size:19px">Livello</p><p class="hint" style="margin:0">${Q.lv?'Scelto da te':'Dal tuo storico'}: <b>${PL[lv].toLowerCase()}</b>${!Q.lv&&n90?' ('+n90+(n90==1?' uscita':' uscite')+' negli ultimi 3 mesi)':''}. <button class="lk" data-a="qclv" style="font-size:inherit">Cambia</button></p>`+nav(0)}
+ if(st==2)return top+stp(2)+`<p class="hint" style="margin:0">Domanda 2 di 5</p><p class="pbq">In quali giorni fai cardio?</p><p class="hint">Da 2 a 6 giorni. Possono coincidere con quelli di palestra.</p><div class="pbdy">${DN.map((d,i)=>`<button class="${Q.days.includes(i)?'on':''}" data-a="qcd" data-v="${i}" aria-pressed="${Q.days.includes(i)}">${d}</button>`).join('')}</div><p class="hint">${Q.days.length} ${Q.days.length==1?'giorno':'giorni'} a settimana</p>`+nav(1)
+ if(st==3)return top+stp(3)+`<p class="hint" style="margin:0">Domanda 3 di 5 · ${Q.days.length} giorni</p><p class="pbq">Quanto tempo hai per uscita?</p><p class="hint">Riscaldamento e defaticamento compresi. Se un’uscita del programma è più lunga, l’app la accorcia: meno ripetute o meno minuti, mai il riscaldamento.</p>`+[20,30,45,60,75,90].map(m=>opt('qcm',m,Q.min==m,m+' minuti','',1)).join('')+nav(1)
+ if(st==4)return top+stp(4)+`<p class="hint" style="margin:0">Domanda 4 di 5 · ${Q.days.length} giorni · ${Q.min} minuti</p><p class="pbq">Cosa puoi usare?</p><p class="hint">La camminata è sempre possibile.</p>`+QCE.map(([k,l])=>opt('qce',k,Q.eq.includes(k),l,'')).join('')+nav(1)
+ if(st==5)return top+stp(5)+`<p class="hint" style="margin:0">Domanda 5 di 5 · facoltativa</p><p class="pbq">Zone da proteggere</p><p class="hint">Con ginocchia o caviglie da proteggere l’app evita la corsa e sceglie attività senza impatto; con la schiena evita anche il vogatore. Non sostituisce il parere di un medico o di un fisioterapista.</p>`+Object.entries(QCZ).map(([k,l])=>opt('qcz',k,Q.zz.includes(k),l[0].toUpperCase()+l.slice(1),'')).join('')+nav(1,'qcr','Vedi le proposte ›')
+ const hl=QCE.filter(([k])=>Q.eq.includes(k)).map(x=>x[1].toLowerCase()).join(', ')||'solo camminata';
+ if(st=='res'){const R=(Q.res=qcScore(Q)).slice(0,3),lab=(r,i)=>i==0?['Il più adatto','b1']:r.s>=60?['Buono','b2']:['Possibile','b3'];
+  return top.replace('data-a="qcx"','data-a="qcp"').replace('‹ Schede','‹ Cambia risposte')+`<p class="pbq">${Q.next?'Il prossimo passo':'Ecco cosa ti propongo'}</p><p class="hint">${QCG.find(g=>g[0]==Q.go)[1]} · ${PL[qcLvOf(Q)].toLowerCase()} · ${Q.days.length} giorni · ${Q.min}′ · ${esc(hl)}${Q.zz.length?' · proteggi: '+Q.zz.map(z=>QCZ[z]).join(', '):''}</p>`+
+  R.map((r,i)=>{const [l,c]=lab(r,i),p=r.p,dd=qcDays(p,Q);return `<div class="pbrc${i==0?' best':''}"><div class="pbt"><b>${esc(p[1])}</b><span class="pbfit ${c}">${l}</span></div><div>${p[10]?'<span class="tgl">A blocchi</span>':`<span class="tgl l${p[3]}">${p[4]}</span>`}<span class="tgl">${p[0]=='pes'?'giorni di palestra':dd.length+' giorni'}</span><span class="tgl">${p[9].length} settimane</span><span class="tgl">≤${r.mx}′</span></div>`+
+   `<div class="pbwk">${DN.map((d,j)=>dd.includes(j)?`<div class="on">${d}<small>${esc(QCS[r.t]||r.t.slice(0,7))}</small></div>`:`<div>${d}</div>`).join('')}</div><ul>${r.why.map(w=>`<li>${w}</li>`).join('')}</ul><button class="${i==0?'p':'g'}" data-a="qcv" data-k="${p[0]}" style="width:100%">Vedi e adatta</button></div>`}).join('')+(R.length?'':'<p class="hint">Nessun programma adatto: prova ad aggiungere un’attività o a cambiare i giorni.</p>')}
+ const r=(Q.res||qcScore(Q)).find(x=>x.p[0]==Q.pick)||qcScore(Q).find(x=>x.p[0]==Q.pick),p=r.p,dd=qcDays(p,Q),wi=Math.min(Q.wi||0,p[9].length-1),w=p[9][wi],L=Array.isArray(w)?w:[w];
+ return `<div class="row" style="margin-top:0"><button class="g" data-a="qcb" style="flex:0 0 auto">‹ Proposte</button></div><h2 style="margin:4px 0 2px">${esc(p[1])}</h2><p class="hint">Adattato a te · <b>${esc(r.t)}</b> · ${p[9].length} settimane · uscite fino a ${r.mx}′</p>`+
+  `<div class="pbwk">${DN.map((d,j)=>dd.includes(j)?`<div class="on">${d}<small>${esc(QCS[r.t]||r.t.slice(0,7))}</small></div>`:`<div>${d}</div>`).join('')}</div>${p[10]?bpBar({B:p[10],wk:wi,fin:0}):''}`+
+  `<div class="row" style="margin:10px 0 0;align-items:center"><button class="g" data-a="qcw" data-v="-1" style="flex:0 0 44px" ${wi?'':'disabled'}>‹</button><b style="flex:1;text-align:center">Settimana ${wi+1} di ${p[9].length}</b><button class="g" data-a="qcw" data-v="1" style="flex:0 0 44px" ${wi<p[9].length-1?'':'disabled'}>›</button></div>`+
+  `<div class="card">${Array.from({length:Math.min(p[5],Math.max(dd.length,1))},(_,j)=>{const sp0=L[j%L.length],sp=cpCap(sp0,r.mx),cut=cpMin(sp0)>cpMin(sp);return `<div class="pbex"><span>${p[11]&&L.length>1?(p[11][j%L.length])+': ':''}${cpTxt(sp,1)}<small>${cut?'era '+cpMin(sp0)+'′: accorciata':''}</small>${cpBars(sp)}</span><span>${cpMin(sp)}′</span></div>`}).join('')}</div>`+
+  `<p class="hint">${esc(p[8])} Ogni uscita parte dal timer a intervalli, e alla fine si salva da sola.</p>`+
+  `<button class="p" data-a="qcok" style="width:100%;margin-top:6px">Inizia questo programma</button><button class="g" data-a="qcp" style="width:100%;margin-top:8px">Cambia risposte</button>`}
+function qcDo(){const Q=V.qc,r=(Q.res||qcScore(Q)).find(x=>x.p[0]==Q.pick),p=r.p,days=qcDays(p,Q);
+ S.cpr={id:p[0],days,t:r.t,pos:0,start:today(),last:'',...(r.mx<qcMax(p)?{mx:r.mx}:{}),pb:1};S.gc=days.length;
+ S.cpq={go:Q.go,lv:Q.lv||qcLvOf(Q),days:Q.days.slice(),min:Q.min,eq:Q.eq.slice(),zz:Q.zz.slice()};V.qc=null;V.sk='c';window.scrollTo(0,0);toast('Programma «'+p[1]+'» iniziato · '+days.length+' uscite a settimana')}
+function qcHero(){const A=S.cpr,p=cpCur();return A&&p&&A.pb&&A.pos<cpTot(p)?`<button class="pbhero sm" data-a="qco"><b>✨ Crea un nuovo programma cardio per me</b></button>`:`<button class="pbhero" data-a="qco"><b>✨ Crea il programma cardio per me</b><span>5 domande: obiettivo, giorni, tempo, cosa puoi usare, zone da proteggere. Ti propongo i 3 programmi più adatti, già adattati a te.</span></button>`}
 const cpTot=p=>p[9].length*p[5];
 function cpBars(t){const F=cpFlat(t);return `<div class="cpbar">${F.map(x=>`<i style="flex:${x.s};height:${'RFMX'.includes(x.k)?18:'EA'.includes(x.k)?12:7}px;background:${CPK[x.k][2]}"></i>`).join('')}</div>`}
 function cpDefDays(p){const gy=[0,1,2,3,4,5,6].filter(i=>!!plId(i)),n=p[5];if(p[0]=='pes'&&gy.length)return gy.slice(0,Math.max(2,Math.min(3,gy.length)));
@@ -1922,7 +1983,7 @@ function cpToday(){const A=S.cpr,p=cpCur();if(!p||A.pos>=cpTot(p))return null;co
 const cpLbl=(p,pos)=>'Sett. '+(Math.floor(pos/p[5])+1)+' · uscita '+(pos%p[5]+1)+' di '+p[5];
 function cpCard(){const A=S.cpr,p=cpCur();if(!p)return `<button class="p pgb" data-a="cpl" style="width:100%;margin:0 0 12px">Programmi pronti (${CPM.length})</button>`;
  const T=cpTot(p),done=A.pos>=T,pc=Math.round(Math.min(A.pos,T)/T*100),gap=A.last?Math.round((Date.now()-Date.parse(A.last+'T12:00:00'))/864e5):0;
- if(done)return `<div class="card"><h2>«${esc(p[1])}» completato</h2><p class="hint">${T} uscite in ${p[9].length} settimane. Puoi ripeterlo o sceglierne un altro.</p><div class="row"><button class="p" data-a="cpre">Ricomincia</button><button class="g" data-a="cpl">Altri programmi</button></div></div>`;
+ if(done)return `<div class="card"><h2>«${esc(p[1])}» completato</h2><p class="hint">${T} uscite in ${p[9].length} settimane. Puoi ripeterlo o sceglierne un altro.</p>${A.pb&&S.cpq?`<button class="p" data-a="qcnx" style="width:100%">✨ Crea il prossimo per me</button>`:''}<div class="row"><button class="${A.pb&&S.cpq?'g':'p'}" data-a="cpre">Ricomincia</button><button class="g" data-a="cpl">Altri programmi</button></div></div>`;
  const sp=cpSes(p,A.pos),wk=Math.floor(A.pos/p[5]);
  return `<div class="card"><div class="row" style="margin:0;align-items:baseline"><h2 style="flex:1;margin:0">${esc(p[1])}</h2><button class="lk" data-a="cpo" data-k="${p[0]}">Dettagli</button></div>${p[10]?bpBar({B:p[10],wk,fin:0},1):`<div class="cpg"><i style="width:${pc}%"></i></div>`}<p class="hint" style="margin:${p[10]?'6px':'0'} 0 8px">Settimana ${wk+1} di ${p[9].length}${p[10]&&cpBlkW(p,wk)?' · '+esc(cpBlkW(p,wk).b.n):''} · ${A.pos} uscite fatte su ${T} · giorni: ${A.days.map(i=>DN[i]).join(', ')}</p>
  <b>Prossima uscita</b> <span class="hint">· ${cpLbl(p,A.pos)} · ${cpMin(sp)}’ · ${esc(A.t)}</span><p style="margin:2px 0 0;font-size:14px">${cpTxt(sp)}</p>${cpBars(sp)}
@@ -2814,7 +2875,7 @@ function ogAll(pm,has,sk){const L=pm.filter(x=>!has(x)&&!sk(x));if(L.length<2)re
 function ieriCard(){const y=hvAdd(today(),-1),L=mMiss(y),w=dclH(y,1);if(!L.length&&!w)return '';return `<div class="card"><h2>Ieri</h2>${w}${L.map(m=>mMissBox(y,m,false)).join('')}</div>`}
 /* benvenuto: i primi passi finché non sono fatti (o finché non lo nascondi) */
 /* Informazioni: gratuità, licenza, versione ufficiale, fonti (v223) */
-const GBV='230',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
+const GBV='231',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
 function vinf(){const L=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t||u.replace(/^https:\/\//,'')}</a>`;
  return `<h1>Informazioni</h1><div class="card inf1"><h2>Gym-Bo è gratuito, e lo resterà</h2><ul class="infl"><li>Nessun abbonamento e nessun pagamento</li><li>Nessuna pubblicità e nessun account</li><li>Nessuna funzione a pagamento da sbloccare</li><li>I tuoi dati restano sul tuo telefono (e sul tuo Google Drive, se attivi il backup)</li></ul>
  <p class="infw">⚠️ Se qualcuno ti chiede soldi per Gym-Bo, o per una sua copia, non è la versione originale: non devi niente a nessuno.</p></div>
@@ -3850,6 +3911,21 @@ document.addEventListener('click',e=>{
  else if(a=='dls'){const x=dlInfo();if(x){S.dla=S.dla||{};S.dla[x.k]=b.dataset.v;toast(b.dataset.v=='si'?'Settimana di scarico attiva: metà delle serie, stesso carico':'Scarico saltato')}}
  else if(a=='pgl'){V.pg={id:null,f:'',k:'p'};V.sk='p';window.scrollTo(0,0)}
  else if(a=='itg'){S.itg=S.itg||{};const k=b.dataset.k;if(S.itg[k])delete S.itg[k];else S.itg[k]=1}
+ else if(a=='qco'){V.pg=null;V.cp=null;qcOpen()}
+ else if(a=='qcnx'){qcOpen(S.cpq,1);V.qc.next=1}
+ else if(a=='qcx'){V.qc=null;V.sk='c';window.scrollTo(0,0)}
+ else if(a=='qcg'){V.qc.go=b.dataset.v}
+ else if(a=='qclv'){const Q=V.qc;Q.lv=(qcLvOf(Q)%3)+1}
+ else if(a=='qcd'){const Q=V.qc,d=+b.dataset.v,i=Q.days.indexOf(d);if(i>=0)Q.days.splice(i,1);else{if(Q.days.length>=6)return toast('Al massimo 6 giorni: tieni almeno un giorno di riposo');Q.days.push(d)}Q.days.sort((x,y)=>x-y)}
+ else if(a=='qcm'){V.qc.min=+b.dataset.v}
+ else if(a=='qce'){const Q=V.qc,k=b.dataset.v,i=Q.eq.indexOf(k);if(i>=0)Q.eq.splice(i,1);else Q.eq.push(k)}
+ else if(a=='qcz'){const Q=V.qc,k=b.dataset.v,i=Q.zz.indexOf(k);if(i>=0)Q.zz.splice(i,1);else Q.zz.push(k)}
+ else if(a=='qcn'){const Q=V.qc;if(Q.st==2&&Q.days.length<2)return toast('Scegli almeno 2 giorni');Q.st++;window.scrollTo(0,0)}
+ else if(a=='qcr'||a=='qcb'){V.qc.st='res';window.scrollTo(0,0)}
+ else if(a=='qcp'){const Q=V.qc;Q.st=Q.st=='pre'?'res':Q.st=='res'?5:Math.max(1,Q.st-1);window.scrollTo(0,0)}
+ else if(a=='qcv'){const Q=V.qc;Q.pick=b.dataset.k;Q.wi=0;Q.st='pre';window.scrollTo(0,0)}
+ else if(a=='qcw'){const Q=V.qc;Q.wi=Math.max(0,(Q.wi||0)+(+b.dataset.v))}
+ else if(a=='qcok'){qcDo()}
  else if(a=='pbo'){V.pg=null;V.bpv=null;pbOpen()}
  else if(a=='pbx'){V.pb=null;V.pg=null;window.scrollTo(0,0)}
  else if(a=='pbg'){V.pb.go=b.dataset.v}
