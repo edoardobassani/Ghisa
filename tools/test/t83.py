@@ -11,7 +11,7 @@ async def m():
     ok=lambda c,w:print(('ok  ' if c else 'FAIL ')+w)
     F="(n)=>allF().find(f=>f.name==n).id"
     # aggiunta dalla dispensa
-    await pg.evaluate("()=>{V.tab='pp';V.pv='d';render()}");await pg.wait_for_timeout(200)
+    await pg.evaluate("()=>{V.tab='sp';V.spv='d';render()}");await pg.wait_for_timeout(200)
     await pg.type('#dsq','pasta di semola',delay=20);await pg.wait_for_timeout(200)
     await pg.evaluate("()=>{const id=allF().find(f=>f.name=='Pasta di semola (cruda)').id;document.querySelector('[data-a=dsa][data-i=\"'+id+'\"]').click()}");await pg.wait_for_timeout(200)
     await pg.fill('#dsg','500');await pg.click('[data-a=dsok]');await pg.wait_for_timeout(200)
@@ -43,13 +43,13 @@ async def m():
     r=await pg.evaluate("()=>{const a=n=>allF().find(f=>f.name==n);const rc={id:'rTST',name:'Pasta al pomodoro di casa',k:150,p:5,c:28,f:2,rc:{it:[{f:a('Pasta di semola (cruda)').id,g:320},{f:a('Passata di pomodoro').id,g:400}],w:1200}};S.food.push(rc);const b=dsLeft(a('Passata di pomodoro').id);S.meal.push({id:uid(),d:today(),m:'Cena',f:'rTST',g:300});DSC=null;return [b,dsLeft(a('Passata di pomodoro').id)]}")
     ok(r[0]-r[1]==100,'ricetta: ingredienti in proporzione '+str(r))
     # spesa
-    await pg.evaluate("()=>{const a=n=>allF().find(f=>f.name==n).id,w=hvMon(today());S.mpw[w]={0:{Pranzo:[{id:'x1',gid:'x1',f:a('Riso (crudo)'),g:80},{id:'x2',gid:'x2',f:a('Zucchine'),g:200}]},1:{Pranzo:[{id:'x3',gid:'x3',f:a('Riso (crudo)'),g:80},{id:'x4',gid:'x4',f:a('Ceci in scatola'),g:150}]}};V.pw=w;dsPut(a('Ceci in scatola'),100);V.tab='pp';V.pv='s';V.psd=null;render()}");await pg.wait_for_timeout(200)
+    await pg.evaluate("()=>{const a=n=>allF().find(f=>f.name==n).id,w=hvMon(today());S.mpw[w]={0:{Pranzo:[{id:'x1',gid:'x1',f:a('Riso (crudo)'),g:80},{id:'x2',gid:'x2',f:a('Zucchine'),g:200}]},1:{Pranzo:[{id:'x3',gid:'x3',f:a('Riso (crudo)'),g:80},{id:'x4',gid:'x4',f:a('Ceci in scatola'),g:150}]}};V.pw=w;dsPut(a('Ceci in scatola'),100);V.tab='sp';V.spv='s';V.psd=null;render()}");await pg.wait_for_timeout(200)
     r=await pg.evaluate("()=>[!!document.querySelector('.dshc'),document.querySelector('#v').innerText.includes('ne hai')]");print(r);ok(r[0] or r[1],'spesa tiene conto della dispensa')
     n=await pg.evaluate("()=>{const o=ppSpesa();dsSp(o);const k=Object.keys(o)[0];S.mc[k]=1;render();return fo(k).name}")
     await pg.click('[data-a=dsbuy]');await pg.wait_for_timeout(200);ok(await pg.evaluate(f"()=>!!S.dsp.it[allF().find(f=>f.name=={json.dumps(n)}).id]"),'«Ho fatto la spesa» mette in dispensa')
     await pg.screenshot(path=gb.O+'ds4.png',full_page=True)
     # controllo settimanale
-    await pg.evaluate("()=>{S.dsp.ck=dShift(today(),-8);V.pv='d';render()}");await pg.wait_for_timeout(200)
+    await pg.evaluate("()=>{S.dsp.ck=dShift(today(),-8);V.tab='sp';V.spv='d';render()}");await pg.wait_for_timeout(200)
     ok(await pg.evaluate("()=>!!document.querySelector('.dsck')"),'controllo veloce dopo 7 giorni')
     await pg.click('.dsck [data-a=dckv][data-v=f] >> nth=0');await pg.click('[data-a=dcks]');await pg.wait_for_timeout(150);ok(await pg.evaluate("()=>S.dsp.ck==today()&&!document.querySelector('.dsck')"),'controllo salvato')
     await pg.screenshot(path=gb.O+'ds5.png',full_page=True)

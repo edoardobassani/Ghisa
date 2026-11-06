@@ -2493,5 +2493,35 @@
 "in dispensa",
 "in the pantry",
 "au garde-manger"
+],
+[
+"Spesa e dispensa",
+"Shopping and pantry",
+"Courses et garde-manger"
+],
+[
+"Spesa e dispensa ›",
+"Shopping and pantry ›",
+"Courses et garde-manger ›"
+],
+[
+"Spesa",
+"Shopping",
+"Courses"
+],
+[
+"Calcolata dal piano pasti della settimana scelta.",
+"Calculated from the meal plan of the chosen week.",
+"Calculée à partir du plan de repas de la semaine choisie."
+],
+[
+"Il piano è vuoto per i giorni selezionati: aggiungi i pasti in Piano pasti.",
+"The plan is empty for the selected days: add meals in Meal plan.",
+"Le plan est vide pour les jours choisis : ajoute les repas dans Plan de repas."
+],
+[
+"\u0001 alimenti · la trovi in Spesa e dispensa dopo aver usato il piano.",
+"{_} foods · you’ll find it in Shopping and pantry after using the plan.",
+"{_} aliments · tu la trouveras dans Courses et garde-manger après avoir utilisé le plan."
 ]
 ]

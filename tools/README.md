@@ -307,3 +307,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Impostazioni: togli in automatico / chiedi ogni volta (`x.dy`) / non togliere; controllo veloce settimanale (`dsCk`).
 - Spesa: `dsSp` toglie quello che hai (riga «servono X · ne hai Y», riquadro «Già in casa»), anche nel testo e nel link condiviso; «Ho fatto la spesa» (`dsBought`) mette in dispensa gli spuntati.
 - Generatore pasti: «Usa prima quello che ho in casa» (`Q.dsp`), precedenza agli alimenti in dispensa e in scadenza, con il motivo. Test `test/t83.py`.
+
+## v247 – Spesa e dispensa come sezione a sé
+- Nuova voce di menu «Spesa e dispensa» (`V.tab=='sp'`, `vspd`, gruppo Alimentazione) con le schede Spesa (con la settimana da scegliere) e Dispensa (`V.spv`). Piano pasti resta con Giorno e Settimana più il collegamento «Spesa e dispensa ›» (`spgo`); «Lista della spesa ›» e «Ne ho ancora» portano qui. Test `test/t84.py`.
