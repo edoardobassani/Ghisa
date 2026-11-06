@@ -9,7 +9,7 @@ Non fanno parte dell'app: GitHub Pages li pubblica ma l'app non li usa.
    (in alternativa: leggere l'artifact «Ghisa» con l'azione `read` dello strumento Artifact).
 3. Dopo ogni modifica:
    - `tools/check.sh` controlla la sintassi dell'ultimo `<script>` con `node --check`;
-   - i test in `tools/test/` (Playwright + Chromium): `python3 tools/test/run.py` li esegue tutti e deve dare 0 falliti;
+   - un test mirato sulla parte nuova (`python3 tools/test/run.py tNN`); la suite intera solo se richiesta;
    - `tools/sync-pwa.sh "messaggio"` rigenera `index.html` (manifest, icone, service worker) e fa commit e push;
    - ripubblicare l'artifact sullo stesso URL.
 
@@ -19,7 +19,7 @@ Per provare il sorgente prima di sincronizzarlo: `SRC=/home/claude/w/tracker-pal
 - `gb.py` è l'ambiente comune: copia la pagina in una cartella temporanea con pdf.js e i file di prova (`pdft/`, `gxs/`, `hi/`), la serve su `localhost` con una porta libera e ci sposta la cartella di lavoro. Ogni test fa `import gb` e apre `gb.URL`; le schermate vanno in `gb.O` (con `OUT=cartella` restano dove vuoi, con `KEEP=1` non si cancella niente).
 - Un test fallisce se esce con errore, stampa un Traceback o «EXC», ha errori JavaScript («errori: [...]», «ERR [...]») o stampa «FAIL». Il resto dell'uscita sono osservazioni da leggere con `-v`; i test nuovi controllano i risultati e stampano `ok`/`FAIL` riga per riga (vedi `t69`).
 - `t.py` è il banco di prova comune dei test più vecchi (dati di esempio + passi), `u.py` quello a passi di `u7`/`u8`. `fix/dpm-v217.json`: i 9 piani alimentari di prima, per `t56`.
-- Prima di pubblicare: tutta la suite deve dare 0 falliti.
+- Di regola si prova solo la parte nuova o cambiata con un test mirato; la suite intera solo se Edo lo chiede.
 Gli altri file provano una funzione ciascuno: `t1` guida esercizi, `t2` esercizi palestra, `t3` grammi alimenti, `t4` riscaldamento,
 `t5` tutte le sezioni, `t6` barra seduta, `t7` sesso fuori dalla dieta, `t8` modelli scheda, `t9` programmi,
 `t11` storico, `t12` Dieta, `t19` ricerca alimenti, `t20` gruppi alimenti, `tdb` IndexedDB e migrazione, `twipe` cancella tutto, `tbk` ripristino backup.
