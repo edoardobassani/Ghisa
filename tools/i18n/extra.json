@@ -2093,5 +2093,405 @@
 "come l’ultima volta",
 "same as last time",
 "comme la dernière fois"
+],
+[
+"Dispensa",
+"Pantry",
+"Garde-manger"
+],
+[
+"Dispensa •",
+"Pantry •",
+"Garde-manger •"
+],
+[
+"Frigo",
+"Fridge",
+"Frigo"
+],
+[
+"Da usare presto",
+"Use soon",
+"À utiliser bientôt"
+],
+[
+"Aggiungi un alimento…",
+"Add a food…",
+"Ajouter un aliment…"
+],
+[
+"Aggiungi un alimento alla dispensa",
+"Add a food to the pantry",
+"Ajouter un aliment au garde-manger"
+],
+[
+"Aggiungi alla dispensa",
+"Add to pantry",
+"Ajouter au garde-manger"
+],
+[
+"La dispensa è vuota. Aggiungi quello che hai in casa, oppure spunta la lista della spesa e tocca «Ho fatto la spesa». Poi le quantità scendono da sole con i pasti che registri a casa.",
+"The pantry is empty. Add what you have at home, or tick the shopping list and tap “I did the shopping”. Then quantities go down on their own with the meals you log at home.",
+"Le garde-manger est vide. Ajoute ce que tu as chez toi, ou coche la liste de courses et touche « J’ai fait les courses ». Ensuite les quantités baissent toutes seules avec les repas que tu notes à la maison."
+],
+[
+"Impostazioni della dispensa",
+"Pantry settings",
+"Réglages du garde-manger"
+],
+[
+"Quando registri un pasto a casa",
+"When you log a meal at home",
+"Quand tu notes un repas à la maison"
+],
+[
+"Togli in automatico",
+"Remove automatically",
+"Retirer automatiquement"
+],
+[
+"Chiedi ogni volta",
+"Ask every time",
+"Demander à chaque fois"
+],
+[
+"Non togliere",
+"Don’t remove",
+"Ne pas retirer"
+],
+[
+"Controllo veloce una volta a settimana",
+"Quick check once a week",
+"Contrôle rapide une fois par semaine"
+],
+[
+"I pasti segnati «Fuori» nel diario non toccano la dispensa. Le quantità sono una stima: correggile quando vuoi.",
+"Meals marked “Out” in the diary don’t touch the pantry. Quantities are an estimate: correct them whenever you like.",
+"Les repas marqués « Dehors » dans le journal ne touchent pas le garde-manger. Les quantités sont une estimation : corrige-les quand tu veux."
+],
+[
+"Casa",
+"Home",
+"Maison"
+],
+[
+"Fuori",
+"Out",
+"Dehors"
+],
+[
+"Fuori casa · la dispensa non cambia",
+"Eaten out · pantry unchanged",
+"Dehors · le garde-manger ne change pas"
+],
+[
+"−\u0001 g dalla dispensa",
+"−{_} g from the pantry",
+"−{_} g du garde-manger"
+],
+[
+"−\u0001 g di \u0001 dalla dispensa",
+"−{_} g of {_} from the pantry",
+"−{_} g de {_} du garde-manger"
+],
+[
+"ingredienti tolti dalla dispensa",
+"ingredients removed from the pantry",
+"ingrédients retirés du garde-manger"
+],
+[
+"non è in dispensa",
+"not in the pantry",
+"pas dans le garde-manger"
+],
+[
+"da togliere dalla dispensa?",
+"remove from the pantry?",
+"retirer du garde-manger ?"
+],
+[
+"Tolti dalla dispensa:",
+"Removed from the pantry:",
+"Retirés du garde-manger :"
+],
+[
+"Togli dalla dispensa?",
+"Remove from the pantry?",
+"Retirer du garde-manger ?"
+],
+[
+"Annulla",
+"Undo",
+"Annuler"
+],
+[
+"Era fuori casa",
+"I ate out",
+"C’était dehors"
+],
+[
+"Sì, togli",
+"Yes, remove",
+"Oui, retirer"
+],
+[
+"Annullato: la dispensa non cambia",
+"Undone: pantry unchanged",
+"Annulé : le garde-manger ne change pas"
+],
+[
+"Segnato fuori casa: la dispensa non cambia",
+"Marked as eaten out: pantry unchanged",
+"Marqué dehors : le garde-manger ne change pas"
+],
+[
+"\u0001 finito",
+"{_} used up",
+"{_} terminé"
+],
+[
+"Ne risultavano \u0001, ne hai usati \u0001: la quantità va a zero, non sotto.",
+"There were {_}, you used {_}: the quantity goes to zero, not below.",
+"Il y en avait {_}, tu en as utilisé {_} : la quantité passe à zéro, pas en dessous."
+],
+[
+"Aggiungi alla spesa",
+"Add to shopping list",
+"Ajouter aux courses"
+],
+[
+"Ne ho ancora",
+"I still have some",
+"Il m’en reste"
+],
+[
+"\u0001 aggiunto alla spesa",
+"{_} added to the shopping list",
+"{_} ajouté aux courses"
+],
+[
+"Controllo veloce della dispensa",
+"Quick pantry check",
+"Contrôle rapide du garde-manger"
+],
+[
+"Facoltativo, 30 secondi: conferma o correggi i principali.",
+"Optional, 30 seconds: confirm or correct the main items.",
+"Facultatif, 30 secondes : confirme ou corrige les principaux."
+],
+[
+"risultano \u0001",
+"shows {_}",
+"affiche {_}"
+],
+[
+"Metà",
+"Half",
+"Moitié"
+],
+[
+"Finito",
+"Used up",
+"Terminé"
+],
+[
+"Non ora",
+"Not now",
+"Pas maintenant"
+],
+[
+"Dispensa confermata",
+"Pantry confirmed",
+"Garde-manger confirmé"
+],
+[
+"Dispensa aggiornata: \u0001 correzioni",
+"Pantry updated: {_} corrections",
+"Garde-manger mis à jour : {_} corrections"
+],
+[
+"Dispensa aggiornata: 1 correzione",
+"Pantry updated: 1 correction",
+"Garde-manger mis à jour : 1 correction"
+],
+[
+"basta per la settimana del piano",
+"enough for the plan’s week",
+"suffit pour la semaine du plan"
+],
+[
+"basta per \u0001 pasti del piano",
+"enough for {_} meals of the plan",
+"suffit pour {_} repas du plan"
+],
+[
+"basta per 1 pasto del piano",
+"enough for 1 meal of the plan",
+"suffit pour 1 repas du plan"
+],
+[
+"non basta per un pasto del piano",
+"not enough for one meal of the plan",
+"ne suffit pas pour un repas du plan"
+],
+[
+"sta finendo",
+"running low",
+"bientôt fini"
+],
+[
+"scaduto",
+"expired",
+"périmé"
+],
+[
+"scade oggi",
+"expires today",
+"périme aujourd’hui"
+],
+[
+"scade domani",
+"expires tomorrow",
+"périme demain"
+],
+[
+"scade il \u0001",
+"expires on {_}",
+"périme le {_}"
+],
+[
+"scade lunedì",
+"expires Monday",
+"périme lundi"
+],
+[
+"scade martedì",
+"expires Tuesday",
+"périme mardi"
+],
+[
+"scade mercoledì",
+"expires Wednesday",
+"périme mercredi"
+],
+[
+"scade giovedì",
+"expires Thursday",
+"périme jeudi"
+],
+[
+"scade venerdì",
+"expires Friday",
+"périme vendredi"
+],
+[
+"scade sabato",
+"expires Saturday",
+"périme samedi"
+],
+[
+"scade domenica",
+"expires Sunday",
+"périme dimanche"
+],
+[
+"Scadenza",
+"Expiry",
+"Péremption"
+],
+[
+"Togli dalla dispensa",
+"Remove from pantry",
+"Retirer du garde-manger"
+],
+[
+"ne hai già \u0001: si somma",
+"you already have {_}: it adds up",
+"tu en as déjà {_} : ça s’additionne"
+],
+[
+"\u0001 in dispensa",
+"{_} in the pantry",
+"{_} dans le garde-manger"
+],
+[
+"Scrivi la quantità in grammi",
+"Enter the quantity in grams",
+"Indique la quantité en grammes"
+],
+[
+"Già in casa",
+"Already at home",
+"Déjà à la maison"
+],
+[
+"· \u0001 alimenti bastano per i giorni scelti",
+"· {_} foods are enough for the chosen days",
+"· {_} aliments suffisent pour les jours choisis"
+],
+[
+"servono \u0001 · ne hai \u0001",
+"you need {_} · you have {_}",
+"il faut {_} · tu en as {_}"
+],
+[
+"Ho fatto la spesa · \u0001 spuntati",
+"I did the shopping · {_} ticked",
+"J’ai fait les courses · {_} cochés"
+],
+[
+"Ho fatto la spesa · 1 spuntato",
+"I did the shopping · 1 ticked",
+"J’ai fait les courses · 1 coché"
+],
+[
+"Mette in dispensa quello che hai spuntato, con le quantità della lista: correggile se hai preso una confezione diversa.",
+"Puts what you ticked in the pantry, with the list’s quantities: correct them if you bought a different pack.",
+"Met dans le garde-manger ce que tu as coché, avec les quantités de la liste : corrige-les si tu as pris un autre format."
+],
+[
+"\u0001 alimenti messi in dispensa",
+"{_} foods put in the pantry",
+"{_} aliments mis au garde-manger"
+],
+[
+"1 alimento messo in dispensa",
+"1 food put in the pantry",
+"1 aliment mis au garde-manger"
+],
+[
+"I pasti «\u0001» dal lunedì al venerdì li considero fuori casa?",
+"Should I treat “{_}” meals Monday to Friday as eaten out?",
+"Je considère les repas « {_} » du lundi au vendredi comme pris dehors ?"
+],
+[
+"Li hai segnati «Fuori» spesso. Potrai sempre cambiarlo pasto per pasto.",
+"You often marked them “Out”. You can always change it meal by meal.",
+"Tu les as souvent marqués « Dehors ». Tu pourras toujours le changer repas par repas."
+],
+[
+"Sì, in automatico",
+"Yes, automatically",
+"Oui, automatiquement"
+],
+[
+"Fatto: li considero fuori casa",
+"Done: treated as eaten out",
+"C’est fait : considérés comme pris dehors"
+],
+[
+"Usa prima quello che ho in casa",
+"Use what I have at home first",
+"Utiliser d’abord ce que j’ai chez moi"
+],
+[
+"Gli alimenti in dispensa hanno la precedenza, quelli che scadono presto per primi.",
+"Pantry foods come first, those expiring soon first of all.",
+"Les aliments du garde-manger passent en premier, ceux qui périment bientôt avant tout."
+],
+[
+"in dispensa",
+"in the pantry",
+"au garde-manger"
 ]
 ]
