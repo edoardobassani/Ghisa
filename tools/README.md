@@ -251,3 +251,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v235 – età in un riquadro suo
 - Obiettivi e misure: `agCard()` (classe `agc`, stesso campo `#tda` e stesso salvataggio in `S.pf.age`) subito prima di `sxCard()`. In `objBody` (Obiettivi dieta) al posto del campo c'è il richiamo «Età: N anni · cambia» (azione `agf`, porta al campo). Test `test/t72.py`.
+
+## v236 – silhouette con richiami
+- Grafici › Mappa muscolare › Silhouette: `mmBody(D)` disegna i muscoli con la loro forma (`MBF` davanti, `MBB` dietro: mezzo corpo, specchiato), colorati con `mmCol`, e una linea da ogni gruppo a numero e nome (a sinistra davanti, a destra dietro). Testo con contorno del colore della scheda (`paint-order:stroke`) per restare leggibile sopra i muscoli. Con la silhouette l'elenco dei numeri sotto è nascosto (sono già nei richiami). Test `test/t73.py`.
