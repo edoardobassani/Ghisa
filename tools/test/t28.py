@@ -1,11 +1,12 @@
+import gb
 import asyncio
 from playwright.async_api import async_playwright
-D=open('/home/claude/w/demo/demo_data.json').read()
+D=open(gb.REPO+'/tools/demo/demo_data.json').read()
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2)
     E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('file:///home/claude/w/tracker-palestra.html');await pg.wait_for_timeout(400)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(400)
     await pg.evaluate("(d)=>{norm(JSON.parse(d));save()}",D);await pg.reload();await pg.wait_for_timeout(500)
     ev=lambda j:pg.evaluate(j)
     print(await ev("()=>{const pl0=JSON.stringify(S.pl);bpStart(bpRes(bpm531()),[0,1,3,4]);render();return [S.bp.n,S.bp.sch.length,JSON.stringify(S.pl),pl0]}"))

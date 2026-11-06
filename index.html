@@ -986,7 +986,9 @@ function swOpen(id){const L=swAlt(id),m=V.swm||'oggi';cfOpen(`<h2>Alternative a 
 function swDo(oid,nid,mode){if(nid.startsWith('xb:')){const n=nid.slice(3);xbAdd([n]);const e=xbHave(n);if(!e)return;nid=e.id}const q=V.ss;if(!q)return;
  if(q.fr){q.L=(q.L||[]).map(x=>x==oid?nid:x);if(!q.L.includes(nid))q.L.push(nid);q.i=Math.max(0,ssIds().indexOf(nid));return}
  const sc=S.sch.find(x=>x.id==q.sc);if(!sc)return;const orig=Object.keys(q.sw||{}).find(k=>q.sw[k]==oid)||oid;
- if(mode=='sch'){const m=i=>i==orig?nid:i;sc.ex=sc.ex.map(m);['t','rt'].forEach(k=>{if(sc[k]&&sc[k][orig]!=null){sc[k][nid]=sc[k][orig];delete sc[k][orig]}});sc.ss=(sc.ss||[]).map(g=>g.map(m));if(q.sw)delete q.sw[orig]}
+ if(mode=='sch'){const m=i=>i==orig?nid:i;sc.ex=sc.ex.map(m);['t','rt'].forEach(k=>{if(sc[k]&&sc[k][orig]!=null){sc[k][nid]=sc[k][orig];delete sc[k][orig]}});sc.ss=(sc.ss||[]).map(g=>g.map(m));if(q.sw)delete q.sw[orig];
+  /* programma a blocchi: le schede si rigenerano ogni settimana dal programma, quindi lo scambio va anche lì */
+  const P=S.bp,k=P&&P.sch?P.sch.indexOf(sc.id):-1;if(k>=0&&P.D[k]){P.D[k].it.forEach(it=>{if(it.e==orig)it.e=nid});if(P.tm&&P.tm[orig]!=null&&!(P.tm[nid]>0)){const t=tmOf(nid);if(t)P.tm[nid]=t}if(P.amf)delete P.amf[orig]}}
  else{q.sw=q.sw||{};q.sw[orig]=nid}
  q.i=Math.max(0,ssIds().indexOf(nid))}
 /* stallo: 3 sedute senza miglioramento di carico massimo né ripetizioni a quel carico */
@@ -2875,7 +2877,7 @@ function ogAll(pm,has,sk){const L=pm.filter(x=>!has(x)&&!sk(x));if(L.length<2)re
 function ieriCard(){const y=hvAdd(today(),-1),L=mMiss(y),w=dclH(y,1);if(!L.length&&!w)return '';return `<div class="card"><h2>Ieri</h2>${w}${L.map(m=>mMissBox(y,m,false)).join('')}</div>`}
 /* benvenuto: i primi passi finché non sono fatti (o finché non lo nascondi) */
 /* Informazioni: gratuità, licenza, versione ufficiale, fonti (v223) */
-const GBV='231',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
+const GBV='232',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
 function vinf(){const L=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t||u.replace(/^https:\/\//,'')}</a>`;
  return `<h1>Informazioni</h1><div class="card inf1"><h2>Gym-Bo è gratuito, e lo resterà</h2><ul class="infl"><li>Nessun abbonamento e nessun pagamento</li><li>Nessuna pubblicità e nessun account</li><li>Nessuna funzione a pagamento da sbloccare</li><li>I tuoi dati restano sul tuo telefono (e sul tuo Google Drive, se attivi il backup)</li></ul>
  <p class="infw">⚠️ Se qualcuno ti chiede soldi per Gym-Bo, o per una sua copia, non è la versione originale: non devi niente a nessuno.</p></div>

@@ -32,7 +32,7 @@ steps=[DATA,"()=>{V.tab='n';V.nd=today();render();window.scrollTo(0,0);return {r
  "()=>{V.tab='h';render();const b=document.querySelector('[data-a=ogx]');if(!b)return 'no ogx in home';b.click();return {tab:V.tab,sheet:!!document.querySelector('#fshov')}}",
  cl('[data-a=fshx]'),
  # giorno successivo e data
- "()=>{document.querySelector('[data-a=ndp][data-d=\"-1\"]').click();return document.querySelector('.dtt').innerText}",
+ "()=>{V.tab='n';V.fsh='';render();document.querySelector('[data-a=ndp][data-d=\"-1\"]').click();return document.querySelector('.dtt').innerText}",
  # riordino menu
  "()=>{V.nd=today();render();const g=document.querySelector('[data-a=ordq]');if(g){g.click();const y=[...document.querySelectorAll('#cfm button,[data-a]')].find(b=>/Sì, sposta/.test(b.textContent));if(y)y.click()}return 'riordino barre:'+document.querySelectorAll('.ordbar').length}",
  "()=>{document.documentElement.dataset.theme='dark';V.nvm=0;V.ordu=0;V.tab='n';render();window.scrollTo(0,0)}",("n4.png",),

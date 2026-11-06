@@ -1,12 +1,12 @@
 # v224: attrezzatura di ogni esercizio (catalogo, esercizi personali, guida, foglio di modifica)
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     print('catalogo coperto:',await pg.evaluate("()=>XBL.filter(x=>!ATX[x.name]).map(x=>x.name)"))
     print('esempi:',await pg.evaluate("()=>['Panca piana bilanciere','Lat machine','Squat bulgaro','Trazioni','Crunch'].map(n=>n+': '+atTxt(atOf({name:n}).o))"))
     print('atOk casa (b,m,p,s):',await pg.evaluate("()=>['Panca piana bilanciere','Lat machine','Rematore manubrio','Leg press','Dip','Face pull','Glute bridge'].map(n=>n+':'+atOk({name:n},'bmps'))"))
@@ -26,4 +26,4 @@ async def m():
     await pg.evaluate("()=>{xbOpen()}");await pg.wait_for_timeout(100);print('catalogo mostra attrezzatura:',await pg.evaluate("()=>document.querySelector('#xbl .sdi span small').textContent"))
     await pg.screenshot(path=O+'v224-catalogo.png')
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

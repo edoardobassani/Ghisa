@@ -1,8 +1,8 @@
 # v208: lista della spesa condivisa come link (#spesa=…): creazione, apertura su un altro telefono, spunte salvate lì
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';B='http://127.0.0.1:8783/'+os.path.basename(SRC)
-srv=subprocess.Popen(['python3','-m','http.server','8783','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;B=gb.URL
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});await ctx.add_init_script("navigator.share=t=>{window.__sh=t;return Promise.resolve()}")
@@ -27,4 +27,4 @@ async def m():
     print('dati del primo telefono non toccati:',await p2.evaluate("()=>S.meal.length+S.food.length==0||'?'"))
     await p2.click('[data-a=shlx]');await p2.wait_for_timeout(200);print('apri Gym-Bo:',await p2.evaluate("()=>[V.tab,location.hash]"))
     print('errori',E,E2);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

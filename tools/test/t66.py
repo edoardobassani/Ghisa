@@ -1,8 +1,8 @@
 # v229: riordino del menu per gruppi
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 NAV="()=>[...document.querySelectorAll('nav>.nvg,nav>button[data-t]')].map(x=>x.dataset.g?'#'+x.dataset.g:x.dataset.t).join(' ')"
 async def drag(pg,sel,dy):
   h=await pg.query_selector(sel);bb=await h.bounding_box();x=bb['x']+bb['width']/2;y=bb['y']+bb['height']/2
@@ -12,7 +12,7 @@ async def drag(pg,sel,dy):
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':1400})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;render();document.body.classList.add('mo')}")
     print('prima:',await pg.evaluate(NAV))
     await pg.click('[data-a=nvq]');await pg.click('[data-a=nvy]');await pg.wait_for_timeout(100)
@@ -26,4 +26,4 @@ async def m():
     await pg.click('[data-a=nvx]');await pg.wait_for_timeout(100)
     print('dopo Fine:',await pg.evaluate(NAV),await pg.evaluate("()=>[S.ngo,S.nord.slice(0,6)]"))
     print('errori:',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

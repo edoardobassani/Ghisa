@@ -1,12 +1,12 @@
 # v225: import dello storico da Strong e Hevy (file di prova in test/hi)
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True);D=os.path.dirname(os.path.abspath(__file__))+'/hi/'
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True);D=os.path.dirname(os.path.abspath(__file__))+'/hi/'
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;xbAdd(['Panca piana bilanciere']);const id=S.ex[0].id;S.log.push({id:'pre',d:'2026-06-01',e:id,kg:50,r:5});V.tab='x';render()}")
     print('scheda d\'ingresso:',await pg.evaluate("()=>[$('#v h1').textContent,!!$('#hif')]"))
     await pg.set_input_files('#hif',D+'strong.csv');await pg.wait_for_timeout(400)
@@ -32,4 +32,4 @@ async def m():
     # file sbagliato
     await pg.evaluate("()=>hiOpen('a;b;c\\n1;2;3','x.csv')");print('file sbagliato:',await pg.evaluate("()=>$('#toast').textContent"))
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

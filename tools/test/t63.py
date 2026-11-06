@@ -1,12 +1,12 @@
 # v226: «Crea il programma per me»
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;xbAdd(['Panca piana bilanciere']);const id=S.ex[0].id;S.rm={[id]:{kg:100,src:'m',d:'2026-10-01'}};V.tab='s';render()}")
     await pg.click('[data-a=pbo]')
     await pg.screenshot(path=O+'v226-1.png',full_page=True)
@@ -38,4 +38,4 @@ async def m():
     await pg.click('[data-a=pbrw]');r=await pg.evaluate("()=>{const Q=V.pb,p=PGM.find(x=>x[0]==Q.pick),A=pbAdapt(p,Q);return [Q.st,Q.vary,A.subs.length,A.subs.slice(0,3)]}");print('rinnovo:',r)
     await pg.screenshot(path=O+'v226-rinnovo.png',full_page=True)
     print('errori:',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

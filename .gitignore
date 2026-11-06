@@ -1,3 +1,6 @@
 tools/demo/ghisa-demo.html
 tools/test/*.png
 __pycache__/
+/*.png
+!/icon-*.png
+out*/

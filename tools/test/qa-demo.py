@@ -1,6 +1,7 @@
 import asyncio,re,json
 from playwright.async_api import async_playwright
-P='file:///home/claude/ghisa/tools/demo/gymbo-demo.html';O='/home/claude/w/qa/'
+import gb,os
+P='file://'+gb.REPO+'/tools/demo/gymbo-demo.html';O=gb.O
 VIEWS=[('h',"V.tab='h'"),('w',"V.tab='w';V.wv='a'"),('w_st',"V.tab='w';V.wv='h'"),('w_rm',"V.tab='w';V.wv='m'"),('s',"V.tab='s';V.o.dBpw=true"),('s_pg',"V.tab='s';V.pg={f:'bp'}"),('s_prev',"V.tab='s';V.pg=null;V.bpv={k:'ul'}"),('s_ed',"V.tab='s';V.bpv=null;V.bpe={def:bpRes(bpmPB()),dk:0}"),('e',"V.tab='s';V.bpe=null;V.tab='e'"),
  ('c',"V.tab='c';V.cdm='m';V.o.dCd=true"),('c_f',"V.tab='c';V.cdm='f';V.o.dCd=false"),('c_l',"V.tab='c';V.cdm='l'"),('c_pg',"V.tab='c';V.cp={f:'m'}"),('c_prev',"V.tab='c';V.cp={id:'vo2'}"),
  ('n',"V.cp=null;V.tab='n'"),('pp',"V.tab='pp'"),('o',"V.tab='o'"),('g',"V.tab='g';V.o.gr_pal=true;V.o.gr_mm=true"),('g2',"V.tab='g';V.o.gr_pal=false;V.o.gr_mm=false;V.o.gr_cd=true;V.o.gr_pmc=true"),('p',"V.tab='p'"),('x',"V.tab='x'"),('r',"V.tab='r'")]

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Genera un anno di dati simulati con le funzioni dell'app (gen.js) e costruisce la pagina demo.
-Uso: python3 tools/demo/make-demo.py [--rigenera]   (SRC=sorgente, predefinito /home/claude/w/tracker-palestra.html)
+Uso: python3 tools/demo/make-demo.py [--rigenera]   (SRC=sorgente, predefinito /home/claude/w/tracker-palestra.html; DEMO_OUT=dove scriverla)
 Senza --rigenera riusa demo_data.json. La pagina esce in ghisa-demo.html accanto a questo file.
 La demo non si avvia né si aggiorna se non lo chiede Edo."""
 import asyncio,os,sys
@@ -25,4 +25,5 @@ R("let SV=0;const save=()=>{if(window.__wiped)return;","let SV=0;const save=()=>
 R("#prt{display:none}","#prt{display:none}\n#demo{position:fixed;top:calc(15px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:21;background:var(--hi);color:#1c262b;font:600 11.5px Barlow,sans-serif;padding:4px 10px;border-radius:10px;white-space:nowrap;pointer-events:none}body.ssm #demo,body.mo #demo{display:none}")
 i=s.index('<body');j=s.index('>',i)+1
 s=s[:j]+'\n<div id="demo">DEMO · un anno simulato · non si salva</div>'+s[j:]
-open(os.path.join(D,'gymbo-demo.html'),'w').write(s);print('Demo scritta:',os.path.join(D,'gymbo-demo.html'),len(s),'byte')
+OUT=os.environ.get('DEMO_OUT') or os.path.join(D,'gymbo-demo.html')
+open(OUT,'w').write(s);print('Demo scritta:',OUT,len(s),'byte')

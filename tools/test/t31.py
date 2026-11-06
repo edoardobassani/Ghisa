@@ -1,9 +1,10 @@
+import gb
 import asyncio
 from playwright.async_api import async_playwright
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('file:///home/claude/w/tracker-palestra.html');await pg.wait_for_timeout(700)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(700)
     print(await pg.evaluate("""()=>{const A=allF(),N=new Set(A.map(f=>f.name));const bad=[];Object.entries(FSYN).forEach(([k,v])=>v.forEach(n=>{if(!N.has(n))bad.push(k+'→'+n)}));
       const nw=A.filter(f=>MS[f.name]&&/^(Ciqual|USDA FoodData Central, SR|CREA, Tabelle di composizione degli alimenti \\(2019\\), codice)/.test(MS[f.name][0]));
       const ids=new Set();const dup=A.filter(f=>{if(ids.has(f.id))return true;ids.add(f.id)}).map(f=>f.name);
@@ -17,6 +18,6 @@ async def m():
     await pg.fill('#fq','burrata');await pg.wait_for_timeout(300)
     await pg.evaluate("()=>document.querySelector('#fl [data-a=finf]').click()");await pg.wait_for_timeout(300)
     t=await pg.evaluate("()=>document.querySelector('.fin')?.innerText||''");print('INFO:',t.replace('\n',' | ')[-420:])
-    await pg.screenshot(path='/home/claude/w/u/burrata.png',full_page=False)
+    await pg.screenshot(path='burrata.png',full_page=False)
     print('errori',E);await b.close()
 asyncio.run(m())

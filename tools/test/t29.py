@@ -1,14 +1,15 @@
+import gb
 import asyncio
 from playwright.async_api import async_playwright
-D=open('/home/claude/w/demo/demo_data.json').read()
+D=open(gb.REPO+'/tools/demo/demo_data.json').read()
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844})
     E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('file:///home/claude/w/tracker-palestra.html');await pg.wait_for_timeout(400)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(400)
     await pg.evaluate("(d)=>{norm(JSON.parse(d));save()}",D);await pg.reload();await pg.wait_for_timeout(500)
     # 1) Cardio con campi scritti
-    await pg.evaluate("()=>{V.tab='c';V.cdm='m';render()}");await pg.fill('#cdm','42');await pg.fill('#cdn','giro al parco');await pg.wait_for_timeout(600)
+    await pg.evaluate("()=>{V.tab='c';V.cv='a';V.o.dCdm=true;V.cdm='m';render()}");await pg.fill('#cdm','42');await pg.fill('#cdn','giro al parco');await pg.wait_for_timeout(600)
     await pg.reload();await pg.wait_for_timeout(800)
     print('cardio',await pg.evaluate("()=>[V.tab,($('#cdm')||{}).value,($('#cdn')||{}).value]"))
     # 2) Dieta con pannello aggiungi aperto e ricerca scritta

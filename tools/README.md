@@ -9,16 +9,20 @@ Non fanno parte dell'app: GitHub Pages li pubblica ma l'app non li usa.
    (in alternativa: leggere l'artifact «Ghisa» con l'azione `read` dello strumento Artifact).
 3. Dopo ogni modifica:
    - `tools/check.sh` controlla la sintassi dell'ultimo `<script>` con `node --check`;
-   - i test in `tools/test/` (Playwright + Chromium): `cd tools/test && python3 t5.py` prova tutte le sezioni;
+   - i test in `tools/test/` (Playwright + Chromium): `python3 tools/test/run.py` li esegue tutti e deve dare 0 falliti;
    - `tools/sync-pwa.sh "messaggio"` rigenera `index.html` (manifest, icone, service worker) e fa commit e push;
    - ripubblicare l'artifact sullo stesso URL.
 
 ## Test
-`t.py` è il banco di prova comune (dati di esempio + passi). Gli altri file provano una funzione ciascuno:
-`t1` guida esercizi, `t2` esercizi palestra, `t3` grammi alimenti (vecchio flusso), `t4` riscaldamento,
+Tutti insieme: `python3 tools/test/run.py` (4 alla volta; `-j N` per cambiarlo, `-v` per vedere le osservazioni, `run.py t63 t68` per sceglierne alcuni).
+Per provare il sorgente prima di sincronizzarlo: `SRC=/home/claude/w/tracker-palestra.html python3 tools/test/run.py`; senza `SRC` si prova `index.html` del repo.
+- `gb.py` è l'ambiente comune: copia la pagina in una cartella temporanea con pdf.js e i file di prova (`pdft/`, `gxs/`, `hi/`), la serve su `localhost` con una porta libera e ci sposta la cartella di lavoro. Ogni test fa `import gb` e apre `gb.URL`; le schermate vanno in `gb.O` (con `OUT=cartella` restano dove vuoi, con `KEEP=1` non si cancella niente).
+- Un test fallisce se esce con errore, stampa un Traceback o «EXC», ha errori JavaScript («errori: [...]», «ERR [...]») o stampa «FAIL». Il resto dell'uscita sono osservazioni da leggere con `-v`; i test nuovi controllano i risultati e stampano `ok`/`FAIL` riga per riga (vedi `t69`).
+- `t.py` è il banco di prova comune dei test più vecchi (dati di esempio + passi), `u.py` quello a passi di `u7`/`u8`. `fix/dpm-v217.json`: i 9 piani alimentari di prima, per `t56`.
+- Prima di pubblicare: tutta la suite deve dare 0 falliti.
+Gli altri file provano una funzione ciascuno: `t1` guida esercizi, `t2` esercizi palestra, `t3` grammi alimenti, `t4` riscaldamento,
 `t5` tutte le sezioni, `t6` barra seduta, `t7` sesso fuori dalla dieta, `t8` modelli scheda, `t9` programmi,
-`t11` storico, `t12` nuova Dieta, `t19` ricerca alimenti, `t20` gruppi alimenti, `t20d` verdure dei piani pronti uguali alla versione precedente (PRIMA=file), `tdb` IndexedDB e migrazione, `twipe` cancella tutto, `tbk` ripristino backup.
-Il percorso del sorgente si cambia con la variabile `SRC`.
+`t11` storico, `t12` Dieta, `t19` ricerca alimenti, `t20` gruppi alimenti, `tdb` IndexedDB e migrazione, `twipe` cancella tutto, `tbk` ripristino backup.
 
 ## Demo
 `python3 tools/demo/make-demo.py` costruisce `tools/demo/ghisa-demo.html` (un anno di dati, non si salva)
@@ -229,3 +233,7 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - `qcAct(p,Q)`: attività tra quelle del programma e quelle disponibili; con ginocchia o caviglie evita corsa e tapis roulant, con la schiena anche il vogatore, in ordine di basso impatto (`QCLOW`). `qcScore`: giorni, obiettivo (`QCT`), livello («Tutti i livelli» va bene per tutti), −60 se si corre con zone da proteggere, penalità se le uscite vanno accorciate molto; «Cardio dopo i pesi» solo se hai schede palestra. Mostra i primi 3 con i motivi; anteprima settimana per settimana (`qcw`) con le uscite già accorciate.
 - `cpCap(sp,mx)` accorcia un'uscita al tempo massimo: meno ripetizioni e parti continue scalate, riscaldamento e defaticamento al massimo 5′. `cpSes` lo applica al programma attivo se `S.cpr.mx` c'è.
 - `qcDo` (`qcok`, in `UD`): `S.cpr` con attività scelta, giorni (al massimo quante uscite prevede il programma), `mx`, `pb:1`; salva le risposte in `S.cpq`. A fine programma `cpCard` propone «✨ Crea il prossimo per me» (`qcnx`): stesse risposte, livello +1. Test `test/t68.py`.
+
+## v232 – scambio esercizio nei programmi a blocchi, test in ordine
+- «⇄ Sostituisci › Anche nella scheda» in seduta: con un programma a blocchi attivo la scheda si rigenera ogni settimana da `S.bp.D` (`bpGen`), quindi l'esercizio vecchio tornava alla settimana dopo. Ora `swDo` lo cambia anche in `S.bp.D` (e prende il massimale di lavoro del nuovo esercizio, se c'è). Test `test/t69.py`.
+- Test: ambiente comune `gb.py`, esecutore `run.py`, 18 test vecchi aggiornati alle schermate di oggi (Cardio a schede, Schede Palestra/Cardio, foglio di ricerca alimenti, eliminazione esercizi senza registrazioni al primo tocco, condivisione della spesa con il foglio), `t20d` tolto (confronto una tantum con la v170), `t56` confronta con `fix/dpm-v217.json`, `t46` costruisce la demo al volo (`make-demo.py` accetta `DEMO_OUT`). Tolte dal repo le schermate dei test finite per sbaglio nella cartella principale.

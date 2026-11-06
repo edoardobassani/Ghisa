@@ -17,9 +17,9 @@ steps=["()=>{V.tab='e';V.ek='p';V.o['ge_Petto']=1;render()}",("e1.png",),
  "()=>{document.querySelector('#exgd2').value='Posizione\\n- mia guida';document.querySelector('#exnt2').value='rack 5'}",c('[data-a=exok]'),
  "()=>{const x=S.ex.find(e=>e.name=='Panca piana bilanciere');return JSON.stringify({gd:x.gd,nt:x.nt,log:S.log.filter(l=>l.e==x.id).length})}",
  # elimina con conferma
- "()=>{const x=S.ex.find(e=>e.name=='Wrist curl');V.o['ge_Avambracci']=1;render();document.querySelector('[data-a=del][data-k=\"e:'+x.id+'\"]').click();return document.querySelector('[data-k=\"e:'+x.id+'\"]').textContent}",
- "()=>{const x=S.ex.find(e=>e.name=='Wrist curl');document.querySelector('[data-a=del][data-k=\"e:'+x.id+'\"]').click();return 'eliminato:'+!S.ex.some(e=>e.name=='Wrist curl')}",
+ # senza registrazioni si elimina al primo tocco (con Annulla)
+ "()=>{const x=S.ex.find(e=>e.name=='Wrist curl');V.o['ge_Avambracci']=1;render();document.querySelector('[data-a=del][data-k=\"e:'+x.id+'\"]').click();return 'eliminato:'+!S.ex.some(e=>e.name=='Wrist curl')}",
  c('[data-a=seed]'),"()=>'catalogo:'+!!document.querySelector('#xbm:not([hidden]) #xbl')",
  "()=>{xbClose();V.o['ge_Petto']=1;render();window.scrollTo(0,0)}",("e4.png",),
- "()=>localStorage.getItem('ghisa').length>100"]
+ "()=>'salvati:'+S.ex.length"]
 r,e=asyncio.run(run(steps));print('\n'.join(map(str,r)));print('ERR',e)

@@ -1,12 +1,12 @@
 # v202: ⇄ nelle voci del diario (alternative portate dal piano + equivalenti)
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/'
-srv=subprocess.Popen(['python3','-m','http.server','8777','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8777/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;V.tab='pp';render()}");await pg.set_input_files('#ipf','pdft/nutrium_circ.pdf');await pg.wait_for_timeout(1800)
     for s in ['2','3']:await pg.click(f'[data-a=ipgo][data-s="{s}"]')
     await pg.click('[data-a=ipok]');await pg.wait_for_timeout(200)
@@ -27,4 +27,4 @@ async def m():
     await pg.evaluate("()=>document.querySelector('#cfm [data-a=mpsw]').click()");await pg.wait_for_timeout(200)
     print('mela scambiata:',await pg.evaluate("()=>{const x=S.meal.find(x=>x.id=='mm1');return fo(x.f).name+' '+x.g+' al'+(x.al||[]).length}"))
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

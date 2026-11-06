@@ -1,16 +1,16 @@
 # v218: 4 piani pronti «Allenamento e riposo» (2 onnivori, vegetariano, vegano) con più calorie nei giorni di allenamento
+import gb
 import asyncio,subprocess,time,os,json
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-PRIMA=os.environ.get('PRIMA','bk/tracker-palestra-backup-v217.html')
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
+FIX=gb.T+'/fix/dpm-v217.json'  # i 9 piani di prima, presi dalla v217 (rigenerare solo se cambiano apposta)
 SET="()=>{S.wc=1;S.h=180;S.pf={sx:'m',age:35,act:'1.55'};S.wt=[{id:'w1',d:today(),kg:80}];save()}"
 OLD="()=>JSON.stringify(DPM.filter(p=>!p[9]).map(p=>{const W=dpWeek(p,'v',dpTarget('m'));return [p[0],W.W.map(L=>L.map(x=>x.f.name+':'+x.g).join(','))]}))"
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+PRIMA);await pg.wait_for_timeout(800);await pg.evaluate(SET);old=await pg.evaluate(OLD)
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800);await pg.evaluate(SET);new=await pg.evaluate(OLD)
+    old=open(FIX).read()
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800);await pg.evaluate(SET);new=await pg.evaluate(OLD)
     print('i 9 piani di prima sono identici:',old==new,len(json.loads(new)))
     print('alimenti dei piani nuovi tutti in banca dati:',await pg.evaluate("()=>{const M=[];DPM.filter(p=>p[9]).forEach(p=>[p[5],p[6],p[7],p[8],p[9].st].flat().forEach(m=>dpIt(m).forEach(x=>{if(!dpFood(x.n))M.push(x.n)})));return M.length?M:'sì'}"))
     await pg.evaluate("()=>{V.tab='pp';render()}");await pg.click('[data-a=dpl]')
@@ -42,4 +42,4 @@ async def m():
     await pg.click('[data-a=dpo][data-k=cyn]');print('dal programma della palestra:',await pg.evaluate("()=>V.dp.td.map((x,i)=>x?DN[i]:'').filter(Boolean).join(' ')"))
     await pg.screenshot(path=O+'v218-vegano.png',full_page=True)
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

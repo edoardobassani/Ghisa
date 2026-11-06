@@ -1,7 +1,8 @@
+import gb
 import asyncio,json,re,time,sys
 from playwright.async_api import async_playwright
 from t import SEED
-O='/home/claude/w/out5/'
+O=gb.O
 
 GMOCK="""window.google={accounts:{oauth2:{initTokenClient(c){return{requestAccessToken(o){window.__auth=(window.__auth||0)+1;setTimeout(()=>c.callback({access_token:'tok'+window.__auth,expires_in:3600,scope:'https://www.googleapis.com/auth/drive.appdata email'}),50)}}},hasGrantedAllScopes(){return true},revoke(t,cb){cb&&cb()}}}};"""
 F={};N=[0]
@@ -28,7 +29,7 @@ async def page(b,dev):
   ctx=await b.new_context(viewport={'width':390,'height':844},device_scale_factor=2,user_agent=ua);pg=await ctx.new_page()
   errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
   await pg.add_init_script(GMOCK);await pg.route(re.compile(r'https://www\.googleapis\.com/.*'),drive)
-  await pg.goto('file:///home/claude/w/tracker-palestra.html');await pg.wait_for_timeout(400);return pg,errs
+  await pg.goto(gb.URL);await pg.wait_for_timeout(400);return pg,errs
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch()
@@ -43,7 +44,7 @@ async def main():
     # modifica -> salvataggio automatico dopo 5 s
     await pg.evaluate("()=>{document.body.classList.remove('mo');S.wt.push({d:today(),kg:80});save()}");await pg.wait_for_timeout(6500)
     d=[v for v in F.values() if v['name'].startswith('d-')][0];print('auto',json.loads(d['c'])['data']['wt'][-1],await pg.evaluate("()=>dvDirty()"))
-    await pg.evaluate("()=>document.body.classList.add('mo')");await pg.wait_for_timeout(200);await pg.click('[data-a=dvsh]');await pg.wait_for_timeout(800);await pg.screenshot(path=O+'3-foglio.png')
+    await pg.evaluate("()=>document.body.classList.add('mo')");await pg.wait_for_timeout(200);await pg.click('#nbk [data-a=dvsh]');await pg.wait_for_timeout(800);await pg.screenshot(path=O+'3-foglio.png')
     # foto cancellata -> rimossa da Drive
     await pg.evaluate("()=>pDel('ph1').then(loadPh)");await pg.wait_for_timeout(6000);print('foto',sorted(v['name'] for v in F.values()))
     # token scaduto -> barra in Home

@@ -1,8 +1,8 @@
 # v213: striscia della settimana in Dieta e scorrimento tra i giorni (Dieta e Piano pasti · Giorno)
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 SWIPE="""async([sel,dx])=>{const el=document.querySelector(sel),r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+Math.min(40,r.height/2);
  const T=(cx)=>new Touch({identifier:1,target:el,clientX:cx,clientY:y});
  el.dispatchEvent(new TouchEvent('touchstart',{bubbles:true,touches:[T(x)],changedTouches:[T(x)]}));
@@ -11,7 +11,7 @@ SWIPE="""async([sel,dx])=>{const el=document.querySelector(sel),r=el.getBounding
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844},has_touch=True);pg=await ctx.new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;S.goal=2000;const f=allF()[0];[[-1,1200],[0,1000]].forEach(([o,g],i)=>S.meal.push({id:'tm'+i,d:hvAdd(today(),o),m:'Pranzo',f:f.id,g:g*100/f.k}));V.tab='n';V.nd=today();render()}")
     n=await pg.evaluate("()=>[document.querySelectorAll('.dwk button').length,document.querySelector('.dwk button.on').dataset.v==today(),!!document.querySelector('.dswh')]")
     print('striscia: 7 giorni, oggi selezionato, avviso visibile:',n)
@@ -32,4 +32,4 @@ async def m():
     await pg.evaluate("()=>{V.tab='h';render()}");await pg.evaluate(SWIPE,['#v h1',-150]);print('Home: niente scorrimento:',await pg.evaluate("()=>V.tab=='h'"))
     await pg.emulate_media(color_scheme='dark');await pg.evaluate("()=>{V.tab='n';V.nd=today();render()}");await pg.screenshot(path=O+'v213-dark.png')
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

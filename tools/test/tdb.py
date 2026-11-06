@@ -1,6 +1,7 @@
+import gb
 import asyncio,json
 from playwright.async_api import async_playwright
-F='file://'+__import__('os').environ.get('SRC','/home/claude/w/tracker-palestra.html')+''
+F=gb.URL
 async def page(b,init=None):
   ctx=await b.new_context();pg=await ctx.new_page();errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
   if init:await pg.add_init_script(init)

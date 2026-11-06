@@ -1,12 +1,12 @@
 # v214: dimensione del testo a 5 misure (zoom della pagina) e coordinate corrette con lo zoom
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();ctx=await b.new_context(viewport={'width':390,'height':844});pg=await ctx.new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;xbAdd(['Panca piana bilanciere']);const id=S.ex[0].id;S.sch.push({id:'sx',name:'Prova',ex:[id],t:{[id]:{s:3,r:8}},rt:{[id]:90}});V.tab='h';render()}")
     await pg.click('#mb');await pg.wait_for_timeout(250)
     print('voce nel menu:',await pg.evaluate("()=>$('.tszb').innerText.replace(/\\n/g,' ')"))
@@ -38,4 +38,4 @@ async def m():
     mm=await pg.evaluate("()=>{const m=$('#tmm').getBoundingClientRect();return [m.left>=0,m.right<=innerWidth+1,m.top>=0,$('#tmm').classList.contains('on')]}");print('menu del timer nello schermo:',mm)
     await pg.evaluate("()=>{tmHide();S.ts=-2;applyTs();V.ss=null;V.tab='n';render()}");await pg.screenshot(path=O+'v214-dieta-xs.png')
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

@@ -1,12 +1,13 @@
+import gb
 import asyncio,json
 from playwright.async_api import async_playwright
-D=open('/home/claude/w/demo/demo_data.json').read()
-O='/home/claude/w/out6/'
+D=open(gb.REPO+'/tools/demo/demo_data.json').read()
+O=gb.O
 async def main():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2)
     E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('file:///home/claude/w/tracker-palestra.html');await pg.wait_for_timeout(400)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(400)
     await pg.evaluate("(d)=>{norm(JSON.parse(d));save()}",D);await pg.reload();await pg.wait_for_timeout(500)
     ev=lambda js:pg.evaluate(js)
     async def shot(n,full=True):

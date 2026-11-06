@@ -1,8 +1,8 @@
 # v227: costruttore nella pagina Schede; sezione Integratori
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/';os.makedirs(O,exist_ok=True)
-srv=subprocess.Popen(['python3','-m','http.server','8787','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O;os.makedirs(O,exist_ok=True)
 SEED="""(veg)=>{S.wc=1;S.goal=2200;S.pf={sx:'m',age:38};S.wt=[{id:'w1',d:hvAdd(today(),-2),kg:80}];S.meal=[];S.log=[];S.cd=[];
  const F=n=>allF().find(f=>f.name==n),M=veg?[['Colazione','Fiocchi d’avena',80],['Pranzo','Pasta di semola (cruda)',120],['Pranzo','Lenticchie secche',80],['Cena','Riso (crudo)',100],['Cena','Ceci secchi',80],['Spuntini','Banana',150],['Spuntini','Mandorle',30],['Cena','Pane integrale',150],['Pranzo','Olio extravergine d’oliva',30]]
   :[['Colazione','Fiocchi d’avena',80],['Pranzo','Pasta di semola (cruda)',120],['Pranzo','Petto di pollo (crudo)',150],['Cena','Riso (crudo)',100],['Cena','Uovo intero',100],['Spuntini','Banana',150],['Cena','Pane integrale',100],['Pranzo','Olio extravergine d’oliva',30]];
@@ -13,7 +13,7 @@ SEED="""(veg)=>{S.wc=1;S.goal=2200;S.pf={sx:'m',age:38};S.wt=[{id:'w1',d:hvAdd(t
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)));pg.on('console',lambda c:E.append(c.text) if 'manca' in c.text else None)
-    await pg.goto('http://127.0.0.1:8787/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;V.tab='s';render()}")
     print('hero in Schede:',await pg.evaluate("()=>[!!$('#v > .pbhero, #v .pbhero'),$('.pbhero b').textContent]"))
     await pg.click('.pbhero');print('aperto:',await pg.evaluate("()=>[V.pb.st,$('[data-a=pbx]').textContent]"))
@@ -29,4 +29,4 @@ async def m():
     print('menu:',await pg.evaluate("()=>[...document.querySelectorAll('nav button[data-t=it], [data-t=it]')].length"))
     await pg.evaluate("()=>{V.tab='n';V.nd=hvAdd(today(),-1);V.o.dMi=true;render()}");print('link da Dieta:',await pg.evaluate("()=>!!$('#dMi [data-t=it]')"))
     print('errori:',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

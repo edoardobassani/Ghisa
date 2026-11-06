@@ -1,12 +1,12 @@
 # v195: «Vedi equivalenti» nel pannello + Alimento del piano pasti
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/'
-srv=subprocess.Popen(['python3','-m','http.server','8772','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8772/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;V.tab='pp';render()}")
     await pg.click('[data-a=ppaa0][data-pm=Pranzo]');await pg.fill('#ppq','pasta di semola');await pg.wait_for_timeout(300)
     await pg.click('[data-a=ppf]');await pg.wait_for_timeout(200)
@@ -27,4 +27,4 @@ async def m():
     for n,g in [('Petto di pollo (crudo)',150),('Yogurt greco 0%',150),('Mela',150),('Lenticchie lesse',200),('Olio extravergine d’oliva',10)]:
       print(n,g,'→',await pg.evaluate("([n,g])=>eqOf(allF().find(x=>x.name==n),g,4).map(o=>o.f.name+' '+o.g)",[n,g]))
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

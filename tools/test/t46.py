@@ -1,7 +1,9 @@
-# v207: lettura al tocco su peso (Riepilogo Home), altitudine e battito; serve la demo in SCRATCH/demo.html (python3 tools/demo/make-demo.py, poi copiarla e ripristinare il file del repo)
+# v207: lettura al tocco su peso (Riepilogo Home), altitudine e battito, sulla demo di un anno (costruita al volo da tools/demo/make-demo.py)
+import gb,os,subprocess,sys
+subprocess.run([sys.executable,gb.REPO+'/tools/demo/make-demo.py'],env={**os.environ,'SRC':gb.SRC,'DEMO_OUT':gb.D+'/demo.html'},check=True,stdout=subprocess.DEVNULL)
 import asyncio
 from playwright.async_api import async_playwright
-S='/tmp/claude-0/-home-claude/2decda7c-34f6-55ac-81c0-0718b1572dab/scratchpad/'
+S=gb.D+'/'
 async def tap(pg,sel,frac):
   el=await pg.query_selector(sel);await el.scroll_into_view_if_needed();b=await el.bounding_box();x=b['x']+b['width']*frac;y=b['y']+b['height']/2
   await pg.mouse.move(x,y);await pg.mouse.down();await pg.wait_for_timeout(80);await pg.mouse.up()
@@ -13,7 +15,7 @@ async def m():
     await pg.evaluate("()=>{V.tab='h';render()}");await pg.wait_for_timeout(300)
     print('peso inizio:',await tap(pg,'.wksw .tsc',0.02),' fine:',await tap(pg,'.wksw .tsc',0.98))
     await pg.screenshot(path=S+'ts-home.png')
-    await pg.evaluate("()=>{V.tab='c';V.o.dCd=true;render();const d=[...document.querySelectorAll('details.gxd')].find(x=>x.querySelectorAll('.tsc').length>=2)||document.querySelector('details.gxd');d.open=true;V.o[d.id]=true;window.__d=d.id}");await pg.wait_for_timeout(300)
+    await pg.evaluate("()=>{V.tab='c';V.cv='h';S.cd.forEach(c=>V.o['cdh_'+c.id]=true);render();const d=[...document.querySelectorAll('details.gxd')].find(x=>x.querySelectorAll('.tsc').length>=2)||document.querySelector('details.gxd');d.open=true;V.o[d.id]=true;window.__d=d.id}");await pg.wait_for_timeout(300)
     did=await pg.evaluate("()=>window.__d")
     n=await pg.evaluate("id=>document.querySelectorAll('#'+id+' .tsc').length",did);print('grafici nella scheda:',n)
     for k in range(n):

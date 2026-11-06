@@ -1,12 +1,12 @@
 # v196: tasto ⇄ sulle voci del piano (alternative del piano + equivalenti), solo un giorno o tutti, Home
+import gb
 import asyncio,subprocess,time,os
 from playwright.async_api import async_playwright
-SRC=os.environ.get('SRC','/home/claude/w/tracker-palestra.html');W=os.path.dirname(SRC);O=W+'/u/'
-srv=subprocess.Popen(['python3','-m','http.server','8773','--bind','127.0.0.1'],cwd=W,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
+SRC=gb.SRC;W=gb.D;O=gb.O
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
-    await pg.goto('http://127.0.0.1:8773/'+os.path.basename(SRC));await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;V.tab='pp';render()}");await pg.set_input_files('#ipf','pdft/nutrium_circ.pdf');await pg.wait_for_timeout(1800)
     for s in ['2','3']:await pg.click(f'[data-a=ipgo][data-s="{s}"]')
     await pg.click('[data-a=ipok]');await pg.wait_for_timeout(300)
@@ -38,4 +38,4 @@ async def m():
     await pg.screenshot(path=O+'sw-home.png');await pg.click('#cfm [data-a=cfx]')
     await pg.screenshot(path=O+'sw-home2.png',full_page=True)
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())

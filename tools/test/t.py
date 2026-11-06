@@ -1,3 +1,4 @@
+import gb
 import asyncio,sys,json
 from playwright.async_api import async_playwright
 SEED=r"""()=>{localStorage.clear();
@@ -14,14 +15,16 @@ async def run(js_steps,shots=()):
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2)
     errs=[];pg.on('pageerror',lambda e:errs.append(str(e)))
-    await pg.goto('file://'+__import__('os').environ.get('SRC','/home/claude/w/tracker-palestra.html'));await pg.wait_for_timeout(400)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(400)
     await pg.evaluate(SEED);await pg.reload();await pg.wait_for_timeout(500)
     out=[]
     for st in js_steps:
       if isinstance(st,tuple):
         await pg.wait_for_timeout(250);await pg.evaluate("()=>document.activeElement&&document.activeElement.blur()");await pg.screenshot(path=st[0]);continue
       if st.startswith('click:'):
-        await pg.click(st[6:]);await pg.wait_for_timeout(150);continue
+        try:await pg.click(st[6:],timeout=5000)
+        except Exception as ex:out.append('EXC click '+st[6:]+': '+str(ex).split('\n')[0][:120])
+        await pg.wait_for_timeout(150);continue
       try: r=await pg.evaluate(st)
       except Exception as ex: r='EXC '+str(ex).split('\n')[0][:160]+' @ '+st[:70]
       await pg.wait_for_timeout(120)

@@ -1,10 +1,10 @@
+import gb
 import asyncio,subprocess,json,time
 from playwright.async_api import async_playwright
-srv=subprocess.Popen(['python3','-m','http.server','8765','--bind','127.0.0.1'],cwd='/home/claude/w',stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL);time.sleep(1)
 async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)));pg.on('console',lambda c:E.append('C:'+c.text) if c.type=='error' else None)
-    await pg.goto('http://127.0.0.1:8765/tracker-palestra.html');await pg.wait_for_timeout(800)
+    await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     async def sheets(f):
       return await pg.evaluate("""async f=>{const r=await fetch('pdft/'+f);const b=await r.arrayBuffer();try{const s=await pdfSheets(b);return {g:s[0].g,lines:s[0].lines}}catch(e){return {err:e.message}}}""",f)
     # gym table
@@ -17,4 +17,4 @@ async def m():
       r=await pg.evaluate("""async f=>{const b=await (await fetch('pdft/'+f)).arrayBuffer();const sh=await pdfSheets(b);ccLoad(sh,f);return V.ci.L.map(x=>x.n+' | '+x.t+' | di='+x.di+' | '+(x.B.length?cpTxt(cbSpec(x.B)):'VUOTO')+' | bad='+x.bad.join(';'))}""",f);print('CARDIO',f);[print('  ',x) for x in r]
     r=await sheets('scan.pdf');print('SCAN',r.get('err'))
     print('errori',E);await b.close()
-asyncio.run(m());srv.terminate()
+asyncio.run(m())
