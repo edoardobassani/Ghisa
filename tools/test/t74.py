@@ -1,0 +1,41 @@
+# v237: tasto «indietro», pagine recenti (pressione lunga), gesto indietro del telefono
+import gb,asyncio
+from playwright.async_api import async_playwright
+D=open(gb.REPO+'/tools/demo/demo_data.json').read()
+async def m():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2);E=[];pg.on('pageerror',lambda e:E.append(str(e)))
+    await pg.add_init_script("if(!localStorage.getItem('gb-lang'))localStorage.setItem('gb-lang','it')")
+    await pg.goto(gb.URL);await pg.wait_for_timeout(500)
+    await pg.evaluate("(d)=>{norm(JSON.parse(d));save()}",D);await pg.reload();await pg.wait_for_timeout(700)
+    ok=lambda c,w:print(('ok  ' if c else 'FAIL ')+w)
+    vis=lambda:pg.evaluate("()=>{const b=document.getElementById('nbb');return b.hidden?null:b.textContent.replace('‹','').trim()}")
+    go=lambda t:pg.evaluate(f"()=>{{const b=document.querySelector('nav button[data-t=\"{t}\"]');b.click()}}")
+    ok(await vis() is None,'in Home niente pulsante')
+    await go('n');await pg.wait_for_timeout(150);await go('w');await pg.wait_for_timeout(150)
+    await pg.evaluate("()=>{V.wv='m';render()}");await pg.wait_for_timeout(100)
+    await go('gd' if False else 'n');await pg.wait_for_timeout(150);print('altezza',await pg.evaluate("()=>document.body.scrollHeight"));await pg.evaluate("()=>window.scrollTo(0,300)");await pg.wait_for_timeout(100)
+    await go('o');await pg.wait_for_timeout(150)
+    ok(await vis()=='Dieta','pulsante «‹ Dieta» dopo Obiettivi: '+str(await vis()))
+    await pg.screenshot(path=gb.O+'nav1.png')
+    await pg.click('#nbb');await pg.wait_for_timeout(250)
+    r=await pg.evaluate("()=>[V.tab,Math.round(scrollY)]");ok(r[0]=='n' and r[1]>100,'torna a Dieta nello stesso punto '+str(r))
+    await pg.click('#nbb');await pg.wait_for_timeout(250)
+    ok(await pg.evaluate("()=>[V.tab,V.wv].join()")=='w,m','torna a Palestra › Massimali')
+    # pressione lunga
+    await go('o');await pg.wait_for_timeout(150)
+    bb=await pg.locator('#nbb').bounding_box();await pg.mouse.move(bb['x']+20,bb['y']+15);await pg.mouse.down();await pg.wait_for_timeout(650);await pg.mouse.up();await pg.wait_for_timeout(200)
+    L=await pg.evaluate("()=>[...document.querySelectorAll('.nvl .it')].map(x=>x.textContent)");print(L)
+    await pg.screenshot(path=gb.O+'nav2.png')
+    ok(len(L)>=2 and await pg.evaluate("()=>V.tab")=='o','pressione lunga: elenco pagine recenti, senza tornare indietro')
+    await pg.click('.nvl .it >> nth=1');await pg.wait_for_timeout(250);print('salto a',await pg.evaluate("()=>V.tab"))
+    # gesto indietro del telefono
+    await go('c');await pg.wait_for_timeout(150);await go('s');await pg.wait_for_timeout(150)
+    await pg.evaluate("()=>history.back()");await pg.wait_for_timeout(400)
+    ok(await pg.evaluate("()=>V.tab")=='c','gesto indietro: torna a Cardio')
+    await pg.evaluate("()=>document.body.classList.add('mo')");await pg.evaluate("()=>history.back()");await pg.wait_for_timeout(400)
+    ok(await pg.evaluate("()=>!document.body.classList.contains('mo')&&V.tab=='c'"),'gesto indietro con menu aperto: chiude solo il menu')
+    await pg.evaluate("()=>{V.tab='h';render()}");await pg.evaluate("()=>history.back()");await pg.wait_for_timeout(400)
+    ok('uscire' in (await pg.evaluate("()=>document.getElementById('toast').textContent")),'in Home: avviso «Indietro di nuovo per uscire»')
+    ok(not E,'nessun errore JS '+str(E));await b.close()
+asyncio.run(m())

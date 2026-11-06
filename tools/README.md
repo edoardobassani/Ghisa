@@ -254,3 +254,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v236 – silhouette con richiami
 - Grafici › Mappa muscolare › Silhouette: `mmBody(D)` disegna i muscoli con la loro forma (`MBF` davanti, `MBB` dietro: mezzo corpo, specchiato), colorati con `mmCol`, e una linea da ogni gruppo a numero e nome (a sinistra davanti, a destra dietro). Testo con contorno del colore della scheda (`paint-order:stroke`) per restare leggibile sopra i muscoli. Con la silhouette l'elenco dei numeri sotto è nascosto (sono già nei richiami). Test `test/t73.py`.
+
+## v237 – tasto «indietro»
+- `#nbb` accanto al ☰: «‹ nome della pagina precedente». `navTrack()` (all'inizio di `render`) registra un passo quando cambia `NAVK` (`tab`, `wv`, `cv`, `sk`, `ek`); ogni voce tiene `V.o` (pannelli aperti), scorrimento e sotto-scheda (`navSub`, per l'elenco). `navGo(i)` ripristina e scorre al punto di prima. Nascosto in Home, in seduta e nel cardio dal vivo.
+- Pressione lunga (500 ms) su `#nbb` → foglio «Pagine recenti» (`navList`, fino a 8, senza doppioni).
+- Gesto/tasto indietro del telefono: una voce di cronologia «trappola» (`history.pushState({gb:1})`); `popstate` chiude nell'ordine menu, foglio, menu +, poi torna indietro; in seduta non fa niente; in Home il secondo «indietro» entro 2,5 s esce. Test `test/t74.py`.
