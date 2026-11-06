@@ -248,3 +248,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 ## v234 – ricerca libera nel foglio «Scambia»
 - Il foglio ⇄ Scambia (diario e piano pasti, `mpSwOpen`) ha in alto il campo `#swq` (`V.sw.q`): `mpSwRes()` usa `fMatch` (sinonimi, correzione, nome tradotto) e propone fino a 8 alimenti con i grammi che danno le stesse kcal dell'alimento attuale (`gR(k0/f.k*100)`). Le righe sono quelle di sempre (`mpSwRow`, prima interna a `mpSwOpen`): «⇄ Scambia» o «+ Salva» tra le alternative. L'input aggiorna solo `#swres`, così il campo non perde il fuoco.
 - Frasi nuove per EN/FR in `tools/i18n/extra.json` (le legge `mk.py`). Test `test/t71.py`.
+
+## v235 – età in un riquadro suo
+- Obiettivi e misure: `agCard()` (classe `agc`, stesso campo `#tda` e stesso salvataggio in `S.pf.age`) subito prima di `sxCard()`. In `objBody` (Obiettivi dieta) al posto del campo c'è il richiamo «Età: N anni · cambia» (azione `agf`, porta al campo). Test `test/t72.py`.

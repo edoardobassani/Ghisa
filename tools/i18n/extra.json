@@ -18,5 +18,55 @@
 "I grammi proposti danno le stesse kcal di adesso: puoi cambiarli dopo.",
 "The suggested grams give the same kcal as now: you can change them afterwards.",
 "Les grammes proposés donnent les mêmes kcal qu’actuellement : tu peux les changer ensuite."
+],
+[
+"Età: \u0001 · cambia",
+"Age: {_} · change",
+"Âge : {_} · modifier"
+],
+[
+"cambia",
+"change",
+"modifier"
+],
+[
+"Vai",
+"Go",
+"Aller"
+],
+[
+"⚠️ Indica l’età in alto, nel riquadro Età: serve per il calcolo.",
+"⚠️ Enter your age above, in the Age box: it’s needed for the calculation.",
+"⚠️ Indique ton âge en haut, dans l’encadré Âge : il sert au calcul."
+],
+[
+"⚠️ Indica l’età in alto, nel riquadro",
+"⚠️ Enter your age above, in the box",
+"⚠️ Indique ton âge en haut, dans l’encadré"
+],
+[
+"Non ancora indicata.",
+"Not set yet.",
+"Pas encore indiquée."
+],
+[
+"ⓘ Serve per calorie, zone del battito e micronutrienti.",
+"ⓘ Needed for calories, heart rate zones and micronutrients.",
+"ⓘ Sert pour les calories, les zones cardiaques et les micronutriments."
+],
+[
+"anni",
+"years",
+"ans"
+],
+[
+"Età in anni",
+"Age in years",
+"Âge en années"
+],
+[
+"Età",
+"Age",
+"Âge"
 ]
 ]
