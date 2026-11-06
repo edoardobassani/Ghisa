@@ -1,0 +1,32 @@
+# v238: programmi pronti di calistenia, esercizi nuovi con guida, proposta della variante più difficile in seduta
+import gb,asyncio
+from playwright.async_api import async_playwright
+async def m():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2);E=[];pg.on('pageerror',lambda e:E.append(str(e)))
+    await pg.add_init_script("if(!localStorage.getItem('gb-lang'))localStorage.setItem('gb-lang','it')")
+    await pg.goto(gb.URL);await pg.wait_for_timeout(600)
+    ok=lambda c,w:print(('ok  ' if c else 'FAIL ')+w)
+    await pg.evaluate("()=>{V.tab='s';V.pg={f:'ca'};render()}");await pg.wait_for_timeout(200)
+    L=await pg.evaluate("()=>[...document.querySelectorAll('[data-a=pgo]')].map(b=>b.dataset.k)");print(L)
+    ok(L==['ca1','ca2','ca3'],'filtro Calistenia: 3 programmi')
+    await pg.screenshot(path=gb.O+'cal1.png')
+    miss=await pg.evaluate("()=>PGM.filter(p=>/^ca/.test(p[0])).flatMap(p=>p[7].flatMap(s=>s[1].split(';').map(x=>x.split('|')[0]))).filter(n=>!XBL.some(x=>x.name==n)||!gdCat(n))")
+    ok(not miss,'tutti gli esercizi sono nel catalogo e hanno la guida '+str(miss))
+    ok(await pg.evaluate("()=>XBL.length")==89,'catalogo: 89 esercizi')
+    await pg.click('[data-a=pgo][data-k=ca1]');await pg.wait_for_timeout(200);await pg.screenshot(path=gb.O+'cal1b.png',full_page=True);await pg.click('[data-a=pgu]');await pg.wait_for_timeout(200);await pg.click('[data-a=pgok]');await pg.wait_for_timeout(300)
+    sc=await pg.evaluate("()=>S.sch.map(s=>[s.name,s.ex.map(nm)])");print(sc)
+    ok(any(s[0]=='Calistenia A' for s in sc),'schede create')
+    bw=await pg.evaluate("()=>S.ex.filter(e=>['Trazioni con elastico','Hollow body (secondi)','Squat a corpo libero'].includes(e.name)).map(e=>e.t)");ok(bw==['bw']*3,'esercizi a corpo libero (record = ripetizioni)')
+    # progressione: ieri 3 serie da 12 di trazioni con elastico (soglia 10)
+    await pg.evaluate("()=>{const e=S.ex.find(x=>x.name=='Trazioni con elastico');const y=dShift(today(),-2);for(let i=0;i<3;i++)S.log.push({id:'t'+i,d:y,e:e.id,kg:0,r:12});const sc=S.sch.find(s=>s.name=='Calistenia A');V.ss={sc:sc.id,d:today(),st:Date.now(),i:0};V.tab='ss';save();render()}");await pg.wait_for_timeout(300)
+    t=await pg.evaluate("()=>{const c=document.querySelector('.cgb');return c?c.textContent:''}");print(t)
+    await pg.screenshot(path=gb.O+'cal2.png')
+    ok('Trazioni' in t and '10' in t,'in seduta propone «Trazioni»')
+    await pg.click('[data-a=cgup]');await pg.wait_for_timeout(300)
+    r=await pg.evaluate("()=>S.sch.find(s=>s.name=='Calistenia A').ex.map(nm)[0]");ok(r=='Trazioni','«Passa a» sostituisce nella scheda: '+r)
+    await pg.evaluate("()=>{localStorage.setItem('gb-lang','en')}");await pg.reload();await pg.wait_for_timeout(700)
+    await pg.evaluate("()=>{V.ss=null;V.tab='s';V.pg={f:'ca'};render()}");await pg.wait_for_timeout(200)
+    print(await pg.evaluate("()=>[...document.querySelectorAll('[data-a=pgo] b')].map(b=>b.textContent)"))
+    ok(not E,'nessun errore JS '+str(E));await b.close()
+asyncio.run(m())

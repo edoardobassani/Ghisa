@@ -118,5 +118,750 @@
 "Guida",
 "Guide",
 "Guide"
+],
+[
+"Piegamenti inclinati",
+"Incline push-ups",
+"Pompes inclinées"
+],
+[
+"Archer push-up",
+"Archer push-ups",
+"Pompes archer"
+],
+[
+"Piegamenti diamante",
+"Diamond push-ups",
+"Pompes diamant"
+],
+[
+"Pike push-up",
+"Pike push-ups",
+"Pompes pike"
+],
+[
+"Rematore australiano",
+"Australian rows",
+"Rowing australien"
+],
+[
+"Trazioni negative",
+"Negative pull-ups",
+"Tractions négatives"
+],
+[
+"Trazioni con elastico",
+"Band-assisted pull-ups",
+"Tractions avec élastique"
+],
+[
+"Scapular pull-up",
+"Scapular pull-ups",
+"Tractions scapulaires"
+],
+[
+"Squat a corpo libero",
+"Bodyweight squat",
+"Squat au poids du corps"
+],
+[
+"Squat bulgaro a corpo libero",
+"Bodyweight Bulgarian split squat",
+"Squat bulgare au poids du corps"
+],
+[
+"Pistol squat assistito",
+"Assisted pistol squat",
+"Pistol squat assisté"
+],
+[
+"Hip thrust a una gamba",
+"Single-leg hip thrust",
+"Hip thrust sur une jambe"
+],
+[
+"Nordic curl assistito",
+"Assisted Nordic curl",
+"Nordic curl assisté"
+],
+[
+"Calf raise a una gamba",
+"Single-leg calf raise",
+"Mollets sur une jambe"
+],
+[
+"Hollow body (secondi)",
+"Hollow body hold (seconds)",
+"Hollow body (secondes)"
+],
+[
+"L-sit (secondi)",
+"L-sit (seconds)",
+"L-sit (secondes)"
+],
+[
+"Tricipiti, Deltoide anteriore, Core",
+"Triceps, Front delts, Core",
+"Triceps, Deltoïde antérieur, Gainage"
+],
+[
+"Petto, Deltoide anteriore",
+"Chest, Front delts",
+"Pectoraux, Deltoïde antérieur"
+],
+[
+"Tricipiti, Trapezio",
+"Triceps, Traps",
+"Triceps, Trapèzes"
+],
+[
+"Bicipiti, Deltoide posteriore",
+"Biceps, Rear delts",
+"Biceps, Deltoïde postérieur"
+],
+[
+"Trapezio",
+"Traps",
+"Trapèzes"
+],
+[
+"Glutei",
+"Glutes",
+"Fessiers"
+],
+[
+"Glutei, Core",
+"Glutes, Core",
+"Fessiers, Gainage"
+],
+[
+"Quadricipiti, Tricipiti",
+"Quads, Triceps",
+"Quadriceps, Triceps"
+],
+[
+"Mani su un rialzo stabile (panca, tavolo, gradino), poco più larghe delle spalle.",
+"Hands on a stable raised surface (bench, table, step), slightly wider than your shoulders.",
+"Mains sur un support stable (banc, table, marche), un peu plus larges que les épaules."
+],
+[
+"Corpo dritto dalla testa ai talloni.",
+"Body straight from head to heels.",
+"Corps droit de la tête aux talons."
+],
+[
+"Scendi portando il petto verso il bordo del rialzo.",
+"Lower your chest towards the edge of the surface.",
+"Descends en amenant la poitrine vers le bord du support."
+],
+[
+"Spingi fino a braccia tese senza far cedere il bacino.",
+"Push up to straight arms without letting your hips sag.",
+"Pousse jusqu’aux bras tendus sans laisser le bassin s’affaisser."
+],
+[
+"Più basso è il rialzo, più è difficile.",
+"The lower the surface, the harder it is.",
+"Plus le support est bas, plus c’est difficile."
+],
+[
+"Bacino che cede verso il basso.",
+"Hips sagging.",
+"Bassin qui s’affaisse."
+],
+[
+"Gomiti larghi a 90°.",
+"Elbows flared at 90°.",
+"Coudes écartés à 90°."
+],
+[
+"Mani molto larghe, dita rivolte in fuori.",
+"Hands very wide, fingers pointing outwards.",
+"Mains très écartées, doigts tournés vers l’extérieur."
+],
+[
+"Corpo rigido come nei piegamenti.",
+"Body rigid as in push-ups.",
+"Corps gainé comme pour les pompes."
+],
+[
+"Scendi verso una mano piegando solo quel braccio.",
+"Lower towards one hand bending only that arm.",
+"Descends vers une main en pliant seulement ce bras."
+],
+[
+"L’altro braccio resta quasi teso e aiuta poco.",
+"The other arm stays almost straight and helps little.",
+"L’autre bras reste presque tendu et aide peu."
+],
+[
+"Risali e alterna il lato.",
+"Push back up and alternate sides.",
+"Remonte et alterne les côtés."
+],
+[
+"Ruotare il busto.",
+"Rotating the torso.",
+"Faire pivoter le buste."
+],
+[
+"Scendere poco per fare più ripetizioni.",
+"Going only partway down to do more reps.",
+"Descendre peu pour faire plus de répétitions."
+],
+[
+"Mani vicine sotto il petto, pollici e indici che formano un rombo.",
+"Hands close together under your chest, thumbs and index fingers forming a diamond.",
+"Mains rapprochées sous la poitrine, pouces et index formant un losange."
+],
+[
+"Corpo dritto, addominali contratti.",
+"Body straight, abs tight.",
+"Corps droit, abdos contractés."
+],
+[
+"Scendi tenendo i gomiti vicini al busto.",
+"Lower keeping your elbows close to your torso.",
+"Descends en gardant les coudes près du buste."
+],
+[
+"Sfiora le mani con il petto.",
+"Touch your hands with your chest.",
+"Effleure les mains avec la poitrine."
+],
+[
+"Spingi fino a braccia tese.",
+"Push up to straight arms.",
+"Pousse jusqu’aux bras tendus."
+],
+[
+"Gomiti che si aprono.",
+"Elbows flaring out.",
+"Coudes qui s’écartent."
+],
+[
+"Bacino che cede.",
+"Hips sagging.",
+"Bassin qui s’affaisse."
+],
+[
+"Mani a terra e bacino alto: il corpo forma una V rovesciata.",
+"Hands on the floor and hips high: your body forms an upside-down V.",
+"Mains au sol et bassin haut : le corps forme un V inversé."
+],
+[
+"Piedi vicini, gambe il più possibile tese.",
+"Feet close together, legs as straight as possible.",
+"Pieds rapprochés, jambes le plus tendues possible."
+],
+[
+"Piega i gomiti portando la testa verso il pavimento, davanti alle mani.",
+"Bend your elbows bringing your head towards the floor, in front of your hands.",
+"Plie les coudes en amenant la tête vers le sol, devant les mains."
+],
+[
+"Con i piedi su un rialzo diventa più difficile.",
+"With your feet on a raised surface it gets harder.",
+"Avec les pieds surélevés, c’est plus difficile."
+],
+[
+"Abbassare il bacino: diventa un piegamento normale.",
+"Dropping your hips: it turns into a normal push-up.",
+"Baisser le bassin : ça devient une pompe classique."
+],
+[
+"Gomiti che si aprono troppo.",
+"Elbows flaring too much.",
+"Coudes trop écartés."
+],
+[
+"Sotto una sbarra bassa o un tavolo robusto, presa poco più larga delle spalle.",
+"Under a low bar or a sturdy table, grip slightly wider than your shoulders.",
+"Sous une barre basse ou une table solide, prise un peu plus large que les épaules."
+],
+[
+"Corpo dritto dai talloni alle spalle.",
+"Body straight from heels to shoulders.",
+"Corps droit des talons aux épaules."
+],
+[
+"Tira portando il petto alla sbarra.",
+"Pull your chest up to the bar.",
+"Tire en amenant la poitrine à la barre."
+],
+[
+"Stringi le scapole in alto.",
+"Squeeze your shoulder blades at the top.",
+"Serre les omoplates en haut."
+],
+[
+"Scendi controllato fino a braccia tese.",
+"Lower under control to straight arms.",
+"Redescends en contrôlant jusqu’aux bras tendus."
+],
+[
+"Tirare solo con le braccia senza muovere le scapole.",
+"Pulling only with your arms without moving your shoulder blades.",
+"Tirer seulement avec les bras sans bouger les omoplates."
+],
+[
+"Sali sopra la sbarra con un salto o una sedia, mento oltre la sbarra.",
+"Get above the bar with a jump or a chair, chin over the bar.",
+"Monte au-dessus de la barre avec un saut ou une chaise, menton au-dessus de la barre."
+],
+[
+"Spalle basse, addome contratto.",
+"Shoulders down, abs tight.",
+"Épaules basses, abdos contractés."
+],
+[
+"Scendi il più lentamente possibile, 3–5 secondi.",
+"Lower as slowly as you can, 3–5 seconds.",
+"Descends le plus lentement possible, 3–5 secondes."
+],
+[
+"Arriva fino a braccia tese.",
+"Go all the way to straight arms.",
+"Va jusqu’aux bras tendus."
+],
+[
+"Risali con l’aiuto e ripeti.",
+"Get back up with help and repeat.",
+"Remonte avec de l’aide et recommence."
+],
+[
+"Lasciarsi cadere nell’ultima parte.",
+"Dropping in the last part.",
+"Se laisser tomber à la fin."
+],
+[
+"Spalle che salgono verso le orecchie.",
+"Shoulders creeping up to your ears.",
+"Épaules qui montent vers les oreilles."
+],
+[
+"Respira in modo regolare durante la discesa.",
+"Breathe steadily during the descent.",
+"Respire régulièrement pendant la descente."
+],
+[
+"Elastico agganciato alla sbarra, sotto un ginocchio o un piede.",
+"Band hooked to the bar, under one knee or foot.",
+"Élastique accroché à la barre, sous un genou ou un pied."
+],
+[
+"Presa prona poco più larga delle spalle.",
+"Overhand grip slightly wider than your shoulders.",
+"Prise en pronation un peu plus large que les épaules."
+],
+[
+"Tira portando i gomiti verso i fianchi finché il mento supera la sbarra.",
+"Pull your elbows towards your hips until your chin clears the bar.",
+"Tire les coudes vers les hanches jusqu’à ce que le menton dépasse la barre."
+],
+[
+"Usa un elastico più sottile quando arrivi a 10 ripetizioni.",
+"Use a thinner band once you reach 10 reps.",
+"Prends un élastique plus fin quand tu arrives à 10 répétitions."
+],
+[
+"Rimbalzare sull’elastico in basso.",
+"Bouncing on the band at the bottom.",
+"Rebondir sur l’élastique en bas."
+],
+[
+"Mezze ripetizioni.",
+"Half reps.",
+"Demi-répétitions."
+],
+[
+"Appeso alla sbarra a braccia tese, presa alla larghezza delle spalle.",
+"Hang from the bar with straight arms, grip shoulder-width apart.",
+"Suspendu à la barre bras tendus, prise à largeur d’épaules."
+],
+[
+"Senza piegare i gomiti, abbassa le spalle allontanandole dalle orecchie.",
+"Without bending your elbows, pull your shoulders down away from your ears.",
+"Sans plier les coudes, abaisse les épaules loin des oreilles."
+],
+[
+"Il corpo sale di pochi centimetri.",
+"Your body rises a few centimetres.",
+"Le corps monte de quelques centimètres."
+],
+[
+"Torna giù lentamente.",
+"Come back down slowly.",
+"Redescends lentement."
+],
+[
+"Piegare i gomiti.",
+"Bending your elbows.",
+"Plier les coudes."
+],
+[
+"Oscillare con le gambe.",
+"Swinging your legs.",
+"Balancer les jambes."
+],
+[
+"Espira tirando giù le spalle.",
+"Breathe out as you pull your shoulders down.",
+"Expire en abaissant les épaules."
+],
+[
+"Piedi alla larghezza delle spalle, punte leggermente in fuori.",
+"Feet shoulder-width apart, toes slightly out.",
+"Pieds à largeur d’épaules, pointes légèrement vers l’extérieur."
+],
+[
+"Scendi come per sederti, petto alto e talloni a terra.",
+"Sit back and down, chest up and heels on the floor.",
+"Descends comme pour t’asseoir, poitrine haute et talons au sol."
+],
+[
+"Arriva con le cosce almeno parallele al pavimento.",
+"Get your thighs at least parallel to the floor.",
+"Descends au moins jusqu’aux cuisses parallèles au sol."
+],
+[
+"Risali spingendo sui talloni.",
+"Stand up pushing through your heels.",
+"Remonte en poussant sur les talons."
+],
+[
+"Ginocchia che cadono verso l’interno.",
+"Knees caving in.",
+"Genoux qui rentrent vers l’intérieur."
+],
+[
+"Talloni che si alzano.",
+"Heels lifting.",
+"Talons qui se soulèvent."
+],
+[
+"Un piede appoggiato dietro su una panca o una sedia.",
+"One foot resting behind you on a bench or chair.",
+"Un pied posé derrière sur un banc ou une chaise."
+],
+[
+"Piede davanti a circa un passo di distanza.",
+"Front foot about a stride away.",
+"Pied avant à environ un pas."
+],
+[
+"Scendi in verticale finché la coscia davanti è parallela al pavimento.",
+"Lower straight down until your front thigh is parallel to the floor.",
+"Descends à la verticale jusqu’à ce que la cuisse avant soit parallèle au sol."
+],
+[
+"Risali spingendo sul tallone della gamba davanti.",
+"Push back up through the heel of your front leg.",
+"Remonte en poussant sur le talon de la jambe avant."
+],
+[
+"Fai tutte le ripetizioni e cambia gamba.",
+"Do all the reps, then switch legs.",
+"Fais toutes les répétitions et change de jambe."
+],
+[
+"Ginocchio davanti che cade verso l’interno.",
+"Front knee caving in.",
+"Genou avant qui rentre vers l’intérieur."
+],
+[
+"Piede davanti troppo vicino alla panca.",
+"Front foot too close to the bench.",
+"Pied avant trop près du banc."
+],
+[
+"In piedi su una gamba, l’altra tesa in avanti.",
+"Stand on one leg, the other straight out in front.",
+"Debout sur une jambe, l’autre tendue devant."
+],
+[
+"Tieniti a un palo, a una porta o a un elastico.",
+"Hold on to a post, a door frame or a band.",
+"Tiens-toi à un poteau, à une porte ou à un élastique."
+],
+[
+"Scendi su una gamba il più in basso possibile, tallone a terra.",
+"Lower on one leg as far as you can, heel on the floor.",
+"Descends sur une jambe le plus bas possible, talon au sol."
+],
+[
+"Risali aiutandoti con le mani solo quanto serve.",
+"Stand back up using your hands only as much as needed.",
+"Remonte en t’aidant des mains seulement autant que nécessaire."
+],
+[
+"Ginocchio che cade verso l’interno.",
+"Knee caving in.",
+"Genou qui rentre vers l’intérieur."
+],
+[
+"Tirarsi su solo con le braccia.",
+"Pulling yourself up with your arms only.",
+"Se hisser seulement avec les bras."
+],
+[
+"Schiena appoggiata a una panca o a terra, un piede a terra e l’altra gamba sollevata.",
+"Back against a bench or on the floor, one foot down and the other leg raised.",
+"Dos appuyé sur un banc ou au sol, un pied au sol et l’autre jambe levée."
+],
+[
+"Spingi sul tallone e solleva il bacino fino ad allineare spalle, bacino e ginocchio.",
+"Push through your heel and lift your hips until shoulders, hips and knee line up.",
+"Pousse sur le talon et monte le bassin jusqu’à aligner épaules, bassin et genou."
+],
+[
+"Stringi il gluteo un secondo in alto.",
+"Squeeze your glute for a second at the top.",
+"Serre le fessier une seconde en haut."
+],
+[
+"Scendi controllato e cambia gamba alla fine.",
+"Lower under control and switch legs at the end.",
+"Redescends en contrôlant et change de jambe à la fin."
+],
+[
+"Inarcare la schiena invece di estendere l’anca.",
+"Arching your back instead of extending your hip.",
+"Cambrer le dos au lieu de tendre la hanche."
+],
+[
+"Spingere sulle punte.",
+"Pushing through your toes.",
+"Pousser sur les pointes."
+],
+[
+"In ginocchio su un tappetino, talloni bloccati sotto un mobile o tenuti da qualcuno.",
+"Kneel on a mat, heels anchored under furniture or held by someone.",
+"À genoux sur un tapis, talons bloqués sous un meuble ou tenus par quelqu’un."
+],
+[
+"Busto dritto dalle ginocchia alla testa.",
+"Body straight from knees to head.",
+"Buste droit des genoux à la tête."
+],
+[
+"Scendi in avanti lentamente frenando con i femorali.",
+"Lean forward slowly, braking with your hamstrings.",
+"Descends en avant lentement en freinant avec les ischios."
+],
+[
+"Quando non riesci più a frenare, appoggia le mani e spingi per tornare su.",
+"When you can’t brake any more, catch yourself with your hands and push back up.",
+"Quand tu ne peux plus freiner, pose les mains et pousse pour remonter."
+],
+[
+"Con il tempo scendi sempre più in basso.",
+"Over time, go lower and lower.",
+"Avec le temps, descends de plus en plus bas."
+],
+[
+"Piegarsi ai fianchi.",
+"Bending at the hips.",
+"Se plier aux hanches."
+],
+[
+"Lasciarsi cadere senza frenare.",
+"Falling without braking.",
+"Se laisser tomber sans freiner."
+],
+[
+"Avampiede su un gradino, tallone fuori, una mano al muro per l’equilibrio.",
+"Ball of the foot on a step, heel off, one hand on the wall for balance.",
+"Avant du pied sur une marche, talon dans le vide, une main au mur pour l’équilibre."
+],
+[
+"Sali sulla punta il più in alto possibile.",
+"Rise onto your toes as high as you can.",
+"Monte sur la pointe le plus haut possible."
+],
+[
+"Fermati un secondo in alto.",
+"Pause for a second at the top.",
+"Marque une pause d’une seconde en haut."
+],
+[
+"Scendi lento fino a sentire l’allungamento.",
+"Lower slowly until you feel the stretch.",
+"Redescends lentement jusqu’à sentir l’étirement."
+],
+[
+"Rimbalzare in basso.",
+"Bouncing at the bottom.",
+"Rebondir en bas."
+],
+[
+"Piegare il ginocchio.",
+"Bending your knee.",
+"Plier le genou."
+],
+[
+"Sdraiato sulla schiena, braccia tese sopra la testa.",
+"Lie on your back, arms straight overhead.",
+"Allongé sur le dos, bras tendus au-dessus de la tête."
+],
+[
+"Schiaccia la zona lombare contro il pavimento.",
+"Press your lower back into the floor.",
+"Plaque le bas du dos contre le sol."
+],
+[
+"Solleva spalle e gambe tese di pochi centimetri: il corpo forma una barchetta.",
+"Lift your shoulders and straight legs a few centimetres: your body forms a shallow boat.",
+"Soulève épaules et jambes tendues de quelques centimètres : le corps forme une barque."
+],
+[
+"Mantieni la posizione per il tempo indicato.",
+"Hold the position for the given time.",
+"Tiens la position le temps indiqué."
+],
+[
+"Lombare che si stacca da terra.",
+"Lower back lifting off the floor.",
+"Bas du dos qui décolle du sol."
+],
+[
+"Trattenere il fiato.",
+"Holding your breath.",
+"Retenir sa respiration."
+],
+[
+"Respira corto e regolare, senza trattenere il fiato.",
+"Take short, steady breaths without holding your breath.",
+"Respire court et régulièrement, sans bloquer ta respiration."
+],
+[
+"Mani sulle parallele, su due sedie stabili o a terra accanto ai fianchi.",
+"Hands on parallel bars, two stable chairs or the floor beside your hips.",
+"Mains sur les barres parallèles, deux chaises stables ou au sol à côté des hanches."
+],
+[
+"Spingi giù le mani e solleva il corpo a braccia tese.",
+"Press down through your hands and lift your body on straight arms.",
+"Pousse sur les mains et soulève le corps bras tendus."
+],
+[
+"Porta le gambe tese in avanti, parallele al pavimento.",
+"Bring your straight legs forward, parallel to the floor.",
+"Amène les jambes tendues devant, parallèles au sol."
+],
+[
+"Se è troppo difficile tieni le ginocchia piegate.",
+"If it’s too hard, keep your knees bent.",
+"Si c’est trop difficile, garde les genoux pliés."
+],
+[
+"Gambe che scendono.",
+"Legs dropping.",
+"Jambes qui tombent."
+],
+[
+"Calistenia base",
+"Calisthenics basics",
+"Callisthénie débutant"
+],
+[
+"Calistenia Upper / Lower",
+"Calisthenics Upper / Lower",
+"Callisthénie Haut / Bas"
+],
+[
+"Calistenia Push / Pull / Legs",
+"Calisthenics Push / Pull / Legs",
+"Callisthénie Push / Pull / Legs"
+],
+[
+"Per iniziare con la calistenia: progressioni facili per trazioni, spinte e gambe, più il core. Ti basta una sbarra (meglio con un elastico) e un rialzo. Schede A e B alternate.",
+"To get started with calisthenics: easy progressions for pulling, pushing and legs, plus core. All you need is a bar (ideally with a band) and a raised surface. Workouts A and B alternate.",
+"Pour commencer la callisthénie : progressions faciles pour tirer, pousser et les jambes, plus le gainage. Il te suffit d’une barre (idéalement avec un élastique) et d’un support. Fiches A et B en alternance."
+],
+[
+"Quattro sedute: due per la parte alta con trazioni, dip e varianti dei piegamenti, due per le gambe con pistol squat e nordic curl assistiti. Serve una sbarra e le parallele (o due sedie stabili).",
+"Four sessions: two for the upper body with pull-ups, dips and push-up variations, two for the legs with assisted pistol squats and Nordic curls. You need a bar and parallel bars (or two stable chairs).",
+"Quatre séances : deux pour le haut du corps avec tractions, dips et variantes de pompes, deux pour les jambes avec pistol squats et nordic curls assistés. Il faut une barre et des barres parallèles (ou deux chaises stables)."
+],
+[
+"Per chi fa già trazioni e dip: spinta, trazione e gambe con le varianti più difficili (archer push-up, pistol squat, nordic curl) e L-sit per il core.",
+"For those who can already do pull-ups and dips: push, pull and legs with the harder variations (archer push-ups, pistol squats, Nordic curls) and L-sits for the core.",
+"Pour qui fait déjà des tractions et des dips : poussée, tirage et jambes avec les variantes les plus difficiles (pompes archer, pistol squat, nordic curl) et L-sit pour le gainage."
+],
+[
+"Calistenia A",
+"Calisthenics A",
+"Callisthénie A"
+],
+[
+"Calistenia B",
+"Calisthenics B",
+"Callisthénie B"
+],
+[
+"Cal Upper A",
+"Cal Upper A",
+"Cal Haut A"
+],
+[
+"Cal Lower A",
+"Cal Lower A",
+"Cal Bas A"
+],
+[
+"Cal Upper B",
+"Cal Upper B",
+"Cal Haut B"
+],
+[
+"Cal Lower B",
+"Cal Lower B",
+"Cal Bas B"
+],
+[
+"Calistenia",
+"Calisthenics",
+"Callisthénie"
+],
+[
+"💪 Pronto per «\u0001»",
+"💪 Ready for «{_}»",
+"💪 Prêt pour « {_} »"
+],
+[
+"L’ultima volta hai fatto tutte le serie con almeno \u0001: è il momento della variante più difficile.",
+"Last time you did every set with at least {_}: it’s time for the harder variation.",
+"La dernière fois tu as fait toutes les séries avec au moins {_} : c’est le moment de la variante plus difficile."
+],
+[
+"Passa a «\u0001»",
+"Switch to «{_}»",
+"Passer à « {_} »"
+],
+[
+"Resta così",
+"Keep as is",
+"Garder ainsi"
+],
+[
+"\u0001 secondi",
+"{_} seconds",
+"{_} secondes"
+],
+[
+": apri «Catalogo palestra» (89 esercizi già pronti, con la spiegazione) e spunta quelli che usi, oppure crea i tuoi.",
+": open «Gym catalogue» (89 ready exercises, with explanations) and tick the ones you use, or create your own.",
+": ouvre « Catalogue salle » (89 exercices prêts, avec explication) et coche ceux que tu utilises, ou crée les tiens."
+],
+[
+": 19 programmi completi (filtrabili per giorni e corpo libero). «Usa questo programma» crea le schede, aggiunge gli esercizi che mancano e compila il programma settimanale. Nei programmi a rotazione la Home propone la scheda successiva all’ultima fatta, anche se salti un giorno.",
+": 19 complete programmes (filterable by days and bodyweight). «Use this programme» creates the workouts, adds missing exercises and fills in the weekly plan. In rotation programmes Home suggests the workout after the last one done, even if you skip a day.",
+": 19 programmes complets (filtrables par jours et poids du corps). « Utiliser ce programme » crée les fiches, ajoute les exercices manquants et remplit le programme hebdomadaire. Dans les programmes en rotation l’accueil propose la fiche qui suit la dernière faite, même si tu sautes un jour."
+],
+[
+": 89 esercizi in 9 gruppi (Petto, Schiena, Spalle, Bicipiti, Tricipiti, Quadricipiti, Femorali e glutei, Polpacci, Core), già con la spiegazione. Spunta quelli che usi.",
+": 89 exercises in 9 groups (Chest, Back, Shoulders, Biceps, Triceps, Quads, Hamstrings and glutes, Calves, Core), already with explanations. Tick the ones you use.",
+": 89 exercices en 9 groupes (Pectoraux, Dos, Épaules, Biceps, Triceps, Quadriceps, Ischios et fessiers, Mollets, Gainage), déjà avec explication. Coche ceux que tu utilises."
 ]
 ]
