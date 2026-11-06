@@ -294,3 +294,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v244 – fogli sopra la tastiera
 - Su Android la tastiera copre la parte bassa della pagina senza ridimensionarla: i fogli dal basso (`.sdov`) restavano dietro la tastiera. `kbFit()` legge `visualViewport` (eventi resize e scroll) e imposta `--kb` (altezza della tastiera, se oltre 60 px) e `--vvh` (altezza visibile): `.sdov` lascia `--kb` libero in basso e `.fsh` si accorcia allo spazio visibile, così barra e risultati restano sopra la tastiera. Test `test/t81.py` (spazio simulato).
+
+## v245 – carico proposto senza cali ingiustificati
+- Prima: se mancava anche una ripetizione, il carico tornava a quello scritto nella scheda alla creazione (il generatore scrive il 90% della stima e non lo aggiorna mai); senza carico nella scheda si ripartiva dall’ultima serie della seduta precedente, spesso quella scalata. I carichi quindi scendevano a gradini.
+- Ora `tgNext(tg,ps,j,last,bw,id)`: base = serie di lavoro più pesante della seduta precedente (per serie se la scheda è a piramide, `ldPyr`); +2% (`sgP`) se tutte le ripetizioni fatte o RIR ≥ 3; uguale se no; −5% solo dopo due sedute di fila sotto l’85% delle ripetizioni previste (`ldLow`, `ldPrev`). Il carico della scheda vale senza storico o se la scheda è stata cambiata dopo l’ultima seduta (`tg.at`, scritto dall’editor solo quando cambiano ripetizioni/carichi, dal generatore e dalle azioni dello stallo). Programmi a percentuale (`tg.bp`) invariati. Nella seduta, dalla seconda serie segue il carico appena usato.
+- Sotto il carico il motivo (`N.why`, `.ldw`); le serie previste mostrano il carico proposto (`ldSh`). Test `test/t82.py`.

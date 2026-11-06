@@ -2058,5 +2058,40 @@
 "\u0001 · \u0001 g aggiunto \u0001",
 "{_} · {_} g added {_}",
 "{_} · {_} g ajouté {_}"
+],
+[
+"dalla scheda: l’hai cambiata dopo l’ultima seduta",
+"from the plan: you changed it after the last session",
+"d’après la fiche : tu l’as modifiée après la dernière séance"
+],
+[
+"settimana di scarico: stesso carico",
+"deload week: same weight",
+"semaine de décharge : même charge"
+],
+[
+"+\u0001 kg: l’ultima volta hai fatto tutte le ripetizioni",
+"+{_} kg: last time you did all the reps",
+"+{_} kg : la dernière fois tu as fait toutes les répétitions"
+],
+[
+"+\u0001 kg: ti restavano 3 o più ripetizioni",
+"+{_} kg: you had 3 or more reps left",
+"+{_} kg : il te restait 3 répétitions ou plus"
+],
+[
+"−5%: due sedute di fila sotto l’obiettivo",
+"−5%: two sessions in a row below target",
+"−5 % : deux séances de suite sous l’objectif"
+],
+[
+"come l’ultima volta: completa tutte le ripetizioni per salire",
+"same as last time: complete all reps to go up",
+"comme la dernière fois : fais toutes les répétitions pour monter"
+],
+[
+"come l’ultima volta",
+"same as last time",
+"comme la dernière fois"
 ]
 ]
