@@ -1,6 +1,7 @@
 import json,html
 it=json.load(open('items.json'));T={int(k):v for k,v in json.load(open('tr.json')).items()}
-X=[('CANCELLA','DELETE','SUPPRIMER')]
+import os
+X=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'extra.json')))
 D=[]
 u=lambda s:html.unescape(s).replace('\xa0',' ')
 for i,s in enumerate(it):

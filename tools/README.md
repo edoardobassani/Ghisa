@@ -244,3 +244,7 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Tradotti anche: canvas (immagini condivise), celle Excel e CSV, testi condivisi della spesa, formato data Excel (`XD`). La ricerca degli alimenti cerca anche nel nome tradotto; per cancellare tutto vanno bene CANCELLA, DELETE o SUPPRIMER.
 - Scelta della lingua: riga «🌐 Lingua · Language · Langue» nel menu (sopra il tema) e nella scheda di benvenuto; azione `lng` salva e ricarica.
 - Rigenerare il dizionario dopo nuovi testi: `tools/i18n/ex.js` estrae le frasi dallo script, `items.json` le numera, `traduzioni.tsv` (`id\tEN\tFR`, `-` = da non tradurre) le traduce, `build.py` + `mk.py` controllano i segnaposto e producono il JSON da mettere in `#i18nd`. Le frasi nuove non tradotte restano in italiano. Test `test/t70.py` (elenca le frasi italiane rimaste visibili in EN e FR).
+
+## v234 – ricerca libera nel foglio «Scambia»
+- Il foglio ⇄ Scambia (diario e piano pasti, `mpSwOpen`) ha in alto il campo `#swq` (`V.sw.q`): `mpSwRes()` usa `fMatch` (sinonimi, correzione, nome tradotto) e propone fino a 8 alimenti con i grammi che danno le stesse kcal dell'alimento attuale (`gR(k0/f.k*100)`). Le righe sono quelle di sempre (`mpSwRow`, prima interna a `mpSwOpen`): «⇄ Scambia» o «+ Salva» tra le alternative. L'input aggiorna solo `#swres`, così il campo non perde il fuoco.
+- Frasi nuove per EN/FR in `tools/i18n/extra.json` (le legge `mk.py`). Test `test/t71.py`.
