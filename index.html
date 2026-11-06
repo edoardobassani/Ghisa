@@ -107,7 +107,7 @@ details details summary{font-size:17px}
 .dml{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin:0 0 10px}details .dml{background:var(--card)}.dmh{display:flex;align-items:center;gap:10px;min-height:34px}.dmh i{width:10px;height:10px;border-radius:50%;flex:0 0 10px}.dmh b{flex:1;font-size:18px}.dmh>span{color:var(--mut)}.dmh .dmx{flex:0 0 auto;padding:2px 10px;font-size:18px;line-height:1;border:0}
 .dit{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--ink);padding:8px 0 8px 20px;font:inherit;font-size:15px;font-weight:400}.dit small{display:block;color:var(--mut);font-size:13px}.dit>span:last-child{color:var(--mut);white-space:nowrap}.dit.dpi>span:first-child{background:var(--hi);color:#1c262b;border-radius:6px;padding:0 5px}
 .dad{display:block;width:100%;margin-top:8px;background:transparent;color:var(--acc);border:1px dashed color-mix(in srgb,var(--acc) 55%,var(--line));border-radius:10px;padding:10px;font-weight:600}
-.fsh{max-height:calc(92vh / var(--z,1))}.fsh .xpl{padding:0 14px 14px}.fsh details{background:var(--bg)}body.fsh-on{overflow:hidden}.fsh [data-a=rc]{padding:5px 11px;font-size:13px;font-weight:500;border-radius:14px;color:var(--ink);background:var(--card)}
+.fsh{max-height:min(calc(92vh / var(--z,1)),calc(var(--vvh,100vh) / var(--z,1) - 10px))}.fsh .xpl{padding:0 14px 14px}.fsh details{background:var(--bg)}body.fsh-on{overflow:hidden}.fsh [data-a=rc]{padding:5px 11px;font-size:13px;font-weight:500;border-radius:14px;color:var(--ink);background:var(--card)}
 .fgi{background:var(--card);padding:10px 8px 12px;border-bottom:1px dashed var(--line);box-shadow:inset 3px 0 0 var(--hi);display:flex;flex-direction:column;gap:8px}.fgi #fg{flex:0 0 96px;font-size:20px;font-weight:700;text-align:center;padding:8px}.fgi .fgk{margin:0;text-align:right;font-size:13px}.fgi .fgk b{color:var(--ink)}.fgi .cxc{margin:0}
 .fr .hint{margin:0}
 nav{position:fixed;top:0;bottom:0;left:0;width:min(calc(78vw / var(--z,1)),290px);z-index:40;display:flex;flex-direction:column;background:var(--card);border-right:1px solid var(--line);padding:calc(18px + env(safe-area-inset-top,0px)) 0 calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-100%);overflow-y:auto;visibility:hidden;transition:transform .2s,visibility 0s .2s;box-shadow:4px 0 24px rgba(0,0,0,.18)}
@@ -285,7 +285,7 @@ details.hsx{border:1px solid var(--line);border-radius:10px;padding:8px 10px;mar
 .sdx input.ti{width:100%;min-width:0;margin:0;height:auto;padding:8px}
 .sdxf{display:flex;justify-content:space-between;gap:10px;margin-top:8px}.sdxf button{flex:0 1 auto;width:auto;margin:0}.sdxf .sdrm{color:var(--bad)}
 .sdadd{width:100%;background:none;border:2px dashed var(--line);color:var(--acc);font-weight:700;padding:11px;margin-top:10px}
-.sdov{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
+.sdov{position:fixed;inset:0 0 calc(var(--kb,0px) / var(--z,1)) 0;z-index:80;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}
 .sdgr{display:flex;gap:6px;overflow-x:auto;padding:0 14px 8px;flex:0 0 auto}
 .sdgr button{flex:0 0 auto;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:5px 12px;font-size:13px;font-weight:500}.sdgr button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 .sdi{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer}
@@ -1052,6 +1052,9 @@ function pbDo(){const Q=V.pb,p=PGM.find(x=>x[0]==Q.pick),A=pbAdapt(p,Q),{pl}=pbP
  V.pb=null;V.pg=null;V.o.dSch=true;V.o.dPl=true;window.scrollTo(0,0);toast('Programma «'+p[1]+'» creato: '+ids.length+' schede')}
 function pbHero(){return S.prog&&S.prog.pb?`<button class="pbhero sm" data-a="pbo"><b>✨ Crea un nuovo programma per me</b></button>`:`<button class="pbhero" data-a="pbo"><b>✨ Crea il programma per me</b><span>7 domande: obiettivo, giorni, tempo, attrezzatura, zone da proteggere, muscoli in priorità, esercizi da tenere o evitare. Costruisco le schede da zero, su misura.</span></button>`}
 
+/* tastiera aperta (v244): i fogli dal basso restano sopra la tastiera e si accorciano allo spazio visibile */
+function kbFit(){const v=window.visualViewport;if(!v)return;const kb=Math.max(0,Math.round(innerHeight-v.height-v.offsetTop)),R=document.documentElement.style;R.setProperty('--kb',(kb>60?kb:0)+'px');R.setProperty('--vvh',Math.round(v.height)+'px')}
+if(window.visualViewport){visualViewport.addEventListener('resize',kbFit);visualViewport.addEventListener('scroll',kbFit);kbFit()}
 /* ---- Gruppi di alimenti nella ricerca (v242): «pesce», «carne rossa», «formaggi»… → il gruppo intero, i sottogruppi, poi i singoli alimenti ---- */
 /* [id, nome, parole che lo richiamano, regola (gruppo della dieta o regola sul nome), gruppo padre] */
 const FQG=[['pesce','Pesce',['pesce','pesci','pesce e frutti di mare','pescato'],'Pesce e frutti di mare'],
@@ -3265,7 +3268,7 @@ function ogAll(pm,has,sk){const L=pm.filter(x=>!has(x)&&!sk(x));if(L.length<2)re
 function ieriCard(){const y=hvAdd(today(),-1),L=mMiss(y),w=dclH(y,1);if(!L.length&&!w)return '';return `<div class="card"><h2>Ieri</h2>${w}${L.map(m=>mMissBox(y,m,false)).join('')}</div>`}
 /* benvenuto: i primi passi finché non sono fatti (o finché non lo nascondi) */
 /* Informazioni: gratuità, licenza, versione ufficiale, fonti (v223) */
-const GBV='243',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
+const GBV='244',GBSITE='https://edoardobassani.github.io/Ghisa/',GBREPO='https://github.com/edoardobassani/Ghisa';
 function vinf(){const L=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t||u.replace(/^https:\/\//,'')}</a>`;
  return `<h1>Informazioni</h1><div class="card inf1"><h2>Gym-Bo è gratuito, e lo resterà</h2><ul class="infl"><li>Nessun abbonamento e nessun pagamento</li><li>Nessuna pubblicità e nessun account</li><li>Nessuna funzione a pagamento da sbloccare</li><li>I tuoi dati restano sul tuo telefono (e sul tuo Google Drive, se attivi il backup)</li></ul>
  <p class="infw">⚠️ Se qualcuno ti chiede soldi per Gym-Bo, o per una sua copia, non è la versione originale: non devi niente a nessuno.</p></div>

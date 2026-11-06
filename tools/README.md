@@ -291,3 +291,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Nel foglio «Aggiungi a …» la parte iniziale (Recenti, Di solito, Copia un pasto) è in `#fpre` e si nasconde appena si scrive: i risultati compaiono sotto la barra, sopra la tastiera.
 - `fqRow(f)`: riga compatta con kcal per 100 g; per gli alimenti già usati «già usato», «di solito N g» e il pulsante «+ N g» (`fqa`, aggiunge e svuota la barra), per gli altri «Scegli». Prima 4 risultati, poi «Altri N risultati» (40) e «Mostra tutti» (`fqall`, `V.fqAll` 1 e 2).
 - Alimento scelto: resta solo lui con il riquadro dei grammi attivo e «‹ altri risultati» (`fsx`). Test `test/t80.py`.
+
+## v244 – fogli sopra la tastiera
+- Su Android la tastiera copre la parte bassa della pagina senza ridimensionarla: i fogli dal basso (`.sdov`) restavano dietro la tastiera. `kbFit()` legge `visualViewport` (eventi resize e scroll) e imposta `--kb` (altezza della tastiera, se oltre 60 px) e `--vvh` (altezza visibile): `.sdov` lascia `--kb` libero in basso e `.fsh` si accorcia allo spazio visibile, così barra e risultati restano sopra la tastiera. Test `test/t81.py` (spazio simulato).
