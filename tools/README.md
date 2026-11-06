@@ -286,3 +286,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 - Generatore del piano pasti: la ricerca propone il gruppo intero, i sottogruppi e poi gli alimenti; il gruppo si salva come `g:<id>` in `ban`/`keep`, le eccezioni in `Q.bx`. Chip unico con pannello per togliere la spunta (`mggx`, `mgbe`). `mgBan`/`mgKeep` sostituiscono i controlli sui nomi.
 - Cambio alimento: scrivendo un gruppo compaiono solo i suoi alimenti alle stesse kcal; gli alimenti esclusi nel piano su misura (`swBan`) non compaiono tra risultati ed equivalenti, con nota.
 - Diario: scrivendo un gruppo, elenco diviso per sottogruppi (`flG`). Test `test/t79.py`.
+
+## v243 – risultati della ricerca alimenti subito sotto la barra
+- Nel foglio «Aggiungi a …» la parte iniziale (Recenti, Di solito, Copia un pasto) è in `#fpre` e si nasconde appena si scrive: i risultati compaiono sotto la barra, sopra la tastiera.
+- `fqRow(f)`: riga compatta con kcal per 100 g; per gli alimenti già usati «già usato», «di solito N g» e il pulsante «+ N g» (`fqa`, aggiunge e svuota la barra), per gli altri «Scegli». Prima 4 risultati, poi «Altri N risultati» (40) e «Mostra tutti» (`fqall`, `V.fqAll` 1 e 2).
+- Alimento scelto: resta solo lui con il riquadro dei grammi attivo e «‹ altri risultati» (`fsx`). Test `test/t80.py`.

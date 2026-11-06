@@ -2013,5 +2013,50 @@
 "Verdure",
 "Vegetables",
 "Légumes"
+],
+[
+"già usato",
+"used before",
+"déjà utilisé"
+],
+[
+"\u0001 kcal / 100 g",
+"{_} kcal / 100 g",
+"{_} kcal / 100 g"
+],
+[
+"\u0001 kcal / 100 g · di solito \u0001 g",
+"{_} kcal / 100 g · usually {_} g",
+"{_} kcal / 100 g · d’habitude {_} g"
+],
+[
+"Scegli",
+"Choose",
+"Choisir"
+],
+[
+"‹ altri risultati",
+"‹ other results",
+"‹ autres résultats"
+],
+[
+"Altri \u0001 risultati ▾",
+"{_} more results ▾",
+"{_} autres résultats ▾"
+],
+[
+"Altro risultato ▾",
+"1 more result ▾",
+"1 autre résultat ▾"
+],
+[
+"Scegli \u0001",
+"Choose {_}",
+"Choisir {_}"
+],
+[
+"\u0001 · \u0001 g aggiunto \u0001",
+"{_} · {_} g added {_}",
+"{_} · {_} g ajouté {_}"
 ]
 ]
