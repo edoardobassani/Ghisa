@@ -1323,5 +1323,520 @@
 "➕ Più serie anche per \u0001",
 "➕ More sets for {_} too",
 "➕ Plus de séries aussi pour {_}"
+],
+[
+"Passo \u0001 di \u0001",
+"Step {_} of {_}",
+"Étape {_} sur {_}"
+],
+[
+"Passo \u0001 di \u0001 · facoltativo",
+"Step {_} of {_} · optional",
+"Étape {_} sur {_} · facultatif"
+],
+[
+"Dimagrire · \u0001",
+"Lose weight · {_}",
+"Perdre du poids · {_}"
+],
+[
+"Mantenere · \u0001",
+"Maintain · {_}",
+"Maintenir · {_}"
+],
+[
+"Massa · \u0001",
+"Bulk · {_}",
+"Prise de masse · {_}"
+],
+[
+"Dimagrire · \u0001 kcal",
+"Lose weight · {_} kcal",
+"Perdre du poids · {_} kcal"
+],
+[
+"Massa · \u0001 kcal",
+"Bulk · {_} kcal",
+"Prise de masse · {_} kcal"
+],
+[
+"Calorie dal tuo fabbisogno (Obiettivi e misure).",
+"Calories from your energy needs (Goals and measurements).",
+"Calories d’après tes besoins (Objectifs et mesures)."
+],
+[
+"Come mangi?",
+"How do you eat?",
+"Comment manges-tu ?"
+],
+[
+"Pescetariano",
+"Pescatarian",
+"Pescétarien"
+],
+[
+"Pasti al giorno",
+"Meals per day",
+"Repas par jour"
+],
+[
+"Colazione, pranzo, cena",
+"Breakfast, lunch, dinner",
+"Petit-déjeuner, déjeuner, dîner"
+],
+[
+"Colazione, pranzo, spuntino, cena",
+"Breakfast, lunch, snack, dinner",
+"Petit-déjeuner, déjeuner, collation, dîner"
+],
+[
+"Allergie e intolleranze",
+"Allergies and intolerances",
+"Allergies et intolérances"
+],
+[
+"Glutine",
+"Gluten",
+"Gluten"
+],
+[
+"Lattosio",
+"Lactose",
+"Lactose"
+],
+[
+"Frutta a guscio",
+"Tree nuts",
+"Fruits à coque"
+],
+[
+"Pesce e crostacei",
+"Fish and shellfish",
+"Poisson et crustacés"
+],
+[
+"Soia",
+"Soy",
+"Soja"
+],
+[
+"Glutine ✓",
+"Gluten ✓",
+"Gluten ✓"
+],
+[
+"Lattosio ✓",
+"Lactose ✓",
+"Lactose ✓"
+],
+[
+"Frutta a guscio ✓",
+"Tree nuts ✓",
+"Fruits à coque ✓"
+],
+[
+"Uova ✓",
+"Eggs ✓",
+"Œufs ✓"
+],
+[
+"Pesce e crostacei ✓",
+"Fish and shellfish ✓",
+"Poisson et crustacés ✓"
+],
+[
+"Soia ✓",
+"Soy ✓",
+"Soja ✓"
+],
+[
+"Pescetariano ✓",
+"Pescatarian ✓",
+"Pescétarien ✓"
+],
+[
+"Non sostituisce il parere di un medico: controlla sempre le etichette.",
+"This does not replace a doctor’s advice: always check the labels.",
+"Cela ne remplace pas l’avis d’un médecin : vérifie toujours les étiquettes."
+],
+[
+"Alimenti da evitare",
+"Foods to avoid",
+"Aliments à éviter"
+],
+[
+"Alimenti che vuoi ritrovare",
+"Foods you want to keep",
+"Aliments que tu veux retrouver"
+],
+[
+"Cerca un alimento…",
+"Search for a food…",
+"Chercher un aliment…"
+],
+[
+"Cerca un alimento da evitare",
+"Search for a food to avoid",
+"Chercher un aliment à éviter"
+],
+[
+"Cerca un alimento da tenere",
+"Search for a food to keep",
+"Chercher un aliment à garder"
+],
+[
+"Nessun alimento trovato.",
+"No food found.",
+"Aucun aliment trouvé."
+],
+[
+"Quanto tempo per cucinare?",
+"How much time to cook?",
+"Combien de temps pour cuisiner ?"
+],
+[
+"Poco",
+"Little",
+"Peu"
+],
+[
+"Normale",
+"Normal",
+"Normal"
+],
+[
+"Mi piace cucinare",
+"I like cooking",
+"J’aime cuisiner"
+],
+[
+"Varietà",
+"Variety",
+"Variété"
+],
+[
+"Stessi pasti",
+"Same meals",
+"Mêmes repas"
+],
+[
+"Un po’",
+"Some",
+"Un peu"
+],
+[
+"Molta",
+"Lots",
+"Beaucoup"
+],
+[
+"3 giornate che si ripetono: più semplice fare la spesa.",
+"3 days that repeat: easier shopping.",
+"3 journées qui se répètent : courses plus simples."
+],
+[
+"Alimenti diversi quasi ogni giorno.",
+"Different foods almost every day.",
+"Des aliments différents presque chaque jour."
+],
+[
+"Qualche ripetizione, proteine e verdure che ruotano.",
+"Some repetition, rotating proteins and vegetables.",
+"Quelques répétitions, protéines et légumes en rotation."
+],
+[
+"Più carboidrati nei giorni di allenamento",
+"More carbs on training days",
+"Plus de glucides les jours d’entraînement"
+],
+[
+"Proteine uguali tutti i giorni; la media della settimana resta sul tuo obiettivo.",
+"Same protein every day; the weekly average stays on your goal.",
+"Mêmes protéines chaque jour ; la moyenne de la semaine reste sur ton objectif."
+],
+[
+"Crea il piano ›",
+"Create the plan ›",
+"Créer le plan ›"
+],
+[
+"senza glutine",
+"gluten-free",
+"sans gluten"
+],
+[
+"senza lattosio",
+"lactose-free",
+"sans lactose"
+],
+[
+"senza frutta a guscio",
+"no tree nuts",
+"sans fruits à coque"
+],
+[
+"senza uova",
+"no eggs",
+"sans œufs"
+],
+[
+"senza pesce e crostacei",
+"no fish or shellfish",
+"sans poisson ni crustacés"
+],
+[
+"senza soia",
+"soy-free",
+"sans soja"
+],
+[
+"\u0001 pasti",
+"{_} meals",
+"{_} repas"
+],
+[
+"3 giornate a rotazione",
+"3 rotating days",
+"3 journées en rotation"
+],
+[
+"più carboidrati: giorno di allenamento",
+"more carbs: training day",
+"plus de glucides : jour d’entraînement"
+],
+[
+"legumi: fibre e proteine vegetali",
+"legumes: fibre and plant protein",
+"légumineuses : fibres et protéines végétales"
+],
+[
+"pesce: almeno 2 volte a settimana",
+"fish: at least twice a week",
+"poisson : au moins 2 fois par semaine"
+],
+[
+"l’hai chiesto tu",
+"you asked for it",
+"tu l’as demandé"
+],
+[
+"pasto bloccato",
+"meal locked",
+"repas bloqué"
+],
+[
+"proteine: \u0001 g",
+"protein: {_} g",
+"protéines : {_} g"
+],
+[
+"più proteine per arrivare a \u0001 g",
+"more protein to reach {_} g",
+"plus de protéines pour atteindre {_} g"
+],
+[
+"Sotto ogni alimento il perché della scelta. Il lucchetto blocca un alimento (o tutto il pasto, accanto al nome), ⇄ ne propone un altro dello stesso tipo. I grammi si ricalcolano per far tornare calorie e proteine del giorno.",
+"Under each food, the reason it was chosen. The padlock locks a food (or the whole meal, next to its name), ⇄ suggests another of the same kind. Grams are recalculated to hit the day’s calories and protein.",
+"Sous chaque aliment, la raison du choix. Le cadenas bloque un aliment (ou tout le repas, à côté de son nom), ⇄ en propose un autre du même type. Les grammes sont recalculés pour atteindre les calories et protéines du jour."
+],
+[
+"Rispetto ai tuoi obiettivi.",
+"Compared with your goals.",
+"Par rapport à tes objectifs."
+],
+[
+"Rispetto ai tuoi obiettivi · giorni di allenamento \u0001 kcal, riposo \u0001.",
+"Compared with your goals · training days {_} kcal, rest {_}.",
+"Par rapport à tes objectifs · jours d’entraînement {_} kcal, repos {_}."
+],
+[
+"Media giornaliera rispetto ai valori di riferimento (LARN). Gli alimenti senza dati sui micronutrienti non contano.",
+"Daily average against reference values (LARN). Foods without micronutrient data are not counted.",
+"Moyenne quotidienne par rapport aux valeurs de référence (LARN). Les aliments sans données sur les micronutriments ne comptent pas."
+],
+[
+"Calcio al \u0001% senza latticini: preferisci bevande vegetali arricchite di calcio e verdure come broccoli e cavoli.",
+"Calcium at {_}% without dairy: choose calcium-fortified plant drinks and vegetables like broccoli and cabbage.",
+"Calcium à {_} % sans produits laitiers : préfère des boissons végétales enrichies en calcium et des légumes comme le brocoli et le chou."
+],
+[
+"Vitamina D bassa con qualsiasi dieta: dipende soprattutto dal sole. Vedi Integratori.",
+"Vitamin D is low with any diet: it depends mostly on sunlight. See Supplements.",
+"Vitamine D basse avec n’importe quel régime : elle dépend surtout du soleil. Voir Compléments."
+],
+[
+"Con la dieta vegana la vitamina B12 va integrata: vedi Integratori.",
+"On a vegan diet vitamin B12 must be supplemented: see Supplements.",
+"Avec un régime végan, la vitamine B12 doit être complémentée : voir Compléments."
+],
+[
+"Vitamina B12 al \u0001%: si trova solo in alimenti di origine animale (uova, latticini, pesce) o negli integratori.",
+"Vitamin B12 at {_}%: it is found only in animal foods (eggs, dairy, fish) or supplements.",
+"Vitamine B12 à {_} % : on la trouve seulement dans les aliments d’origine animale (œufs, produits laitiers, poisson) ou les compléments."
+],
+[
+"Ferro al \u0001%: legumi e verdure a foglia verde con un po’ di vitamina C (agrumi, peperoni) aiutano l’assorbimento.",
+"Iron at {_}%: legumes and leafy greens with some vitamin C (citrus, peppers) help absorption.",
+"Fer à {_} % : légumineuses et légumes à feuilles avec un peu de vitamine C (agrumes, poivrons) aident l’absorption."
+],
+[
+"\u0001 alimenti · la trovi in Piano pasti › Spesa dopo aver usato il piano.",
+"{_} foods · you’ll find it in Meal plan › Shopping after using the plan.",
+"{_} aliments · tu la trouveras dans Plan de repas › Courses après avoir utilisé le plan."
+],
+[
+"In quale settimana?",
+"Which week?",
+"Quelle semaine ?"
+],
+[
+"Questa settimana · sostituisce",
+"This week · replaces",
+"Cette semaine · remplace"
+],
+[
+"Prossima settimana · sostituisce",
+"Next week · replaces",
+"Semaine prochaine · remplace"
+],
+[
+"Piano pasti creato per la settimana del \u0001",
+"Meal plan created for the week of {_}",
+"Plan de repas créé pour la semaine du {_}"
+],
+[
+"Piano pasti creato per la settimana del \u0001 (quello di prima è stato sostituito)",
+"Meal plan created for the week of {_} (the previous one was replaced)",
+"Plan de repas créé pour la semaine du {_} (le précédent a été remplacé)"
+],
+[
+"⇄ Nuova settimana pronta?",
+"⇄ New week ready?",
+"⇄ Nouvelle semaine prête ?"
+],
+[
+"Ho visto com’è andata la settimana del \u0001:",
+"Here’s how the week of {_} went:",
+"Voici comment s’est passée la semaine du {_} :"
+],
+[
+"⇄ Cambio colazione",
+"⇄ Changing breakfast",
+"⇄ Je change le petit-déjeuner"
+],
+[
+"⇄ Cambio pranzo",
+"⇄ Changing lunch",
+"⇄ Je change le déjeuner"
+],
+[
+"⇄ Cambio cena",
+"⇄ Changing dinner",
+"⇄ Je change le dîner"
+],
+[
+"⇄ Cambio spuntino",
+"⇄ Changing snack",
+"⇄ Je change la collation"
+],
+[
+"✓ Tengo colazione",
+"✓ Keeping breakfast",
+"✓ Je garde le petit-déjeuner"
+],
+[
+"✓ Tengo pranzo",
+"✓ Keeping lunch",
+"✓ Je garde le déjeuner"
+],
+[
+"✓ Tengo cena",
+"✓ Keeping dinner",
+"✓ Je garde le dîner"
+],
+[
+"✓ Tengo spuntino",
+"✓ Keeping snack",
+"✓ Je garde la collation"
+],
+[
+"ne hai seguiti \u0001 su \u0001",
+"you followed {_} of {_}",
+"tu en as suivi {_} sur {_}"
+],
+[
+"li hai seguiti quasi tutti",
+"you followed almost all of them",
+"tu les as presque tous suivis"
+],
+[
+"➖ \u0001 kcal al giorno",
+"➖ {_} kcal a day",
+"➖ {_} kcal par jour"
+],
+[
+"➕ \u0001 kcal al giorno",
+"➕ {_} kcal a day",
+"➕ {_} kcal par jour"
+],
+[
+"il fabbisogno stimato è cambiato",
+"your estimated needs have changed",
+"tes besoins estimés ont changé"
+],
+[
+"⇄ Varia alcuni alimenti",
+"⇄ Varying some foods",
+"⇄ Je varie quelques aliments"
+],
+[
+"per non ripetere sempre gli stessi",
+"so you don’t always repeat the same ones",
+"pour ne pas toujours répéter les mêmes"
+],
+[
+"Vedi la settimana",
+"See the week",
+"Voir la semaine"
+],
+[
+"Tengo questa",
+"Keep this one",
+"Je garde celle-ci"
+],
+[
+"✨ Crea il piano pasti per me",
+"✨ Create my meal plan",
+"✨ Crée mon plan de repas"
+],
+[
+"✨ Crea un nuovo piano per me",
+"✨ Create a new plan for me",
+"✨ Crée un nouveau plan pour moi"
+],
+[
+"3 passi: tipo di dieta e pasti, allergie e alimenti da evitare, tempo in cucina e varietà. Compongo la settimana sulle tue calorie e proteine.",
+"3 steps: diet type and meals, allergies and foods to avoid, cooking time and variety. I build the week around your calories and protein.",
+"3 étapes : type de régime et repas, allergies et aliments à éviter, temps en cuisine et variété. Je compose la semaine selon tes calories et protéines."
+],
+[
+"‹ Piano pasti",
+"‹ Meal plan",
+"‹ Plan de repas"
+],
+[
+"‹ Settimana",
+"‹ Week",
+"‹ Semaine"
+],
+[
+"Media della settimana",
+"Weekly average",
+"Moyenne de la semaine"
+],
+[
+"Il tuo obiettivo",
+"Your goal",
+"Ton objectif"
 ]
 ]

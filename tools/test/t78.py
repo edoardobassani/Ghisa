@@ -1,0 +1,37 @@
+# v241: generatore del piano pasti su misura
+import gb,asyncio
+from playwright.async_api import async_playwright
+D=open(gb.REPO+'/tools/demo/demo_data.json').read()
+async def m():
+  async with async_playwright() as p:
+    b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844},device_scale_factor=2);E=[];pg.on('pageerror',lambda e:E.append(str(e)))
+    await pg.add_init_script("if(!localStorage.getItem('gb-lang'))localStorage.setItem('gb-lang','it')")
+    await pg.goto(gb.URL);await pg.wait_for_timeout(500)
+    await pg.evaluate("(d)=>{norm(JSON.parse(d));save()}",D);await pg.reload();await pg.wait_for_timeout(700)
+    ok=lambda c,w:print(('ok  ' if c else 'FAIL ')+w)
+    await pg.evaluate("()=>{V.tab='pp';render()}");await pg.wait_for_timeout(200)
+    await pg.click('[data-a=mgo]');await pg.wait_for_timeout(200);await pg.screenshot(path=gb.O+'mg1.png',full_page=True)
+    await pg.click('[data-a=mgdt][data-v=v]');await pg.click('[data-a=mgn]');await pg.wait_for_timeout(150)
+    await pg.click('[data-a=mgal][data-v=L]');await pg.fill('#mgbq','tofu');await pg.wait_for_timeout(150);await pg.click('#mgbr [data-a=mgbn]');await pg.wait_for_timeout(150)
+    await pg.screenshot(path=gb.O+'mg2.png',full_page=True)
+    await pg.click('[data-a=mgn]');await pg.wait_for_timeout(150);await pg.screenshot(path=gb.O+'mg3.png',full_page=True)
+    await pg.click('[data-a=mgg]');await pg.wait_for_timeout(300);await pg.screenshot(path=gb.O+'mg4.png',full_page=True)
+    r=await pg.evaluate("""()=>{const G=V.mg.G,N=G.W.flatMap(D=>MP.flatMap(m=>(D[m]||[]).map(y=>y.n)));const bad=N.filter(n=>{const R=Object.keys(MGF).map(k=>mgRow(k,n)).filter(Boolean);return R.some(x=>x[2]&&!x[2].includes('v'))||R.every(x=>(x[3]||'').includes('L'))&&R.length});
+      return [bad,N.includes('Tofu'),G.W.map(D=>[Math.round(D.T.k),D.K,Math.round(D.T.p)]),G.tg]}""")
+    print(r[2],r[3]);ok(not r[0],'dieta vegetariana e senza lattosio rispettate '+str(r[0][:5]));ok(not r[1],'tofu escluso')
+    ok(all(abs(k-K)/K<.08 for k,K,_ in r[2]),'calorie del giorno vicine all’obiettivo');ok(all(p>=r[3]['P']*.85 for *_,p in r[2]),'proteine vicine all’obiettivo')
+    k=await pg.evaluate("()=>{const y=V.mg.G.W[V.mg.di].Pranzo.find(y=>y.r=='pm');return [y.k,y.n]}")
+    await pg.click(f'[data-a=mgl][data-v="{k[0]}"]');await pg.wait_for_timeout(150);await pg.click('[data-a=mgr]');await pg.wait_for_timeout(200)
+    n2=await pg.evaluate("()=>V.mg.G.W[V.mg.di].Pranzo.find(y=>y.r=='pm').n");ok(n2==k[1],'lucchetto tiene l’alimento dopo «Rigenera»')
+    c=await pg.evaluate("()=>{const y=V.mg.G.W[V.mg.di].Cena.find(y=>y.r=='cm');return [y.k,y.n]}")
+    await pg.click(f'[data-a=mgs][data-v="{c[0]}"]');await pg.wait_for_timeout(200)
+    c2=await pg.evaluate(f"()=>V.mg.G.W[V.mg.di].Cena.find(y=>y.k=='{c[0]}').n");ok(c2!=c[1],'⇄ propone un altro alimento '+c[1]+' → '+c2)
+    await pg.click('[data-a=mgsu]');await pg.wait_for_timeout(200);await pg.screenshot(path=gb.O+'mg5.png',full_page=True)
+    await pg.click('[data-a=mgok]');await pg.wait_for_timeout(300)
+    r=await pg.evaluate("()=>{const w=hvMon(today()),P=S.mpw[w];return [!!P,P&&Object.keys(P).length,P&&P[0].Pranzo.length,!!S.mpg,!V.mg]}");ok(r[0] and r[1]==7 and r[2]>=3 and r[3] and r[4],'«Usa questo piano» scrive la settimana '+str(r))
+    await pg.screenshot(path=gb.O+'mg6.png',full_page=True)
+    await pg.evaluate("()=>{S.mpg.w=hvAdd(hvMon(today()),-7);S.mpw[S.mpg.w]=S.mpw[hvMon(today())];delete S.mpw[hvMon(today())];save();render()}");await pg.wait_for_timeout(200)
+    t=await pg.evaluate("()=>{const c=document.querySelector('.gnrw');return c?c.innerText:''}");print(t);ok('Nuova settimana' in t,'riquadro della nuova settimana')
+    await pg.click('[data-a=mgrw]');await pg.wait_for_timeout(300);ok(await pg.evaluate("()=>V.mg&&V.mg.st=='gen'&&V.mg.w==hvMon(today())"),'rinnovo apre la settimana nuova')
+    ok(not E,'nessun errore JS '+str(E));await b.close()
+asyncio.run(m())
