@@ -1838,5 +1838,180 @@
 "Il tuo obiettivo",
 "Your goal",
 "Ton objectif"
+],
+[
+"Tutto il gruppo: \u0001",
+"Whole group: {_}",
+"Tout le groupe : {_}"
+],
+[
+"\u0001 alimenti · anche quelli aggiunti in futuro · \u0001",
+"{_} foods · including ones added later · {_}",
+"{_} aliments · y compris ceux ajoutés plus tard · {_}"
+],
+[
+"\u0001 alimenti · \u0001",
+"{_} foods · {_}",
+"{_} aliments · {_}"
+],
+[
+"1 alimento · \u0001",
+"1 food · {_}",
+"1 aliment · {_}"
+],
+[
+"Evita",
+"Avoid",
+"Éviter"
+],
+[
+"Tieni",
+"Keep",
+"Garder"
+],
+[
+"Alimenti",
+"Foods",
+"Aliments"
+],
+[
+"Altri",
+"Others",
+"Autres"
+],
+[
+"Cerca un alimento o un gruppo…",
+"Search for a food or a group…",
+"Chercher un aliment ou un groupe…"
+],
+[
+"Cerca un alimento o un gruppo da evitare",
+"Search for a food or group to avoid",
+"Chercher un aliment ou un groupe à éviter"
+],
+[
+"Cerca un alimento o un gruppo da tenere",
+"Search for a food or group to keep",
+"Chercher un aliment ou un groupe à garder"
+],
+[
+"Togli il gruppo ✕",
+"Remove the group ✕",
+"Retirer le groupe ✕"
+],
+[
+"Togli la spunta a quelli che invece mangi.",
+"Untick the ones you do eat.",
+"Décoche ceux que tu manges quand même."
+],
+[
+"lo mangi",
+"you eat it",
+"tu le manges"
+],
+[
+"\u0001 alimenti, i più comuni prima",
+"{_} foods, most common first",
+"{_} aliments, les plus courants d’abord"
+],
+[
+"\u0001 alimenti nascosti: è tra quelli che eviti nel piano su misura (\u0001).",
+"{_} foods hidden: they are among those you avoid in your custom plan ({_}).",
+"{_} aliments masqués : ils font partie de ceux que tu évites dans ton plan sur mesure ({_})."
+],
+[
+"1 alimento nascosto: è tra quelli che eviti nel piano su misura (\u0001).",
+"1 food hidden: it is among those you avoid in your custom plan ({_}).",
+"1 aliment masqué : il fait partie de ceux que tu évites dans ton plan sur mesure ({_})."
+],
+[
+"· \u0001 alimenti, divisi per tipo",
+"· {_} foods, split by type",
+"· {_} aliments, classés par type"
+],
+[
+"· \u0001 alimenti",
+"· {_} foods",
+"· {_} aliments"
+],
+[
+"Pesce",
+"Fish",
+"Poisson"
+],
+[
+"Pesce azzurro e grasso",
+"Oily fish",
+"Poisson gras"
+],
+[
+"Pesce bianco",
+"White fish",
+"Poisson blanc"
+],
+[
+"Crostacei e molluschi",
+"Shellfish and molluscs",
+"Crustacés et mollusques"
+],
+[
+"Pesce in scatola",
+"Canned fish",
+"Poisson en conserve"
+],
+[
+"Carne",
+"Meat",
+"Viande"
+],
+[
+"Carne rossa",
+"Red meat",
+"Viande rouge"
+],
+[
+"Carne bianca",
+"White meat",
+"Viande blanche"
+],
+[
+"Maiale",
+"Pork",
+"Porc"
+],
+[
+"Latticini",
+"Dairy",
+"Produits laitiers"
+],
+[
+"Formaggi freschi",
+"Fresh cheeses",
+"Fromages frais"
+],
+[
+"Formaggi stagionati",
+"Aged cheeses",
+"Fromages affinés"
+],
+[
+"Formaggi spalmabili",
+"Spreadable cheeses",
+"Fromages à tartiner"
+],
+[
+"Legumi",
+"Legumes",
+"Légumineuses"
+],
+[
+"Cereali con glutine",
+"Cereals with gluten",
+"Céréales avec gluten"
+],
+[
+"Verdure",
+"Vegetables",
+"Légumes"
 ]
 ]
