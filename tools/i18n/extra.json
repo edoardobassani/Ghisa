@@ -863,5 +863,380 @@
 ": 89 esercizi in 9 gruppi (Petto, Schiena, Spalle, Bicipiti, Tricipiti, Quadricipiti, Femorali e glutei, Polpacci, Core), già con la spiegazione. Spunta quelli che usi.",
 ": 89 exercises in 9 groups (Chest, Back, Shoulders, Biceps, Triceps, Quads, Hamstrings and glutes, Calves, Core), already with explanations. Tick the ones you use.",
 ": 89 exercices en 9 groupes (Pectoraux, Dos, Épaules, Biceps, Triceps, Quadriceps, Ischios et fessiers, Mollets, Gainage), déjà avec explication. Coche ceux que tu utilises."
+],
+[
+"spinta orizzontale",
+"horizontal push",
+"poussée horizontale"
+],
+[
+"spinta verticale",
+"vertical push",
+"poussée verticale"
+],
+[
+"tirata orizzontale",
+"horizontal pull",
+"tirage horizontal"
+],
+[
+"tirata verticale",
+"vertical pull",
+"tirage vertical"
+],
+[
+"cerniera dell’anca",
+"hip hinge",
+"charnière de hanche"
+],
+[
+"deltoide posteriore",
+"rear delts",
+"deltoïde postérieur"
+],
+[
+"squat",
+"squat",
+"squat"
+],
+[
+"glutei",
+"glutes",
+"fessiers"
+],
+[
+"femorali",
+"hamstrings",
+"ischios"
+],
+[
+"quadricipiti",
+"quads",
+"quadriceps"
+],
+[
+"petto",
+"chest",
+"pectoraux"
+],
+[
+"spalle",
+"shoulders",
+"épaules"
+],
+[
+"bicipiti",
+"biceps",
+"biceps"
+],
+[
+"tricipiti",
+"triceps",
+"triceps"
+],
+[
+"polpacci",
+"calves",
+"mollets"
+],
+[
+"core",
+"core",
+"gainage"
+],
+[
+"Full body A",
+"Full body A",
+"Full body A"
+],
+[
+"Full body B",
+"Full body B",
+"Full body B"
+],
+[
+"Full body C",
+"Full body C",
+"Full body C"
+],
+[
+"Push B",
+"Push B",
+"Push B"
+],
+[
+"Pull B",
+"Pull B",
+"Pull B"
+],
+[
+"Gambe B",
+"Legs B",
+"Jambes B"
+],
+[
+"Gambe",
+"Legs",
+"Jambes"
+],
+[
+"Upper / Lower + Push / Pull / Gambe",
+"Upper / Lower + Push / Pull / Legs",
+"Haut / Bas + Push / Pull / Jambes"
+],
+[
+"Push / Pull / Gambe",
+"Push / Pull / Legs",
+"Push / Pull / Jambes"
+],
+[
+"bloccato: l’hai chiesto tu",
+"locked: you asked for it",
+"bloqué : tu l’as demandé"
+],
+[
+"bloccato",
+"locked",
+"bloqué"
+],
+[
+"invece di \u0001 (escluso)",
+"instead of {_} (excluded)",
+"au lieu de {_} (exclu)"
+],
+[
+"invece di \u0001 (zone da proteggere)",
+"instead of {_} (areas to protect)",
+"au lieu de {_} (zones à protéger)"
+],
+[
+"invece di \u0001 (manca l’attrezzo)",
+"instead of {_} (equipment missing)",
+"au lieu de {_} (matériel manquant)"
+],
+[
+"al posto di \u0001: fermo da \u0001 sedute",
+"instead of {_}: stalled for {_} sessions",
+"à la place de {_} : bloqué depuis {_} séances"
+],
+[
+"progredisci bene: +\u0001% in 6 settimane",
+"you’re progressing well: +{_}% in 6 weeks",
+"tu progresses bien : +{_} % en 6 semaines"
+],
+[
+"\u0001 in priorità",
+"{_} prioritised",
+"{_} en priorité"
+],
+[
+"movimento base: \u0001",
+"main lift: {_}",
+"mouvement de base : {_}"
+],
+[
+"con la tua attrezzatura",
+"with your equipment",
+"avec ton matériel"
+],
+[
+"\u0001: serie in più per arrivare all’obiettivo",
+"{_}: extra sets to reach the goal",
+"{_} : séries en plus pour atteindre l’objectif"
+],
+[
+"in superserie per stare nei \u0001′",
+"in a superset to fit in {_}′",
+"en superset pour tenir en {_}′"
+],
+[
+"\u0001 a \u0001 serie: per restare nei \u0001′ ho tenuto il minimo. Con più tempo a seduta arriverebbero a \u0001.",
+"{_} at {_} sets: to stay within {_}′ I kept the minimum. With more time per session they’d get to {_}.",
+"{_} à {_} séries : pour rester dans les {_}′ j’ai gardé le minimum. Avec plus de temps par séance, elles arriveraient à {_}."
+],
+[
+"priorità: \u0001",
+"priority: {_}",
+"priorité : {_}"
+],
+[
+"\u0001 · \u0001 giorni",
+"{_} · {_} days",
+"{_} · {_} jours"
+],
+[
+"Sblocca \u0001",
+"Unlock {_}",
+"Débloquer {_}"
+],
+[
+"Blocca \u0001",
+"Lock {_}",
+"Bloquer {_}"
+],
+[
+"Un’altra proposta al posto di \u0001",
+"Another option instead of {_}",
+"Une autre proposition à la place de {_}"
+],
+[
+"\u0001 esercizi · ~\u0001′",
+"{_} exercises · ~{_}′",
+"{_} exercices · ~{_}′"
+],
+[
+"Sotto ogni esercizio il perché della scelta. Il lucchetto lo blocca, ⇄ propone un altro esercizio dello stesso movimento.",
+"Under each exercise, why it was chosen. The padlock locks it, ⇄ suggests another exercise for the same movement.",
+"Sous chaque exercice, la raison du choix. Le cadenas le bloque, ⇄ propose un autre exercice du même mouvement."
+],
+[
+"⇄ Rigenera il resto",
+"⇄ Regenerate the rest",
+"⇄ Régénérer le reste"
+],
+[
+"Fascia verde 10–20 serie · ★ = in priorità.",
+"Green band 10–20 sets · ★ = prioritised.",
+"Bande verte 10–20 séries · ★ = en priorité."
+],
+[
+"Fascia verde 10–20 serie.",
+"Green band 10–20 sets.",
+"Bande verte 10–20 séries."
+],
+[
+"Durata del ciclo",
+"Cycle length",
+"Durée du cycle"
+],
+[
+"L’ultima settimana è di scarico (metà delle serie, stesso carico). Poi ti propongo il rinnovo.",
+"The last week is a deload (half the sets, same load). Then I’ll suggest a renewal.",
+"La dernière semaine est une décharge (moitié des séries, même charge). Ensuite je te propose le renouvellement."
+],
+[
+"Crea \u0001 schede e il programma",
+"Create {_} workouts and the plan",
+"Créer {_} fiches et le programme"
+],
+[
+"\u0001 su misura",
+"Tailored {_}",
+"{_} sur mesure"
+],
+[
+"Su cosa vuoi puntare?",
+"What do you want to focus on?",
+"Sur quoi veux-tu miser ?"
+],
+[
+"Fino a 3 gruppi: avranno circa il 30% di serie in più. Facoltativo.",
+"Up to 3 groups: they’ll get about 30% more sets. Optional.",
+"Jusqu’à 3 groupes : ils auront environ 30 % de séries en plus. Facultatif."
+],
+[
+"Nessuna preferenza",
+"No preference",
+"Aucune préférence"
+],
+[
+"Esercizi da tenere o da evitare",
+"Exercises to keep or avoid",
+"Exercices à garder ou à éviter"
+],
+[
+"Facoltativo. Quelli da tenere entrano di sicuro nelle schede; quelli da evitare non compaiono mai.",
+"Optional. The ones to keep are always included; the ones to avoid never appear.",
+"Facultatif. Ceux à garder entrent à coup sûr dans les fiches ; ceux à éviter n’apparaissent jamais."
+],
+[
+"Cerca un esercizio…",
+"Search for an exercise…",
+"Chercher un exercice…"
+],
+[
+"Cerca un esercizio da tenere",
+"Search for an exercise to keep",
+"Chercher un exercice à garder"
+],
+[
+"Da tenere per forza",
+"Must keep",
+"À garder absolument"
+],
+[
+"Cerca un esercizio da evitare",
+"Search for an exercise to avoid",
+"Chercher un exercice à éviter"
+],
+[
+"Che non vuoi",
+"Ones you don’t want",
+"Ceux que tu ne veux pas"
+],
+[
+"Domanda 1 di 7",
+"Question 1 of 7",
+"Question 1 sur 7"
+],
+[
+"Domanda 2 di 7",
+"Question 2 of 7",
+"Question 2 sur 7"
+],
+[
+"Domanda 3 di 7 · \u0001 giorni",
+"Question 3 of 7 · {_} days",
+"Question 3 sur 7 · {_} jours"
+],
+[
+"Domanda 4 di 7 · \u0001 giorni · \u0001 minuti",
+"Question 4 of 7 · {_} days · {_} minutes",
+"Question 4 sur 7 · {_} jours · {_} minutes"
+],
+[
+"Domanda 5 di 7 · facoltativa",
+"Question 5 of 7 · optional",
+"Question 5 sur 7 · facultative"
+],
+[
+"Domanda 6 di 7 · facoltativa",
+"Question 6 of 7 · optional",
+"Question 6 sur 7 · facultative"
+],
+[
+"Domanda 7 di 7 · facoltativa",
+"Question 7 of 7 · optional",
+"Question 7 sur 7 · facultative"
+],
+[
+"Crea le schede ›",
+"Create the workouts ›",
+"Créer les fiches ›"
+],
+[
+"Al massimo 3 gruppi",
+"3 groups at most",
+"3 groupes maximum"
+],
+[
+"Nessun esercizio trovato.",
+"No exercise found.",
+"Aucun exercice trouvé."
+],
+[
+"Togli \u0001",
+"Remove {_}",
+"Retirer {_}"
+],
+[
+"7 domande: obiettivo, giorni, tempo, attrezzatura, zone da proteggere, muscoli in priorità, esercizi da tenere o evitare. Costruisco le schede da zero, su misura.",
+"7 questions: goal, days, time, equipment, areas to protect, priority muscles, exercises to keep or avoid. I build the workouts from scratch, tailored to you.",
+"7 questions : objectif, jours, temps, matériel, zones à protéger, muscles prioritaires, exercices à garder ou à éviter. Je construis les fiches de zéro, sur mesure."
+],
+[
+"\u0001 settimane",
+"{_} weeks",
+"{_} semaines"
 ]
 ]
