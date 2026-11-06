@@ -1238,5 +1238,90 @@
 "\u0001 settimane",
 "{_} weeks",
 "{_} semaines"
+],
+[
+"⇄ Il tuo ciclo è finito",
+"⇄ Your cycle is over",
+"⇄ Ton cycle est terminé"
+],
+[
+"\u0001 settimane di «\u0001». Ecco cosa cambierei:",
+"{_} weeks of «{_}». Here’s what I’d change:",
+"{_} semaines de « {_} ». Voici ce que je changerais :"
+],
+[
+"➕ \u0001 da \u0001 a \u0001 serie",
+"➕ {_} from {_} to {_} sets",
+"➕ {_} de {_} à {_} séries"
+],
+[
+"sono rimasti sotto la fascia",
+"they stayed below the band",
+"ils sont restés sous la bande"
+],
+[
+"⇄ Cambio \u0001",
+"⇄ I’d change {_}",
+"⇄ Je change {_}"
+],
+[
+"fermo da \u0001 sedute",
+"stalled for {_} sessions",
+"bloqué depuis {_} séances"
+],
+[
+"✓ Tengo \u0001",
+"✓ I’d keep {_}",
+"✓ Je garde {_}"
+],
+[
+"stanno progredendo",
+"they’re progressing",
+"ils progressent"
+],
+[
+"⇄ Cambio \u0001 complementari",
+"⇄ I’d change {_} accessory exercises",
+"⇄ Je change {_} exercices complémentaires"
+],
+[
+"⇄ Cambio \u0001 complementare",
+"⇄ I’d change {_} accessory exercise",
+"⇄ Je change {_} exercice complémentaire"
+],
+[
+"per variare lo stimolo",
+"to vary the stimulus",
+"pour varier le stimulus"
+],
+[
+"Vedi il rinnovo",
+"See the renewal",
+"Voir le renouvellement"
+],
+[
+"Più tardi",
+"Later",
+"Plus tard"
+],
+[
+"nuovo, per variare lo stimolo",
+"new, to vary the stimulus",
+"nouveau, pour varier le stimulus"
+],
+[
+"Usa il rinnovo: \u0001 schede e il programma",
+"Use the renewal: {_} workouts and the plan",
+"Utiliser le renouvellement : {_} fiches et le programme"
+],
+[
+"Le schede del ciclo finito restano in Schede: puoi eliminarle o tenerle.",
+"The workouts from the finished cycle stay in Workouts: you can delete or keep them.",
+"Les fiches du cycle terminé restent dans Fiches : tu peux les supprimer ou les garder."
+],
+[
+"➕ Più serie anche per \u0001",
+"➕ More sets for {_} too",
+"➕ Plus de séries aussi pour {_}"
 ]
 ]
