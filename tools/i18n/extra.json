@@ -3213,5 +3213,315 @@
 "Livello \u0001 · Leggenda",
 "Level {_} · Legend",
 "Niveau {_} · Légende"
+],
+[
+"Cardio",
+"Cardio",
+"Cardio"
+],
+[
+"Dieta",
+"Diet",
+"Alimentation"
+],
+[
+"Peso",
+"Weight",
+"Poids"
+],
+[
+"Misure",
+"Measurements",
+"Mensurations"
+],
+[
+"Uscite",
+"Workouts",
+"Sorties"
+],
+[
+"Allenamenti cardio registrati.",
+"Cardio workouts logged.",
+"Séances de cardio enregistrées."
+],
+[
+"Chilometri",
+"Kilometres",
+"Kilomètres"
+],
+[
+"Tutti i chilometri percorsi, in qualunque attività.",
+"All the kilometres covered, in any activity.",
+"Tous les kilomètres parcourus, quelle que soit l’activité."
+],
+[
+"Ore di cardio",
+"Cardio hours",
+"Heures de cardio"
+],
+[
+"Il tempo totale passato a fare cardio.",
+"Total time spent doing cardio.",
+"Temps total passé à faire du cardio."
+],
+[
+"Settimane consecutive con l’obiettivo di cardio raggiunto (o almeno 2, se non l’hai impostato).",
+"Consecutive weeks with your cardio goal met (or at least 2 if you haven’t set one).",
+"Semaines consécutives avec l’objectif de cardio atteint (ou au moins 2 si tu ne l’as pas défini)."
+],
+[
+"Corsa più lunga",
+"Longest run",
+"Course la plus longue"
+],
+[
+"La distanza più lunga in una sola corsa.",
+"The longest distance in a single run.",
+"La plus longue distance en une seule course."
+],
+[
+"Mesi attivi",
+"Active months",
+"Mois actifs"
+],
+[
+"Mesi con almeno 6 uscite.",
+"Months with at least 6 workouts.",
+"Mois avec au moins 6 sorties."
+],
+[
+"Giorni registrati",
+"Days logged",
+"Jours enregistrés"
+],
+[
+"Giorni con almeno un pasto nel diario.",
+"Days with at least one meal in the diary.",
+"Jours avec au moins un repas dans le journal."
+],
+[
+"Giorni di fila",
+"Days in a row",
+"Jours d’affilée"
+],
+[
+"Giorni consecutivi con il diario compilato.",
+"Consecutive days with the diary filled in.",
+"Jours consécutifs avec le journal rempli."
+],
+[
+"Proteine raggiunte",
+"Protein target hit",
+"Protéines atteintes"
+],
+[
+"Giorni in cui hai raggiunto l’obiettivo di proteine.",
+"Days you hit your protein target.",
+"Jours où tu as atteint ton objectif de protéines."
+],
+[
+"Settimane complete",
+"Complete weeks",
+"Semaines complètes"
+],
+[
+"Settimane con il diario compilato almeno 6 giorni su 7.",
+"Weeks with the diary filled in at least 6 days out of 7.",
+"Semaines avec le journal rempli au moins 6 jours sur 7."
+],
+[
+"Verdura",
+"Vegetables",
+"Légumes"
+],
+[
+"Giorni con almeno 200 g di verdura.",
+"Days with at least 200 g of vegetables.",
+"Jours avec au moins 200 g de légumes."
+],
+[
+"Alimenti diversi registrati nel diario.",
+"Different foods logged in the diary.",
+"Aliments différents enregistrés dans le journal."
+],
+[
+"Pesate",
+"Weigh-ins",
+"Pesées"
+],
+[
+"Volte in cui ti sei pesato.",
+"Times you weighed yourself.",
+"Fois où tu t’es pesé."
+],
+[
+"Settimane consecutive con almeno una pesata.",
+"Consecutive weeks with at least one weigh-in.",
+"Semaines consécutives avec au moins une pesée."
+],
+[
+"Mesi di pesate",
+"Months of weigh-ins",
+"Mois de pesées"
+],
+[
+"Mesi con almeno 4 pesate.",
+"Months with at least 4 weigh-ins.",
+"Mois avec au moins 4 pesées."
+],
+[
+"Obiettivo di peso",
+"Weight goal",
+"Objectif de poids"
+],
+[
+"Quanta strada hai fatto dal primo peso registrato al peso obiettivo. Conta dove arrivi, non quanto in fretta.",
+"How far you’ve come from your first logged weight to your goal weight. Where you get matters, not how fast.",
+"Le chemin parcouru depuis ton premier poids enregistré jusqu’à ton poids cible. Ce qui compte, c’est où tu arrives, pas la vitesse."
+],
+[
+"Misurazioni",
+"Measurements",
+"Mensurations"
+],
+[
+"Volte in cui hai preso le misure del corpo.",
+"Times you took your body measurements.",
+"Fois où tu as pris tes mensurations."
+],
+[
+"Mesi di fila",
+"Months in a row",
+"Mois d’affilée"
+],
+[
+"Mesi consecutivi con almeno una misurazione.",
+"Consecutive months with at least one measurement.",
+"Mois consécutifs avec au moins une mensuration."
+],
+[
+"Misure complete",
+"Complete measurements",
+"Mensurations complètes"
+],
+[
+"Misurazioni con almeno 6 parti del corpo.",
+"Measurements covering at least 6 body parts.",
+"Mensurations d’au moins 6 parties du corps."
+],
+[
+"Un anno di misure",
+"A year of measurements",
+"Un an de mensurations"
+],
+[
+"Giorni tra la prima e l’ultima misurazione.",
+"Days between the first and last measurement.",
+"Jours entre la première et la dernière mensuration."
+],
+[
+"\u0001 uscite",
+"{_} workouts",
+"{_} sorties"
+],
+[
+"\u0001 km",
+"{_} km",
+"{_} km"
+],
+[
+"\u0001 ore",
+"{_} hours",
+"{_} heures"
+],
+[
+"\u0001 giorni",
+"{_} days",
+"{_} jours"
+],
+[
+"\u0001 alimenti",
+"{_} foods",
+"{_} aliments"
+],
+[
+"\u0001 pesate",
+"{_} weigh-ins",
+"{_} pesées"
+],
+[
+"\u0001 misurazioni",
+"{_} measurements",
+"{_} mensurations"
+],
+[
+"\u0001 di \u0001 uscite",
+"{_} of {_} workouts",
+"{_} sur {_} sorties"
+],
+[
+"\u0001 di \u0001 km",
+"{_} of {_} km",
+"{_} sur {_} km"
+],
+[
+"\u0001 di \u0001 ore",
+"{_} of {_} hours",
+"{_} sur {_} heures"
+],
+[
+"\u0001 di \u0001 giorni",
+"{_} of {_} days",
+"{_} sur {_} jours"
+],
+[
+"\u0001 di \u0001 alimenti",
+"{_} of {_} foods",
+"{_} sur {_} aliments"
+],
+[
+"\u0001 di \u0001 pesate",
+"{_} of {_} weigh-ins",
+"{_} sur {_} pesées"
+],
+[
+"\u0001 di \u0001 misurazioni",
+"{_} of {_} measurements",
+"{_} sur {_} mensurations"
+],
+[
+"\u0001% di \u0001%",
+"{_}% of {_}%",
+"{_} % sur {_} %"
+],
+[
+"\u0001 uscite di cardio",
+"{_} cardio workouts",
+"{_} sorties de cardio"
+],
+[
+"\u0001 uscita di cardio",
+"{_} cardio workout",
+"{_} sortie de cardio"
+],
+[
+"Serve il peso obiettivo",
+"Goal weight needed",
+"Poids cible nécessaire"
+],
+[
+"impostalo in Obiettivi e misure",
+"set it in Goals and measurements",
+"définis-le dans Objectifs et mesures"
+],
+[
+"Serve l’obiettivo di proteine",
+"Protein target needed",
+"Objectif de protéines nécessaire"
+],
+[
+"Niente premi per mangiare poco o dimagrire in fretta: contano costanza, allenamento e registrare.",
+"No rewards for eating little or losing weight fast: what counts is consistency, training and logging.",
+"Aucune récompense pour manger peu ou maigrir vite : ce qui compte, c’est la régularité, l’entraînement et le suivi."
 ]
 ]
