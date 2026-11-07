@@ -323,3 +323,10 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v250 – scadenze proposte riviste
 - `dsExp` (prodotti chiusi): almeno 7 giorni come chiesto da Edo, tranne pesce e frutti di mare freschi (2 giorni); salumi chiusi 14, uova 28, formaggi stagionati 30; scatolame e secchi senza scadenza. `dsOpenD` (aperti) dalle tabelle FoodSafety.gov / FoodSafe BC / USDA: latte e yogurt 3, legumi e tonno in scatola 3, passata 5, affettati 4, formaggi freschi 7, stagionati 30, maionese 60. Nota nelle impostazioni della dispensa: tempi indicativi, vale la data in etichetta. Test `test/t87.py`.
+
+## v251 – Traguardi (palestra)
+- Nuova voce di menu «Traguardi» (tab `tr`, `vtr`), sotto Home. Livello e punti (`agLevel`, `agT(n)=50·n·(n−1)`, nomi `AGN`): punti da livelli dei traguardi (50/100/250/500), sedute 50, cardio 30, giorno nel diario 10, proteine raggiunte 10, pesata 5, sfide settimanali completate (anche passate).
+- Sfide della settimana (`agWeek`): sedute ≥ obiettivo (`S.gw`, altrimenti 3), proteine raggiunte 5 giorni, un esercizio nuovo. Pallino pieno quando fatta, niente barre.
+- 12 traguardi palestra a 4 livelli (`AGG`): sedute, settimane di fila, record personali, panca/squat/stacco × peso corporeo (peso alla data della serie, varianti escluse per nome), volume in una seduta, tonnellate, serie, esploratore, mesi con ≥8 sedute, trazioni. Calcolo in cache (`agCalc`).
+- Disco a linea con tre maniglie (`agDisc`), colore = livello (`--ag1..4`: bianco/grigio nel tema chiaro, verde, blu, rosso), lucchetto se da iniziare; nessun numero dentro e nessuna barra. «Ci sei quasi» in testo. Scheda dettaglio (`agSheet`) con i 4 dischi, soglie e data di ognuno (`agDates`).
+- Avviso «Nuovo traguardo» (`agWatch`, `#agun`): `S.agl` livelli già visti, linea di base silenziosa al primo avvio. Test `test/t88.py`.

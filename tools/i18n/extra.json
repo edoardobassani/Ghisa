@@ -2838,5 +2838,380 @@
 "Scadenze proposte indicative, per il frigo a 4 °C o meno: vale sempre la data in etichetta. Prodotti chiusi almeno 7 giorni, il pesce fresco 2; aperti: latte, yogurt e legumi 3 giorni, tonno 3, passata 5, affettati 4, formaggi freschi 7.",
 "Suggested expiry dates are approximate, for a fridge at 4 °C or below: the date on the label always wins. Closed products at least 7 days, fresh fish 2; opened: milk, yogurt and legumes 3 days, tuna 3, tomato passata 5, cold cuts 4, fresh cheese 7.",
 "Dates de péremption proposées indicatives, pour un frigo à 4 °C ou moins : la date sur l’étiquette prime toujours. Produits fermés au moins 7 jours, poisson frais 2 ; ouverts : lait, yaourt et légumineuses 3 jours, thon 3, coulis de tomate 5, charcuterie 4, fromages frais 7."
+],
+[
+"Traguardi",
+"Achievements",
+"Objectifs atteints"
+],
+[
+"Sfide della settimana",
+"Weekly challenges",
+"Défis de la semaine"
+],
+[
+"ultimo giorno",
+"last day",
+"dernier jour"
+],
+[
+"ancora \u0001 giorni",
+"{_} days left",
+"encore {_} jours"
+],
+[
+"\u0001 sedute questa settimana",
+"{_} sessions this week",
+"{_} séances cette semaine"
+],
+[
+"\u0001 seduta questa settimana",
+"{_} session this week",
+"{_} séance cette semaine"
+],
+[
+"Proteine raggiunte \u0001 giorni",
+"Protein target hit {_} days",
+"Protéines atteintes {_} jours"
+],
+[
+"Prova un esercizio nuovo",
+"Try a new exercise",
+"Essaie un nouvel exercice"
+],
+[
+"\u0001 di \u0001",
+"{_} of {_}",
+"{_} sur {_}"
+],
+[
+"\u0001 di \u0001 · fatto",
+"{_} of {_} · done",
+"{_} sur {_} · fait"
+],
+[
+"Ci sei quasi",
+"Almost there",
+"Presque"
+],
+[
+"Palestra",
+"Gym",
+"Salle"
+],
+[
+"\u0001 di \u0001 livelli",
+"{_} of {_} levels",
+"{_} sur {_} niveaux"
+],
+[
+"livello \u0001 di \u0001",
+"level {_} of {_}",
+"niveau {_} sur {_}"
+],
+[
+"Livello \u0001 di \u0001",
+"Level {_} of {_}",
+"Niveau {_} sur {_}"
+],
+[
+"da iniziare",
+"not started",
+"à commencer"
+],
+[
+"Da iniziare",
+"Not started",
+"À commencer"
+],
+[
+"Livello \u0001",
+"Level {_}",
+"Niveau {_}"
+],
+[
+"\u0001 punti · al livello \u0001 ne mancano \u0001",
+"{_} points · {_} more to level {_}",
+"{_} points · encore {_} pour le niveau {_}"
+],
+[
+"Adesso",
+"Now",
+"Maintenant"
+],
+[
+"Prossimo livello",
+"Next level",
+"Niveau suivant"
+],
+[
+"Completato",
+"Completed",
+"Terminé"
+],
+[
+"tutti e 4 i livelli",
+"all 4 levels",
+"les 4 niveaux"
+],
+[
+"Serve il peso",
+"Body weight needed",
+"Poids nécessaire"
+],
+[
+"registralo in Obiettivi e misure",
+"log it in Goals and measurements",
+"enregistre-le dans Objectifs et mesures"
+],
+[
+"Nuovo traguardo",
+"New achievement",
+"Nouvel objectif atteint"
+],
+[
+"+\u0001 punti",
+"+{_} points",
+"+{_} points"
+],
+[
+"Cardio, dieta e corpo arriveranno con i loro simboli. Niente premi per mangiare poco o dimagrire in fretta: contano costanza, allenamento e registrare.",
+"Cardio, diet and body will come with their own symbols. No rewards for eating little or losing weight fast: what counts is consistency, training and logging.",
+"Cardio, alimentation et corps arriveront avec leurs propres symboles. Aucune récompense pour manger peu ou maigrir vite : ce qui compte, c’est la régularité, l’entraînement et le suivi."
+],
+[
+"Sedute",
+"Sessions",
+"Séances"
+],
+[
+"Settimane di fila",
+"Weeks in a row",
+"Semaines d’affilée"
+],
+[
+"Record personali",
+"Personal records",
+"Records personnels"
+],
+[
+"Panca × peso",
+"Bench × body weight",
+"Développé couché × poids"
+],
+[
+"Squat × peso",
+"Squat × body weight",
+"Squat × poids"
+],
+[
+"Stacco × peso",
+"Deadlift × body weight",
+"Soulevé de terre × poids"
+],
+[
+"Volume in una seduta",
+"Volume in one session",
+"Volume en une séance"
+],
+[
+"Tonnellate sollevate",
+"Tonnes lifted",
+"Tonnes soulevées"
+],
+[
+"Serie",
+"Sets",
+"Séries"
+],
+[
+"Esploratore",
+"Explorer",
+"Explorateur"
+],
+[
+"Mesi costanti",
+"Consistent months",
+"Mois réguliers"
+],
+[
+"Trazioni",
+"Pull-ups",
+"Tractions"
+],
+[
+"Giorni di allenamento registrati in palestra.",
+"Gym training days logged.",
+"Jours d’entraînement enregistrés en salle."
+],
+[
+"Settimane consecutive con l’obiettivo di sedute raggiunto (o almeno 3, se non l’hai impostato).",
+"Consecutive weeks with your session goal met (or at least 3 if you haven’t set one).",
+"Semaines consécutives avec l’objectif de séances atteint (ou au moins 3 si tu ne l’as pas défini)."
+],
+[
+"Volte in cui hai superato il tuo record su un esercizio.",
+"Times you beat your record on an exercise.",
+"Fois où tu as battu ton record sur un exercice."
+],
+[
+"Il carico più alto in panca piana rispetto al tuo peso corporeo.",
+"Your heaviest flat bench load relative to your body weight.",
+"Ta charge la plus lourde au développé couché par rapport à ton poids."
+],
+[
+"Il carico più alto nello squat rispetto al tuo peso corporeo.",
+"Your heaviest squat load relative to your body weight.",
+"Ta charge la plus lourde au squat par rapport à ton poids."
+],
+[
+"Il carico più alto nello stacco da terra rispetto al tuo peso corporeo.",
+"Your heaviest deadlift load relative to your body weight.",
+"Ta charge la plus lourde au soulevé de terre par rapport à ton poids."
+],
+[
+"I chili totali sollevati in un giorno (carico × ripetizioni).",
+"Total kilos lifted in one day (load × reps).",
+"Kilos totaux soulevés en une journée (charge × répétitions)."
+],
+[
+"Tutti i chili sollevati da quando usi l’app.",
+"All the kilos lifted since you started using the app.",
+"Tous les kilos soulevés depuis que tu utilises l’app."
+],
+[
+"Serie registrate in totale.",
+"Total sets logged.",
+"Séries enregistrées au total."
+],
+[
+"Esercizi diversi provati.",
+"Different exercises tried.",
+"Exercices différents essayés."
+],
+[
+"Mesi con almeno 8 sedute.",
+"Months with at least 8 sessions.",
+"Mois avec au moins 8 séances."
+],
+[
+"Il massimo di trazioni in una serie.",
+"Most pull-ups in one set.",
+"Maximum de tractions en une série."
+],
+[
+"\u0001 sedute",
+"{_} sessions",
+"{_} séances"
+],
+[
+"\u0001 record",
+"{_} records",
+"{_} records"
+],
+[
+"\u0001 serie",
+"{_} sets",
+"{_} séries"
+],
+[
+"\u0001 esercizi",
+"{_} exercises",
+"{_} exercices"
+],
+[
+"\u0001 mesi",
+"{_} months",
+"{_} mois"
+],
+[
+"\u0001 trazioni",
+"{_} pull-ups",
+"{_} tractions"
+],
+[
+"\u0001 di \u0001 sedute",
+"{_} of {_} sessions",
+"{_} sur {_} séances"
+],
+[
+"\u0001 di \u0001 settimane",
+"{_} of {_} weeks",
+"{_} sur {_} semaines"
+],
+[
+"\u0001 di \u0001 record",
+"{_} of {_} records",
+"{_} sur {_} records"
+],
+[
+"\u0001 di \u0001 serie",
+"{_} of {_} sets",
+"{_} sur {_} séries"
+],
+[
+"\u0001 di \u0001 esercizi",
+"{_} of {_} exercises",
+"{_} sur {_} exercices"
+],
+[
+"\u0001 di \u0001 mesi",
+"{_} of {_} months",
+"{_} sur {_} mois"
+],
+[
+"\u0001 di \u0001 trazioni",
+"{_} of {_} pull-ups",
+"{_} sur {_} tractions"
+],
+[
+"\u0001 di \u0001 kg",
+"{_} of {_} kg",
+"{_} sur {_} kg"
+],
+[
+"\u0001 di \u0001 t",
+"{_} of {_} t",
+"{_} sur {_} t"
+],
+[
+"\u0001× di \u0001×",
+"{_}× of {_}×",
+"{_}× sur {_}×"
+],
+[
+"Livello \u0001 di \u0001 · \u0001 sedute",
+"Level {_} of {_} · {_} sessions",
+"Niveau {_} sur {_} · {_} séances"
+],
+[
+"Livello \u0001 · Principiante",
+"Level {_} · Beginner",
+"Niveau {_} · Débutant"
+],
+[
+"Livello \u0001 · Costante",
+"Level {_} · Consistent",
+"Niveau {_} · Régulier"
+],
+[
+"Livello \u0001 · Determinato",
+"Level {_} · Determined",
+"Niveau {_} · Déterminé"
+],
+[
+"Livello \u0001 · Atleta",
+"Level {_} · Athlete",
+"Niveau {_} · Athlète"
+],
+[
+"Livello \u0001 · Veterano",
+"Level {_} · Veteran",
+"Niveau {_} · Vétéran"
+],
+[
+"Livello \u0001 · Leggenda",
+"Level {_} · Legend",
+"Niveau {_} · Légende"
 ]
 ]
