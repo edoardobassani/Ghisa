@@ -310,3 +310,8 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v247 – Spesa e dispensa come sezione a sé
 - Nuova voce di menu «Spesa e dispensa» (`V.tab=='sp'`, `vspd`, gruppo Alimentazione) con le schede Spesa (con la settimana da scegliere) e Dispensa (`V.spv`). Piano pasti resta con Giorno e Settimana più il collegamento «Spesa e dispensa ›» (`spgo`); «Lista della spesa ›» e «Ne ho ancora» portano qui. Test `test/t84.py`.
+
+## v248 – «Cosa cucino con quello che ho?» e alimento aperto
+- `ccBuild(m,o)`: calorie e proteine che mancano oggi divise sui pasti vuoti (`ccNeed`, pesi `CCW`), alimenti in dispensa (rispettando dieta, allergie ed esclusi del piano su misura, `ccOk`) per ruolo (`ccRole`), schemi per pasto (pranzo/cena: carboidrato+proteina+verdura, varianti; colazione; spuntino), dosi su proteine e calorie (`ccDose`), olio sempre disponibile. Ordine: vicinanza a kcal/proteine, alimenti in scadenza o aperti, tempo (`ccMin`), varietà tra proposte consecutive. Filtri «Veloci» e «Senza fornelli», opzione con 1 alimento da comprare (va in spesa), «Come si fa» (`ccSteps`).
+- Si apre dai pasti vuoti di oggi nel diario e da Spesa e dispensa › Dispensa («Cosa cucino adesso?», pasto da `ccNext`). Foglio `ccHtml` (`V.cq`); «Aggiungi» scrive il pasto, avviso con Annulla e «Salva come ricetta» (`rcStore`).
+- Dispensa: «Aperto oggi» (`dsop`, `i.op`): scadenza = quella del prodotto aperto (`dsOpenD`: passata 4 giorni, latte 3, tonno 2…), annullabile. Scatolame e prodotti a lunga conservazione senza scadenza e, se chiusi, in «Dispensa» anziché «Frigo». Test `test/t85.py`.

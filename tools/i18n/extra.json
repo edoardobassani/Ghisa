@@ -2523,5 +2523,215 @@
 "\u0001 alimenti · la trovi in Spesa e dispensa dopo aver usato il piano.",
 "{_} foods · you’ll find it in Shopping and pantry after using the plan.",
 "{_} aliments · tu la trouveras dans Courses et garde-manger après avoir utilisé le plan."
+],
+[
+"Cosa cucino con quello che ho?",
+"What can I cook with what I have?",
+"Que cuisiner avec ce que j’ai ?"
+],
+[
+"\u0001 kcal e \u0001 g di proteine da chiudere",
+"{_} kcal and {_} g of protein to go",
+"{_} kcal et {_} g de protéines à compléter"
+],
+[
+"Cosa cucino adesso?",
+"What should I cook now?",
+"Que cuisiner maintenant ?"
+],
+[
+"\u0001 con quello che hai in casa",
+"{_} with what you have at home",
+"{_} avec ce que tu as chez toi"
+],
+[
+"Colazione con quello che hai",
+"Breakfast with what you have",
+"Petit-déjeuner avec ce que tu as"
+],
+[
+"Pranzo con quello che hai",
+"Lunch with what you have",
+"Déjeuner avec ce que tu as"
+],
+[
+"Cena con quello che hai",
+"Dinner with what you have",
+"Dîner avec ce que tu as"
+],
+[
+"Spuntino con quello che hai",
+"Snack with what you have",
+"Collation avec ce que tu as"
+],
+[
+"Ti mancano",
+"You still need",
+"Il te manque"
+],
+[
+"(la tua parte di quello che resta oggi)",
+"(your share of what’s left today)",
+"(ta part de ce qui reste aujourd’hui)"
+],
+[
+"Tutte",
+"All",
+"Toutes"
+],
+[
+"Veloci (≤15’)",
+"Quick (≤15’)",
+"Rapides (≤15’)"
+],
+[
+"Senza fornelli",
+"No cooking",
+"Sans cuisson"
+],
+[
+"senza fornelli",
+"no cooking",
+"sans cuisson"
+],
+[
+"tutto in casa",
+"all at home",
+"tout à la maison"
+],
+[
+"veloce",
+"quick",
+"rapide"
+],
+[
+"manca solo 1 alimento",
+"only 1 food missing",
+"il manque seulement 1 aliment"
+],
+[
+"usa \u0001: \u0001",
+"use {_}: {_}",
+"utilise {_} : {_}"
+],
+[
+"\u0001 già aperto",
+"{_} already open",
+"{_} déjà ouvert"
+],
+[
+"(da comprare)",
+"(to buy)",
+"(à acheter)"
+],
+[
+"Come si fa",
+"How to make it",
+"Comment faire"
+],
+[
+"Chiudi",
+"Close",
+"Fermer"
+],
+[
+"⇄ Altre \u0001 proposte",
+"⇄ {_} more ideas",
+"⇄ {_} autres idées"
+],
+[
+"‹ Torna alle prime",
+"‹ Back to the first ones",
+"‹ Revenir aux premières"
+],
+[
+"Proponi anche piatti con 1 alimento da comprare",
+"Also suggest dishes with 1 food to buy",
+"Proposer aussi des plats avec 1 aliment à acheter"
+],
+[
+"Arriva a \u0001 di \u0001 kcal: il resto con pane o un frutto, oppure più tardi.",
+"Reaches {_} of {_} kcal: make up the rest with bread or fruit, or later.",
+"Atteint {_} sur {_} kcal : complète avec du pain ou un fruit, ou plus tard."
+],
+[
+"Proteine basse (\u0001 di \u0001 g): in casa non c’è altro di proteico che stia nelle calorie. Aggiungi qualcosa di proteico più tardi (uno yogurt greco, del tonno), oppure",
+"Low protein ({_} of {_} g): there’s nothing else high in protein at home that fits the calories. Add something high in protein later (Greek yogurt, tuna), or",
+"Protéines basses ({_} sur {_} g) : il n’y a rien d’autre de protéiné chez toi qui rentre dans les calories. Ajoute quelque chose de protéiné plus tard (yaourt grec, thon), ou"
+],
+[
+"metti in spesa le uova",
+"add eggs to the shopping list",
+"ajoute des œufs aux courses"
+],
+[
+"Per oggi hai già raggiunto le calorie: niente da aggiungere.",
+"You’ve already reached today’s calories: nothing to add.",
+"Tu as déjà atteint les calories du jour : rien à ajouter."
+],
+[
+"Salva come ricetta",
+"Save as recipe",
+"Enregistrer comme recette"
+],
+[
+"Salvata tra le tue ricette: \u0001",
+"Saved to your recipes: {_}",
+"Enregistrée dans tes recettes : {_}"
+],
+[
+"Annullato",
+"Undone",
+"Annulé"
+],
+[
+". Tolti dalla dispensa.",
+". Removed from the pantry.",
+". Retirés du garde-manger."
+],
+[
+"Unisci tutto e condisci con l’olio a crudo.",
+"Combine everything and dress with raw oil.",
+"Mélange tout et assaisonne avec l’huile crue."
+],
+[
+"Unisci tutto e servi.",
+"Combine everything and serve.",
+"Mélange tout et sers."
+],
+[
+"Versa i cereali nella tazza con latte o yogurt e aggiungi la frutta a pezzi.",
+"Put the cereal in a bowl with milk or yogurt and add chopped fruit.",
+"Mets les céréales dans un bol avec du lait ou du yaourt et ajoute les fruits en morceaux."
+],
+[
+"Strapazza le uova o fai una frittata in padella antiaderente (\u0001 min).",
+"Scramble the eggs or make an omelette in a non-stick pan ({_} min).",
+"Brouille les œufs ou fais une omelette à la poêle antiadhésive ({_} min)."
+],
+[
+"Aperto oggi · si conserva \u0001 giorni",
+"Opened today · keeps {_} days",
+"Ouvert aujourd’hui · se conserve {_} jours"
+],
+[
+"Aperto il \u0001 · tocca per annullare",
+"Opened on {_} · tap to undo",
+"Ouvert le {_} · touche pour annuler"
+],
+[
+"aperto",
+"open",
+"ouvert"
+],
+[
+"aperto · \u0001",
+"open · {_}",
+"ouvert · {_}"
+],
+[
+"\u0001: aperto, si conserva fino a \u0001",
+"{_}: open, keeps until {_}",
+"{_} : ouvert, se conserve jusqu’au {_}"
 ]
 ]
