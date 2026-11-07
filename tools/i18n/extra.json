@@ -3523,5 +3523,275 @@
 "Niente premi per mangiare poco o dimagrire in fretta: contano costanza, allenamento e registrare.",
 "No rewards for eating little or losing weight fast: what counts is consistency, training and logging.",
 "Aucune récompense pour manger peu ou maigrir vite : ce qui compte, c’est la régularité, l’entraînement et le suivi."
+],
+[
+"Generale",
+"General",
+"Général"
+],
+[
+"Schede",
+"Workouts",
+"Programmes"
+],
+[
+"Foto",
+"Photos",
+"Photos"
+],
+[
+"Giorni consecutivi con qualcosa registrato: una seduta, un’uscita, un pasto, una pesata.",
+"Consecutive days with something logged: a session, a workout, a meal, a weigh-in.",
+"Jours consécutifs avec quelque chose d’enregistré : une séance, une sortie, un repas, une pesée."
+],
+[
+"Giorni attivi",
+"Active days",
+"Jours actifs"
+],
+[
+"Giorni in totale con qualcosa registrato.",
+"Total days with something logged.",
+"Jours au total avec quelque chose d’enregistré."
+],
+[
+"Settimane perfette",
+"Perfect weeks",
+"Semaines parfaites"
+],
+[
+"Settimane con tutte le sfide fatte: sedute, cardio, proteine (quelle che hai attive).",
+"Weeks with every challenge done: sessions, cardio, protein (the ones you have active).",
+"Semaines avec tous les défis réussis : séances, cardio, protéines (ceux que tu as activés)."
+],
+[
+"Sfide completate",
+"Challenges completed",
+"Défis réussis"
+],
+[
+"Sfide della settimana portate a termine.",
+"Weekly challenges completed.",
+"Défis de la semaine réussis."
+],
+[
+"Con Gym-Bo da",
+"With Gym-Bo for",
+"Avec Gym-Bo depuis"
+],
+[
+"Giorni dal primo dato registrato.",
+"Days since your first logged entry.",
+"Jours depuis ta première donnée enregistrée."
+],
+[
+"Allenamenti guidati",
+"Guided workouts",
+"Séances guidées"
+],
+[
+"Sedute fatte seguendo una scheda, dall’inizio alla fine.",
+"Sessions done following a workout plan, start to finish.",
+"Séances faites en suivant un programme, du début à la fin."
+],
+[
+"Programmi completati",
+"Programmes completed",
+"Programmes terminés"
+],
+[
+"Programmi a blocchi portati fino in fondo.",
+"Block programmes taken all the way through.",
+"Programmes par blocs menés jusqu’au bout."
+],
+[
+"Ore in palestra",
+"Hours in the gym",
+"Heures en salle"
+],
+[
+"Il tempo totale delle sedute guidate.",
+"Total time of guided sessions.",
+"Temps total des séances guidées."
+],
+[
+"Schede diverse",
+"Different plans",
+"Programmes différents"
+],
+[
+"Schede diverse con cui ti sei allenato.",
+"Different plans you’ve trained with.",
+"Programmes différents avec lesquels tu t’es entraîné."
+],
+[
+"Foto progressi",
+"Progress photos",
+"Photos de progrès"
+],
+[
+"Foto salvate nella sezione Foto.",
+"Photos saved in the Photos section.",
+"Photos enregistrées dans la section Photos."
+],
+[
+"Mesi consecutivi con almeno una foto.",
+"Consecutive months with at least one photo.",
+"Mois consécutifs avec au moins une photo."
+],
+[
+"Servizio completo",
+"Full set",
+"Série complète"
+],
+[
+"Giorni con le foto di fronte, di lato e di retro.",
+"Days with front, side and back photos.",
+"Jours avec photos de face, de profil et de dos."
+],
+[
+"Un anno di foto",
+"A year of photos",
+"Un an de photos"
+],
+[
+"Giorni tra la prima e l’ultima foto.",
+"Days between the first and last photo.",
+"Jours entre la première et la dernière photo."
+],
+[
+"\u0001 sfide",
+"{_} challenges",
+"{_} défis"
+],
+[
+"\u0001 programmi",
+"{_} programmes",
+"{_} programmes"
+],
+[
+"\u0001 schede",
+"{_} plans",
+"{_} programmes"
+],
+[
+"\u0001 foto",
+"{_} photos",
+"{_} photos"
+],
+[
+"\u0001 seduta",
+"{_} session",
+"{_} séance"
+],
+[
+"\u0001 settimana",
+"{_} week",
+"{_} semaine"
+],
+[
+"\u0001 giorno",
+"{_} day",
+"{_} jour"
+],
+[
+"\u0001 mese",
+"{_} month",
+"{_} mois"
+],
+[
+"\u0001 uscita",
+"{_} workout",
+"{_} sortie"
+],
+[
+"\u0001 ora",
+"{_} hour",
+"{_} heure"
+],
+[
+"\u0001 pesata",
+"{_} weigh-in",
+"{_} pesée"
+],
+[
+"\u0001 misurazione",
+"{_} measurement",
+"{_} mensuration"
+],
+[
+"\u0001 programma",
+"{_} programme",
+"{_} programme"
+],
+[
+"\u0001 scheda",
+"{_} plan",
+"{_} programme"
+],
+[
+"\u0001 sfida",
+"{_} challenge",
+"{_} défi"
+],
+[
+"\u0001 esercizio",
+"{_} exercise",
+"{_} exercice"
+],
+[
+"\u0001 trazione",
+"{_} pull-up",
+"{_} traction"
+],
+[
+"\u0001 di \u0001 sfide",
+"{_} of {_} challenges",
+"{_} sur {_} défis"
+],
+[
+"\u0001 di \u0001 programmi",
+"{_} of {_} programmes",
+"{_} sur {_} programmes"
+],
+[
+"\u0001 di \u0001 schede",
+"{_} of {_} plans",
+"{_} sur {_} programmes"
+],
+[
+"\u0001 di \u0001 foto",
+"{_} of {_} photos",
+"{_} sur {_} photos"
+],
+[
+"\u0001 di \u0001 programma",
+"{_} of {_} programme",
+"{_} sur {_} programme"
+],
+[
+"\u0001 di \u0001 seduta",
+"{_} of {_} session",
+"{_} sur {_} séance"
+],
+[
+"\u0001 di \u0001 giorno",
+"{_} of {_} day",
+"{_} sur {_} jour"
+],
+[
+"\u0001 di \u0001 settimana",
+"{_} of {_} week",
+"{_} sur {_} semaine"
+],
+[
+"\u0001 di \u0001 misurazione",
+"{_} of {_} measurement",
+"{_} sur {_} mensuration"
+],
+[
+"\u0001 di \u0001 trazione",
+"{_} of {_} pull-up",
+"{_} sur {_} traction"
 ]
 ]

@@ -341,3 +341,10 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v254 – Traguardi in un gruppo a sé
 - Nel menu «Traguardi» ha un gruppo tutto suo, in fondo dopo Dati (`NVG`: `['Traguardi',['tr']]`); si può spostare come gli altri gruppi. Tolta la migrazione `S.trmv` della v253, non più necessaria.
+
+## v255 – Traguardi Generale, Schede e Foto
+- Tre nuove categorie in `AGC_` (Generale in cima): Generale con l’alveare (`agHive`, sette celle esagonali che si accendono col livello), Schede col quaderno (`agBook`), Foto con la polaroid (`agPola`).
+- Generale (`agAll` in cache: giorni con qualunque registrazione e, per ogni settimana, sfide fatte): giorni di fila, giorni attivi, settimane perfette (tutte le sfide attive fatte), sfide completate, giorni da quando usi Gym-Bo.
+- Schede (`S.ses` con `t1`): allenamenti guidati, programmi completati (nuovo storico `S.bpd` scritto quando un programma a blocchi finisce; un programma già finito senza storico conta 1), ore delle sedute guidate, schede diverse.
+- Foto (`PH`, angoli `ANG`): foto salvate, mesi di fila, giorni con Fronte+Lato+Retro, giorni tra prima e ultima. L’avviso dei traguardi aspetta che le foto siano caricate (`PHok`).
+- Unità al singolare per le soglie da 1 (`AGS1`: «1 settimana»). Test `test/t90.py`.
