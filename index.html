@@ -542,7 +542,6 @@ details.gdx[open]{border-width:2px}
 <input id="gs" type="search" placeholder="Cerca esercizi, schede, alimenti…" aria-label="Ricerca" autocomplete="off">
 <div id="gsr"></div>
 <button data-a="tab" data-t="h">Home</button>
-<button data-a="tab" data-t="tr">Traguardi</button>
 <button data-a="tab" data-t="w">Palestra</button>
 <button data-a="tab" data-t="c">Cardio</button>
 <button data-a="tab" data-t="s">Schede</button>
@@ -553,7 +552,7 @@ details.gdx[open]{border-width:2px}
 <button data-a="tab" data-t="sp">Spesa e dispensa</button>
 <button data-a="tab" data-t="it">Integratori</button>
 <button data-a="tab" data-t="p">Foto</button>
-<button data-a="tab" data-t="o">Obiettivi e misure</button> <button data-a="tab" data-t="x">Importa ed esporta</button> <button data-a="tab" data-t="inf">Informazioni</button>
+<button data-a="tab" data-t="o">Obiettivi e misure</button> <button data-a="tab" data-t="tr">Traguardi</button> <button data-a="tab" data-t="x">Importa ed esporta</button> <button data-a="tab" data-t="inf">Informazioni</button>
 <div id="nvc" class="nb"></div>
 <div id="nth" class="nb"></div>
 <div id="ndp" class="nb"></div>
@@ -4339,11 +4338,12 @@ function gxTick(){const q=V.ss;if(!q||!q.ct||V.tab!='ss'){clearInterval(GXT);GXT
  if(sl<=3&&sl>0&&c.lb!==sl){c.lb=sl;csBeep(520,.12)}
  if(rem<=0){const id=c.id;q.ct=null;clearInterval(GXT);GXT=null;csBeep(880,.5);try{navigator.vibrate&&navigator.vibrate([300,120,300])}catch(e){}gxLog(q,id,c.dur);gxRest(q,id);save();render()}}
 function gxRest(q,id){const sc=ssSc(q),tg=(sc&&sc.t||{})[id]||{},x=cxOf(id),en=gxEnt(q,id);if(x.m=='t'&&en&&en.sets<(tg.s||3)){const rc=(sc&&sc.rt||{})[id]||60;if(rc)tStart(rc)}}
-const NVT=['h','tr','o','e','s','w','c','pp','sp','it','n','g','p','x','inf'];
-const NVG=[['',['h','tr']],['Allenamento',['w','s','e','c']],['Alimentazione',['n','pp','sp','it']],['Corpo',['o','p']],['Dati',['g','x','inf']]];
+const NVT=['h','o','tr','e','s','w','c','pp','sp','it','n','g','p','x','inf'];
+const NVG=[['',['h']],['Allenamento',['w','s','e','c']],['Alimentazione',['n','pp','sp','it']],['Corpo',['o','tr','p']],['Dati',['g','x','inf']]];
 function navOrd(){
  const nav=$('nav'),ctl=$('#nvc');if(!nav||!ctl)return;
  nav.querySelectorAll('.nvb,.nvg').forEach(x=>x.remove());
+ if(S.nord&&!S.trmv){const n=S.nord.filter(k=>k!='tr'),i=n.indexOf('o');n.splice(i<0?n.length:i+1,0,'tr');S.nord=n;S.trmv=1;save()}/* v253: Traguardi subito sotto Obiettivi e misure */
  const o=(S.nord||[]).filter(k=>NVT.includes(k));NVT.forEach(k=>{if(!o.includes(k))o.push(k)});
  V.nvk=o;const ed=!!V.nvm,bs={};
  nav.querySelectorAll(':scope>button[data-a="tab"]').forEach(b=>bs[b.dataset.t]=b);
