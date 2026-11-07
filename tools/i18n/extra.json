@@ -2733,5 +2733,105 @@
 "\u0001: aperto, si conserva fino a \u0001",
 "{_}: open, keeps until {_}",
 "{_} : ouvert, se conserve jusqu’au {_}"
+],
+[
+"modificato da te · dal piano \u0001",
+"changed by you · plan says {_}",
+"modifié par toi · le plan dit {_}"
+],
+[
+"servono \u0001 · ne avrai circa \u0001",
+"you need {_} · you’ll have about {_}",
+"il faut {_} · tu en auras environ {_}"
+],
+[
+"Il piano è cambiato: ora servono \u0001, tu avevi scelto \u0001.",
+"The plan changed: you now need {_}, you had chosen {_}.",
+"Le plan a changé : il faut maintenant {_}, tu avais choisi {_}."
+],
+[
+"Usa \u0001",
+"Use {_}",
+"Utiliser {_}"
+],
+[
+"Tieni \u0001",
+"Keep {_}",
+"Garder {_}"
+],
+[
+"Cambia la quantità di \u0001",
+"Change the quantity of {_}",
+"Modifier la quantité de {_}"
+],
+[
+"Grammi da comprare",
+"Grams to buy",
+"Grammes à acheter"
+],
+[
+"Meno",
+"Less",
+"Moins"
+],
+[
+"Più",
+"More",
+"Plus"
+],
+[
+"Dal piano: \u0001. − e + vanno di \u0001. 0 = non serve.",
+"From the plan: {_}. − and + change by {_}. 0 = not needed.",
+"D’après le plan : {_}. − et + changent de {_}. 0 = pas besoin."
+],
+[
+"Torna al piano",
+"Back to the plan",
+"Revenir au plan"
+],
+[
+"Non serve",
+"Not needed",
+"Pas besoin"
+],
+[
+"· \u0001 alimenti tolti da te",
+"· {_} foods removed by you",
+"· {_} aliments retirés par toi"
+],
+[
+"· 1 alimento tolto da te",
+"· 1 food removed by you",
+"· 1 aliment retiré par toi"
+],
+[
+"Rimetti",
+"Put back",
+"Remettre"
+],
+[
+"\u0001: non serve, lo trovi in «Non serve»",
+"{_}: not needed, you’ll find it under “Not needed”",
+"{_} : pas besoin, tu le trouves dans « Pas besoin »"
+],
+[
+"quantità",
+"quantity",
+"quantité"
+],
+[
+"Quantità di \u0001",
+"Quantity of {_}",
+"Quantité de {_}"
+],
+[
+"Es. 2 pacchi, 1 kg",
+"E.g. 2 packs, 1 kg",
+"Ex. 2 paquets, 1 kg"
+],
+[
+"Quantità",
+"Quantity",
+"Quantité"
 ]
 ]
