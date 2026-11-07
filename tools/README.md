@@ -338,3 +338,6 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v253 – Traguardi nel gruppo Corpo
 - La voce «Traguardi» passa dal primo gruppo (sotto Home) al gruppo Corpo, subito sotto «Obiettivi e misure» (`NVG`, `NVT`, pulsante in `<nav>`). Chi aveva già un ordine personalizzato del menu (`S.nord`) viene spostato una volta sola (`S.trmv`).
+
+## v254 – Traguardi in un gruppo a sé
+- Nel menu «Traguardi» ha un gruppo tutto suo, in fondo dopo Dati (`NVG`: `['Traguardi',['tr']]`); si può spostare come gli altri gruppi. Tolta la migrazione `S.trmv` della v253, non più necessaria.
