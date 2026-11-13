@@ -357,3 +357,11 @@ Nella seduta guidata e nel cardio guidato compare una striscia (`ntfBan`): «Att
 
 ## v257 – Modalità uscita con qualunque attività
 - Bug: la tendina «Cosa fai oggi» del Cardio salvava la scelta in `V.cq`, che dalla v248 è anche lo stato del foglio «Cosa cucino» (`ccHtml`). Scegliendo un’attività diversa da quella proposta, `ccHtml` trovava una stringa al posto dell’oggetto e andava in errore: la pagina non si aggiornava e restava avviabile solo l’attività di partenza (di solito la Corsa). Ora la scelta del Cardio sta in `V.cdsel`. Test `test/t92.py` (tutte le attività dell’uscita libera si avviano).
+
+## v258 – Pulizia del codice morto
+- Backup prima della pulizia: `bk/tracker-palestra-v257-prima-pulizia.html` (identico alla v257).
+- Trovato con un’analisi della raggiungibilità sullo script (acorn: dichiarazioni di primo livello mai raggiunte dal codice eseguito o dall’HTML), con il confronto tra azioni gestite nel click delegato e `data-a` presenti nell’interfaccia, e tra classi/id dello stile e quelli usati nel markup.
+- Tolte 10 dichiarazioni mai usate, rimaste da versioni precedenti: `tdCard` (vecchio riquadro del fabbisogno), `hrCard` (vecchio riquadro «Battito dal vivo», sostituito da `cdHero` + `hrZoneSet`), `bkCard` (vecchio riquadro backup), `fopts` e `selTxt` (vecchia scelta alimento a tendina), `pgSeg` (vecchio selettore Palestra/Cardio dei programmi), `cxCard`, `imStat`, `MGT`, `MGR`.
+- Tolti 10 rami di azioni senza più nessun pulsante: `cdg`, `gdp`, `nvu`/`nvd` (vecchio riordino del menu con le frecce), `ordu`/`ordd` (vecchio riordino delle sezioni con le frecce), `pbr`, `rph`, `sms`, `spn`, `xfmt`, `bfm`.
+- Tolte o accorciate 38 regole di stile per classi e id che nessuna parte dell’app crea più (`hv*` del vecchio riquadro di riepilogo, `fbar`, `sdots`, `exh`, `ogb`, `ogmb`, `adr`, `imb`, `imbx`, `cdsc`, `cdsl`, `hrn`, `hss`, `hst`, `lsmo`, `ndl`, `nwp`, `#dHsS`).
+- Verifica: le 83 prove di `test/` danno esattamente lo stesso esito sulla v257 e sulla v258 (stessi ok, stessi fallimenti già presenti in prove superate da modifiche successive, stessi tempi scaduti); 40 viste (tutte le sezioni e le sottoviste principali, in italiano e in inglese) danno lo stesso HTML con i dati demo, senza errori.
