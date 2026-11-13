@@ -3793,5 +3793,260 @@
 "\u0001 di \u0001 trazione",
 "{_} of {_} pull-up",
 "{_} sur {_} traction"
+],
+[
+"Micronutrienti della settimana",
+"Micronutrients of the week",
+"Micronutriments de la semaine"
+],
+[
+"Media al giorno del piano rispetto al fabbisogno (LARN, per sesso ed età). I sette trattini sono i giorni da lunedì a domenica.",
+"Daily average of the plan against your requirement (LARN, by sex and age). The seven dashes are the days from Monday to Sunday.",
+"Moyenne quotidienne du plan par rapport au besoin (LARN, selon le sexe et l’âge). Les sept tirets sont les jours du lundi au dimanche."
+],
+[
+"Media al giorno del piano rispetto al fabbisogno (LARN). I sette trattini sono i giorni da lunedì a domenica.",
+"Daily average of the plan against your requirement (LARN). The seven dashes are the days from Monday to Sunday.",
+"Moyenne quotidienne du plan par rapport au besoin (LARN). Les sept tirets sont les jours du lundi au dimanche."
+],
+[
+"Media al giorno del piano rispetto al fabbisogno (LARN, per sesso ed età), sui \u0001 giorni che hanno pasti. I sette trattini sono i giorni da lunedì a domenica.",
+"Daily average of the plan against your requirement (LARN, by sex and age), over the {_} days that have meals. The seven dashes are the days from Monday to Sunday.",
+"Moyenne quotidienne du plan par rapport au besoin (LARN, selon le sexe et l’âge), sur les {_} jours qui ont des repas. Les sept tirets sont les jours du lundi au dimanche."
+],
+[
+"Media al giorno del piano rispetto al fabbisogno (LARN), sui \u0001 giorni che hanno pasti. I sette trattini sono i giorni da lunedì a domenica.",
+"Daily average of the plan against your requirement (LARN), over the {_} days that have meals. The seven dashes are the days from Monday to Sunday.",
+"Moyenne quotidienne du plan par rapport au besoin (LARN), sur les {_} jours qui ont des repas. Les sept tirets sont les jours du lundi au dimanche."
+],
+[
+"Sotto l’\u0001% con il piano:",
+"Below {_}% with this plan:",
+"Sous {_} % avec ce plan :"
+],
+[
+"Nessuna carenza con questo piano.",
+"No shortfalls with this plan.",
+"Aucune carence avec ce plan."
+],
+[
+"Coperti con l’integratore:",
+"Covered by the supplement:",
+"Couverts par le complément :"
+],
+[
+"Oltre il limite:",
+"Over the limit:",
+"Au-dessus de la limite :"
+],
+[
+"\u0001 giorni su \u0001 sotto l’\u0001%",
+"{_} days out of {_} below {_}%",
+"{_} jours sur {_} sous {_} %"
+],
+[
+"\u0001 giorno su \u0001 sotto l’\u0001%",
+"{_} day out of {_} below {_}%",
+"{_} jour sur {_} sous {_} %"
+],
+[
+"\u0001 giorni su \u0001 oltre il limite",
+"{_} days out of {_} over the limit",
+"{_} jours sur {_} au-dessus de la limite"
+],
+[
+"\u0001 giorno su \u0001 oltre il limite",
+"{_} day out of {_} over the limit",
+"{_} jour sur {_} au-dessus de la limite"
+],
+[
+"Controlla salumi, formaggi stagionati, pane e sale aggiunto.",
+"Check cured meats, aged cheeses, bread and added salt.",
+"Vérifie charcuteries, fromages affinés, pain et sel ajouté."
+],
+[
+"Verdura, legumi, frutta e cereali integrali.",
+"Vegetables, legumes, fruit and whole grains.",
+"Légumes, légumineuses, fruits et céréales complètes."
+],
+[
+"Pochi alimenti la contengono: essere bassi con il solo cibo è normale. La dose di un integratore si decide con le analisi del sangue.",
+"Few foods contain it: being low on food alone is normal. A supplement dose is decided with blood tests.",
+"Peu d’aliments en contiennent : être bas avec l’alimentation seule est normal. La dose d’un complément se décide avec une prise de sang."
+],
+[
+"Si trova solo in alimenti di origine animale o fortificati.",
+"It is only found in animal or fortified foods.",
+"On la trouve seulement dans les aliments d’origine animale ou enrichis."
+],
+[
+"Non integrarlo senza analisi: l’eccesso fa male. La vitamina C nello stesso pasto ne aiuta l’assorbimento.",
+"Don’t supplement it without tests: too much is harmful. Vitamin C in the same meal helps absorption.",
+"Ne le complémente pas sans analyses : l’excès est nocif. La vitamine C au même repas aide l’absorption."
+],
+[
+"Si alza con frutta, verdura, legumi e patate. Non integrarlo senza indicazione medica.",
+"Raise it with fruit, vegetables, legumes and potatoes. Don’t supplement it without medical advice.",
+"On l’augmente avec fruits, légumes, légumineuses et pommes de terre. Ne le complémente pas sans avis médical."
+],
+[
+"Per alzarlo con il cibo:",
+"To raise it with food:",
+"Pour l’augmenter avec l’alimentation :"
+],
+[
+"Lo prendi già come integratore.",
+"You already take it as a supplement.",
+"Tu le prends déjà en complément."
+],
+[
+"Non lo prendo più",
+"I no longer take it",
+"Je ne le prends plus"
+],
+[
+"Lo prendo già come integratore",
+"I already take it as a supplement",
+"Je le prends déjà en complément"
+],
+[
+"Cosa dice Integratori ›",
+"What Supplements says ›",
+"Ce que dit Compléments ›"
+],
+[
+"Dose al giorno",
+"Daily dose",
+"Dose par jour"
+],
+[
+"Salva",
+"Save",
+"Enregistrer"
+],
+[
+"Cibo e integratore insieme:",
+"Food and supplement together:",
+"Alimentation et complément ensemble :"
+],
+[
+"L’integratore da solo:",
+"The supplement alone:",
+"Le complément seul :"
+],
+[
+"del fabbisogno.",
+"of the requirement.",
+"du besoin."
+],
+[
+"Scrivi la dose che trovi sull’etichetta: viene sommata al cibo.",
+"Enter the dose on the label: it is added to your food.",
+"Écris la dose indiquée sur l’étiquette : elle s’ajoute à l’alimentation."
+],
+[
+"Attenzione: la dose supera il massimo indicato dall’EFSA per un adulto,",
+"Warning: the dose exceeds the maximum set by EFSA for an adult,",
+"Attention : la dose dépasse le maximum indiqué par l’EFSA pour un adulte,"
+],
+[
+"Attenzione: cibo e integratore insieme superano il massimo indicato dall’EFSA per un adulto,",
+"Warning: food and supplement together exceed the maximum set by EFSA for an adult,",
+"Attention : alimentation et complément ensemble dépassent le maximum indiqué par l’EFSA pour un adulte,"
+],
+[
+"al giorno da integratori. Parlane con il medico.",
+"per day from supplements. Talk to your doctor.",
+"par jour en compléments. Parles-en à ton médecin."
+],
+[
+"al giorno. Parlane con il medico.",
+"per day. Talk to your doctor.",
+"par jour. Parles-en à ton médecin."
+],
+[
+"Dati disponibili per il \u0001% delle calorie del piano: alcuni alimenti personalizzati non hanno micronutrienti.",
+"Data available for {_}% of the plan’s calories: some custom foods have no micronutrients.",
+"Données disponibles pour {_} % des calories du plan : certains aliments personnalisés n’ont pas de micronutriments."
+],
+[
+"Valori medi indicativi, non una diagnosi: una carenza vera si vede solo con le analisi del sangue. Per sodio è un limite da non superare.",
+"Indicative average values, not a diagnosis: a real deficiency only shows in blood tests. For sodium it is a limit not to exceed.",
+"Valeurs moyennes indicatives, pas un diagnostic : une vraie carence ne se voit qu’à la prise de sang. Pour le sodium, c’est une limite à ne pas dépasser."
+],
+[
+"Sotto l’\u0001%:",
+"Below {_}%:",
+"Sous {_} % :"
+],
+[
+"Tutti coperti con questo piano",
+"All covered with this plan",
+"Tous couverts avec ce plan"
+],
+[
+"Dose salvata: viene sommata al cibo",
+"Dose saved: it is added to your food",
+"Dose enregistrée : elle s’ajoute à l’alimentation"
+],
+[
+"Dose tolta",
+"Dose removed",
+"Dose retirée"
+],
+[
+"Nel piano pasti di questa settimana:",
+"In this week’s meal plan:",
+"Dans le plan de repas de cette semaine :"
+],
+[
+"Fibre",
+"Fibre",
+"Fibres"
+],
+[
+"Sodio",
+"Sodium",
+"Sodium"
+],
+[
+"Potassio",
+"Potassium",
+"Potassium"
+],
+[
+"Calcio",
+"Calcium",
+"Calcium"
+],
+[
+"Magnesio",
+"Magnesium",
+"Magnésium"
+],
+[
+"Ferro",
+"Iron",
+"Fer"
+],
+[
+"Vitamina C",
+"Vitamin C",
+"Vitamine C"
+],
+[
+"Zinco",
+"Zinc",
+"Zinc"
+],
+[
+"Vitamina B12",
+"Vitamin B12",
+"Vitamine B12"
+],
+[
+"Vitamina D",
+"Vitamin D",
+"Vitamine D"
 ]
 ]
