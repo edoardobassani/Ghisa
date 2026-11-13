@@ -4218,5 +4218,170 @@
 "tutti i giorni",
 "every day",
 "tous les jours"
+],
+[
+"Usa il GPS del telefono",
+"Use the phone’s GPS",
+"Utiliser le GPS du téléphone"
+],
+[
+"Distanza, passo e percorso dal telefono. Ricordo la scelta per ogni attività.",
+"Distance, pace and route from the phone. I remember your choice for each activity.",
+"Distance, allure et parcours depuis le téléphone. Je mémorise ton choix pour chaque activité."
+],
+[
+"GPS pronto",
+"GPS ready",
+"GPS prêt"
+],
+[
+"· precisione \u0001 m",
+"· accuracy {_} m",
+"· précision {_} m"
+],
+[
+"Segnale debole",
+"Weak signal",
+"Signal faible"
+],
+[
+"· precisione \u0001 m: all’aperto migliora in pochi secondi",
+"· accuracy {_} m: outdoors it improves in a few seconds",
+"· précision {_} m : en extérieur ça s’améliore en quelques secondes"
+],
+[
+"Posizione negata",
+"Location denied",
+"Position refusée"
+],
+[
+": abilitala per Gym-Bo nelle impostazioni del telefono, oppure parti solo con tempo e battito",
+": allow it for Gym-Bo in your phone settings, or start with time and heart rate only",
+" : autorise-la pour Gym-Bo dans les réglages du téléphone, ou pars avec seulement le temps et la fréquence cardiaque"
+],
+[
+"GPS non disponibile",
+"GPS not available",
+"GPS indisponible"
+],
+[
+"in questo browser: parti solo con tempo e battito",
+"in this browser: start with time and heart rate only",
+"dans ce navigateur : pars avec seulement le temps et la fréquence cardiaque"
+],
+[
+"Cerco il GPS…",
+"Looking for GPS…",
+"Recherche du GPS…"
+],
+[
+"se non arriva in 30 secondi puoi partire lo stesso",
+"if it doesn’t lock within 30 seconds you can start anyway",
+"s’il n’arrive pas en 30 secondes tu peux partir quand même"
+],
+[
+"Voce a ogni km",
+"Voice every km",
+"Voix à chaque km"
+],
+[
+"✓ Voce a ogni km",
+"✓ Voice every km",
+"✓ Voix à chaque km"
+],
+[
+"Pausa automatica",
+"Auto-pause",
+"Pause automatique"
+],
+[
+"✓ Pausa automatica",
+"✓ Auto-pause",
+"✓ Pause automatique"
+],
+[
+"Distanza",
+"Distance",
+"Distance"
+],
+[
+"Passo ora",
+"Current pace",
+"Allure actuelle"
+],
+[
+"Passo medio",
+"Average pace",
+"Allure moyenne"
+],
+[
+"Velocità ora",
+"Current speed",
+"Vitesse actuelle"
+],
+[
+"Velocità media",
+"Average speed",
+"Vitesse moyenne"
+],
+[
+"Km \u0001",
+"Km {_}",
+"Km {_}"
+],
+[
+"Blocca",
+"Lock",
+"Verrouiller"
+],
+[
+"Pausa automatica: ti sei fermato. Riparte da sola appena riprendi.",
+"Auto-pause: you’ve stopped. It resumes on its own when you start moving.",
+"Pause automatique : tu t’es arrêté. Elle reprend toute seule dès que tu repars."
+],
+[
+"tieni premuto",
+"hold to unlock",
+"maintiens appuyé"
+],
+[
+"tempo",
+"time",
+"temps"
+],
+[
+"passo ora · /km",
+"current pace · /km",
+"allure actuelle · /km"
+],
+[
+"velocità ora · km/h",
+"current speed · km/h",
+"vitesse actuelle · km/h"
+],
+[
+"Distanza GPS",
+"GPS distance",
+"Distance GPS"
+],
+[
+"Il GPS non ha registrato abbastanza punti: scrivi i km a mano se li sai.",
+"The GPS didn’t record enough points: enter the km by hand if you know them.",
+"Le GPS n’a pas enregistré assez de points : saisis les km à la main si tu les connais."
+],
+[
+"Sessione salvata con il percorso",
+"Session saved with the route",
+"Séance enregistrée avec le parcours"
+],
+[
+"Sessione salvata con il percorso e il battito",
+"Session saved with the route and heart rate",
+"Séance enregistrée avec le parcours et la fréquence cardiaque"
+],
+[
+"GPS telefono",
+"Phone GPS",
+"GPS du téléphone"
 ]
 ]
