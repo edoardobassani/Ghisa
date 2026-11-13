@@ -18,7 +18,7 @@ async def m():
     ok(await pg.locator('.agi svg text').count()==0,'nessun numero nei dischi')
     await pg.screenshot(path=gb.O+'/t88a.png',full_page=True)
     await pg.locator('.agi').nth(0).click();await pg.wait_for_timeout(300)
-    ok(await pg.locator('.ag4 > div').count()==4,'scheda con 4 livelli')
+    ok(await pg.locator('.ag4 > div').count()==5,'scheda con 5 livelli (oro compreso)')
     await pg.screenshot(path=gb.O+'/t88b.png')
     await pg.click('[data-a=agx]')
     # sblocco: abbasso un livello visto e riapro
