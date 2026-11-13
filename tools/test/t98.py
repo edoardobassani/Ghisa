@@ -53,10 +53,10 @@ async def m():
     await pg.click('[data-a=sdtv][data-v=d]');await pg.wait_for_timeout(150);ok(await pg.locator('.sdlst').count()==1,'«Dettaglio» = editor di prima')
     await pg.click('[data-a=sdtv][data-v=t]');await pg.wait_for_timeout(150)
     # salva
-    await pg.click('[data-a=sca]');await pg.wait_for_timeout(200)
+    await pg.click('[data-a=sca]:not([data-v])');await pg.wait_for_timeout(200)
     r=await pg.evaluate("(id)=>{const s=S.sch.find(x=>x.id==id),i=s.ex[0];return [s.t[i].s,s.t[i].kg,s.rt[i],V.sd]}",sid);ok(r[:3]==[3,80,180],'scheda salvata '+str(r[:3]))
     # nuova scheda: esercizi dal selettore
-    await pg.evaluate("()=>{V.ed='';V.sd=null;render()}");await pg.wait_for_timeout(150)
+    await pg.evaluate("()=>{V.ed='';V.sdn=1;V.sd=null;render()}");await pg.wait_for_timeout(150)
     await pg.click('[data-a=sdpk]');await pg.wait_for_timeout(200);await pg.locator('#sdl .sdi input:not([disabled])').nth(0).check();await pg.locator('#sdl .sdi input:not([disabled])').nth(1).check()
     await pg.click('[data-a=sdpa]') if await pg.locator('[data-a=sdpa]').count() else None;await pg.wait_for_timeout(200)
     print('nuova',await pg.evaluate("()=>V.sd.ex.length"))

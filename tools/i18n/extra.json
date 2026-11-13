@@ -4933,5 +4933,315 @@
 "Applicato a \u0001 esercizi",
 "Applied to {_} exercises",
 "Appliqué à {_} exercices"
+],
+[
+"Il tuo programma",
+"Your programme",
+"Ton programme"
+],
+[
+"sett. \u0001 di \u0001",
+"wk {_} of {_}",
+"sem. {_} sur {_}"
+],
+[
+"▶ Inizia \u0001",
+"▶ Start {_}",
+"▶ Commencer {_}"
+],
+[
+"Oggi è giorno di riposo.",
+"Today is a rest day.",
+"Aujourd’hui c’est jour de repos."
+],
+[
+"Scegli quale scheda fai ogni giorno: nella Home comparirà quella giusta.",
+"Choose which workout you do each day: the right one will show up on Home.",
+"Choisis quelle fiche tu fais chaque jour : la bonne apparaîtra dans l’Accueil."
+],
+[
+"Imposta i giorni",
+"Set the days",
+"Régler les jours"
+],
+[
+"Giorni della settimana",
+"Days of the week",
+"Jours de la semaine"
+],
+[
+"Programmi salvati (\u0001)",
+"Saved programmes ({_})",
+"Programmes enregistrés ({_})"
+],
+[
+"Le mie schede",
+"My workouts",
+"Mes fiches"
+],
+[
+"Le mie schede cardio",
+"My cardio workouts",
+"Mes fiches cardio"
+],
+[
+"usata oggi",
+"used today",
+"utilisée aujourd’hui"
+],
+[
+"usata ieri",
+"used yesterday",
+"utilisée hier"
+],
+[
+"\u0001 esercizi · ~\u0001 min ·",
+"{_} exercises · ~{_} min ·",
+"{_} exercices · ~{_} min ·"
+],
+[
+"\u0001 esercizio · ~\u0001 min ·",
+"{_} exercise · ~{_} min ·",
+"{_} exercice · ~{_} min ·"
+],
+[
+"mai usata",
+"never used",
+"jamais utilisée"
+],
+[
+"oggi",
+"today",
+"aujourd’hui"
+],
+[
+"ieri",
+"yesterday",
+"hier"
+],
+[
+"\u0001 giorni fa",
+"{_} days ago",
+"il y a {_} jours"
+],
+[
+"1 settimana fa",
+"1 week ago",
+"il y a 1 semaine"
+],
+[
+"\u0001 settimane fa",
+"{_} weeks ago",
+"il y a {_} semaines"
+],
+[
+"Mostra tutte (\u0001) ›",
+"Show all ({_}) ›",
+"Tout afficher ({_}) ›"
+],
+[
+"Mostra meno",
+"Show less",
+"Afficher moins"
+],
+[
+"Usa",
+"Use",
+"Utiliser"
+],
+[
+"＋ Nuova scheda o programma",
+"＋ New workout or programme",
+"＋ Nouvelle fiche ou programme"
+],
+[
+"Tocca il nome per modificarla · ⋯ per duplicare o eliminare",
+"Tap the name to edit it · ⋯ to duplicate or delete",
+"Touche le nom pour la modifier · ⋯ pour dupliquer ou supprimer"
+],
+[
+"Cosa vuoi creare?",
+"What do you want to create?",
+"Que veux-tu créer ?"
+],
+[
+"Puoi sempre modificare tutto dopo.",
+"You can always change everything later.",
+"Tu peux toujours tout modifier ensuite."
+],
+[
+"Scegli un programma pronto",
+"Pick a ready-made programme",
+"Choisis un programme prêt"
+],
+[
+"\u0001 programmi già fatti: filtri per giorni a settimana, obiettivo e attrezzatura.",
+"{_} ready-made programmes: filter by days per week, goal and equipment.",
+"{_} programmes déjà faits : filtres par jours par semaine, objectif et équipement."
+],
+[
+"La strada più veloce: in 2 minuti hai la settimana pronta.",
+"The quickest way: your week is ready in 2 minutes.",
+"Le chemin le plus rapide : en 2 minutes ta semaine est prête."
+],
+[
+"La strada più veloce: in 2 minuti hai le uscite della settimana.",
+"The quickest way: your week’s sessions are ready in 2 minutes.",
+"Le chemin le plus rapide : en 2 minutes tu as les sorties de la semaine."
+],
+[
+"Fattelo costruire",
+"Have it built for you",
+"Fais-le construire"
+],
+[
+"Fatti costruire un nuovo programma",
+"Have a new programme built for you",
+"Fais-toi construire un nouveau programme"
+],
+[
+"7 domande e Gym-Bo fa il resto.",
+"7 questions and Gym-Bo does the rest.",
+"7 questions et Gym-Bo fait le reste."
+],
+[
+"5 domande e Gym-Bo fa il resto.",
+"5 questions and Gym-Bo does the rest.",
+"5 questions et Gym-Bo fait le reste."
+],
+[
+"7 domande (obiettivo, giorni, tempo, attrezzatura): Gym-Bo prepara schede e settimana.",
+"7 questions (goal, days, time, equipment): Gym-Bo prepares the workouts and the week.",
+"7 questions (objectif, jours, temps, équipement) : Gym-Bo prépare les fiches et la semaine."
+],
+[
+"5 domande (obiettivo, giorni, tempo, cosa puoi usare, zone da proteggere): Gym-Bo ti propone i 3 programmi più adatti.",
+"5 questions (goal, days, time, what you can use, areas to protect): Gym-Bo suggests the 3 best-suited programmes.",
+"5 questions (objectif, jours, temps, ce que tu peux utiliser, zones à protéger) : Gym-Bo te propose les 3 programmes les plus adaptés."
+],
+[
+"\u0001 programmi già fatti, settimana per settimana: dal primo 5 km alla preparazione di una gara.",
+"{_} ready-made programmes, week by week: from your first 5 km to race preparation.",
+"{_} programmes déjà faits, semaine par semaine : du premier 5 km à la préparation d’une course."
+],
+[
+"Crea da zero",
+"Create from scratch",
+"Créer de zéro"
+],
+[
+"Per chi sa già cosa vuole fare.",
+"For those who already know what they want to do.",
+"Pour qui sait déjà ce qu’il veut faire."
+],
+[
+"Una scheda",
+"A workout",
+"Une fiche"
+],
+[
+"un allenamento, es. «Push»",
+"one session, e.g. «Push»",
+"une séance, ex. « Push »"
+],
+[
+"Un programma",
+"A programme",
+"Un programme"
+],
+[
+"più settimane a blocchi",
+"several weeks in blocks",
+"plusieurs semaines par blocs"
+],
+[
+"A blocchi",
+"Block-based",
+"Par blocs"
+],
+[
+"riscaldamento, lavoro, recupero",
+"warm-up, work, recovery",
+"échauffement, travail, récupération"
+],
+[
+"Un circuito",
+"A circuit",
+"Un circuit"
+],
+[
+"esercizi a tempo, a giri",
+"timed exercises, in rounds",
+"exercices chronométrés, en tours"
+],
+[
+"Importa da Excel o PDF",
+"Import from Excel or PDF",
+"Importer depuis Excel ou PDF"
+],
+[
+"Importa sedute da PDF o Excel",
+"Import sessions from PDF or Excel",
+"Importer des séances depuis PDF ou Excel"
+],
+[
+"Inizia da qui",
+"Start here",
+"Commence ici"
+],
+[
+"Una scheda è un allenamento (es. «Gambe»); un programma mette in fila le schede per più settimane e aumenta i carichi da solo.",
+"A workout is one session (e.g. «Legs»); a programme lines up workouts over several weeks and increases the loads by itself.",
+"Une fiche est une séance (ex. « Jambes ») ; un programme enchaîne les fiches sur plusieurs semaines et augmente les charges tout seul."
+],
+[
+"Una scheda cardio è un’uscita o una seduta (es. «Ripetute 6×400»); un programma mette in fila le uscite per più settimane e le fa crescere da solo.",
+"A cardio workout is one outing or session (e.g. «6×400 repeats»); a programme lines up outings over several weeks and makes them progress by itself.",
+"Une fiche cardio est une sortie ou une séance (ex. « Fractionné 6×400 ») ; un programme enchaîne les sorties sur plusieurs semaines et les fait progresser tout seul."
+],
+[
+"Nuova scheda",
+"New workout",
+"Nouvelle fiche"
+],
+[
+"Modifica scheda",
+"Edit workout",
+"Modifier la fiche"
+],
+[
+"Salva scheda",
+"Save workout",
+"Enregistrer la fiche"
+],
+[
+"Salva e inizia adesso",
+"Save and start now",
+"Enregistrer et commencer"
+],
+[
+"Svuota e ricomincia",
+"Clear and start over",
+"Vider et recommencer"
+],
+[
+"Tocca di nuovo per eliminare",
+"Tap again to delete",
+"Touche encore pour supprimer"
+],
+[
+"Eliminata «\u0001»",
+"Deleted «{_}»",
+"Supprimée « {_} »"
+],
+[
+"Altro su \u0001",
+"More on {_}",
+"Plus sur {_}"
+],
+[
+"Modello «\u0001» caricato: cambia quello che vuoi e premi «Salva scheda».",
+"Template «{_}» loaded: change what you want and tap «Save workout».",
+"Modèle « {_} » chargé : modifie ce que tu veux et touche « Enregistrer la fiche »."
 ]
 ]

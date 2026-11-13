@@ -17,13 +17,13 @@ async def m():
     await pg.set_input_files('#ipf','pdft/diet_text.pdf');await pg.wait_for_timeout(1500)
     await pg.screenshot(path=O+'pdf-diet.png',full_page=True);print('diet view:',(await pg.evaluate("()=>document.querySelector('#v').innerText"))[:400].replace('\n',' | '))
     # cardio
-    await pg.evaluate("()=>{V.tab='s';V.sk='c';V.ip=null;render()}");await pg.set_input_files('#ccf','pdft/cardio_text.pdf');await pg.wait_for_timeout(1500)
+    await pg.evaluate("()=>{V.tab='s';V.sk='c';V.ip=null;render();if(!$('#ccf'))document.querySelector('[data-a=snew]').click()}");await pg.set_input_files('#ccf','pdft/cardio_text.pdf');await pg.wait_for_timeout(1500)
     await pg.screenshot(path=O+'pdf-cardio.png',full_page=True);print('cardio view:',(await pg.evaluate("()=>document.querySelector('#v').innerText"))[:500].replace('\n',' | '))
     await pg.evaluate("()=>{const c=document.querySelector('.cci[data-i=\"1\"]');c.click()}");await pg.wait_for_timeout(200)
     await pg.evaluate("()=>document.querySelector('[data-a=ccok]').click()");await pg.wait_for_timeout(300)
     print('csc:',await pg.evaluate("()=>[S.csc.map(c=>c.n+':'+c.t+':'+cbSpec(c.B)),S.plc,document.querySelector('#toast').textContent]"))
     # scan
-    await pg.evaluate("()=>{V.tab='s';V.sk='c';render()}");await pg.set_input_files('#ccf','pdft/scan.pdf');await pg.wait_for_timeout(1500)
+    await pg.evaluate("()=>{V.tab='s';V.sk='c';render();if(!$('#ccf'))document.querySelector('[data-a=snew]').click()}");await pg.set_input_files('#ccf','pdft/scan.pdf');await pg.wait_for_timeout(1500)
     print('scan toast:',await pg.evaluate("()=>document.querySelector('#toast').textContent"))
     print('errori',E);await b.close()
 asyncio.run(m())

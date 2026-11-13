@@ -8,8 +8,8 @@ async def m():
     b=await p.chromium.launch();pg=await (await b.new_context(viewport={'width':390,'height':844})).new_page();E=[];pg.on('pageerror',lambda e:E.append(str(e)))
     await pg.goto(gb.URL);await pg.wait_for_timeout(800)
     await pg.evaluate("()=>{S.wc=1;S.cd=[...Array(10)].map((_,i)=>({id:'c'+i,d:hvAdd(today(),-3-i*5),t:i%2?'Cyclette':'Camminata',min:40,km:5}));V.tab='s';V.sk='c';render()}")
-    print('hero cardio:',await pg.evaluate("()=>$('.pbhero b').textContent"))
-    await pg.click('.pbhero');print('passo 1:',await pg.evaluate("()=>[V.qc.st,V.qc.eq,qcLvOf(V.qc)]"))
+    print('hero cardio:',await pg.evaluate("()=>$('[data-a=qco] b').textContent"))  # v264: strada «Fattelo costruire»
+    await pg.click('[data-a=qco]');print('passo 1:',await pg.evaluate("()=>[V.qc.st,V.qc.eq,qcLvOf(V.qc)]"))
     await pg.screenshot(path=O+'v231-1.png',full_page=True)
     await pg.click('[data-a=qcg][data-v=d]');await pg.click('[data-a=qcn]')
     for d in ['1','3','5']:await pg.click(f'[data-a=qcd][data-v="{d}"]')
@@ -23,7 +23,7 @@ async def m():
     await pg.screenshot(path=O+'v231-res.png',full_page=True)
     await pg.click('.pbrc.best [data-a=qcv]');await pg.click('[data-a=qcw][data-v="1"]');await pg.screenshot(path=O+'v231-pre.png',full_page=True)
     print('accorciate:',await pg.evaluate("()=>[...document.querySelectorAll('.pbex')].map(x=>x.innerText.replace(/\\s+/g,' ')).slice(0,3)"))
-    await pg.click('[data-a=qcok]');r=await pg.evaluate("()=>{const p=cpCur();return {cpr:S.cpr,ses:cpSes(p,S.cpr.pos),min:cpMin(cpSes(p,S.cpr.pos)),maxProg:Math.max(...Array.from({length:cpTot(p)},(_,i)=>cpMin(cpSes(p,i)))),cpq:S.cpq,hero:$('.pbhero b').textContent,sk:V.sk}}");print('iniziato:',r)
+    await pg.click('[data-a=qcok]');r=await pg.evaluate("()=>{const p=cpCur();return {cpr:S.cpr,ses:cpSes(p,S.cpr.pos),min:cpMin(cpSes(p,S.cpr.pos)),maxProg:Math.max(...Array.from({length:cpTot(p)},(_,i)=>cpMin(cpSes(p,i)))),cpq:S.cpq,hero:skOpts('c').includes('Fatti costruire un nuovo programma'),sk:V.sk}}");print('iniziato:',r)
     await pg.evaluate("()=>{const u=$('#undo button');u&&u.click()}");await pg.wait_for_timeout(100);print('annulla:',await pg.evaluate("()=>S.cpr&&S.cpr.id"))
     # fine programma → il prossimo
     await pg.evaluate("()=>{V.qc=null;qcOpen({go:'s',lv:1,days:[1,3,5],min:45,eq:['bc'],zz:[]});V.qc.st='res';render();$('.pbrc.best [data-a=qcv]').click();$('[data-a=qcok]').click();const p=cpCur();S.cpr.pos=cpTot(p);V.tab='s';V.sk='c';render()}")

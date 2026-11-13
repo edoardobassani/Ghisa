@@ -16,6 +16,6 @@ async def m():
     await pg.click('[data-a=cpo]');print('dettaglio:',await pg.evaluate("()=>[V.tab,V.cp.id,V.cp.from,!!document.querySelector('[data-a=cpb]')]"))
     await pg.click('[data-a=cpb]');print('indietro:',await pg.evaluate(st),await pg.evaluate("()=>V.pg.cf"))
     await pg.evaluate("()=>{V.pg=null;V.tab='c';render()}");await pg.evaluate("()=>document.querySelector('[data-a=cpl]').click()");await pg.wait_for_timeout(100);print('da Cardio:',await pg.evaluate(st))
-    await pg.evaluate("()=>{V.pg=null;V.tab='s';V.sk='p';render();document.querySelector('[data-a=bppr]').click()}");await pg.wait_for_timeout(100);print('scorciatoia blocchi:',await pg.evaluate(st),await pg.evaluate("()=>V.pg.f"))
+    await pg.evaluate("()=>{V.pg=null;V.tab='s';V.sk='p';render();const n=document.querySelector('[data-a=snew]');if(n)n.click();document.querySelector('[data-a=pgl]').click()}");await pg.wait_for_timeout(100);print('programmi pronti dal foglio «Nuova…» (v264):',await pg.evaluate(st),await pg.evaluate("()=>!!V.pg&&(!$('#cfm')||$('#cfm').hidden)"))
     print('errori',E);await b.close()
 asyncio.run(m())
