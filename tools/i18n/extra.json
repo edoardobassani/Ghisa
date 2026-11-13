@@ -4423,5 +4423,335 @@
 "tutti e \u0001 i livelli",
 "all {_} levels",
 "les {_} niveaux"
+],
+[
+"Tabella",
+"Table",
+"Tableau"
+],
+[
+"Dettaglio",
+"Detail",
+"Détail"
+],
+[
+"‹ Esci",
+"‹ Exit",
+"‹ Quitter"
+],
+[
+"↶ Annulla",
+"↶ Undo",
+"↶ Annuler"
+],
+[
+"Modifica annullata",
+"Change undone",
+"Modification annulée"
+],
+[
+"\u0001 settimane in \u0001 blocchi: si modificano toccando le intestazioni colorate della tabella.",
+"{_} weeks in {_} blocks: edit them by tapping the coloured headers of the table.",
+"{_} semaines en {_} blocs : modifie-les en touchant les en-têtes colorés du tableau."
+],
+[
+"Esercizio",
+"Exercise",
+"Exercice"
+],
+[
+"Nessun esercizio",
+"No exercises",
+"Aucun exercice"
+],
+[
+"misto",
+"mixed",
+"mixte"
+],
+[
+"massimale",
+"max",
+"max"
+],
+[
+"Tocca una cella per modificarla. Tieni premuto e trascina per scegliere più settimane.",
+"Tap a cell to edit it. Press and hold, then drag, to select several weeks.",
+"Touche une cellule pour la modifier. Maintiens appuyé puis glisse pour choisir plusieurs semaines."
+],
+[
+"In memoria: \u0001 settimane copiate.",
+"Clipboard: {_} weeks copied.",
+"En mémoire : {_} semaines copiées."
+],
+[
+"In memoria: \u0001 settimana copiate.",
+"Clipboard: {_} week copied.",
+"En mémoire : {_} semaine copiée."
+],
+[
+"Copia",
+"Copy",
+"Copier"
+],
+[
+"Incolla",
+"Paste",
+"Coller"
+],
+[
+"Riempi →",
+"Fill →",
+"Remplir →"
+],
+[
+"Svuota",
+"Clear",
+"Vider"
+],
+[
+"\u0001 settimane selezionate",
+"{_} weeks selected",
+"{_} semaines sélectionnées"
+],
+[
+"Riempi le \u0001 settimane…",
+"Fill the {_} weeks…",
+"Remplir les {_} semaines…"
+],
+[
+"Rendile uguali",
+"Make them equal",
+"Les rendre égales"
+],
+[
+"Apri in Dettaglio",
+"Open in Detail",
+"Ouvrir en Détail"
+],
+[
+"serie ×",
+"sets ×",
+"séries ×"
+],
+[
+"serie (1 top) ×",
+"sets (1 top) ×",
+"séries (1 top) ×"
+],
+[
+"rip ·",
+"reps ·",
+"rép. ·"
+],
+[
+"% del massimale",
+"% of max",
+"% du max"
+],
+[
+"ripetizioni di riserva",
+"reps in reserve",
+"répétitions en réserve"
+],
+[
+"top set + back-off",
+"top set + back-off",
+"top set + back-off"
+],
+[
+"carico fisso",
+"fixed load",
+"charge fixe"
+],
+[
+"Riposo (o test se il blocco è «Test»): scrivi le serie per allenarti",
+"Rest (or test if the block is “Test”): enter sets to train",
+"Repos (ou test si le bloc est « Test ») : saisis les séries pour t’entraîner"
+],
+[
+"Riposo",
+"Rest",
+"Repos"
+],
+[
+"Uguali in tutte",
+"Same in all",
+"Identiques partout"
+],
+[
+"Stesse serie, ripetizioni e carico della prima.",
+"Same sets, reps and load as the first.",
+"Mêmes séries, répétitions et charge que la première."
+],
+[
+"Progressione",
+"Progression",
+"Progression"
+],
+[
+"Parti dalla prima e cambia ogni settimana.",
+"Start from the first and change every week.",
+"Pars de la première et change chaque semaine."
+],
+[
+"Carico",
+"Load",
+"Charge"
+],
+[
+"Rip.",
+"Reps",
+"Rép."
+],
+[
+"a settimana",
+"per week",
+"par semaine"
+],
+[
+"Copia da un altro esercizio",
+"Copy from another exercise",
+"Copier d’un autre exercice"
+],
+[
+"Stesse settimane di un altro esercizio del giorno.",
+"Same weeks as another exercise of the day.",
+"Mêmes semaines qu’un autre exercice du jour."
+],
+[
+"(tipo diverso: lo converto)",
+"(different type: I’ll convert it)",
+"(type différent : je le convertis)"
+],
+[
+"Applica a \u0001 settimane",
+"Apply to {_} weeks",
+"Appliquer à {_} semaines"
+],
+[
+"Applicato a \u0001 settimane",
+"Applied to {_} weeks",
+"Appliqué à {_} semaines"
+],
+[
+"La prima settimana selezionata è vuota: scrivi prima serie e ripetizioni lì.",
+"The first selected week is empty: enter sets and reps there first.",
+"La première semaine sélectionnée est vide : saisis d’abord séries et répétitions."
+],
+[
+"Settimane",
+"Weeks",
+"Semaines"
+],
+[
+"Aggiungi un blocco dopo",
+"Add a block after",
+"Ajouter un bloc après"
+],
+[
+"Le colonne nuove copiano l’ultima settimana di questo.",
+"New columns copy this block’s last week.",
+"Les nouvelles colonnes copient la dernière semaine de ce bloc."
+],
+[
+"Duplica il blocco",
+"Duplicate block",
+"Dupliquer le bloc"
+],
+[
+"Utile per ripetere un ciclo.",
+"Useful to repeat a cycle.",
+"Utile pour répéter un cycle."
+],
+[
+"◀ Prima",
+"◀ Before",
+"◀ Avant"
+],
+[
+"Dopo ▶",
+"After ▶",
+"Après ▶"
+],
+[
+"Elimina il blocco",
+"Delete block",
+"Supprimer le bloc"
+],
+[
+"Blocco duplicato",
+"Block duplicated",
+"Bloc dupliqué"
+],
+[
+"Blocco aggiunto",
+"Block added",
+"Bloc ajouté"
+],
+[
+"Come indicare il carico",
+"How to set the load",
+"Comment indiquer la charge"
+],
+[
+"▲ Su",
+"▲ Up",
+"▲ Haut"
+],
+[
+"▼ Giù",
+"▼ Down",
+"▼ Bas"
+],
+[
+"Togli dal giorno",
+"Remove from day",
+"Retirer du jour"
+],
+[
+"Settimana copiata",
+"Week copied",
+"Semaine copiée"
+],
+[
+"\u0001 settimane copiate",
+"{_} weeks copied",
+"{_} semaines copiées"
+],
+[
+"Incollate \u0001 settimane",
+"Pasted {_} weeks",
+"{_} semaines collées"
+],
+[
+"Incollate \u0001 settimana",
+"Pasted {_} week",
+"{_} semaine collée"
+],
+[
+"Tipo di carico diverso: cambia prima il tipo dell’esercizio",
+"Different load type: change the exercise type first",
+"Type de charge différent : change d’abord le type de l’exercice"
+],
+[
+"È l’ultima settimana del blocco",
+"It’s the last week of the block",
+"C’est la dernière semaine du bloc"
+],
+[
+"Tocca l’ultima settimana",
+"Tap the last week",
+"Touche la dernière semaine"
+],
+[
+"da selezionare nella stessa riga.",
+"to select in the same row.",
+"à sélectionner sur la même ligne."
+],
+[
+"Tocca le intestazioni colorate per i blocchi e il nome di un esercizio per tipo e posizione. Il «+» indica l’ultima serie AMRAP.",
+"Tap the coloured headers for blocks and an exercise name for type and position. The “+” marks the last AMRAP set.",
+"Touche les en-têtes colorés pour les blocs et le nom d’un exercice pour le type et la position. Le « + » indique la dernière série AMRAP."
 ]
 ]

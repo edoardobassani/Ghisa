@@ -22,7 +22,7 @@ async def main():
       await pg.wait_for_timeout(50)
     print('dopo ciclo',await ev(f"()=>[S.bp.wk,S.bp.cyc,S.bp.tm['{e}'],Object.keys(S.bp.amf).length]"))
     # edit active: add week to cycle block
-    await ev("()=>{V.tab='s';render()}");await pg.click('[data-a=bped]');await pg.click('[data-a=bpbw][data-i=\"1\"][data-v=\"1\"]');await pg.click('[data-a=bpsv]');print('edit',await ev("()=>[bpW(S.bp),S.bp.B.map(b=>b.w)]"))
+    await ev("()=>{V.tab='s';render()}");await pg.click('[data-a=bped]');await ev("()=>{V.bpe.vw='d';render()}");await pg.click('[data-a=bpbw][data-i=\"1\"][data-v=\"1\"]');await pg.click('[data-a=bpsv]');print('edit',await ev("()=>[bpW(S.bp),S.bp.B.map(b=>b.w)]"))
     
     await pg.click('[data-a=bpend]');await pg.click('[data-a=bpend]');print('fine',await ev("()=>[S.bp,JSON.stringify(S.pl)]"))
     print('errs',E);await b.close()
