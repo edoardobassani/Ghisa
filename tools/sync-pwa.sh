@@ -12,5 +12,5 @@ anchor='</title>\n';assert s.count(anchor)==1;s=s.replace(anchor,anchor+head)
 a2='dataBoot().then(';assert s.count(a2)==1;s=s.replace(a2,sw+a2)
 open(sys.argv[2],'w').write(s)
 P
-cd $REPO && git add -A && git commit -q -m "$1" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+cd $REPO && git add -A && git commit -q -m "$1" -m "Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01J1sGSN1mUuGzuk69kicvNH" && git push -q origin main && git log --oneline -1
