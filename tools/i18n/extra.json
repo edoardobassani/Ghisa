@@ -4048,5 +4048,175 @@
 "Vitamina D",
 "Vitamin D",
 "Vitamine D"
+],
+[
+"Sullo stesso percorso",
+"On the same route",
+"Sur le même parcours"
+],
+[
+"riconosciuto dal GPS · \u0001 volte",
+"recognised by GPS · {_} times",
+"reconnu par le GPS · {_} fois"
+],
+[
+"Dai un nome",
+"Name it",
+"Donne un nom"
+],
+[
+"Rinomina",
+"Rename",
+"Renommer"
+],
+[
+"Es. Giro del parco",
+"E.g. Park loop",
+"Ex. Tour du parc"
+],
+[
+"più veloce a parità di battito",
+"faster at the same heart rate",
+"plus rapide à fréquence cardiaque égale"
+],
+[
+"più lento a parità di battito",
+"slower at the same heart rate",
+"plus lent à fréquence cardiaque égale"
+],
+[
+"uguale a parità di battito",
+"the same at the same heart rate",
+"identique à fréquence cardiaque égale"
+],
+[
+"rispetto alla media delle ultime \u0001 volte qui con il battito.",
+"compared with the average of your last {_} times here with heart rate.",
+"par rapport à la moyenne de tes {_} dernières fois ici avec la fréquence cardiaque."
+],
+[
+"rispetto alla media delle ultime volta qui con il battito.",
+"compared with your last time here with heart rate.",
+"par rapport à ta dernière fois ici avec la fréquence cardiaque."
+],
+[
+"È il segno più chiaro che la forma migliora.",
+"It’s the clearest sign your fitness is improving.",
+"C’est le signe le plus clair que ta forme s’améliore."
+],
+[
+"Rispetto alla media delle ultime \u0001 volte",
+"Compared with the average of the last {_} times",
+"Par rapport à la moyenne des {_} dernières fois"
+],
+[
+"Rispetto alla media delle ultime volta",
+"Compared with the last time",
+"Par rapport à la dernière fois"
+],
+[
+"Velocità per battito",
+"Distance per heartbeat",
+"Distance par battement"
+],
+[
+"(prima \u0001)",
+"(before {_})",
+"(avant {_})"
+],
+[
+"In verde la volta più veloce su questo percorso.",
+"In green, your fastest time on this route.",
+"En vert, ta fois la plus rapide sur ce parcours."
+],
+[
+"questa",
+"this one",
+"celle-ci"
+],
+[
+"A parità di battito",
+"At the same heart rate",
+"À fréquence cardiaque égale"
+],
+[
+"\u0001% più veloce",
+"{_}% faster",
+"{_} % plus rapide"
+],
+[
+"\u0001% più lento",
+"{_}% slower",
+"{_} % plus lent"
+],
+[
+"Forma aerobica",
+"Aerobic fitness",
+"Forme aérobie"
+],
+[
+"Quanti metri fai per ogni battito del cuore. Se sale, a parità di fatica vai più veloce.",
+"How many metres you cover per heartbeat. If it rises, you go faster for the same effort.",
+"Combien de mètres tu parcours par battement de cœur. S’il augmente, tu vas plus vite pour le même effort."
+],
+[
+"Ogni punto è un’uscita, la linea è la media delle ultime 5. Non contano le uscite a intervalli, quelle da programma o scheda e quelle con molto dislivello (più di 15 m per km).",
+"Each dot is a workout, the line is the average of the last 5. Interval workouts, programme or plan sessions and very hilly ones (over 15 m per km) don’t count.",
+"Chaque point est une sortie, la ligne est la moyenne des 5 dernières. Les sorties fractionnées, de programme ou de séance et très vallonnées (plus de 15 m par km) ne comptent pas."
+],
+[
+"Percorso: \u0001",
+"Route: {_}",
+"Parcours : {_}"
+],
+[
+"Nome tolto",
+"Name removed",
+"Nom retiré"
+],
+[
+"Copri i micronutrienti",
+"Cover micronutrients",
+"Couvrir les micronutriments"
+],
+[
+"Se nella settimana manca qualcosa (ferro, calcio, vitamina D…), cambio qualche alimento con uno dello stesso tipo che ne ha di più. Calorie e proteine restano le stesse.",
+"If something is short over the week (iron, calcium, vitamin D…), I swap a few foods for similar ones that contain more. Calories and protein stay the same.",
+"S’il manque quelque chose sur la semaine (fer, calcium, vitamine D…), je remplace quelques aliments par d’autres du même type qui en contiennent plus. Calories et protéines restent les mêmes."
+],
+[
+"La barra è il piano con i cambi; la tacca segna dov’era prima.",
+"The bar is the plan with the swaps; the mark shows where it was before.",
+"La barre est le plan avec les changements ; le repère montre où il était avant."
+],
+[
+"da \u0001%",
+"from {_}%",
+"de {_} %"
+],
+[
+"\u0001 alimenti cambiati",
+"{_} foods swapped",
+"{_} aliments changés"
+],
+[
+"\u0001 alimento cambiato",
+"{_} food swapped",
+"{_} aliment changé"
+],
+[
+"Tutti sopra il fabbisogno.",
+"All above requirement.",
+"Tous au-dessus du besoin."
+],
+[
+"Media al giorno rispetto ai LARN. Gli alimenti senza dati sui micronutrienti non contano.",
+"Daily average against LARN. Foods without micronutrient data don’t count.",
+"Moyenne par jour par rapport aux LARN. Les aliments sans données de micronutriments ne comptent pas."
+],
+[
+"tutti i giorni",
+"every day",
+"tous les jours"
 ]
 ]
