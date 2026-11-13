@@ -23,9 +23,9 @@ async def m():
     await pg.evaluate(SWIPE,['[data-blk=tot]',-40]);print('gesto corto non cambia:',await pg.evaluate("()=>V.nd==today()"))
     await pg.evaluate(SWIPE,['#nd',-150]);print('su un campo non cambia:',await pg.evaluate("()=>V.nd==today()"))
     # piano pasti, vista Giorno
-    await pg.evaluate("()=>{V.tab='pp';V.pv='p';V.pj=6;render()}")
+    await pg.evaluate("()=>{V.tab='pp';V.ppz=1;V.pv='p';V.pj=6;render()}")
     w0=await pg.evaluate("()=>V.pw||hvMon(today())")
-    await pg.evaluate(SWIPE,['.dpl',-150]);print('piano: domenica -> lunedì della settimana dopo:',await pg.evaluate("w=>[V.pj==0,V.pw==hvAdd(w,7)]",w0))
+    await pg.evaluate(SWIPE,['.ppds',-150]);print('piano: domenica -> lunedì della settimana dopo:',await pg.evaluate("w=>[V.pj==0,V.pw==hvAdd(w,7)]",w0))
     await pg.evaluate(SWIPE,['#v h1',150]);print('piano: indietro -> domenica prima:',await pg.evaluate("w=>[V.pj==6,(V.pw||hvMon(today()))==w]",w0))
     await pg.evaluate("()=>{V.pv='w';render()}");j=await pg.evaluate("()=>V.pj")
     await pg.evaluate(SWIPE,['#v h1',-150]);print('vista Settimana: niente scorrimento:',await pg.evaluate("j=>V.pj==j",j))

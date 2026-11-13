@@ -7,8 +7,8 @@ async def m():
   async with async_playwright() as p:
     b=await p.chromium.launch();pg=await b.new_page(viewport={'width':390,'height':844});E=[];pg.on('pageerror',lambda e:E.append(str(e)))
     await pg.goto(gb.URL);await pg.wait_for_timeout(800)
-    await pg.evaluate("()=>{S.wc=1;V.tab='pp';render()}")
-    await pg.click('[data-a=ppaa0][data-pm=Pranzo]');await pg.fill('#ppq','pasta di semola');await pg.wait_for_timeout(300)
+    await pg.evaluate("()=>{S.wc=1;V.tab='pp';V.ppz=1;render()}")
+    await pg.click('[data-a=ppam][data-pm=Pranzo]');await pg.click('#cfm [data-a=ppaa0]');await pg.fill('#ppq','pasta di semola');await pg.wait_for_timeout(300)
     await pg.click('[data-a=ppf]');await pg.wait_for_timeout(200)
     print('compatto:',await pg.evaluate("()=>[!document.querySelector('#ppl'),!document.querySelector('#ppq'),document.querySelector('.pps b').textContent]"))
     await pg.click('[data-a=ppch]');await pg.wait_for_timeout(100)

@@ -34,8 +34,8 @@ async def m():
     await pg.click('[data-a=dpu]');await pg.click('[data-a=dpok]');await pg.wait_for_timeout(150)
     r=await pg.evaluate("()=>{const A=S.dpa,w=S.mpw[A.w],k=[0,1,2,3,4,5,6].map(d=>Math.round(MP.reduce((t,m)=>t+(w[d][m]||[]).reduce((u,x)=>u+ln(x).k,0),0)));return {td:A.td.map((x,i)=>x?DN[i]:'').filter(Boolean).join(' '),goal:S.goal,k}}")
     print('applicato:',json.dumps(r,ensure_ascii=False))
-    print('riquadro del piano:',await pg.evaluate("()=>{V.tab='pp';V.dp=null;render();return ($('[data-a=dprc]')||{}).closest?$('[data-a=dprc]').closest('.card').innerText.replace(/\\n/g,' '):''}"))
-    await pg.evaluate("()=>{S.wt.push({id:'w2',d:today(),kg:85});}");await pg.click('[data-a=dprc]')
+    print('riquadro del piano:',await pg.evaluate("()=>{V.tab='pp';V.dp=null;render();return $('.ppwk h2').innerText}"))
+    await pg.evaluate("()=>{S.wt.push({id:'w2',d:today(),kg:85});}");await pg.click('[data-a=ppmo]');await pg.click('#cfm [data-a=dprc]')
     print('ricalcola tiene i giorni:',await pg.evaluate("()=>S.dpa.td.map((x,i)=>x?DN[i]:'').filter(Boolean).join(' ')"))
     # giorni presi dal programma settimanale della palestra
     await pg.evaluate("()=>{S.sch.push({id:'sq',name:'A',ex:[],t:{},rt:{}});S.pl={0:'sq',1:'sq',3:'sq',5:'sq'};V.tab='pp';V.dp={id:null,f:''};render()}")

@@ -19,7 +19,7 @@ async def m():
     await pg.screenshot(path=gb.O+'sp2.png')
     await pg.evaluate("()=>{V.tab='pp';render()}");await pg.wait_for_timeout(200)
     r=await pg.evaluate("()=>[...document.querySelectorAll('.pvt button')].map(x=>x.innerText)");print(r);ok('Spesa' not in r and 'Dispensa' not in [x.split('•')[0].strip() for x in r],'Piano pasti senza Spesa e Dispensa')
-    await pg.click('.pvt [data-a=spgo]');await pg.wait_for_timeout(200);ok(await pg.evaluate("()=>V.tab=='sp'&&V.spv=='s'"),'collegamento da Piano pasti')
+    await pg.click('.skrow[data-a=spgo]');await pg.wait_for_timeout(200);ok(await pg.evaluate("()=>V.tab=='sp'&&V.spv=='s'"),'collegamento da Piano pasti')
     t=await pg.evaluate("()=>($('#nbb')||{}).innerText||''");print(t);ok('Piano pasti' in t,'«indietro» torna a Piano pasti')
     ok(not E,'nessun errore JS '+str(E));await b.close()
 asyncio.run(m())

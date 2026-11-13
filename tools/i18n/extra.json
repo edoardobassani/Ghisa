@@ -5243,5 +5243,280 @@
 "Modello «\u0001» caricato: cambia quello che vuoi e premi «Salva scheda».",
 "Template «{_}» loaded: change what you want and tap «Save workout».",
 "Modèle « {_} » chargé : modifie ce que tu veux et touche « Enregistrer la fiche »."
+],
+[
+"Il piano pasti è la tua settimana tipo: lo prepari una volta, ogni giorno lo mandi nel diario con un tocco e ti dà la lista della spesa.",
+"The meal plan is your typical week: you prepare it once, send each day to the diary with one tap, and it gives you the shopping list.",
+"Le plan de repas est ta semaine type : tu le prépares une fois, chaque jour tu l’envoies au journal d’un geste et il te donne la liste de courses."
+],
+[
+"Scegli un piano pronto",
+"Pick a ready-made plan",
+"Choisis un plan prêt"
+],
+[
+"La strada più veloce: in 2 minuti hai la settimana.",
+"The quickest way: your week is ready in 2 minutes.",
+"Le chemin le plus rapide : en 2 minutes ta semaine est prête."
+],
+[
+"3 passi e Gym-Bo compone la settimana sulle tue calorie e proteine.",
+"3 steps and Gym-Bo builds the week around your calories and protein.",
+"3 étapes et Gym-Bo compose la semaine selon tes calories et protéines."
+],
+[
+"Riempi tu i pasti, giorno per giorno.",
+"Fill in the meals yourself, day by day.",
+"Remplis toi-même les repas, jour par jour."
+],
+[
+"La tua settimana",
+"Your week",
+"Ta semaine"
+],
+[
+"Il tuo piano su misura",
+"Your tailored plan",
+"Ton plan sur mesure"
+],
+[
+"Il piano è adattato a \u0001 kcal, il tuo obiettivo ora è \u0001.",
+"The plan is set to {_} kcal, your goal is now {_}.",
+"Le plan est adapté à {_} kcal, ton objectif est maintenant {_}."
+],
+[
+"Nuovo piano",
+"New plan",
+"Nouveau plan"
+],
+[
+"＋ Nuovo piano",
+"＋ New plan",
+"＋ Nouveau plan"
+],
+[
+"Sostituisce il piano da questa settimana in poi. Puoi annullare.",
+"Replaces the plan from this week on. You can undo.",
+"Remplace le plan à partir de cette semaine. Tu peux annuler."
+],
+[
+"\u0001 piani già fatti, adattati alle tue calorie: filtri per tipo di dieta e pasti.",
+"{_} ready-made plans, adapted to your calories: filter by diet type and meals.",
+"{_} plans déjà faits, adaptés à tes calories : filtres par type de régime et repas."
+],
+[
+"Fatti costruire un nuovo piano",
+"Have a new plan built for you",
+"Fais-toi construire un nouveau plan"
+],
+[
+"3 passi: tipo di dieta e pasti, alimenti da evitare, tempo in cucina. Copre anche i micronutrienti.",
+"3 steps: diet type and meals, foods to avoid, time in the kitchen. Covers micronutrients too.",
+"3 étapes : type de régime et repas, aliments à éviter, temps en cuisine. Couvre aussi les micronutriments."
+],
+[
+"Svuota questa settimana e riempi tu i pasti.",
+"Clear this week and fill in the meals yourself.",
+"Vide cette semaine et remplis toi-même les repas."
+],
+[
+"Aggiungi a colazione",
+"Add to breakfast",
+"Ajouter au petit-déjeuner"
+],
+[
+"Aggiungi a pranzo",
+"Add to lunch",
+"Ajouter au déjeuner"
+],
+[
+"Aggiungi a cena",
+"Add to dinner",
+"Ajouter au dîner"
+],
+[
+"Aggiungi a spuntino",
+"Add to snack",
+"Ajouter à la collation"
+],
+[
+"＋ Aggiungi a colazione",
+"＋ Add to breakfast",
+"＋ Ajouter au petit-déjeuner"
+],
+[
+"＋ Aggiungi a pranzo",
+"＋ Add to lunch",
+"＋ Ajouter au déjeuner"
+],
+[
+"＋ Aggiungi a cena",
+"＋ Add to dinner",
+"＋ Ajouter au dîner"
+],
+[
+"＋ Aggiungi a spuntino",
+"＋ Add to snack",
+"＋ Ajouter à la collation"
+],
+[
+"\u0001 · mancano \u0001 kcal all’obiettivo",
+"{_} · {_} kcal left to the goal",
+"{_} · il manque {_} kcal à l’objectif"
+],
+[
+"\u0001 · \u0001 kcal sopra l’obiettivo",
+"{_} · {_} kcal over the goal",
+"{_} · {_} kcal au-dessus de l’objectif"
+],
+[
+"Cerca un alimento (es. pollo, riso)",
+"Search a food (e.g. chicken, rice)",
+"Cherche un aliment (ex. poulet, riz)"
+],
+[
+"Usati di recente",
+"Recently used",
+"Utilisés récemment"
+],
+[
+"Un pasto preferito",
+"A favourite meal",
+"Un repas favori"
+],
+[
+"Non ne hai ancora: li salvi dalla scheda Dieta.",
+"You have none yet: save them from the Diet tab.",
+"Tu n’en as pas encore : enregistre-les depuis l’onglet Diète."
+],
+[
+"\u0001 · \u0001 salvati",
+"{_} · {_} saved",
+"{_} · {_} enregistrés"
+],
+[
+"\u0001 · \u0001 salvato",
+"{_} · {_} saved",
+"{_} · {_} enregistré"
+],
+[
+"Scrivi o detta",
+"Type or dictate",
+"Écris ou dicte"
+],
+[
+"«100 g di riso e una scatoletta di tonno»",
+"«100 g of rice and a can of tuna»",
+"« 100 g de riz et une boîte de thon »"
+],
+[
+"Copia questo pasto in altri giorni",
+"Copy this meal to other days",
+"Copier ce repas sur d’autres jours"
+],
+[
+"\u0001 di \u0001: sostituisci o aggiungi",
+"{_} of {_}: replace or add",
+"{_} de {_} : remplacer ou ajouter"
+],
+[
+"Cosa vuoi fare con questo giorno o con la settimana?",
+"What do you want to do with this day or the week?",
+"Que veux-tu faire de ce jour ou de la semaine ?"
+],
+[
+"Copia in altri giorni",
+"Copy to other days",
+"Copier sur d’autres jours"
+],
+[
+"Scegli i giorni: i loro pasti vengono sostituiti.",
+"Choose the days: their meals get replaced.",
+"Choisis les jours : leurs repas sont remplacés."
+],
+[
+"Copia la settimana nelle prossime",
+"Copy the week to the next ones",
+"Copier la semaine sur les suivantes"
+],
+[
+"Fino a 4 settimane avanti.",
+"Up to 4 weeks ahead.",
+"Jusqu’à 4 semaines à l’avance."
+],
+[
+"Riadatta «\u0001» al tuo obiettivo calorico.",
+"Re-fit «{_}» to your calorie goal.",
+"Réadapte « {_} » à ton objectif calorique."
+],
+[
+"Tabella della settimana",
+"Week table",
+"Tableau de la semaine"
+],
+[
+"Giorni × pasti con le kcal, per vedere tutto insieme.",
+"Days × meals with kcal, to see everything at once.",
+"Jours × repas avec les kcal, pour tout voir d’un coup."
+],
+[
+"Puoi annullare.",
+"You can undo.",
+"Tu peux annuler."
+],
+[
+"Ti chiedo conferma.",
+"I’ll ask you to confirm.",
+"Je te demande confirmation."
+],
+[
+"Tocca di nuovo per svuotare \u0001",
+"Tap again to clear {_}",
+"Touche encore pour vider {_}"
+],
+[
+"Svuotato \u0001",
+"Cleared {_}",
+"Vidé {_}"
+],
+[
+"Stesse kcal, macro simili · tocca per scambiare",
+"Same kcal, similar macros · tap to swap",
+"Mêmes kcal, macros proches · touche pour échanger"
+],
+[
+"Cerca altro…",
+"Search for another…",
+"Chercher autre chose…"
+],
+[
+"calcolata dal piano di questa settimana",
+"worked out from this week’s plan",
+"calculée à partir du plan de cette semaine"
+],
+[
+"‹ Torna al giorno",
+"‹ Back to the day",
+"‹ Retour au jour"
+],
+[
+"Eliminato «\u0001»",
+"Deleted «{_}»",
+"Supprimé « {_} »"
+],
+[
+"Altre azioni sul giorno e sulla settimana",
+"More actions for the day and the week",
+"Autres actions sur le jour et la semaine"
+],
+[
+"Scambia \u0001",
+"Swap {_}",
+"Échanger {_}"
+],
+[
+"Elimina \u0001",
+"Delete {_}",
+"Supprimer {_}"
 ]
 ]
