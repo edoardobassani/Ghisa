@@ -1,5 +1,5 @@
 import asyncio;from t import *
-steps=["()=>{V.tab='s';V.sd=null;V.ed='';render();return document.querySelectorAll('[data-a=sdm]').length}",
+steps=["()=>{V.tab='s';V.sdv='d';V.sd=null;V.ed='';render();return document.querySelectorAll('[data-a=sdm]').length}",
  "()=>{const n0=S.ex.length;document.querySelector('[data-a=sdm][data-v=\"0\"]').click();return {nuovi:S.ex.length-n0,nome:document.querySelector('#scn').value,es:document.querySelectorAll('.sdit').length,on:document.querySelector('[data-a=sdm].on').textContent}}",("k1.png",),
  "()=>{document.querySelector('[data-a=sdm][data-v=\"3\"]').click();return 'conferma:'+!document.querySelector('#cfm').hidden}",
  "()=>{document.querySelector('[data-a=sdmok]').click();const d=sdGet();return {nome:d.name,ex:d.ex.length,ss:d.ss.length,sup:!!document.querySelector('.sdss')}}",

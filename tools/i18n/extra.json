@@ -4753,5 +4753,185 @@
 "Tocca le intestazioni colorate per i blocchi e il nome di un esercizio per tipo e posizione. Il «+» indica l’ultima serie AMRAP.",
 "Tap the coloured headers for blocks and an exercise name for type and position. The “+” marks the last AMRAP set.",
 "Touche les en-têtes colorés pour les blocs et le nom d’un exercice pour le type et la position. Le « + » indique la dernière série AMRAP."
+],
+[
+"Rec.",
+"Rest",
+"Récup."
+],
+[
+"SUPERSERIE",
+"SUPERSET",
+"SUPERSÉRIE"
+],
+[
+"da impostare",
+"to set",
+"à définir"
+],
+[
+"cardio",
+"cardio",
+"cardio"
+],
+[
+"tocca per impostare",
+"tap to set",
+"touche pour définir"
+],
+[
+"serie diverse",
+"different sets",
+"séries différentes"
+],
+[
+"corpo",
+"bodyweight",
+"corps"
+],
+[
+"Tocca una riga per modificarla. Tieni premuto e trascina in verticale per cambiare più esercizi insieme.",
+"Tap a row to edit it. Press and hold, then drag vertically, to change several exercises at once.",
+"Touche une ligne pour la modifier. Maintiens appuyé puis glisse verticalement pour modifier plusieurs exercices à la fois."
+],
+[
+"Uguale per tutti",
+"Same for all",
+"Pareil pour tous"
+],
+[
+"· i campi vuoti non cambiano",
+"· empty fields don’t change",
+"· les champs vides ne changent pas"
+],
+[
+"s rec.",
+"s rest",
+"s récup."
+],
+[
+"Applica a \u0001 esercizi",
+"Apply to {_} exercises",
+"Appliquer à {_} exercices"
+],
+[
+"Esercizio cardio: tempo o serie a tempo si impostano nel dettaglio.",
+"Cardio exercise: time or timed sets are set in Detail.",
+"Exercice cardio : la durée ou les séries chronométrées se règlent dans Détail."
+],
+[
+"Serie diverse tra loro (es. piramide):",
+"Different sets (e.g. pyramid):",
+"Séries différentes (ex. pyramide) :"
+],
+[
+"Recupero",
+"Rest",
+"Récupération"
+],
+[
+"Max",
+"Max",
+"Max"
+],
+[
+"zavorra",
+"extra weight",
+"lest"
+],
+[
+"kg di zavorra ·",
+"kg extra weight ·",
+"kg de lest ·"
+],
+[
+"s di recupero",
+"s rest",
+"s de récupération"
+],
+[
+"· corpo libero",
+"· bodyweight",
+"· poids du corps"
+],
+[
+"Scollega la superserie",
+"Unlink superset",
+"Dissocier la supersérie"
+],
+[
+"Superserie con il successivo",
+"Superset with the next one",
+"Supersérie avec le suivant"
+],
+[
+"e gli altri della sua superserie",
+"and the others in its superset",
+"et les autres de sa supersérie"
+],
+[
+": recupero unico alla fine.",
+": single rest at the end.",
+": une seule récupération à la fin."
+],
+[
+"Superserie con il precedente",
+"Superset with the previous one",
+"Supersérie avec le précédent"
+],
+[
+"Serie una per una",
+"Sets one by one",
+"Séries une par une"
+],
+[
+"Piramidi, carichi diversi per serie, cardio: si fanno nel Dettaglio.",
+"Pyramids, different loads per set, cardio: done in Detail.",
+"Pyramides, charges différentes par série, cardio : dans Détail."
+],
+[
+"Togli dalla scheda",
+"Remove from plan",
+"Retirer du programme"
+],
+[
+"Riga copiata",
+"Row copied",
+"Ligne copiée"
+],
+[
+"\u0001 righe copiate",
+"{_} rows copied",
+"{_} lignes copiées"
+],
+[
+"Incollato su \u0001 esercizi",
+"Pasted on {_} exercises",
+"Collé sur {_} exercices"
+],
+[
+"Incollato su \u0001 esercizio",
+"Pasted on {_} exercise",
+"Collé sur {_} exercice"
+],
+[
+"Niente da incollare qui (cardio e palestra non si mescolano)",
+"Nothing to paste here (cardio and gym don’t mix)",
+"Rien à coller ici (cardio et salle ne se mélangent pas)"
+],
+[
+"Serie, ripetizioni e recupero copiati su \u0001 esercizi (i carichi restano i loro)",
+"Sets, reps and rest copied to {_} exercises (loads stay their own)",
+"Séries, répétitions et récupération copiées sur {_} exercices (les charges restent les leurs)"
+],
+[
+"Scrivi almeno un valore",
+"Enter at least one value",
+"Saisis au moins une valeur"
+],
+[
+"Applicato a \u0001 esercizi",
+"Applied to {_} exercises",
+"Appliqué à {_} exercices"
 ]
 ]
