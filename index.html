@@ -3314,7 +3314,7 @@ function csLbl(q){if(q.sc)return esc(q.scn||'Scheda cardio');const p=CPM.find(x=
 function cscToday(){const di=(new Date().getDay()+6)%7,id=(S.plc||{})[di],x=id&&csc().find(c=>c.id==id);if(!x||S.cd.some(c=>c.d==today()&&c.sc==x.id))return null;return x}
 /* ---- Cardio (v229): come Palestra. Allenamento (Modalità uscita, Questa settimana, Opzioni, Registra a mano), Storico, Record ---- */
 const cdDay=d=>DN[(new Date(d+'T12:00:00').getDay()+6)%7]+' '+fd(d);
-function cdQ(){const v=V.cq,p=cpCur(),A=S.cpr,pOk=p&&A&&A.pos<cpTot(p);
+function cdQ(){const v=typeof V.cdsel=='string'?V.cdsel:'',p=cpCur(),A=S.cpr,pOk=p&&A&&A.pos<cpTot(p);
  if(v=='p'&&pOk)return v;if(v&&v.startsWith('s:')&&csc().some(c=>'s:'+c.id==v))return v;if(v&&v.startsWith('t:'))return v;
  const st=cscToday();if(st)return 's:'+st.id;if(pOk)return 'p';const L=[...S.cd].sort((a,b)=>a.d<b.d?1:-1)[0];return 't:'+(V.ct||(L&&ctAll().includes(L.t)?L.t:'Corsa'))}
 function cdHero(){const q=cdQ(),p=cpCur(),A=S.cpr,pOk=p&&A&&A.pos<cpTot(p),C=csc();
@@ -5206,7 +5206,7 @@ document.addEventListener('toggle',e=>{if(e.target.tagName=='DETAILS'&&e.target.
 document.addEventListener('change',e=>{
  const t=e.target;if(V.tab=='s'&&V.sd&&!t.closest('#sdov'))sdSync();if(t.closest&&t.closest('#sdov')){sdCnt();return}
  if(t.id=='dt'&&t.value){V.date=t.value;render()}
- else if(t.id=='cdq'){V.cq=t.value;render()}
+ else if(t.id=='cdq'){V.cdsel=t.value;render()}
  else if(t.id=='ipf'&&t.files&&t.files[0]){const f=t.files[0],nm0=f.name||'file';t.value='';if(/\.xls$/i.test(nm0))return toast('Il vecchio formato .xls non è supportato: in Excel usa «Salva con nome» → .xlsx');toast('Leggo il file…');fxRead(f).then(sh=>{ipLoad(ipPrep(sh),nm0);render();window.scrollTo(0,0)}).catch(e=>fxErr(e,'salvalo come .xlsx, .csv o PDF e riprova'));return}
  else if(t.classList&&t.classList.contains('ipm2')){const m=V.ip&&V.ip.map[t.dataset.k];if(m)m.to=t.value;render();return}
  else if(t.classList&&t.classList.contains('ipq')){const m=V.ip&&V.ip.map[t.dataset.k];if(m){m.q=t.value.trim();const L=rtMatch(m.q||m.label);if(L[0]&&m.q){m.to=L[0].f.id;m.st='wa'}}render();return}
